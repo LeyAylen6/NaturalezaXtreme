@@ -8,7 +8,7 @@ const Filters = () => {
         <option disabled value="By Price">
           Price
         </option>
-        <option value="">Opcion 2</option>
+        <option value="">Opcion 1</option>
         <option value="">Opcion 3</option>
       </Select>
       <Select name="" id="" defaultValue="By Size">
