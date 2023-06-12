@@ -8,6 +8,7 @@ const arr = [{
     rating: '3 Estrellas', 
     color: 'Celestes',
     stock: '5', 
+    gender: 'Masculino'
  }, 
  {
     name: 'Chanclas',
@@ -17,6 +18,7 @@ const arr = [{
     rating: '3 Estrellas', 
     color: 'negras',
     stock: '1', 
+    gender: 'Femenino'
  }, 
  {  name: 'Remera termica',
  size: 's', 
@@ -24,7 +26,8 @@ const arr = [{
  price:'$30.000', 
  rating: '3 Estrellas', 
  color: 'blanca',
- stock: '20'}]
+ stock: '20',
+ gender: 'Femenino'}]
 
  const CardContainer = () =>{
     return(

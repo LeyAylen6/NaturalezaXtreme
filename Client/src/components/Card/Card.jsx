@@ -1,7 +1,7 @@
  import React from "react";
  import { Link } from 'react-router-dom';
  
-  const Card = ({name, size, description, price, rating, color, stock}) => {
+  const Card = ({name, size, description, price, rating, color, stock, gender}) => {
     return (
         <div>
          <p>{name}</p>
@@ -11,6 +11,7 @@
          <p>{color}</p>
          <p>{price}</p>
          <p>{stock}</p>
+         <p>{gender}</p>
         </div>
     )
  }
