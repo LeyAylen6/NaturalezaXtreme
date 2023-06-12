@@ -16,6 +16,7 @@ const Filters = () => {
         </option>
         <option value="">Opcion 1</option>
         <option value="">Opcion 2</option>
+        <option value="">Opcion 3</option>
       </select>
       <select name="" id="" defaultValue="By Gender">
         <option disabled value="By Gender">
