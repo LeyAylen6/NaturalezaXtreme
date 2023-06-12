@@ -5,6 +5,7 @@ import Filters from "../Filters/Filters";
 const Home = () => {
   return (
     <div>
+      <Filters />
       <CardContainer />
     </div>
   );
