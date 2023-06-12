@@ -1,0 +1,22 @@
+// import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm'
+
+// @Entity()
+// export class User extends BaseEntity {
+//     @PrimaryGeneratedColumn() 
+//     id: number
+
+//     @Column()
+//     name: string
+
+//     @Column()
+//     password: string
+
+//     @Column()
+//     rol: number
+
+//     @Column()
+//     disabled: boolean
+// }
+
+// Agregaria username, birthday and 
+// disabled se enteria mejor si fuera activated = si o no. o Similar.
