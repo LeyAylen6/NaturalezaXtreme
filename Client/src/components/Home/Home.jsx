@@ -1,9 +1,10 @@
 import React from "react";
+import Filters from "../Filters/Filters";
 
 const Home = () => {
   return (
     <div>
-      <h1> Esta es nuestra Home</h1>
+      <Filters />
     </div>
   );
 };
