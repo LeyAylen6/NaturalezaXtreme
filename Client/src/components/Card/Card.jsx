@@ -1,9 +1,17 @@
+ import React from "react";
+ import { Link } from 'react-router-dom';
  
- const Card = () => {
+  const Card = ({name, size, description, price, rating, color, stock}) => {
     return (
-        <>
-        <h1>Card</h1>
-        </>
+        <div>
+         <p>{name}</p>
+         <p>{size}</p>
+         <p>{description}</p>
+         <p>{rating}</p>
+         <p>{color}</p>
+         <p>{price}</p>
+         <p>{stock}</p>
+        </div>
     )
  }
 
