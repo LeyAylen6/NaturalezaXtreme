@@ -13,8 +13,8 @@ const NavBar = () => {
       </div>
       <Link to="/favorite">Favorite</Link>
       <Link to="/cart">Cart</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/signUp">Sign Up</Link>
+      <Link to="/login-signup">Login / Signup</Link>
+      
     </nav>
   );
 };
