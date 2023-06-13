@@ -1,43 +1,78 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany } from 'typeorm'
+import { User } from './userEntity';
 
 @Entity()
+@Check('"price" > 0')
+@Check('"rating" > 0' && '"rating" <= 5')
+
 export class Article {
     @PrimaryGeneratedColumn()
-    id!: number
+    id: number
 
-    @Column()
-    name!: string
+    @Column({
+        length: 50,
+        nullable: false
+    })
+    name: string
 
-    @Column()
-    price!: string
+    @Column({
+        nullable: false
+    })
+    price: string
 
     @Column("int", { array: true })
-    rating!: number[];
+    rating: number[];
 
-    @Column()
-    brand!: string
+    @Column({
+        length: 50,
+        nullable: true,
+        default: true
+    })
+    brand: string = 'this product has no brand';
+    
+    @Column({
+        nullable: false,
+    })
+    gender: string
 
-    @Column()
-    gender!: string
+    @Column({
+        nullable: false,
+    })
+    size: number
 
-    @Column()
-    size!: number
+    @Column({
+        nullable: false,
+    })
+    color: string
 
-    @Column()
-    color!: string
+    @Column({
+        nullable: false,
+        array: true
+    })
+    comments: string;
 
-    @Column({array: true})
-    comments!: string;
+    @Column({
+        nullable: false,
+    })
+    stock: number
 
-    @Column()
-    stock!: number
+    @Column({
+        nullable: false,
+        length: 2088,
+    })
+    image: string
 
-    @Column()
-    image!: string
+    @Column("enum", { 
+        enum: ['Tshirt', 'sweater', 'jacket'], 
+        nullable: false,
+    })
+    enum: string
 
-    @Column("enum", { enum: ['Tshirt', 'sweater', 'jacket'] })
-    enum!: string
+    @Column("boolean", {
+        nullable: false,
+    })
+    active: boolean
 
-    @Column("boolean")
-    active!: boolean
+    @ManyToMany(() => User, (user) => user.articles)
+    users: User[]
 }
