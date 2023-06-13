@@ -3,29 +3,29 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id!: number
+    id: number
 
     @Column()
-    name!: string
+    name: string
 
     @Column()
-    lastname!: string
+    lastname: string
 
     @Column()
-    password!: string
+    password: string
 
     @Column()
-    adress!: string
+    adress: string
 
     @Column()
-    city!: number
+    city: number
     
     @Column()
-    avatar!: string
+    avatar: string
 
     @Column()
-    rol!: number
+    rol: number
 
     @Column()
-    active!: boolean
+    active: boolean
 }
