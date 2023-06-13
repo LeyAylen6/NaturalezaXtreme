@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm'
+import { Article } from './articleEntity'
 
 @Entity()
 export class User {
@@ -11,21 +12,48 @@ export class User {
     @Column()
     lastname: string
 
-    @Column()
+    @Column({
+        unique: true,
+        length: 255,
+        nullable: false
+    })
+    email: string
+
+    @Column({
+        length: 50,
+        nullable: false
+    })
     password: string
 
-    @Column()
+    @Column({
+        length: 255,
+        nullable: false
+    })
     adress: string
 
-    @Column()
+    @Column({
+        length: 50,
+        nullable: false
+    })
     city: number
     
-    @Column()
+    @Column({
+        nullable: false
+    })
     avatar: string
 
-    @Column()
+    @Column({
+        length: 50,
+        nullable: false
+    })
     rol: number
 
-    @Column()
+    @Column({
+        nullable: false
+    })
     active: boolean
+
+    @ManyToMany(() => Article, (article) => article.users)
+    @JoinTable()
+    articles: Article[]
 }

@@ -1,9 +1,10 @@
 require('dotenv').config();
+const { User } = require('./entities/userEntity')
+const { Article } = require('./entities/articleEntity')
+import { Post } from "./entities/postEntity";
 import "reflect-metadata"
 const { DB_PORT, DB_PASSWORD, DB_USER, DB_HOST, DB_NAME_PROJECT } = process.env
 import { DataSource } from "typeorm"
-import { User } from "./entities/userEntity";
-import { Post } from "./entities/postEntity";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
     database: DB_NAME_PROJECT,
     synchronize: true,
     logging: false,
-    entities: [User, Post],
+    entities: [User, Article, Post],
     subscribers: [],
     migrations: [],
 })
