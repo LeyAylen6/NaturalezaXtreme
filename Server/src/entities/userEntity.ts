@@ -28,4 +28,6 @@ export class User {
 
     @Column()
     active!: boolean
+
+    
 }

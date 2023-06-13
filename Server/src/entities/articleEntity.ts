@@ -35,9 +35,8 @@ export class Article {
     @Column()
     image!: string
 
-    @Column("enum", { enum: ['all', 'Tshirt', 'sweater', 'jacket'] })
+    @Column("enum", { enum: ['Tshirt', 'sweater', 'jacket'] })
     enum!: string
-    
 
     @Column("boolean")
     active!: boolean
