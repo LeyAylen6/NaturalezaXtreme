@@ -4,7 +4,7 @@
   const Card = ({name, size, description, price, rating, color, stock, gender}) => {
     return (
         <div>
-          <h1>Probando la rama 123</h1>
+          <h1>probando</h1>
          <p>{name}</p>
          <p>{size}</p>
          <p>{description}</p>
