@@ -1,31 +1,68 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm'
+import { Article } from './articleEntity'
+import { Shopping_Cart } from './shoppingCartEntity'
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id!: number
+    id: number
 
     @Column()
-    name!: string
+    name: string
 
     @Column()
-    lastname!: string
+    lastname: string
 
-    @Column()
-    password!: string
+    @Column({
+        unique: true,
+        type: "varchar",
+        length: 255,
+        nullable: false
+    })
+    email: string
 
-    @Column()
-    adress!: string
+    @Column({
+        type: "varchar",
+        length: 50,
+        nullable: false
+    })
+    password: string
 
-    @Column()
-    city!: number
+    @Column({
+        type: "varchar",
+        length: 255,
+        nullable: false
+    })
+    adress: string
+
+    @Column({
+        type: "varchar",
+        length: 50,
+        nullable: false
+    })
+    city: number
     
-    @Column()
-    avatar!: string
+    @Column({
+        nullable: false
+    })
+    avatar: string
 
-    @Column()
-    rol!: number
+    @Column({
+        type: "varchar",
+        length: 50,
+        nullable: false
+    })
+    rol: string
 
-    @Column()
-    active!: boolean
+    @Column({
+        nullable: false
+    })
+    active: boolean
+
+    @ManyToMany(() => Article, (article) => article.users)
+    @JoinTable()
+    articles: Article[]
+
+    @OneToMany(() => Shopping_Cart, (shoppingCart) => shoppingCart.user)
+    shoppingCart: Shopping_Cart[]
 }
