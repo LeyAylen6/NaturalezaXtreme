@@ -4,7 +4,7 @@ import{ User } from './userEntity'
 export type CategoryCart = "pending" | "complet"  
 
 @Entity()
-export class Shoping_Cart{
+export class Shopping_Cart {
     
     @PrimaryGeneratedColumn()
     id: number
@@ -16,6 +16,6 @@ export class Shoping_Cart{
     })
     role: CategoryCart
 
-    @ManyToOne(() => User, (user) => user.shopingCart)
+    @ManyToOne(() => User, (user) => user.shoppingCart)
     user: User
 }

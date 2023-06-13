@@ -2,14 +2,15 @@ import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany } from 'typeo
 import { User } from './userEntity';
 
 @Entity()
-@Check('"price" > 0')
-@Check('"rating" > 0' && '"rating" <= 5')
+// @Check('"string" > 0')
+// @Check('"rating" > 0' && '"rating" <= 5')
 
 export class Article {
     @PrimaryGeneratedColumn()
     id: number
 
     @Column({
+        type: "varchar",
         length: 50,
         nullable: false
     })
@@ -24,6 +25,7 @@ export class Article {
     rating: number[];
 
     @Column({
+        type: "varchar",
         length: 50,
         nullable: true,
         default: true
@@ -58,6 +60,7 @@ export class Article {
 
     @Column({
         nullable: false,
+        type: "varchar",
         length: 2088,
     })
     image: string
