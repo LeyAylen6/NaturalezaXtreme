@@ -1,19 +1,20 @@
 require('dotenv').config();
-const { User } = require('./entities/userEntity')
 import "reflect-metadata"
-const { PASSWORD, USERNAME, DB_HOST } = process.env
+const { DB_PASSWORD, DB_USER, DB_HOST } = process.env
 import { DataSource } from "typeorm"
+import { User } from "./entities/userEntity";
+import { Post } from "./entities/postEntity";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
     host: DB_HOST,
     port: 5432,
-    username: USERNAME,
-    password: PASSWORD,
+    username: DB_USER,
+    password: DB_PASSWORD,
     database: "NaturalezaXtreme",
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: [User, Post],
     subscribers: [],
     migrations: [],
 })
