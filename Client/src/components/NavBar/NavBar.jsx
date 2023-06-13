@@ -14,7 +14,7 @@ const NavBar = () => {
       <Link to="/favorite">Favorite</Link>
       <Link to="/cart">Cart</Link>
       <Link to="/login-signup">Login / Signup</Link>
-      
+      <Link to="/admin">Admin</Link>
     </nav>
   );
 };
