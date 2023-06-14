@@ -22,7 +22,7 @@ export class Article {
     price: number
 
     @Column('integer', {
-        array: true, // this is supported by postgreSQL only
+        array: true,
         nullable: true,
     })
     rating: number[];
@@ -36,16 +36,25 @@ export class Article {
     brand: string = 'this product has no brand';
     
     @Column({
+        enum: ['Male', 'Female'], 
         nullable: false,
     })
     gender: string
 
     @Column({
-        nullable: false,
+        enum: ['S', 'M', 'L', 'XL', 'Unique'], 
+        nullable: true,
     })
-    size: number
+    size: string
+    
+    @Column({
+        enum: [35, 36, 37, 38, 39, 40, 42, 43, 44, 45, 46], 
+        nullable: true,
+    })
+    shoeSize: number
 
     @Column({
+        enum: ['White', 'Black', 'Red', 'Green', 'Yellow', 'Brown', 'Orange', 'Blue', 'Grey', 'Pink'], 
         nullable: false,
     })
     color: string
@@ -66,10 +75,10 @@ export class Article {
     image: string
 
     @Column("enum", { 
-        enum: ['Tshirt', 'sweater', 'jacket', 'pant'], 
+        enum: ['Tshirt', 'sweater', 'jacket', 'pant', 'accesories', 'shoes', 'equipment'], 
         nullable: false,
     })
-    enum: string
+    type: string
 
     @Column("boolean", {
         nullable: false,
