@@ -8,7 +8,7 @@ const router = Router();
 
 router.post('/bulkArticles', bulkArticles)
 router.post('/articles', postArticle)
-router.get('/articles', getArticles)
-router.get('/articles?name=name', getArticlesByName)
+// router.get('/articles', getArticles)
+router.get('/articles', getArticlesByName)
 
 export default router;

@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 export type CategoryPost = "hiking" | "camping" | "mountaineering" | "cycling" | "rock climbing" | "running"
 
 @Entity()
-export class Post{
+export class Post {
     
     @PrimaryGeneratedColumn()
     id: number

@@ -1,15 +1,10 @@
 import { Request, Response } from "express";
-import getArticlesByNameController from "../controllers/getArticlesController";
-
-interface RequestQuery {
-    name: string;
-}
-
+import getArticlesByNameController from "../controllers/getArticlesByNameController";
+ 
 const getArticlesByName = async( req: Request, res: Response) => {
-    
     try{
-        const name = req.query
-
+        const { name } = req.query;
+        
         if (typeof name !== "string") {
             throw new Error("Query param 'name' has to be of type string");
         }
