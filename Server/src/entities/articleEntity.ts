@@ -12,7 +12,7 @@ export class Article {
 
     @Column({
         type: "varchar",
-        length: 50,
+        length: 70,
         nullable: false
     })
     name: string
@@ -76,7 +76,7 @@ export class Article {
     image: string
 
     @Column("enum", { 
-        enum: ['Tshirt', 'sweater', 'jacket', 'pant', 'accesories', 'shoes', 'equipment'], 
+        enum: ['Tshirt', 'sweatshirt', 'jacket', 'pant', 'accesories', 'shoes', 'equipment'], 
         nullable: false,
     })
     type: string
