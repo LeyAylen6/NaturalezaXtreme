@@ -19,9 +19,12 @@ export class Article {
     @Column({
         nullable: false
     })
-    price: string
+    price: number
 
-    @Column("int", { array: true })
+    @Column("int", { 
+        array: true,
+            nullable: true
+        })
     rating: number[];
 
     @Column({
@@ -48,7 +51,7 @@ export class Article {
     color: string
 
     @Column({
-        nullable: false,
+        nullable: true,
         array: true
     })
     comments: string;
@@ -66,10 +69,10 @@ export class Article {
     image: string
 
     @Column("enum", { 
-        enum: ['Tshirt', 'sweater', 'jacket'], 
+        enum: ['Tshirt', 'sweater', 'jacket'],
         nullable: false,
     })
-    enum: string
+    type: string
 
     @Column("boolean", {
         nullable: false,
