@@ -1,15 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany } from 'typeorm'
 import { User } from './userEntity';
+import { Shopping_Cart_Article } from './shoppingCartArticleEntity';
 
 @Entity()
-@Check('"price" > 0')
-@Check('"rating" > 0' && '"rating" <= 5')
+// @Check('"string" > 0')
+// @Check('"rating" > 0' && '"rating" <= 5')
 
 export class Article {
     @PrimaryGeneratedColumn()
     id: number
 
     @Column({
+        type: "varchar",
         length: 50,
         nullable: false
     })
@@ -18,12 +20,16 @@ export class Article {
     @Column({
         nullable: false
     })
-    price: string
+    price: number
 
-    @Column("int", { array: true })
+    @Column('integer', {
+        array: true, // this is supported by postgreSQL only
+        nullable: true,
+    })
     rating: number[];
 
     @Column({
+        type: "varchar",
         length: 50,
         nullable: true,
         default: true
@@ -45,12 +51,9 @@ export class Article {
     })
     color: string
 
-    @Column({
-        nullable: false,
-        array: true
-    })
-    comments: string;
-
+    @Column('simple-array', { nullable: true })
+    comments: string[];
+    
     @Column({
         nullable: false,
     })
@@ -58,12 +61,13 @@ export class Article {
 
     @Column({
         nullable: false,
+        type: "varchar",
         length: 2088,
     })
     image: string
 
     @Column("enum", { 
-        enum: ['Tshirt', 'sweater', 'jacket'], 
+        enum: ['Tshirt', 'sweater', 'jacket', 'pant'], 
         nullable: false,
     })
     enum: string
@@ -75,4 +79,8 @@ export class Article {
 
     @ManyToMany(() => User, (user) => user.articles)
     users: User[]
+
+    @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.articles)
+    public shoppingArticles: Shopping_Cart_Article[];
+
 }

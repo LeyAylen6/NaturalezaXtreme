@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm'
 import { Article } from './articleEntity'
+import { Shopping_Cart } from './shoppingCartEntity'
 
 @Entity()
 export class User {
@@ -14,24 +15,28 @@ export class User {
 
     @Column({
         unique: true,
+        type: "varchar",
         length: 255,
         nullable: false
     })
     email: string
 
     @Column({
+        type: "varchar",
         length: 50,
         nullable: false
     })
     password: string
 
     @Column({
+        type: "varchar",
         length: 255,
         nullable: false
     })
     adress: string
 
     @Column({
+        type: "varchar",
         length: 50,
         nullable: false
     })
@@ -43,10 +48,11 @@ export class User {
     avatar: string
 
     @Column({
+        type: "varchar",
         length: 50,
         nullable: false
     })
-    rol: number
+    rol: string
 
     @Column({
         nullable: false
@@ -56,4 +62,7 @@ export class User {
     @ManyToMany(() => Article, (article) => article.users)
     @JoinTable()
     articles: Article[]
+
+    @OneToMany(() => Shopping_Cart, (shoppingCart) => shoppingCart.user)
+    shoppingCart: Shopping_Cart[]
 }

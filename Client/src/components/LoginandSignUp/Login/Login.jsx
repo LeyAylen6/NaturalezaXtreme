@@ -1,19 +1,25 @@
 import { useState } from "react";
-
+import { validation } from "../../Validation/validation";
 
 const Login =()=> {
     const [userData, setUserData] = useState({
         email: '',
         password: ''
     })
-
+    const [errors, setErrors] = useState({})
       
     const handleChange = (event) => {
         event.preventDefault()
         setUserData({ 
+            ...userData,
             [event.target.name]: event.target.value 
         })
+        setErrors(validation({
+            ...userData,
+            [event.target.name]: event.target.value
+        }))
     };
+    
  
     return (
         <div>
@@ -24,15 +30,19 @@ const Login =()=> {
                 name="email"
                 type="text"
                 onChange={handleChange}
+                value={userData.email}
                 />
+              {errors.email && <p>{errors.email}</p>}
+           
                 <label>Password</label>
                 <input 
                 name="password"
                 type="password"
                 onChange={handleChange}
-              
+                value={userData.password}
                 />
-                <button>Log In</button>
+                 {errors.password && <p>{errors.password}</p>}
+                <button type="submit" disabled={errors.email || errors.password || !userData.email || !userData.password}>Log In</button>
 
             </form>
         
