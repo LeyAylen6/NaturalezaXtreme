@@ -24,7 +24,7 @@ const Tarjeta = ({
   rating,
   color,
   stock,
-  gender,
+  gender
 }) => {
   return (
     <Card maxW={"300px"} mt={"10px"} borderRadius={"none"}>
