@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany } from 'typeorm'
 import { User } from './userEntity';
+import { Shopping_Cart_Article } from './shoppingCartArticleEntity';
 
 @Entity()
 // @Check('"string" > 0')
@@ -78,4 +79,8 @@ export class Article {
 
     @ManyToMany(() => User, (user) => user.articles)
     users: User[]
+
+    @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.articles)
+    public shoppingArticles: Shopping_Cart_Article[];
+
 }
