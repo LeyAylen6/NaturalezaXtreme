@@ -4,22 +4,41 @@ const hardCode = {
 	name: "Zapatillas",
 	sizes: ["37", "40", "42", "43", "44"],
 	description: "Zapatillas adidas para correr",
-	price: "$60.000",
+	price: 60000,
 	rating: "3 Estrellas",
 	color: "Celestes",
-	stock: "5",
+	stock: 0,
 	gender: "Masculino",
 };
 
 const Detail = () => {
 	const [product, setProduct] = useState({});
+	const [isFavorite, setIsFavorite] = useState(false);
 
 	useEffect(() => {
+		// pedir el detalle del producto al backend
+		// setear el estado local product con la respuesta del backend
 		setProduct(hardCode);
 	}, []);
 
-	const handleSubmit = () => {
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		// verificar datos completados
+		// agregar producto al carrito
+		// navegar al carrito
 		alert("submited");
+	};
+
+	const handleAddToCart = (event) => {
+		event.preventDefault();
+		alert("add to cart");
+	};
+
+	const handleAddToFavorites = (event) => {
+		event.preventDefault();
+		// enviar el objeto del estado local product a user.favorites
+		// modificar el estado local isFavorite para re renderizar en caso que sea producto favorito, para pintar el corazon, por ejemplo
+		alert("add favorite");
 	};
 
 	return (
@@ -27,18 +46,23 @@ const Detail = () => {
 			<h1>{product.name}</h1>
 			<h2>{product.gender}</h2>
 
-			{/* para las estrellas haria otro componente ReviewBrief */}
+			{/* para las estrellas haría otro componente ReviewBriefing */}
 
 			<p>${product.price}</p>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="sizeSelector">Size</label>
+				<label>Size</label>
 				<select name="sizeSelector" id="">
-					{product.sizes.map((size) => {
-						<option>{size}</option>;
-					})}
+					{product.sizes?.map((size) => (
+						<option key={size}>{size}</option>
+					))}
 				</select>
-				<p>Articulo actualmente disponible</p>
-				<label for="quantity">Quantity</label>
+				{product.stock ? (
+					<p>Artículo actualmente disponible</p>
+				) : (
+					<p>Artículo no disponible</p>
+				)}
+
+				<label>Quantity</label>
 				<input
 					type="number"
 					id="quantity"
@@ -46,9 +70,11 @@ const Detail = () => {
 					min="1"
 					max={product.stock}
 				></input>
-				<button type='submit'>Comprar</button>
-				<button type='submit'>Añadir al carrito</button>
-				<button onClick={handleFavorite}>Añadir a favoritos</button>
+				<button type="submit">Comprar</button>
+				<button onClick={handleAddToCart}>Añadir al carrito</button>
+				<button onClick={handleAddToFavorites}>
+					Añadir a favoritos
+				</button>
 			</form>
 		</section>
 	);
