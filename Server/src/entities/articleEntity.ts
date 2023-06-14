@@ -53,7 +53,7 @@ export class Article {
 
     @Column('simple-array', { nullable: true })
     comments: string[];
-    
+
     @Column({
         nullable: false,
     })
@@ -70,7 +70,7 @@ export class Article {
         enum: ['Tshirt', 'sweater', 'jacket', 'pant'], 
         nullable: false,
     })
-    enum: string
+    type: string
 
     @Column("boolean", {
         nullable: false,
@@ -82,5 +82,4 @@ export class Article {
 
     @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.articles)
     public shoppingArticles: Shopping_Cart_Article[];
-
 }
