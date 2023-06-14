@@ -13,3 +13,6 @@ export type articleStructure = {
     type: string, 
     active: boolean
 }
+
+// ! NOTA: Comments y rating si se agregan como tipo array tira error. 
+// No lo agrego a la interfase ya que en la DB esta como que puede ser null.
