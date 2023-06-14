@@ -7,7 +7,7 @@ const hardCode = {
 	price: "$60.000",
 	rating: "3 Estrellas",
 	color: "Celestes",
-	stock: "5",
+	stock: 0,
 	gender: "Masculino",
 };
 
@@ -22,6 +22,10 @@ const Detail = () => {
 		alert("submited");
 	};
 
+	const handleFavorite = () => {
+		alert("added to favorites");
+	};
+
 	return (
 		<section id="container">
 			<h1>{product.name}</h1>
@@ -29,15 +33,20 @@ const Detail = () => {
 
 			{/* para las estrellas haria otro componente ReviewBrief */}
 
-			<p>${product.price}</p>
+			<p>{product.price}</p>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="sizeSelector">Size</label>
+				<label for="sizeSelector">Size</label>
 				<select name="sizeSelector" id="">
-					{product.sizes.map((size) => {
-						<option>{size}</option>;
-					})}
+					{product.sizes?.map((size) => (
+						<option>{size}</option>
+					))}
 				</select>
-				<p>Articulo actualmente disponible</p>
+				{product.stock ? (
+					<p>Articulo actualmente disponible</p>
+				) : (
+					<p>Articulo no disponible</p>
+				)}
+
 				<label for="quantity">Quantity</label>
 				<input
 					type="number"
@@ -46,8 +55,8 @@ const Detail = () => {
 					min="1"
 					max={product.stock}
 				></input>
-				<button type='submit'>Comprar</button>
-				<button type='submit'>Añadir al carrito</button>
+				<button type="submit">Comprar</button>
+				<button type="submit">Añadir al carrito</button>
 				<button onClick={handleFavorite}>Añadir a favoritos</button>
 			</form>
 		</section>
