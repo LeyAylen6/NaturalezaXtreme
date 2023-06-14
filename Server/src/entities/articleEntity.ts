@@ -20,9 +20,12 @@ export class Article {
     @Column({
         nullable: false
     })
-    price: string
+    price: number
 
-    @Column("int", { array: true })
+    @Column('integer', {
+        array: true,
+        nullable: true,
+    })
     rating: number[];
 
     @Column({
@@ -34,25 +37,31 @@ export class Article {
     brand: string = 'this product has no brand';
     
     @Column({
+        enum: ['Male', 'Female'], 
         nullable: false,
     })
     gender: string
 
     @Column({
-        nullable: false,
+        enum: ['S', 'M', 'L', 'XL', 'Unique'], 
+        nullable: true,
     })
-    size: number
+    size: string
+    
+    @Column({
+        enum: [35, 36, 37, 38, 39, 40, 42, 43, 44, 45, 46], 
+        nullable: true,
+    })
+    shoeSize: number
 
     @Column({
+        enum: ['White', 'Black', 'Red', 'Green', 'Yellow', 'Brown', 'Orange', 'Blue', 'Grey', 'Pink'], 
         nullable: false,
     })
     color: string
 
-    @Column({
-        nullable: false,
-        array: true
-    })
-    comments: string;
+    @Column('simple-array', { nullable: true })
+    comments: string[];
 
     @Column({
         nullable: false,
@@ -67,10 +76,10 @@ export class Article {
     image: string
 
     @Column("enum", { 
-        enum: ['Tshirt', 'sweater', 'jacket'], 
+        enum: ['Tshirt', 'sweater', 'jacket', 'pant', 'accesories', 'shoes', 'equipment'], 
         nullable: false,
     })
-    enum: string
+    type: string
 
     @Column("boolean", {
         nullable: false,
@@ -82,5 +91,4 @@ export class Article {
 
     @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.articles)
     public shoppingArticles: Shopping_Cart_Article[];
-
 }
