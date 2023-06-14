@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany } from 'typeorm'
 import { User } from './userEntity';
+import { Shopping_Cart_Article } from './shoppingCartArticleEntity';
 
 @Entity()
 // @Check('"string" > 0')
@@ -21,10 +22,10 @@ export class Article {
     })
     price: number
 
-    @Column("int", { 
-        array: true,
-            nullable: true
-        })
+    @Column('integer', {
+        array: true, // this is supported by postgreSQL only
+        nullable: true,
+    })
     rating: number[];
 
     @Column({
@@ -50,11 +51,8 @@ export class Article {
     })
     color: string
 
-    @Column({
-        nullable: true,
-        array: true
-    })
-    comments: string;
+    @Column('simple-array', { nullable: true })
+    comments: string[];
 
     @Column({
         nullable: false,
@@ -69,7 +67,7 @@ export class Article {
     image: string
 
     @Column("enum", { 
-        enum: ['Tshirt', 'sweater', 'jacket'],
+        enum: ['Tshirt', 'sweater', 'jacket', 'pant'], 
         nullable: false,
     })
     type: string
@@ -81,4 +79,7 @@ export class Article {
 
     @ManyToMany(() => User, (user) => user.articles)
     users: User[]
+
+    @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.articles)
+    public shoppingArticles: Shopping_Cart_Article[];
 }
