@@ -2,13 +2,13 @@ export type articleStructure = {
     id: number
     name: string
     price: number, 
-    // rating: number[], 
+    // rating?: number[], 
     brand: string, 
     gender: string, 
     size: string, 
     shoeSize: number,
     color: string, 
-    // comments: string[], 
+    // comments?: string[], 
     stock: number, 
     image: string, 
     type: string, 
