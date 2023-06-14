@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import AboutUs from "./components/AboutUs/AboutUs";
 import Loginsingup from "./components/LoginandSignUp/Loginsignup";
 import Admin from "./components/Admin/Admin";
+import Detail from "./components/Detail/Detail";
 function App() {
   return (
     <ChakraProvider>
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/detail" element={<Detail />} />
       </Routes>
     </ChakraProvider>
   );
