@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import Styles from "./NavBar.module.css";
 import { Box, Stack, HStack } from "@chakra-ui/react";
 
 const NavBar = () => {
