@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany, BaseEntity } from 'typeorm'
 import { User } from './userEntity';
 import { Shopping_Cart_Article } from './shoppingCartArticleEntity';
 
@@ -6,7 +6,7 @@ import { Shopping_Cart_Article } from './shoppingCartArticleEntity';
 // @Check('"string" > 0')
 // @Check('"rating" > 0' && '"rating" <= 5')
 
-export class Article {
+export class Article extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number
 
