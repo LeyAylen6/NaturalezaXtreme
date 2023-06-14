@@ -4,6 +4,11 @@ import { Box, Stack, HStack } from "@chakra-ui/react";
 
 const NavBar = () => {
   return (
+
+   
+      
+   
+
     <Box>
       <Stack
         direction={"row"}
@@ -22,6 +27,9 @@ const NavBar = () => {
         >
           <Link to="/">Products</Link>
         </Box>
+        <Box>
+            <Link to="/admin">Admin</Link>
+            </Box>
         <Box bg={"transparent"} color={"white"}>
           <Link to="/aboutus">About</Link>
         </Box>
@@ -44,6 +52,7 @@ const NavBar = () => {
         </HStack>
       </Stack>
     </Box>
+
   );
 };
 
