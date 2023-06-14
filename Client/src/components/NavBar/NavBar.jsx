@@ -34,7 +34,7 @@ const NavBar = () => {
           <Link to="/aboutus">About</Link>
         </Box>
         <Box bg={"transparent"} color={"white"}>
-          <Link to="/favorite">Favorite</Link>
+          <Link to="/favorites">Favorite</Link>
         </Box>
         <Box bg={"transparent"} color={"white"}>
           <Link to="/cart">Cart</Link>

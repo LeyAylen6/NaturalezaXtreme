@@ -8,7 +8,7 @@ const Tarjeta = ({
   rating,
   color,
   stock,
-  gender,
+  gender
 }) => {
   return (
     <Card>
