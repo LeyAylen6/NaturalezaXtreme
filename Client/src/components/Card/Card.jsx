@@ -3,29 +3,15 @@ import React from "react";
 import {
   Text,
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
-  Box,
   Img,
   Stack,
   Heading,
   Divider,
   HStack,
-  VStack,
   Link,
 } from "@chakra-ui/react";
-const Tarjeta = ({
-  img,
-  name,
-  size,
-  description,
-  price,
-  rating,
-  color,
-  stock,
-  gender
-}) => {
+const Tarjeta = ({ img, name, description, price, rating, color, gender }) => {
   return (
     <Card maxW={"300px"} mt={"10px"} borderRadius={"none"}>
       <CardBody>

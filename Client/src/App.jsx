@@ -1,3 +1,5 @@
+import { Provider } from "react-redux";
+import store from "./redux/store/store";
 import { Box, ChakraProvider, Text } from "@chakra-ui/react";
 import "./App.css";
 import Home from "./components/Home/Home";
@@ -12,17 +14,19 @@ import Detail from "./components/Detail/Detail";
 function App() {
   return (
     <ChakraProvider>
-      <Box>
-        <NavBar />
-        <Routes>
-          <Route path="/login-signup" element={<Loginsingup />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/detail" element={<Detail />} />
-        </Routes>
-      </Box>
+      <Provider store={store}>
+        <Box>
+          <NavBar />
+          <Routes>
+            <Route path="/login-signup" element={<Loginsingup />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/detail" element={<Detail />} />
+          </Routes>
+        </Box>
+      </Provider>
     </ChakraProvider>
   );
 }
