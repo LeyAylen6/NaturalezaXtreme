@@ -11,14 +11,9 @@ export class Shopping_Cart_Article {
     @Column()
     public quantily: number
 
-
-
     @ManyToOne(() => Shopping_Cart, (shoppingCart) => shoppingCart.shoppingArticles)
     public shoppingCarts: Shopping_Cart
 
     @ManyToOne(() => Article, (article) => article.shoppingArticles)
     public articles: Article
-
-
-
 }

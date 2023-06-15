@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-
+import {addFav, removeFav} from '../../redux/actions/actions'
+import { connect } from 'react-redux';
 const hardCode = {
 	name: "Zapatillas",
 	sizes: ["37", "40", "42", "43", "44"],
@@ -9,17 +10,26 @@ const hardCode = {
 	color: "Celestes",
 	stock: 0,
 	gender: "Masculino",
+	id:'1'
 };
 
-const Detail = () => {
+const Detail = ({addFav, removeFav, myFavorites}) => {
 	const [product, setProduct] = useState({});
-	const [isFavorite, setIsFavorite] = useState(false);
+	const [isFavorite, setIsFavorite] = useState(true);
 
 	useEffect(() => {
 		// pedir el detalle del producto al backend
 		// setear el estado local product con la respuesta del backend
 		setProduct(hardCode);
 	}, []);
+
+	useEffect(()=>{
+		myFavorites.forEach((fav)=>{
+			if (fav.id === id){
+				setIsFavorite(true);
+			}
+		})
+	},[myFavorites]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -36,9 +46,17 @@ const Detail = () => {
 
 	const handleAddToFavorites = (event) => {
 		event.preventDefault();
+		alert("add favorite");
+		if(isFav){
+			setIsFavorite(true);
+			removeFav(id);
+		}
+		else{
+			setIsFavorite(true);
+			addFav({img, name, description, price, rating, color, gender}) 
+		}
 		// enviar el objeto del estado local product a user.favorites
 		// modificar el estado local isFavorite para re renderizar en caso que sea producto favorito, para pintar el corazon, por ejemplo
-		alert("add favorite");
 	};
 
 	return (
@@ -72,12 +90,27 @@ const Detail = () => {
 				></input>
 				<button type="submit">Comprar</button>
 				<button onClick={handleAddToCart}>Añadir al carrito</button>
-				<button onClick={handleAddToFavorites}>
-					Añadir a favoritos
-				</button>
+				 { isFavorite ? (<button onClick={handleAddToFavorites}> Add to  favorites</button>
+				 ) : ( <button onClick={handleAddToFavorites}> Take out of the favorites</button>
+				 )
+				 }
+					
 			</form>
 		</section>
 	);
 };
-
-export default Detail;
+const mapStateToProps = (state) => {
+	return {
+		myFavorites: state.myFavorites
+	}
+}
+ const mapDispatchToProps = (dispatch) => {
+	return {
+		addFav: (article) => { dispatch(addFav(article)) },
+		removeFav: (id) => {dispatch(removeFav(id))}
+	}
+ }
+export default connect (
+	mapStateToProps, 
+	mapDispatchToProps
+)(Detail)

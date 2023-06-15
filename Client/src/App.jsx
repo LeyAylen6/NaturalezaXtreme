@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider, Text } from "@chakra-ui/react";
 import "./App.css";
 import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";

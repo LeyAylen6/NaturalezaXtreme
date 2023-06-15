@@ -1,5 +1,5 @@
-import { AppDataSource } from "../db";
-import { userStructure } from "../interfaces/userStructure";
+import { AppDataSource } from "../../db";
+import { userStructure } from "../../interfaces/userStructure";
 
 const postUserController = async(user: userStructure) => {
 

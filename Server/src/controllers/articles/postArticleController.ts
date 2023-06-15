@@ -1,6 +1,6 @@
-import { Article } from "../entities/articleEntity"
-import { AppDataSource } from "../db";
-import { articleStructure } from "../interfaces/articleStructure";
+import { Article } from "../../entities/articleEntity"
+import { AppDataSource } from "../../db";
+import { articleStructure } from "../../interfaces/articleStructure";
 
 const postArticleController = async(article: articleStructure) => {
 

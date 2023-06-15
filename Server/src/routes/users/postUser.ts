@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import postUserController from "../controllers/postUserController";
+import postUserController from "../controllers/users/postUserController";
 
 const postUser = async (req: Request, res: Response)=>{
     try {

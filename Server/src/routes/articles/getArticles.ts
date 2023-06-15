@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import getArticlesController from "../controllers/getArticlesController";
-import getArticlesByNameController from "../controllers/getArticlesByNameController";
+import getArticlesController from "../../controllers/articles/getArticlesController";
+import getArticlesByNameController from "../../controllers/articles/getArticlesByNameController";
 
 const getArticles = async (req:Request, res:Response) => {
     try{
@@ -12,7 +12,7 @@ const getArticles = async (req:Request, res:Response) => {
             }
 
             const articleByName = await getArticlesByNameController(name);
-            res.status(200).json(articleByName)
+            return res.status(200).json(articleByName)
         }
         
         const getArticlesRes = await getArticlesController();
