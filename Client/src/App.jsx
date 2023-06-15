@@ -11,6 +11,7 @@ import Detail from "./components/Detail/Detail";
 import CrudProduct from "./components/Admin/CrudProduct";
 import CrudUsers from "./components/Admin/CrudUsers";
 import FormProduct from "./components/Admin/FormProduct";
+import EditProduct from "./components/Admin/EditProduct";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/crudProduct" element={<CrudProduct />} />
             <Route path="/crudUsers" element={<CrudUsers />} />
             <Route path="/formProduct" element={<FormProduct />} />
+            <Route path="/editProduct" element={<EditProduct />} />
           </Routes>
         </Box>
       </Provider>
