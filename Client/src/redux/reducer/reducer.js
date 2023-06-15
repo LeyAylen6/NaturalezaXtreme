@@ -1,8 +1,9 @@
-import { ADD_FAV, REMOVE_FAV, GET_ALL_PRODUCTS } from "../actions/actions";
+import { ADD_FAV, REMOVE_FAV, GET_ALL_PRODUCTS, GET_ARTICLE_ID } from "../actions/actions";
 
 const initialState = {
   myFavorites: [],
   allProducts: [],
+  articleById: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,9 +22,11 @@ const reducer = (state = initialState, action) => {
     case REMOVE_FAV:
       return {
         ...state,
-        myFavorites: state.myFavorites.filter(
-          (product) => product.id !== action.payload
-        ),
+        myFavorites: state.myFavorites.filter((product) => product.id !== action.payload),
+      };
+    case GET_ARTICLE_ID:
+      return {
+        articleById: action.payload,
       };
 
     default:
