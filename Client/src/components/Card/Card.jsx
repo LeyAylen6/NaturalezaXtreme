@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Text,
   Card,
@@ -11,9 +10,11 @@ import {
   HStack,
   Link,
 } from "@chakra-ui/react";
+
 const Tarjeta = ({ img, name, description, price, rating, color, gender }) => {
+  if (name.length > 34) name = name.slice(0, 42) + "...";
   return (
-    <Card maxW={"300px"} mt={"10px"} borderRadius={"none"}>
+    <Card maxW={"300px"} mt={"10px"} borderRadius={"none"} height={"400px"}>
       <CardBody>
         <Link href="/detail">
           <Img
@@ -31,18 +32,19 @@ const Tarjeta = ({ img, name, description, price, rating, color, gender }) => {
         <Divider mt={"10px"} />
 
         <Stack alignItems={"flex-start"} pb={"8px"}>
-          <Heading mt={"10px"} fontSize={"30px"}>
+          <Heading mt={"10px"} fontSize={"18px"} objectFit={"contain"}>
             {name}
           </Heading>
+
           <Text fontStyle={"oblique"}>{description}</Text>
           <Text fontStyle={"oblique"}>Color disponible: {color}</Text>
 
           <Text fontStyle={"oblique"}>{gender}</Text>
+          <HStack spacing={"8.2rem"}>
+            <Text fontStyle={"oblique"}>{rating}</Text>
+            <Text fontStyle={"oblique"}>{price}</Text>
+          </HStack>
         </Stack>
-        <HStack spacing={"8.2rem"}>
-          <Text fontStyle={"oblique"}>{rating}</Text>
-          <Text fontStyle={"oblique"}>{price}</Text>
-        </HStack>
       </CardBody>
     </Card>
   );
