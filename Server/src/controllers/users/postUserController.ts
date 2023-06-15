@@ -1,17 +1,18 @@
 import { AppDataSource } from "../../db";
+import { User } from "../../entities/userEntity";
 import { userStructure } from "../../interfaces/userStructure";
 
 const postUserController = async(user: userStructure) => {
 
-    // const articleFound = await AppDataSource.getRepository(Article).findOneBy(article)
-    // console.log(article)
+    const userFound = await AppDataSource.getRepository(User).findOneBy({ email: user.email })
 
-    // if (articleFound) throw new Error('El articulo ya existe') 
+    console.log(userFound)
+    if (userFound) throw new Error('There is a user with that email')
 
-    // const articleCreated = await AppDataSource.getRepository(Article).create(article)
-    // const results = await AppDataSource.getRepository(Article).save(articleCreated)
+    const articleCreated = await AppDataSource.getRepository(User).create(user)
+    const userCreated = await AppDataSource.getRepository(User).save(articleCreated)
 
-    // return results;
+    return userCreated;
 }
 
 export default postUserController;
