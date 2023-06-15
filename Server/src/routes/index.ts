@@ -8,23 +8,24 @@ import deleteArticle from './articles/deleteArticle';
 import postUser from './users/postUser';
 import getUsers from './users/getUsers';
 import deleteUser from './users/deleteUser';
+import getUserById from './users/getUserById';
 import filterByGender from './filters/filterByGender';
 
 const router = Router();
 
 router.post('/bulkArticles', bulkArticles)
 router.post('/articles', postArticle)
-router.get('/articles', getArticles)
 router.get('/articles/:id', getArticleById)
+router.get('/articles', getArticles)
 router.put('/articles', updateArticle)
 router.delete('/articles/:id', deleteArticle)
 
 router.get('/users', getUsers)
+router.get('/user/:id', getUserById)
 router.post('/users', postUser)
 // router.put('/user', updateUser)
 router.delete('/user/:id', deleteUser)
 
 router.get('/filtered', filterByGender)
-
 
 export default router;
