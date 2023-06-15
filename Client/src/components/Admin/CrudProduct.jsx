@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 // import { useEffect } from "react";
 // import { useDispatch, useSelector } from "react-redux";
+// import { getAllProducts } from "../../redux/actions/actions/getAllProducts";
 
 const CrudProduct = () => {
   // const dispatch = useDispatch();
   // const products = useSelector((state) => state.products);
 
   // useEffect(() => {
-  //   dispatch(getProducts());
+  //   // dispatch(getAllProducts());
   // }, [dispatch]);
 
   return (
@@ -28,7 +29,6 @@ const CrudProduct = () => {
       alignItems="center"
     >
       <Box>
-        {/* <Link to="/FormularioProducto">New product</Link> */}
         <Button colorScheme="blue" size="lg" variant="solid" m="6">
           <Link to="/FormProduct">New product</Link>
         </Button>
@@ -47,7 +47,7 @@ const CrudProduct = () => {
             </Th>
           </Tr>
         </Thead>
-        <Tbody>
+        {/* <Tbody>
           <Tr>
             <Td>
               <Box w="70px" h="45px" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
@@ -102,17 +102,24 @@ const CrudProduct = () => {
               </ButtonGroup>
             </Td>
           </Tr>
-        </Tbody>
-        {/* <Tbody>
-          {products.map((product) => (
+        </Tbody> */}
+        <Tbody>
+          {/* {products.map((product) => (
             <Tr key={product.id}>
               <Td>{product.name}</Td>
               <Td>{product.description}</Td>
               <Td>{product.price}</Td>
               <Td>{product.stock}</Td>
             </Tr>
-          ))}
-        </Tbody> */}
+          ))} */}
+          <Td>
+            <ButtonGroup size="md" variant={"solid"}>
+              <Button colorScheme="yellow">View</Button>
+              <Button colorScheme="green">Edit</Button>
+              <Button colorScheme="red">Delete</Button>
+            </ButtonGroup>
+          </Td>
+        </Tbody>
         <Tfoot>
           <Tr>
             <Th>Image</Th>
