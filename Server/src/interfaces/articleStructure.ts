@@ -1,4 +1,4 @@
-export type articleStructure = {
+export interface articleStructure {
     id: number
     name: string
     price: number, 
