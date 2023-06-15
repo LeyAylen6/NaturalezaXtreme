@@ -28,13 +28,12 @@ function App() {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/detail" element={<Detail />} />
             <Route path="/crudProduct" element={<CrudProduct />} />
-          <Route path="/crudUsers" element={<CrudUsers />} />
-          <Route path="/formProduct" element={<FormProduct />} />
+            <Route path="/crudUsers" element={<CrudUsers />} />
+            <Route path="/formProduct" element={<FormProduct />} />
           </Routes>
         </Box>
       </Provider>
     </ChakraProvider>
-     
   );
 }
 

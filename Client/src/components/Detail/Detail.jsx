@@ -46,17 +46,17 @@ const Detail = ({addFav, removeFav, myFavorites}) => {
 
 	const handleAddToFavorites = (event) => {
 		event.preventDefault();
+		alert("add favorite");
 		if(isFav){
 			setIsFavorite(true);
 			removeFav(id);
 		}
 		else{
 			setIsFavorite(true);
-			addFav([hardCode]) 
+			addFav({img, name, description, price, rating, color, gender}) 
 		}
 		// enviar el objeto del estado local product a user.favorites
 		// modificar el estado local isFavorite para re renderizar en caso que sea producto favorito, para pintar el corazon, por ejemplo
-		alert("add favorite");
 	};
 
 	return (
