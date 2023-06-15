@@ -22,6 +22,4 @@ export class Shopping_Cart {
 
     @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.shoppingCarts)
     public shoppingArticles: Shopping_Cart_Article[];
-
-
 }
