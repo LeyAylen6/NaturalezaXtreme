@@ -7,6 +7,7 @@ import updateArticle from './articles/updateArticle';
 import deleteArticle from './articles/deleteArticle';
 import postUser from './users/postUser';
 import getUsers from './users/getUsers';
+import filterByGender from './filters/filterByGender';
 const router = Router();
 
 router.post('/bulkArticles', bulkArticles)
@@ -20,6 +21,8 @@ router.get('/users', getUsers)
 router.post('/users', postUser)
 // router.put('/user', updateUser)
 // router.delete('/user/:id', deleteUser)
+
+router.get('/filtered', filterByGender)
 
 
 export default router;
