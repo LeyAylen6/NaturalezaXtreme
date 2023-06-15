@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, BaseEntity } from 'typeorm'
 import { Article } from './articleEntity'
 import { Shopping_Cart } from './shoppingCartEntity'
 
 @Entity()
-export class User {
+export class User extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number
 
