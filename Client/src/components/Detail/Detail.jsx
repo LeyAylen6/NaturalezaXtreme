@@ -95,7 +95,6 @@ const Detail = () => {
 					<button onClick={handleFavorites}> Add to favorites</button>
 				) : (
 					<button onClick={handleFavorites}>
-						{" "}
 						Delete from favorites
 					</button>
 				)}
