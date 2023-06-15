@@ -7,6 +7,7 @@ import updateArticle from './articles/updateArticle';
 import deleteArticle from './articles/deleteArticle';
 import postUser from './users/postUser';
 import getUsers from './users/getUsers';
+import deleteUser from './users/deleteUser';
 const router = Router();
 
 router.post('/bulkArticles', bulkArticles)
@@ -19,7 +20,7 @@ router.delete('/articles/:id', deleteArticle)
 router.get('/users', getUsers)
 router.post('/users', postUser)
 // router.put('/user', updateUser)
-// router.delete('/user/:id', deleteUser)
+router.delete('/user/:id', deleteUser)
 
 
 export default router;
