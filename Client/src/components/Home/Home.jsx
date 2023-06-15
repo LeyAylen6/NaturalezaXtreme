@@ -106,7 +106,7 @@ const products = [
 const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllProducts(products));
+    dispatch(getAllProducts());
   }, []);
   return (
     <Box>
