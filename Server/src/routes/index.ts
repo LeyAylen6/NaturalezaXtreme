@@ -21,8 +21,8 @@ router.put('/articles', updateArticle)
 router.delete('/articles/:id', deleteArticle)
 
 router.get('/users', getUsers)
-router.get('/user/:id', getUserById)
 router.post('/users', postUser)
+router.get('/user/:id', getUserById)
 // router.put('/user', updateUser)
 router.delete('/user/:id', deleteUser)
 
