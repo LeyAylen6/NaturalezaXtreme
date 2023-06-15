@@ -1,18 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany, BaseEntity } from 'typeorm'
 import { User } from './userEntity';
 import { Shopping_Cart_Article } from './shoppingCartArticleEntity';
+import { Size } from '../interfaces/sizeArticle';
+import { Shoesize } from '../interfaces/shoeSize';
+
 
 @Entity()
 // @Check('"string" > 0')
 // @Check('"rating" > 0' && '"rating" <= 5')
 
-export class Article {
+export class Article extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number
 
     @Column({
         type: "varchar",
-        length: 70,
+        length: 80,
         nullable: false
     })
     name: string
@@ -21,12 +24,6 @@ export class Article {
         nullable: false
     })
     price: number
-
-    @Column('integer', {
-        array: true,
-        nullable: true,
-    })
-    rating: number[];
 
     @Column({
         type: "varchar",
@@ -37,36 +34,30 @@ export class Article {
     brand: string = 'this product has no brand';
     
     @Column({
-        enum: ['Male', 'Female'], 
+        enum: ['Male', 'Female', 'Unisex'], 
         nullable: false,
     })
     gender: string
 
     @Column({
-        enum: ['S', 'M', 'L', 'XL', 'Unique'], 
+        type: 'json',
         nullable: true,
-    })
-    size: string
+        default: { XS:0, S: 0, M: 0, L: 0, XL: 0, U:0 },
+      })
+      size: Size;
     
     @Column({
-        enum: [35, 36, 37, 38, 39, 40, 42, 43, 44, 45, 46], 
+        type: 'json',
         nullable: true,
+        default: {35: 0,36: 0, 37: 0, 38: 0, 39: 0, 40: 0, 41: 0, 42: 0, 43: 0, 44: 0, 45: 0, 46: 0,},
     })
-    shoeSize: number
+    shoeSize: Shoesize;
 
     @Column({
-        enum: ['White', 'Black', 'Red', 'Green', 'Yellow', 'Brown', 'Orange', 'Blue', 'Grey', 'Pink'], 
+        enum: ['White', 'Black', 'Red', 'Green', 'Yellow', 'Brown', 'Orange', 'Blue', 'Grey', 'Pink', 'Violet'], 
         nullable: false,
     })
     color: string
-
-    @Column('simple-array', { nullable: true })
-    comments: string[];
-
-    @Column({
-        nullable: false,
-    })
-    stock: number
 
     @Column({
         nullable: false,
@@ -80,6 +71,15 @@ export class Article {
         nullable: false,
     })
     type: string
+
+    @Column('integer', {
+        array: true,
+        nullable: true,
+    })
+    rating: number[];
+
+    @Column('simple-array', { nullable: true })
+    comments: string[];
 
     @Column("boolean", {
         nullable: false,
