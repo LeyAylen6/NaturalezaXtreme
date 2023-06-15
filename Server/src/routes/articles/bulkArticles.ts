@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import bulkArticlesController from "../controllers/bulkArticlesController";
+import bulkArticlesController from "../../controllers/articles/bulkArticlesController";
 
 const bulkArticles = async (req: Request, res: Response)=>{
     try{

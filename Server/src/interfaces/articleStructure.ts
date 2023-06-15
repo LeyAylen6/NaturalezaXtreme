@@ -1,17 +1,20 @@
-export type articleStructure = {
+import { Size } from "./sizeArticle"
+import { Shoesize } from "./shoeSize"
+
+export interface articleStructure {
     id: number
     name: string
-    price: number, 
-    // rating?: number[], 
+    price: number,
     brand: string, 
     gender: string, 
-    size: string, 
-    shoeSize: number,
+    size: Size, 
+    shoeSize: Shoesize,
     color: string, 
-    // comments?: string[], 
     stock: number, 
     image: string, 
     type: string, 
+    // rating: number;
+    // comments: string, 
     active: boolean
 }
 

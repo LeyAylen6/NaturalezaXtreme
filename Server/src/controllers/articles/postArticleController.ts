@@ -1,8 +1,8 @@
-import { Article } from "../entities/articleEntity"
-import { AppDataSource } from "../db";
-import { articleStructure } from "../interfaces/articleStructure";
+import { Article } from "../../entities/articleEntity"
+import { AppDataSource } from "../../db";
+import { articleStructure } from "../../interfaces/articleStructure";
 
-export const postArticleController = async(article: articleStructure) => {
+const postArticleController = async(article: articleStructure) => {
 
     const articleFound = await AppDataSource.getRepository(Article).findOneBy(article)
     console.log(article)
@@ -14,3 +14,5 @@ export const postArticleController = async(article: articleStructure) => {
 
     return results;
 }
+
+export default postArticleController;
