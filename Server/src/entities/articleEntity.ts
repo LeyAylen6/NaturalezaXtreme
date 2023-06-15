@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany, BaseEntity } from 'typeorm'
 import { User } from './userEntity';
 import { Shopping_Cart_Article } from './shoppingCartArticleEntity';
 
@@ -6,13 +6,13 @@ import { Shopping_Cart_Article } from './shoppingCartArticleEntity';
 // @Check('"string" > 0')
 // @Check('"rating" > 0' && '"rating" <= 5')
 
-export class Article {
+export class Article extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number
 
     @Column({
         type: "varchar",
-        length: 50,
+        length: 70,
         nullable: false
     })
     name: string
@@ -76,7 +76,7 @@ export class Article {
     image: string
 
     @Column("enum", { 
-        enum: ['Tshirt', 'sweater', 'jacket', 'pant', 'accesories', 'shoes', 'equipment'], 
+        enum: ['Tshirt', 'sweatshirt', 'jacket', 'pant', 'accesories', 'shoes', 'equipment'], 
         nullable: false,
     })
     type: string
