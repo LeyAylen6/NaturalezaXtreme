@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import updateArticleController from "../controllers/updateArticleController";
+import updateArticleController from "../../controllers/articles/updateArticleController";
 
 const updateArticle = async(req: Request, res: Response) => {
     try {

@@ -1,6 +1,6 @@
-import { AppDataSource } from "../db"
-import { Article } from "../entities/articleEntity"
-import articlesData from "../assets"
+import { AppDataSource } from "../../db"
+import { Article } from "../../entities/articleEntity"
+import articlesData from "../../assets"
 
 const bulkArticlesController = async ()=>{
 
