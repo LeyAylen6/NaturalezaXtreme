@@ -6,7 +6,6 @@ const postUserController = async(user: userStructure) => {
 
     const userFound = await AppDataSource.getRepository(User).findOneBy({ email: user.email })
 
-    console.log(userFound)
     if (userFound) throw new Error('There is a user with that email')
 
     const articleCreated = await AppDataSource.getRepository(User).create(user)
