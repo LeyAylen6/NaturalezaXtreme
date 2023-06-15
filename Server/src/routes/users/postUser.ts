@@ -10,7 +10,7 @@ const postUser = async (req: Request, res: Response)=>{
     }
     catch(error: any){
         if(error.message === 'There is a user with that email') {
-            res.status(400).send(error.message)
+            return res.status(400).send(error.message)
         }
         res.status(500).send(error.message)
     }

@@ -13,5 +13,3 @@ const getArticlesByIdController = async(id: number) => {
 }
 
 export default getArticlesByIdController;
-
-// deleteArticle_and_GetById

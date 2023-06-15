@@ -6,6 +6,8 @@ import getArticleById from './articles/getArticleById';
 import updateArticle from './articles/updateArticle';
 import deleteArticle from './articles/deleteArticle';
 import postUser from './users/postUser';
+import getUsers from './users/getUsers';
+import deleteUser from './users/deleteUser';
 import getUserById from './users/getUserById';
 import filterByGender from './filters/filterByGender';
 
@@ -18,12 +20,11 @@ router.get('/articles', getArticles)
 router.put('/articles', updateArticle)
 router.delete('/articles/:id', deleteArticle)
 
-router.post('/user', postUser)
+router.get('/users', getUsers)
 router.get('/user/:id', getUserById)
-
-// router.get('/user', getUser)
+router.post('/users', postUser)
 // router.put('/user', updateUser)
-// router.delete('/user/:id', deleteUser)
+router.delete('/user/:id', deleteUser)
 
 router.get('/filtered', filterByGender)
 
