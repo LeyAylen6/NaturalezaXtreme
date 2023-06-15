@@ -7,6 +7,7 @@ import updateArticle from './articles/updateArticle';
 import deleteArticle from './articles/deleteArticle';
 import postUser from './users/postUser';
 import getUserById from './users/getUserById';
+import filterByGender from './filters/filterByGender';
 
 const router = Router();
 
@@ -23,5 +24,7 @@ router.get('/user/:id', getUserById)
 // router.get('/user', getUser)
 // router.put('/user', updateUser)
 // router.delete('/user/:id', deleteUser)
+
+router.get('/filtered', filterByGender)
 
 export default router;
