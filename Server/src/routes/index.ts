@@ -6,6 +6,7 @@ import getArticleById from './articles/getArticleById';
 import updateArticle from './articles/updateArticle';
 import deleteArticle from './articles/deleteArticle';
 import postUser from './users/postUser';
+import getUsers from './users/getUsers';
 const router = Router();
 
 router.post('/bulkArticles', bulkArticles)
@@ -15,8 +16,8 @@ router.get('/articles/:id', getArticleById)
 router.put('/articles', updateArticle)
 router.delete('/articles/:id', deleteArticle)
 
-// router.get('/user', getUser)
-router.post('/user', postUser)
+router.get('/users', getUsers)
+router.post('/users', postUser)
 // router.put('/user', updateUser)
 // router.delete('/user/:id', deleteUser)
 
