@@ -1,31 +1,49 @@
 import React from "react";
-import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
-const Tarjeta = ({
-  name,
-  size,
-  description,
-  price,
-  rating,
-  color,
-  stock,
-  gender
-}) => {
+
+import {
+  Text,
+  Card,
+  CardBody,
+  Img,
+  Stack,
+  Heading,
+  Divider,
+  HStack,
+  Link,
+} from "@chakra-ui/react";
+const Tarjeta = ({ img, name, description, price, rating, color, gender }) => {
   return (
-    <Card>
-      <CardHeader>
-        <p>{name}</p>
-      </CardHeader>
+    <Card maxW={"300px"} mt={"10px"} borderRadius={"none"}>
       <CardBody>
-        <p>{size}</p>
-        <p>{description}</p>
-        <p>{rating}</p>
-        <p>{color}</p>
-        <p>{price}</p>
-        <p>{stock}</p>
+        <Link href="/detail">
+          <Img
+            objectFit={"contain"}
+            margin={"auto"}
+            rounded={"lg"}
+            src={img}
+            alt="image"
+            width="250px"
+            height="150px"
+            borderRadius="lg"
+          />
+        </Link>
+
+        <Divider mt={"10px"} />
+
+        <Stack alignItems={"flex-start"} pb={"8px"}>
+          <Heading mt={"10px"} fontSize={"30px"}>
+            {name}
+          </Heading>
+          <Text fontStyle={"oblique"}>{description}</Text>
+          <Text fontStyle={"oblique"}>Color disponible: {color}</Text>
+
+          <Text fontStyle={"oblique"}>{gender}</Text>
+        </Stack>
+        <HStack spacing={"8.2rem"}>
+          <Text fontStyle={"oblique"}>{rating}</Text>
+          <Text fontStyle={"oblique"}>{price}</Text>
+        </HStack>
       </CardBody>
-      <CardFooter>
-        <p>{gender}</p>
-      </CardFooter>
     </Card>
   );
 };

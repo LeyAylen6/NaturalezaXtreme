@@ -1,45 +1,17 @@
 import Tarjeta from "../Card/Card";
-
-const arr = [
-  {
-    name: "Zapatillas",
-    size: "40",
-    description: "Zapatillas adidas para correr",
-    price: "$60.000",
-    rating: "3 Estrellas",
-    color: "Celestes",
-    stock: "5",
-    gender: "Masculino",
-  },
-  {
-    name: "Chanclas",
-    size: "40",
-    description: "Chanclas gucci para correr",
-    price: "$10.000",
-    rating: "3 Estrellas",
-    color: "negras",
-    stock: "1",
-    gender: "Femenino",
-  },
-  {
-    name: "Remera termica",
-    size: "s",
-    description: "Remera termica contra el frio ",
-    price: "$30.000",
-    rating: "3 Estrellas",
-    color: "blanca",
-    stock: "20",
-    gender: "Femenino",
-  },
-];
+import { Grid } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 const CardContainer = () => {
+  const products = useSelector((state) => state.allProducts);
+
   return (
-    <div>
-      {arr?.map((product) => {
+    <Grid templateColumns="repeat(4, 1fr)" justifyItems={"center"}>
+      {products?.map((product, index) => {
         return (
-          <div>
+          <div key={index}>
             <Tarjeta
+              img={product.img}
               name={product.name}
               size={product.size}
               description={product.description}
@@ -52,7 +24,7 @@ const CardContainer = () => {
           </div>
         );
       })}
-    </div>
+    </Grid>
   );
 };
 export default CardContainer;
