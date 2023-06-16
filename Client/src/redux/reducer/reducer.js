@@ -45,7 +45,6 @@ const reducer = (state = initialState, action) => {
 			};
 
 		case REMOVE_FAV:
-			console.log("favorites", state.myFavorites);
 			return {
 				...state,
 				myFavorites: state.myFavorites.filter(
