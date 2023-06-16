@@ -11,6 +11,7 @@ const CardContainer = () => {
         return (
           <div key={index}>
             <Tarjeta
+              id={product.id}
               image={product.image}
               name={product.name}
               size={product.size}
