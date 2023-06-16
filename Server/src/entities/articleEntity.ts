@@ -40,6 +40,14 @@ export class Article extends BaseEntity{
     brand: string = 'this product has no brand';
     
     @Column({
+        type: "varchar",
+        length: 200,
+        nullable: true,
+        default: true
+    })
+    description: string = 'this product has no description';
+
+    @Column({
         enum: ['Male', 'Female', 'Unisex'], 
         nullable: false,
     })

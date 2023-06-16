@@ -7,6 +7,7 @@ export interface articleStructure {
     name: string,
     price: number,
     brand: string, 
+    description: string,
     gender: string, 
     size: Size, 
     shoeSize: Shoesize,
@@ -14,10 +15,7 @@ export interface articleStructure {
     stock: number, 
     image: string, 
     type: string, 
-    // rating: number;
-    // comments: string, 
+    rating: any;
+    comments: any, 
     active: boolean
 }
-
-// ! NOTA: Comments y rating si se agregan como tipo array tira error. 
-// No lo agrego a la interfase ya que en la DB esta como que puede ser null.
