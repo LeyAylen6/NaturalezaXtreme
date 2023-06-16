@@ -4,6 +4,7 @@ import { ILike } from "typeorm";
 import { paginado } from "../../utils/paginado";
 
 export interface FilterArticlesStructure {
+    name?: any,
     gender?: string,
     type?: string,
     color?: string
@@ -13,15 +14,14 @@ export interface FilterArticlesStructure {
 const getArticlesByNameController = async(name: string, gender: string, type:string, color: string, offset: number, limit: number) => {
 
     const filters: FilterArticlesStructure = {}
+    if (name) filters.name = ILike(`%${name}%`);
     if(gender) filters.gender = gender;
     if(type) filters.type = type;
     if(color) filters.color = color;
-    console.log(color)
 
     const query = {
         where: {
-          name: ILike(`%${name}%`),
-          ...filters, // Agrega los filtros al objeto de búsqueda
+          ...filters, 
         },
         skip:offset,
         take: limit
