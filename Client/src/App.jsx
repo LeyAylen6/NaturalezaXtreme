@@ -6,13 +6,14 @@ import { Routes, Route } from "react-router-dom";
 import AboutUs from "./components/AboutUs/AboutUs";
 import Loginsingup from "./components/LoginandSignUp/Loginsignup";
 import Favorites from "./components/Favorites/Favorites";
+import Carrito from "./components/Carrito/Carrito";
 import Admin from "./components/Admin/Admin";
 import Detail from "./components/Detail/Detail";
 import CrudProduct from "./components/Admin/CrudProduct";
 import CrudUsers from "./components/Admin/CrudUsers";
 import FormProduct from "./components/Admin/FormProduct";
 import EditProduct from "./components/Admin/EditProduct";
-import Cart from "./components/Cart/Cart"
+import Cart from "./components/Cart/Cart";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 
@@ -33,7 +34,7 @@ function App() {
             <Route path="/crudUsers" element={<CrudUsers />} />
             <Route path="/formProduct" element={<FormProduct />} />
             <Route path="/editProduct" element={<EditProduct />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="cart" element={<Carrito />} />
           </Routes>
         </Box>
       </Provider>
