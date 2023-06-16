@@ -17,13 +17,13 @@ const getArticles = async (req:Request, res:Response) => {
         if(!offset) offset='0'
         if(!limit || limit === '0')  limit= '10'
 
-        if (req.query) {
-            
+        if (nameFilter ||  genderFilter || typeFilter || colorFilter) {
             const articleByName = await getArticlesByNameController(nameFilter, genderFilter, typeFilter, colorFilter);
             return res.status(200).json(articleByName)
         }
-            const getArticlesRes = await getArticlesController(+offset, +limit);
-            return res.status(200).json(getArticlesRes);
+
+        const getArticlesRes = await getArticlesController(+offset, +limit);
+        return res.status(200).json(getArticlesRes);
     
     } catch (error: any){
         if (error.message === `no matches were found for your search`) {

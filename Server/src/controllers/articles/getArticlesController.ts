@@ -1,8 +1,10 @@
+import { all } from "axios";
 import { AppDataSource } from "../../db"
 import { Article } from "../../entities/articleEntity";
 const articleRepository = AppDataSource.getRepository(Article);
 
 const getArticlesController = async(offset:number, limit:number ) => {
+    
     const count = await articleRepository.count();
     let next = '';
     let prev = '';
@@ -20,9 +22,10 @@ const getArticlesController = async(offset:number, limit:number ) => {
     }
     
     const allArticles = await articleRepository.find({
-        skip:offset,
-        take:limit
+        skip: offset,
+        take: limit
     });
+    console.log(allArticles)
 
 
     if(allArticles.length === 0) throw new Error ("No hay articulos para mostar");

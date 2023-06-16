@@ -10,6 +10,7 @@ import postUser from './users/postUser';
 import getUsers from './users/getUsers';
 import getUserById from './users/getUserById';
 import desactivateUser from './users/desactivateUser';
+import updateUser from './users/updateUser';
 
 const router = Router();
 
@@ -20,10 +21,10 @@ router.get('/articles', getArticles)
 router.put('/articles', updateArticle)
 router.put('/articles/:id', desactivateArticle)
 
-router.get('/users', getUsers)
 router.post('/users', postUser)
+router.get('/users', getUsers)
 router.get('/user/:id', getUserById)
-// router.put('/user', updateUser)
+router.put('/user', updateUser)
 router.put('/user/:id', desactivateUser)
 
 
