@@ -10,6 +10,7 @@ const getArticles = async (req:Request, res:Response) => {
         const genderFilter = req.query.gender as string
         const typeFilter = req.query.type as string
         const colorFilter = req.query.color as string
+        const priceOrder = req.query.order as string
         
         let offset = req.query.offset as string
         let limit = req.query.limit as string
@@ -18,11 +19,11 @@ const getArticles = async (req:Request, res:Response) => {
         if(!limit || limit === '0')  limit= '10'
 
         if (nameFilter ||  genderFilter || typeFilter || colorFilter) {
-            const articleByName = await getArticlesByNameController(nameFilter, genderFilter, typeFilter, colorFilter,+offset,+limit);
+            const articleByName = await getArticlesByNameController(nameFilter, genderFilter, typeFilter, colorFilter,+offset,+limit, priceOrder);
             return res.status(200).json(articleByName)
         }
 
-        const getArticlesRes = await getArticlesController(+offset, +limit);
+        const getArticlesRes = await getArticlesController(+offset, +limit,priceOrder);
         return res.status(200).json(getArticlesRes);
     
     } catch (error: any){
