@@ -5,11 +5,12 @@ import bulkArticles from './articles/bulkArticles';
 import getArticleById from './articles/getArticleById';
 import updateArticle from './articles/updateArticle';
 import desactivateArticle from './articles/desactivateArticle';
+
 import postUser from './users/postUser';
 import getUsers from './users/getUsers';
 import getUserById from './users/getUserById';
-import deleteUser from './users/desactivateUser';
-import filters from './filters/filters';
+import desactivateUser from './users/desactivateUser';
+
 const router = Router();
 
 router.post('/bulkArticles', bulkArticles)
@@ -23,8 +24,7 @@ router.get('/users', getUsers)
 router.post('/users', postUser)
 router.get('/user/:id', getUserById)
 // router.put('/user', updateUser)
-router.put('/user/:id', deleteUser)
+router.put('/user/:id', desactivateUser)
 
-router.get('/filtered', filters)
 
 export default router;
