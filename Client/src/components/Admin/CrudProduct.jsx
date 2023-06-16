@@ -23,7 +23,7 @@ const CrudProduct = () => {
   }, [dispatch, selectId]);
 
   // Si se activa la redirección, se redirige a la ruta /detail
-  if (redirectToDetail) return <Navigate to="/detail" />;
+  if (redirectToDetail) return Navigate(`/detail/${selectId}`);
 
   const handelClick = (selectId) => {
     console.log(selectId);
