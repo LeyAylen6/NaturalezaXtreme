@@ -49,7 +49,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         myFavorites: state.myFavorites.filter(
-          (product) => product.id !== action.payload
+          (product) => product.id != action.payload
         ),
       };
     case GET_ARTICLE_ID:
