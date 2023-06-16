@@ -21,6 +21,9 @@ const Tarjeta = ({
   color,
   gender,
 }) => {
+
+console.log(image)
+
   if (name && name.length > 34) name = name.slice(0, 42) + "...";
   return (
     <Card maxW={"300px"} mt={"10px"} borderRadius={"none"} height={"400px"}>
