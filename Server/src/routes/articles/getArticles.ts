@@ -18,7 +18,7 @@ const getArticles = async (req:Request, res:Response) => {
         if(!limit || limit === '0')  limit= '10'
 
         if (nameFilter ||  genderFilter || typeFilter || colorFilter) {
-            const articleByName = await getArticlesByNameController(nameFilter, genderFilter, typeFilter, colorFilter);
+            const articleByName = await getArticlesByNameController(nameFilter, genderFilter, typeFilter, colorFilter,+offset,+limit);
             return res.status(200).json(articleByName)
         }
 
