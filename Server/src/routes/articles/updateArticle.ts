@@ -11,6 +11,8 @@ const updateArticle = async(req: Request, res: Response) => {
     } catch(error: any) {
         if (error.message === 'There are no matches with the searched item') {
             return res.status(404).send(error.message)
+        } else if (error.message === 'Cannot modify the active property of the article') {
+            return res.status(400).send(error.message)
         }
         return res.status(500).send(error.message)
     }

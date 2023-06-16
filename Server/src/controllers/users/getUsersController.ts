@@ -1,10 +1,6 @@
 import { AppDataSource } from "../../db";
 import { User } from "../../entities/userEntity";
-
-export interface filtersUserStructure {
-    rol?: string,
-    active?: boolean
-}
+import { filtersUserStructure } from "../../interfaces/filtersUserStructure";
 
 const getUsersController = async(rol: string, active: boolean) => {
 

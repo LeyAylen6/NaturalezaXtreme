@@ -2,8 +2,9 @@ import { Size } from "./sizeArticle"
 import { Shoesize } from "./shoeSize"
 
 export interface articleStructure {
-    id: number
-    name: string
+    id: number,
+    articleID: string,
+    name: string,
     price: number,
     brand: string, 
     gender: string, 

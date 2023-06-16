@@ -1,10 +1,14 @@
 import { User } from "../../entities/userEntity";
 
-const getUserController = (idRequested: number)=>{
+const getUserByIdController = async(idRequested: number)=>{
 
-    const requestedUser = User.findBy({id: idRequested})
+    const requestedUser = await User.findOneBy({
+        id: idRequested
+    })
+    
     if (!requestedUser) throw new Error('There is no user with that id')
+    
     return requestedUser;
 
 }
-export default getUserController;
+export default getUserByIdController;
