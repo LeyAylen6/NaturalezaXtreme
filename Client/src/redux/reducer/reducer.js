@@ -22,7 +22,8 @@ const reducer = (state = initialState, action) => {
       const filterArticles = state.allProducts;
       const filterFinish = filterArticles.filter((article) => {
         const name = article.name;
-        if (name.includes(action.payload)) return article;
+        if (name.toLowerCase().includes(action.payload.toLowerCase()))
+          return article;
       });
       return {
         ...state,

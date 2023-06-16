@@ -7,6 +7,7 @@ const SearchBar = () => {
   const [name, setName] = useState("");
 
   const handleChange = (event) => {
+    setName("");
     const { value } = event.target;
     if (!value) dispatch(getAllProducts());
     setName(value);
