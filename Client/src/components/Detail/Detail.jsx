@@ -1,38 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { addFav, removeFav } from "../../redux/actions/actions";
+import { addFav, removeFav, resState } from "../../redux/actions/actions";
 import { connect, useSelector, useDispatch } from "react-redux";
-const hardCode = {
-	name: "Zapatillas",
-	sizes: ["37", "40", "42", "43", "44"],
-	description: "Zapatillas adidas para correr",
-	price: 60000,
-	rating: "3 Estrellas",
-	color: "Celestes",
-	stock: 0,
-	gender: "Masculino",
-	id: "1",
-};
+import { getDetail } from "../../redux/actions/actions";
+import {useParams} from 'react-router-dom'; 
+const Detail = (props) => {
 
-const Detail = () => {
-	const [article, setArticle] = useState({});
-	const [isFavorite, setIsFavorite] = useState(true);
-	const myFavorites = useSelector((state) => state.myFavorites);
+	const {id} = useParams()
 
+	const [isFavorite, setIsFavorite] = useState(false);
+	let myFavorites = useSelector((state) => state.myFavorites)      
+	const articlesdetail = useSelector((state) => state.detail) 
+	
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		// pedir el detalle del producto al backend
-		// setear el estado local product con la respuesta del backend
-		setArticle(hardCode);
-	}, []);
+		dispatch(getDetail(id));
+		dispatch(resState(resState))
+	},[dispatch, id])
 
-	useEffect(() => {
-		myFavorites.forEach((fav) => {
-			if (fav.id === article.id) {
-				setIsFavorite(true);
-			}
-		});
-	}, []);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -51,31 +36,53 @@ const Detail = () => {
 		event.preventDefault();
 		if (isFavorite) {
 			setIsFavorite(false);
-			dispatch(removeFav(article.id));
+			dispatch(removeFav(id))
 			alert("remove favorite");
 		} else {
 			setIsFavorite(true);
-			dispatch(addFav(article));
+			dispatch(addFav(articlesdetail));
 			alert("add favorite");
 		}
 	};
+	
+	useEffect(() => {
+		console.log(myFavorites)
+		myFavorites.forEach((fav) => {
+		   
+		   if (fav.id == id) {
+			setIsFavorite(true);
+		   }
+		});
+	 }, [myFavorites]);
 
+
+	let sizeOptions = null;
+
+ if (articlesdetail.size && typeof articlesdetail.size === "object") {
+  sizeOptions = Object.entries(articlesdetail.size).map(([key, value]) => (
+    <option key={key} value={key}>{key} ({value})</option>
+  ));
+}
 	return (
 		<section id="container">
-			<h1>{article.name}</h1>
-			<h2>{article.gender}</h2>
+			 <div>
+                            <img src={articlesdetail.image} alt=''/>
+                        </div>
+			<h1>{articlesdetail.name}</h1>
+			<h2>{articlesdetail.gender}</h2>
+			<h2>{articlesdetail.brand}</h2>
 
 			{/* para las estrellas haría otro componente ReviewBriefing */}
 
-			<p>${article.price}</p>
+			<p>${articlesdetail.price}</p>
+			<p>{articlesdetail.color}</p>
+			<p>{articlesdetail.type}</p>
 			<form onSubmit={handleSubmit}>
 				<label>Size</label>
-				<select name="sizeSelector" id="">
-					{article.sizes?.map((size) => (
-						<option key={size}>{size}</option>
-					))}
-				</select>
-				{article.stock ? (
+				<select>
+                     {sizeOptions}
+              </select>
+				{articlesdetail.stock ? (
 					<p>Product in stock</p>
 				) : (
 					<p>Product out of stock</p>
@@ -87,7 +94,7 @@ const Detail = () => {
 					id="quantity"
 					name="quantity"
 					min="1"
-					max={article.stock}
+					max={articlesdetail.stock}
 				></input>
 				<button type="submit">Comprar</button>
 				<button onClick={handleAddToCart}>Add to cart</button>
@@ -103,5 +110,7 @@ const Detail = () => {
 		</section>
 	);
 };
+ 
 
 export default Detail;
+	
