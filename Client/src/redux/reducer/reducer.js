@@ -1,9 +1,13 @@
-import { ADD_FAV, REMOVE_FAV, GET_ALL_PRODUCTS, GET_ARTICLE_ID } from "../actions/actions";
+
+import { ADD_FAV, REMOVE_FAV, GET_ALL_PRODUCTS, GET_DETAIL, RES_STATE,  GET_ARTICLE_ID } from "../actions/actions";
+
 
 const initialState = {
   myFavorites: [],
   allProducts: [],
+  detail: []
   articleById: {},
+
 };
 
 const reducer = (state = initialState, action) => {
@@ -28,9 +32,20 @@ const reducer = (state = initialState, action) => {
       return {
         articleById: action.payload,
       };
+    case GET_DETAIL:
+        return{
+          ...state,
+          detail: action.payload
+        }
+        case RES_STATE:
+            return{
+                ...state, 
+                detail:[]
+            }
 
     default:
       return { ...state };
   }
 };
+
 export default reducer;

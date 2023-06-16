@@ -27,7 +27,7 @@ function App() {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/favorites" element={<Favorites />} />
-            <Route path="/detail" element={<Detail />} />
+            <Route path="/detail/:id" element={<Detail />} />
             <Route path="/crudProduct" element={<CrudProduct />} />
             <Route path="/crudUsers" element={<CrudUsers />} />
             <Route path="/formProduct" element={<FormProduct />} />
