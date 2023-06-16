@@ -1,17 +1,10 @@
 import { useEffect } from "react"
 import Tarjeta from "../Card/Card"
 import {connect, useDispatch, useSelector } from 'react-redux'
-import { getAllProducts } from "../../redux/actions/actions"
 import { Grid } from "@chakra-ui/react"
-const Favorites = ({ myFavorites }) => {
+const Favorites = (props) => {
     const dispatch = useDispatch()
-    const productTest = useSelector((state)=> state.allProducts)
-
-    useEffect(()=>{
-        dispatch(getAllProducts())
-    },[]
-    )
-    console.log(productTest)
+    
     return (
         <div>
             <select>
@@ -31,17 +24,19 @@ const Favorites = ({ myFavorites }) => {
             <div>
             <Grid templateColumns="repeat(4, 1fr)" justifyItems={"center"}>
         {
-            productTest?.map(product=> {
+            props.myFavorites.map((product)=> {
                 return (
                     <Tarjeta
-                    key={product.id}
+                    button = {false}
+                    image = {product.image}
                     name={product.name}
-                    price={product.price}
-                    img={product.img}
-                    description={product.description}
-                    rating={product.rating} 
-                    color={product.color}
-                    gender={product.gender}
+                    description = {product.description}
+                    price = {product.price}
+                    rating ={product.rating}
+                    color= {product.color}
+                    gender= {product.gender}
+                   
+                    key={product.id}
                     />
                 )
             })

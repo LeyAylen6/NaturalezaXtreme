@@ -1,6 +1,8 @@
 export const ADD_FAV = "ADD_FAV";
 export const REMOVE_FAV = "REMOVE_FAV";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+export const GET_DETAIL = 'GET_DETAIL';
+export const RES_STATE = 'RES_STATE'   
 import axios from "axios";
 
 export const addFav = (article) => {
@@ -16,3 +18,17 @@ export const getAllProducts = () => {
     dispatch({ type: GET_ALL_PRODUCTS, payload: products });
   };
 };
+export function getDetail(id){
+  return async function(dispatch){
+      const json = await axios.get('http://localhost:3001/articles/' + id);
+      return dispatch({
+          type: GET_DETAIL,
+          payload: json.data,
+      })
+  }
+}  
+export function resState(){
+  return {
+      type: RES_STATE,
+  }
+}
