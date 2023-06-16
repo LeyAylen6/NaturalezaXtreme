@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { Box, Button, HStack, Input } from "@chakra-ui/react";
+import { Box, HStack, Input } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
+import { filterSearchBar, getAllProducts } from "../../redux/actions/actions";
 const SearchBar = () => {
-  const [input, setInput] = useState("");
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
 
   const handleChange = (event) => {
-    setInput(event.targe.value);
+    const { value } = event.target;
+    if (!value) dispatch(getAllProducts());
+    setName(value);
+    dispatch(filterSearchBar(name));
   };
+
   return (
     <HStack>
       <Box>
@@ -18,17 +25,6 @@ const SearchBar = () => {
           onChange={handleChange}
         />
       </Box>
-      <Button
-        as={"button"}
-        bgGradient="linear(to-r,#bababa, #6c6f78)"
-        _hover={{
-          bgGradient: "linear(to-r, red.500, yellow.500)",
-        }}
-        variant={"ghost"}
-        border={"none"}
-      >
-        Search
-      </Button>
     </HStack>
   );
 };

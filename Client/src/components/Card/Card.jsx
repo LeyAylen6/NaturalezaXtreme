@@ -9,15 +9,23 @@ import {
   Heading,
   Divider,
   HStack,
- 
 } from "@chakra-ui/react";
 
-const Tarjeta = ({ id,image, name, description, price, rating, color, gender }) => { console.log(id)
+const Tarjeta = ({
+  id,
+  image,
+  name,
+  description,
+  price,
+  rating,
+  color,
+  gender,
+}) => {
   if (name && name.length > 34) name = name.slice(0, 42) + "...";
   return (
     <Card maxW={"300px"} mt={"10px"} borderRadius={"none"} height={"400px"}>
       <CardBody>
-        <Link to={`/detail/${id}`}>  
+        <Link to={`/detail/${id}`}>
           <Img
             objectFit={"contain"}
             margin={"auto"}
