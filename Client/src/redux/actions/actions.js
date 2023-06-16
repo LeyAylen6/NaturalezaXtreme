@@ -24,7 +24,9 @@ export const getAllProducts = () => {
 };
 export const getArticlesByQuery = (name) => {
   return async (dispatch) => {
-    const response = await axios.get(`http://localhost:3001/articles`);
+    const response = await axios.get(
+      `http://localhost:3001/articles?name=${name}`
+    );
     const payload = response.data;
     return dispatch({
       type: GET_ARTICLES_BY_QUERY,
