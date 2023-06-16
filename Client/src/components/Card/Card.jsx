@@ -11,7 +11,15 @@ import {
   Link,
 } from "@chakra-ui/react";
 
-const Tarjeta = ({ img, name, description, price, rating, color, gender }) => {
+const Tarjeta = ({
+  image,
+  name,
+  description,
+  price,
+  rating,
+  color,
+  gender,
+}) => {
   if (name.length > 34) name = name.slice(0, 42) + "...";
   return (
     <Card maxW={"300px"} mt={"10px"} borderRadius={"none"} height={"400px"}>
@@ -21,7 +29,7 @@ const Tarjeta = ({ img, name, description, price, rating, color, gender }) => {
             objectFit={"contain"}
             margin={"auto"}
             rounded={"lg"}
-            src={img}
+            src={image}
             alt="image"
             width="250px"
             height="150px"
