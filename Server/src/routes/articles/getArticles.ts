@@ -16,7 +16,7 @@ const getArticles = async ({query}:Request, res:Response) => {
             if (typeof name !== "string" ) {
                 throw new Error("Search for a valid product, Example: Jacket");
             }
-            const articleByName = await getArticlesByNameController(name);
+            const articleByName = await getArticlesByNameController(name, +offset,+limit);
             return res.status(200).json(articleByName)
         }
 
