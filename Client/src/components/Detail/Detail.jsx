@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { addFav, removeFav, resState } from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { getDetail } from "../../redux/actions/actions";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const Detail = () => {
 	const [isFavorite, setIsFavorite] = useState(false);
 	let myFavorites = useSelector((state) => state.myFavorites);
@@ -10,6 +10,7 @@ const Detail = () => {
 
 	const { id } = useParams();
 	const dispatch = useDispatch();
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		dispatch(getDetail(id));
@@ -28,6 +29,7 @@ const Detail = () => {
 		// verificar datos completados
 		// agregar producto al carrito
 		// navegar al carrito
+		navigate('/cart')
 		console.log("go to cart");
 	};
 
