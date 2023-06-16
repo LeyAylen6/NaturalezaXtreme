@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Text,
   Card,
@@ -8,20 +9,20 @@ import {
   Heading,
   Divider,
   HStack,
-  Link,
+ 
 } from "@chakra-ui/react";
 
-const Tarjeta = ({ img, name, description, price, rating, color, gender }) => {
-  if (name.length > 34) name = name.slice(0, 42) + "...";
+const Tarjeta = ({ id,image, name, description, price, rating, color, gender }) => { console.log(id)
+  if (name && name.length > 34) name = name.slice(0, 42) + "...";
   return (
     <Card maxW={"300px"} mt={"10px"} borderRadius={"none"} height={"400px"}>
       <CardBody>
-        <Link href="/detail">
+        <Link to={`/detail/${id}`}>  
           <Img
             objectFit={"contain"}
             margin={"auto"}
             rounded={"lg"}
-            src={img}
+            src={image}
             alt="image"
             width="250px"
             height="150px"

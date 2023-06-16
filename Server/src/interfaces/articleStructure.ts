@@ -1,7 +1,7 @@
 import { Size } from "./sizeArticle"
 import { Shoesize } from "./shoeSize"
 
-export type articleStructure = {
+export interface articleStructure {
     id: number
     name: string
     price: number,
