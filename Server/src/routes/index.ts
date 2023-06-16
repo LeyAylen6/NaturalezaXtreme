@@ -9,7 +9,6 @@ import postUser from './users/postUser';
 import getUsers from './users/getUsers';
 import deleteUser from './users/deleteUser';
 import getUserById from './users/getUserById';
-import filterByGender from './filters/filterByGender';
 
 const router = Router();
 
@@ -25,7 +24,5 @@ router.post('/users', postUser)
 router.get('/user/:id', getUserById)
 // router.put('/user', updateUser)
 router.delete('/user/:id', deleteUser)
-
-router.get('/filtered', filterByGender)
 
 export default router;

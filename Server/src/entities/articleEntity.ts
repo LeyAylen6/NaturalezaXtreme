@@ -14,6 +14,12 @@ export class Article extends BaseEntity{
     id: number
 
     @Column({
+        unique: true,
+        nullable: false
+    })
+    articleID: string
+
+    @Column({
         type: "varchar",
         length: 80,
         nullable: false
