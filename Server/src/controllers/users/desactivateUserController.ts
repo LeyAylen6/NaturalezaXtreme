@@ -1,17 +1,22 @@
 import { AppDataSource } from "../../db";
 import { User } from "../../entities/userEntity";
 
-const deleteUserController = async(id: number) => {
+const deleteUserController = async(id: number, active: boolean) => {
 
     const userFound = await AppDataSource.getRepository(User).findOneBy({
         id: id
     })
 
     if (!userFound) throw new Error('There is no user with that id')
-    
-    await AppDataSource.getRepository(User).remove(userFound)
 
-    return userFound;
+    let newUser = {...userFound}
+    newUser.active = active
+
+    
+    await AppDataSource.getRepository(User).merge(userFound, newUser)
+    const results = await AppDataSource.getRepository(User).save(userFound)
+
+    return results;
 }
 
 export default deleteUserController;

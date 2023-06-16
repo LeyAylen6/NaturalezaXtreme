@@ -1,37 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { addFav, removeFav } from "../../redux/actions/actions";
-import { connect, useSelector, useDispatch } from "react-redux";
-const hardCode = {
-	name: "Zapatillas",
-	sizes: ["37", "40", "42", "43", "44"],
-	description: "Zapatillas adidas para correr",
-	price: 60000,
-	rating: "3 Estrellas",
-	color: "Celestes",
-	stock: 0,
-	gender: "Masculino",
-	id: "1",
-};
-
+import { addFav, removeFav, resState } from "../../redux/actions/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { getDetail } from "../../redux/actions/actions";
+import { useNavigate, useParams } from "react-router-dom";
 const Detail = () => {
-	const [article, setArticle] = useState({});
-	const [isFavorite, setIsFavorite] = useState(true);
-	const myFavorites = useSelector((state) => state.myFavorites);
+	const [isFavorite, setIsFavorite] = useState(false);
+	let myFavorites = useSelector((state) => state.myFavorites);
+	const articleDetail = useSelector((state) => state.detail);
 
+	const { id } = useParams();
 	const dispatch = useDispatch();
+	const navigate = useNavigate()
 
 	useEffect(() => {
-		// pedir el detalle del producto al backend
-		// setear el estado local product con la respuesta del backend
-		setArticle(hardCode);
-	}, []);
-
-	useEffect(() => {
+		dispatch(getDetail(id));
 		myFavorites.forEach((fav) => {
-			if (fav.id === article.id) {
+			if (fav.id == id) {
 				setIsFavorite(true);
 			}
 		});
+		return () => {
+			dispatch(resState(resState));
+		};
 	}, []);
 
 	const handleSubmit = (event) => {
@@ -39,43 +29,65 @@ const Detail = () => {
 		// verificar datos completados
 		// agregar producto al carrito
 		// navegar al carrito
-		alert("submited");
+		navigate('/cart')
+		console.log("go to cart");
 	};
 
 	const handleAddToCart = (event) => {
 		event.preventDefault();
-		alert("add to cart");
+		console.log("add to cart");
 	};
 
 	const handleFavorites = (event) => {
 		event.preventDefault();
+		console.log(isFavorite);
 		if (isFavorite) {
 			setIsFavorite(false);
-			dispatch(removeFav(article.id));
-			alert("remove favorite");
+			dispatch(removeFav(id));
+			console.log("remove favorite");
 		} else {
 			setIsFavorite(true);
-			dispatch(addFav(article));
-			alert("add favorite");
+			dispatch(addFav(articleDetail));
+			console.log("add favorite");
 		}
 	};
 
+	useEffect(() => {
+		console.log("check is favorite");
+		// myFavorites.forEach((fav) => {
+		// 	if (fav.id == id) {
+		// 		setIsFavorite(true);
+		// 	}
+		// });
+	}, []);
+
+	let sizeOptions = null;
+
+	if (articleDetail.size && typeof articleDetail.size === "object") {
+		sizeOptions = Object.entries(articleDetail.size).map(([key, value]) => (
+			<option key={key} value={key}>
+				{key} ({value})
+			</option>
+		));
+	}
 	return (
 		<section id="container">
-			<h1>{article.name}</h1>
-			<h2>{article.gender}</h2>
+			<div>
+				<img src={articleDetail.image} alt="" />
+			</div>
+			<h1>{articleDetail.name}</h1>
+			<h2>{articleDetail.gender}</h2>
+			<h2>{articleDetail.brand}</h2>
 
 			{/* para las estrellas haría otro componente ReviewBriefing */}
 
-			<p>${article.price}</p>
+			<p>${articleDetail.price}</p>
+			<p>{articleDetail.color}</p>
+			<p>{articleDetail.type}</p>
 			<form onSubmit={handleSubmit}>
 				<label>Size</label>
-				<select name="sizeSelector" id="">
-					{article.sizes?.map((size) => (
-						<option key={size}>{size}</option>
-					))}
-				</select>
-				{article.stock ? (
+				<select>{sizeOptions}</select>
+				{articleDetail.stock ? (
 					<p>Product in stock</p>
 				) : (
 					<p>Product out of stock</p>
@@ -87,16 +99,15 @@ const Detail = () => {
 					id="quantity"
 					name="quantity"
 					min="1"
-					max={article.stock}
+					max={articleDetail.stock}
 				></input>
 				<button type="submit">Comprar</button>
 				<button onClick={handleAddToCart}>Add to cart</button>
 				{!isFavorite ? (
-					<button onClick={handleFavorites}> Add to favorites</button>
+					<button onClick={handleFavorites}>Add to favorites</button>
 				) : (
 					<button onClick={handleFavorites}>
-						{" "}
-						Delete from favorites
+						Remove from favorites
 					</button>
 				)}
 			</form>

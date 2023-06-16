@@ -7,7 +7,7 @@ const CardContainer = () => {
 
   return (
     <Grid templateColumns="repeat(4, 1fr)" justifyItems={"center"}>
-      {products?.map((product, index) => {
+      {products.allArticles?.map((product, index) => {
         return (
           <div key={index}>
             <Tarjeta

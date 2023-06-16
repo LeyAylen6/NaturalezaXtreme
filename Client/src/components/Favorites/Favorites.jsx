@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Tarjeta from "../Card/Card";
 import { connect, useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 import { getAllProducts } from "../../redux/actions/actions";
 import { Grid } from "@chakra-ui/react";
 const Favorites = ({ myFavorites }) => {
@@ -11,6 +12,12 @@ const Favorites = ({ myFavorites }) => {
     dispatch(getAllProducts());
   }, []);
   console.log(productTest);
+=======
+import { Grid } from "@chakra-ui/react";
+const Favorites = (props) => {
+  const dispatch = useDispatch();
+
+>>>>>>> 4473f01c85e6dc20f63e41723fc535e8908a2c7e
   return (
     <div>
       <select>
