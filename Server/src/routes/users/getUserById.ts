@@ -1,14 +1,12 @@
 import { Request, Response } from "express";
-import getUserController from "../../controllers/users/getUserByIdController";
+import getUserByIdController from "../../controllers/users/getUserByIdController";
 
 const getUserById = async (req: Request, res: Response) => {
-    const {id} = req.params;
-
     try{
-    const { id } = req.params;
-    const requestedUser = await getUserController(Number(id));
-    
-    return res.status(200).json(requestedUser)
+        const { id } = req.params;
+        const requestedUser = await getUserByIdController(Number(id));
+        
+        return res.status(200).json(requestedUser)
     }
 
     catch(error: any){
