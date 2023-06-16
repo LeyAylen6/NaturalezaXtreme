@@ -25,8 +25,6 @@ const getArticlesController = async(offset:number, limit:number ) => {
         skip: offset,
         take: limit
     });
-    console.log(allArticles)
-
 
     if(allArticles.length === 0) throw new Error ("No hay articulos para mostar");
     return {...pag,allArticles};
