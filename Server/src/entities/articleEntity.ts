@@ -41,7 +41,7 @@ export class Article extends BaseEntity{
     
     @Column({
         type: "varchar",
-        length: 200,
+        length: 500,
         nullable: true,
         default: true
     })
