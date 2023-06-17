@@ -11,7 +11,7 @@ export interface FilterArticlesStructure {
     
 }
 
-const getArticlesByNameController = async(name: string, gender: string, type:string, color: string, offset: number, limit: number) => {
+const getArticlesByNameController = async(name: string, gender: string, type:string, color: string, offset: number, limit: number, order: any) => {
 
     const filters: FilterArticlesStructure = {}
     if (name) filters.name = ILike(`%${name}%`);
@@ -27,7 +27,11 @@ const getArticlesByNameController = async(name: string, gender: string, type:str
         take: limit
       };
 
-    const articlesFound = await AppDataSource.getRepository(Article).find(query);
+    const articlesFound = await AppDataSource.getRepository(Article).find({...query,
+      order:{
+        price: order
+      }
+    });
 
     const pag = paginado(offset,limit,articlesFound.length)
 
