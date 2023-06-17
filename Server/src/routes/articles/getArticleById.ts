@@ -3,8 +3,9 @@ import getArticlesByIdController from "../../controllers/articles/getArticleById
 
 const getArticleById = async (req: Request, res: Response)=>{
     try{
-        const { id } = req.params;
-        const article = await getArticlesByIdController(Number(id));
+        const {id} = req.query
+        const articleID = req.query.articleID as string
+        const article = await getArticlesByIdController(Number(id), articleID);
         
         return res.status(200).json(article)
     }
