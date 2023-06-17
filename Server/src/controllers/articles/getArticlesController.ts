@@ -6,12 +6,15 @@ import { paginado } from "../../utils/paginado";
 
 
 
-const getArticlesController = async(offset:number, limit:number ) => {
+const getArticlesController = async(offset:number, limit:number, order:any ) => {
     
     const count = await articleRepository.count();
     
     
     const allArticles = await articleRepository.find({
+        order:{
+            price: order
+          },
         skip: offset,
         take: limit
     });
