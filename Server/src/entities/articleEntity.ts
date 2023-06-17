@@ -92,7 +92,9 @@ export class Article extends BaseEntity{
     })
     rating: number[];
 
-    @Column('simple-array', { nullable: true })
+    @Column('simple-array', { 
+        nullable: true 
+    })
     comments: string[];
 
     @Column("boolean", {
