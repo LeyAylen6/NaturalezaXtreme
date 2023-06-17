@@ -16,7 +16,7 @@ const router = Router();
 
 router.post('/bulkArticles', bulkArticles)
 router.post('/articles', postArticle)
-router.get('/articles/:id', getArticleById)
+router.get('/articlefinder', getArticleById)
 router.get('/articles', getArticles)
 router.put('/articles', updateArticle)
 router.put('/articles/:id', desactivateArticle)
