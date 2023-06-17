@@ -18,6 +18,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.6.0",
     "express": "^4.16.4",
+    "mercadopago": "^1.5.16",
     "morgan": "^1.10.0",
     "pg": "^8.11.0",
     "reflect-metadata": "^0.1.13",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",
+    "@types/mercadopago": "^1.5.8",
     "@types/morgan": "^1.9.4",
     "nodemon": "^2.0.22",
     "tslint": "^5.12.1",

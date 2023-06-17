@@ -15,8 +15,8 @@ const getArticles = async (req:Request, res:Response) => {
         let offset = req.query.offset as string
         let limit = req.query.limit as string
         
-        if(!offset) offset='0'
-        if(!limit || limit === '0')  limit= '10'
+        if(!offset || offset < '0') offset='0'
+        if(!limit || limit === '0')  limit= '12'
 
         if (nameFilter ||  genderFilter || typeFilter || colorFilter) {
             const articleByName = await getArticlesByNameController(nameFilter, genderFilter, typeFilter, colorFilter,+offset,+limit, priceOrder);
