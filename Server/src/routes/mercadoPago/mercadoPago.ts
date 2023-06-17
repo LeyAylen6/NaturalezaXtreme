@@ -16,8 +16,8 @@ export const postMercadoPago = async (req: Request, res: Response)  => {
     try {
         const product: articleStructure = req.body
 
-        
-        return res.status(200).json(postMercadoPagoController(product))
+        const mercadoPago = await postMercadoPagoController(product)
+        return res.status(200).json(mercadoPago)
         
     } catch (error) {
         console.log(error);
