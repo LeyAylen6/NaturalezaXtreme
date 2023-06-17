@@ -3,14 +3,15 @@ import { AppDataSource } from "../../db";
 import { articleStructure } from "../../interfaces/articleStructure";
 
 const postArticleController = async(article: articleStructure) => {
+    const articleID: string = article.articleID;
 
-    const articleFound = await AppDataSource.getRepository(Article).findOneBy(article)
-    console.log(article)
+    const articleFound = await AppDataSource.getRepository(Article).findOneBy({articleID: articleID})
+    console.log(articleID)
 
-    if (articleFound) throw new Error('El articulo ya existe') 
+    if (articleFound) throw new Error('The article already exist') 
 
-    const articleCreated = await AppDataSource.getRepository(Article).create(article)
-    const results = await AppDataSource.getRepository(Article).save(articleCreated)
+    const articleCreated = await Article.create(article)
+    const results = await Article.save(articleCreated)
 
     return results;
 }
