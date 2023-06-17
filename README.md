@@ -6,7 +6,7 @@
 - Leslie Quetglas
 - Nicolás Florentín
 - Julieta Gimenez
-- Seba Concheso
+- Sebastian Concheso
 - Franco Rodriguez Caserta
 - Vanina Ramayo
 - Agustin Diaz Garro
