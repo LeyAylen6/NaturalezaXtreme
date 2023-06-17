@@ -43,6 +43,9 @@ const NavBar = () => {
           <Box bg={"transparent"} color={"white"}>
             <Link to="/login-signup">Login / Sign Up</Link>
           </Box>
+          <Box bg={"transparent"} color={"white"}>
+            <Link to="/Mercado-pago">Mercado Pago</Link>
+          </Box>
         </HStack>
       </Stack>
     </Box>
