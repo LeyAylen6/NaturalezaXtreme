@@ -4,7 +4,7 @@ import postArticle from './articles/postArticle';
 import bulkArticles from './articles/bulkArticles';
 import getArticleById from './articles/getArticleById';
 import updateArticle from './articles/updateArticle';
-import desactivateArticle from './articles/desactivateArticle';
+import desactivateArticle from './articles/deactivateArticle';
 
 import postUser from './users/postUser';
 import getUsers from './users/getUsers';
