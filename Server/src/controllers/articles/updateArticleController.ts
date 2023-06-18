@@ -5,6 +5,7 @@ import getArticlesByIdController from "./getArticleByIdController";
 
 const updateArticleController = async(newArticle: articleStructure) => {
 
+    // const articleFound: any = await Article.findOneBy({id: newArticle?.id})    
     const articleFound = await getArticlesByIdController(newArticle.id)
     if(newArticle.active !== articleFound.active) throw new Error('Cannot modify the active property of the article')
 

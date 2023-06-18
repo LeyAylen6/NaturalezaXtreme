@@ -24,14 +24,13 @@ const getArticlesByNameController = async(name: string, gender: string, type:str
           ...filters, 
         },
         skip:offset,
-        take: limit
+        take: limit,
+        order:{
+          price: order
+        }
       };
 
-    const articlesFound = await AppDataSource.getRepository(Article).find({...query,
-      order:{
-        price: order
-      }
-    });
+    const articlesFound = await AppDataSource.getRepository(Article).find(query);
 
     const pag = paginado(offset,limit,articlesFound.length)
 

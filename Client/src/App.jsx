@@ -16,7 +16,7 @@ import Cart from "./components/Cart/Cart";
 import UserEdition from "./components/Admin/UserEdition";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
-
+import MercadoPago from "./components/MercadoPago/Mercadopago";
 function App() {
   return (
     <ChakraProvider>
@@ -36,6 +36,7 @@ function App() {
             <Route path="/editProduct" element={<EditProduct />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/userEdition" element={<UserEdition />} />
+            <Route path="/Mercado-pago" element={<MercadoPago />} />
           </Routes>
         </Box>
       </Provider>

@@ -7,7 +7,7 @@ export const GET_DETAIL = "GET_DETAIL";
 export const RES_STATE = "RES_STATE";
 export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
-
+export const SET_PAYMENT_LINK = 'SET_PAYMENT_LINK';
 import axios from "axios";
 
 export const addFav = (article) => {
@@ -71,5 +71,31 @@ export const updateProduct = (id, body) => {
     const apiData = await axios.put(`http://localhost:3001/articles/${id}`, body);
     const product = apiData.data;
     dispatch({ type: UPDATE_PRODUCT, payload: product });
+  };
+};
+
+// Acción para crear el pago en Mercado Pago
+export const createPayment = (productPrice, productQuantity) => {
+  return (dispatch) => {
+    // Realiza la solicitud al backend para crear el pago
+    axios
+      .post('/api/createPayment', { price: productPrice, quantity: productQuantity })
+      .then((response) => {
+        // Se obtiene el link de pago desde la respuesta del backend
+        const paymentLink = response.data.paymentLink;
+        // Actualiza el estado de la aplicación con el link de pago
+        dispatch(setPaymentLink(paymentLink));
+      })
+      .catch((error) => {
+        // Manejo de errores
+        console.log('Error al crear el pago:', error);
+      });
+  };
+};
+// Acción para actualizar el estado de la aplicación con el link de pago
+export const setPaymentLink = (paymentLink) => {
+  return {
+    type: 'SET_PAYMENT_LINK',
+    payload: paymentLink,
   };
 };
