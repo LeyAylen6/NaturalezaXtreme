@@ -5,6 +5,19 @@ API Endpoints documentación:
 Utiliza assets.js para hacer un bulk engit la base de datos de artículos hardcodeados en un array de objetos (que deben respetar el formato de la interface articleStructure.ts con la salvedad de que pueden no tener las propiedades que están como "nullable: true" en articleEntity.ts: size, shoeSize, brand, description, rating y comments)
 Verifica que los artículos no estén duplicados por articleID antes de crear, de estar duplicados crea los no duplicados y responde con un detalle de lo que por estar duplicado no pudo crearse.
 
+#### **📍 POST | /articlefinder **
+
+Busca artículos por propiedades id(db) y articleID(proveedor). Funciona solo con querys:
+Ej: articleID . http://localhost:3001/articlefinder?articleID=J5558
+Ej: id . http://localhost:3001/articlefinder?id=14
+Devuelve un error si el artículo buscado no existe
+
+#### **📍 GET | /articles **
+Si no recibe querys trae todos los artículos activos en la DB.
+Puede recibir las siguientes querys para paginado: offset(number/default 0), limit(number/default 12)
+Puede recibir la query order(asc/desc)
+
+
 #### **📍 POST | /articles **
 
 Espera un body con las siguientes propiedades como necesarias { articleID(string), name(string/80 caract), price(number), gender('Male', 'Female', 'Unisex'), color ('White', 'Black', 'Red', 'Green', 'Yellow', 'Brown', 'Orange', 'Blue', 'Grey', 'Pink', 'Violet'), image(string), type('Tshirt', 'sweatshirt', 'jacket', 'pant', 'accesories', 'shoes', 'equipment'), active(boolean) }
@@ -32,7 +45,6 @@ Responde con error de no haber coincidencias con la búsqueda
 #### **📍faltan documentar **
 
 FALTAN DOCUMENTAR:
-router.get('/articlefinder', getArticleById)
 router.get('/articles', getArticles)
 router.put('/articles', updateArticle)
 router.put('/articles/:id', desactivateArticle)
