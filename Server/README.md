@@ -16,7 +16,10 @@ Devuelve un error si el artículo buscado no existe
 Si no recibe querys trae todos los artículos activos en la DB.
 La ruta funciona con querys autogeneradas, no espera que se le pasen valores para paginar. El aumento de páginas está seteado de 12 en 12 artículos y asimismo disminuye de 12 en 12 artículos.
 Puede recibir la query order(asc/desc) para ordenar por precio en forma ascendente o descendente.
-
+Puede filtrar por querys combinadas: name (busca por coincidencias parciales), gender('Male', 'Female', 'Unisex'), color ('White', 'Black', 'Red', 'Green', 'Yellow', 'Brown', 'Orange', 'Blue', 'Grey', 'Pink', 'Violet'), type('Tshirt', 'sweatshirt', 'jacket', 'pant', 'accesories', 'shoes', 'equipment'), active (seteado en true/recibe false).
+Ej: http://localhost:3001/articles?name=to&color=orange&type=pant&gender=female
+Ej. con asc/desc: http://localhost:3001/articles?name=c&color=grey&gender=female&order=asc
+Ej. con active: http://localhost:3001/articles?color=grey&active=false
 
 #### **📍 POST | /articles **
 
