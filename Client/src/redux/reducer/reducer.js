@@ -7,6 +7,7 @@ import {
 	GET_DETAIL,
 	RES_STATE,
 	GET_ARTICLE_ID,
+	SET_PAYMENT_LINK
 } from "../actions/actions";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
 	allProducts: [],
 	detail: [],
 	articleById: {},
+	paymentLink: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -65,6 +67,11 @@ const reducer = (state = initialState, action) => {
 				...state,
 				detail: [],
 			};
+			case 'SET_PAYMENT_LINK':
+      return {
+        ...state,
+        paymentLink: action.payload,
+      };
 
 		default:
 			return { ...state };
