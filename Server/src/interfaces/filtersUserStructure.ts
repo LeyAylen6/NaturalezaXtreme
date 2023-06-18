@@ -1,4 +1,4 @@
 export interface filtersUserStructure {
-    rol?: string,
-    active?: boolean
+    rol?: string | undefined,
+    active?: boolean | undefined
 }
