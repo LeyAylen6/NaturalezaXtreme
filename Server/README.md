@@ -14,8 +14,8 @@ Devuelve un error si el artículo buscado no existe
 
 #### **📍 GET | /articles **
 Si no recibe querys trae todos los artículos activos en la DB.
-Puede recibir las siguientes querys para paginado: offset(number/default 0), limit(number/default 12)
-Puede recibir la query order(asc/desc)
+La ruta funciona con querys autogeneradas, no espera que se le pasen valores para paginar. El aumento de páginas está seteado de 12 en 12 artículos y asimismo disminuye de 12 en 12 artículos.
+Puede recibir la query order(asc/desc) para ordenar por precio en forma ascendente o descendente.
 
 
 #### **📍 POST | /articles **
