@@ -7,10 +7,14 @@ export class User extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({        
+        nullable: false
+    })
     name: string
 
-    @Column()
+    @Column({        
+        nullable: false
+    })
     lastname: string
 
     @Column({
@@ -42,17 +46,21 @@ export class User extends BaseEntity{
     })
     city: number
     
-    @Column({
-        nullable: false
-    })
-    avatar: string
+    @Column()
+    avatar: string = "https://cdn-icons-png.flaticon.com/512/3237/3237447.png"
 
     @Column({
-        type: "varchar",
-        length: 50,
-        nullable: false
+        enum: ['User', 'Admin'], 
+        nullable: false,
     })
     rol: string
+
+    // @Column({
+    //     type: "varchar",
+    //     length: 50,
+    //     nullable: false
+    // })
+    // rol: string
 
     @Column({
         nullable: false
