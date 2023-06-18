@@ -1,16 +1,18 @@
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box } from "@chakra-ui/react";
 
 import { Button, ButtonGroup } from "@chakra-ui/react";
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../redux/actions/actionsUsers";
 
 const CrudUsers = () => {
-  // const dispatch = useDispatch();
-  // const users = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users);
 
-  // useEffect(() => {
-  //   dispatch(getUsers());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
 
   return (
     <TableContainer
@@ -19,13 +21,23 @@ const CrudUsers = () => {
       borderRadius="lg"
       overflow="hidden"
       boxShadow="lg"
-      p="6"
-      m="6"
-      bg="white"
+      m="4"
+      bg="green.50"
       rounded="md"
-      justifyContent="center"
+      justifyContent="rigth"
       alignItems="center"
     >
+      <Box display={"flex"} justifyContent={"space-between"}>
+        <Button colorScheme="cyan" size="lg" variant="solid" m="6">
+          <Link to="/admin">Back</Link>
+        </Button>
+        <Button colorScheme="orange" size="lg" variant="solid" m="6">
+          <Link to="/crudProduct">Product</Link>
+        </Button>
+        <Button colorScheme="blue" size="lg" variant="solid" m="6">
+          <Link to="/FormProduct">New user</Link>
+        </Button>
+      </Box>
       <Table>
         <Thead>
           <TableCaption fontSize={"24px"}>List of users</TableCaption>
@@ -39,67 +51,19 @@ const CrudUsers = () => {
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>sebastián</Td>
-            <Td>seba@gmail.com</Td>
-            <Td>
-              <ButtonGroup size="md" variant={"solid"}>
-                <Button colorScheme="green">Edit</Button>
-                <Button colorScheme="red">Delete</Button>
-              </ButtonGroup>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>Vanina</Td>
-            <Td>vani@gmail.com</Td>
-            <Td>
-              <ButtonGroup size="md" variant={"solid"}>
-                <Button colorScheme="green">Edit</Button>
-                <Button colorScheme="red">Delete</Button>
-              </ButtonGroup>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>Franco</Td>
-            <Td>fran@gmail.com</Td>
-            <Td>
-              <ButtonGroup size="md" variant={"solid"}>
-                <Button colorScheme="green">Edit</Button>
-                <Button colorScheme="red">Delete</Button>
-              </ButtonGroup>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>Julieta</Td>
-            <Td>juli@gmail.com</Td>
-            <Td>
-              <ButtonGroup size="md" variant={"solid"}>
-                <Button colorScheme="green">Edit</Button>
-                <Button colorScheme="red">Delete</Button>
-              </ButtonGroup>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>Nicolás</Td>
-            <Td>nico@gmail.com</Td>
-            <Td>
-              <ButtonGroup size="md" variant={"solid"}>
-                <Button colorScheme="green">Edit</Button>
-                <Button colorScheme="red">Delete</Button>
-              </ButtonGroup>
-            </Td>
-          </Tr>
-        </Tbody>
-        {/* <Tbody>
-          {products.map((product) => (
-            <Tr key={product.id}>
-              <Td>{product.name}</Td>
-              <Td>{product.description}</Td>
-              <Td>{product.price}</Td>
-              <Td>{product.stock}</Td>
+          {users?.map((user) => (
+            <Tr key={user.id}>
+              <Td>{user.name}</Td>
+              <Td>{user.email}</Td>
+              <Td>
+                <ButtonGroup size="md" variant={"solid"}>
+                  <Button colorScheme="green">Edit</Button>
+                  <Button colorScheme="red">Delete</Button>
+                </ButtonGroup>
+              </Td>
             </Tr>
           ))}
-        </Tbody> */}
+        </Tbody>
         <Tfoot>
           <Tr>
             <Th>Username</Th>

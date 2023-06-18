@@ -1,33 +1,41 @@
 import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Image } from "@chakra-ui/react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, getArticleId } from "../../redux/actions/actions";
+import { getAllProducts, getDetail, getArticleId } from "../../redux/actions/actions";
 
 const CrudProduct = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const products = useSelector((state) => state.allProducts);
   const [selectId, setselectId] = useState(null);
-  const [redirectToDetail, setRedirectToDetail] = useState(false);
 
   useEffect(() => {
-    dispatch(getAllProducts());
     // Si se selecciona un id, se ejecuta la accion getArticleId
-    if (selectId) {
-      dispatch(getArticleId(selectId));
+    if (selectId !== null) {
+      dispatch(getDetail(selectId));
+      console.log(getDetail(selectId));
       setselectId(null); // Se resetea el id
-      setRedirectToDetail(true); // Se activa la redirección
+      navigate(`/detail/${selectId}`);
     }
-  }, [dispatch, selectId]);
+    dispatch(getAllProducts());
+  }, [dispatch, selectId, navigate]);
 
-  // Si se activa la redirección, se redirige a la ruta /detail
-  if (redirectToDetail) return Navigate(`/detail/${selectId}`);
+  const handleClick = (productId) => {
+    console.log(productId + "  click");
+    setselectId(productId);
+  };
 
-  const handelClick = (selectId) => {
-    console.log(selectId);
-    setselectId(selectId);
+  const handleDesactivate = (productId) => {
+    console.log(productId + "  click");
+    dispatch(getArticleId(productId, false));
+    window.location.reload();
+  };
+  const handleEdit = (productId) => {
+    console.log(productId + "  edit");
+    navigate(`/editProduct`);
   };
 
   return (
@@ -37,8 +45,7 @@ const CrudProduct = () => {
       borderRadius="lg"
       overflow="hidden"
       boxShadow="lg"
-      p="6"
-      m="6"
+      m="4"
       bg="green.50"
       rounded="md"
       justifyContent="rigth"
@@ -57,11 +64,13 @@ const CrudProduct = () => {
       </Box>
       <Table>
         <Thead>
-          <TableCaption fontSize={"24px"}>List of products in store</TableCaption>
+          <TableCaption fontSize={"24px"} fontWeight={"semibold"}>
+            List of products in store
+          </TableCaption>
           <Tr bg="gray.100" border="1px" borderColor="gray.300" p="6" m="6">
+            <Th>Id</Th>
             <Th>Product</Th>
             <Th>Image</Th>
-
             <Th>price U$s</Th>
             <Th>stock</Th>
             <Th display={"flex"} justifyContent={"center"}>
@@ -71,23 +80,46 @@ const CrudProduct = () => {
         </Thead>
 
         <Tbody>
-          {products?.map((product) => (
-            <Tr key={product.id}>
-              <Td maxWidth="350px" fontSize="12px" fontStyle="italic" wordBreak="break-all">
+          {products.allArticles?.map((product) => (
+            <Tr key={product.id} border={"2px"} borderColor={"gray.300"}>
+              <Td maxWidth={"2px"} fontWeight={"extrabold"}>
+                {product.articleID}
+              </Td>
+              <Td maxWidth="350px" fontSize="12px" fontWeight={"bold"} wordBreak="break-all">
                 {product.name}
               </Td>
-              <Td maxWidth={"2px"}>
-                <Image src={product.image} alt="product" maxWidth={"45px"} height={"45px"} />
+              <Td>
+                <Image src={product.image} alt="product" maxWidth={"100px"} height={"100px"} />
               </Td>
 
               <Td maxWidth={"10px"}>{product.price}</Td>
-              <Td maxWidth={"10px"}>{product.stock}</Td>
-              <ButtonGroup size="md" variant={"solid"} paddingTop={4}>
-                <Button colorScheme="yellow" onClick={() => handelClick(product.id)}>
+              <Td maxWidth={"10px"}>
+                {Object.entries(product.size).map(([size, count]) => (
+                  <Box key={size} fontWeight={"semibold"} color={count === 0 ? "red" : "inherit"}>
+                    {size} : {count}
+                  </Box>
+                ))}
+              </Td>
+              <ButtonGroup size="md" variant={"solid"} paddingTop={8} paddingRight={10} display={"flex"} alignItems={"center"}>
+                <Button colorScheme="yellow" onClick={() => handleClick(product.id)}>
                   View
                 </Button>
-                <Button colorScheme="green">Edit</Button>
-                <Button colorScheme="red">Delete</Button>
+                <Button
+                  colorScheme="green"
+                  onClick={() => {
+                    handleEdit(product.id);
+                  }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  colorScheme="red"
+                  onClick={() => {
+                    handleDesactivate(product.id);
+                  }}
+                >
+                  Delete
+                </Button>
               </ButtonGroup>
             </Tr>
           ))}

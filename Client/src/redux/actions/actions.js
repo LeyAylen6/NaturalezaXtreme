@@ -6,6 +6,7 @@ export const FILTER_SEARCHBAR = "FILTERED_SEARCHBAR";
 export const GET_DETAIL = "GET_DETAIL";
 export const RES_STATE = "RES_STATE";
 export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 
 import axios from "axios";
 
@@ -56,10 +57,19 @@ export function resState() {
   };
 }
 
-export const getArticleId = (id) => {
+export const getArticleId = (id, active) => {
   return async function (dispatch) {
-    const apiData = await axios.get(`http://localhost:3001/articles/${id}`);
+    const body = { active };
+    const apiData = await axios.put(`http://localhost:3001/articles/${id}`, body);
     const product = apiData.data;
-    dispatch({ type: GET_ARTICLE_ID, payload: product });
+    dispatch({ type: GET_ARTICLE_ID });
+  };
+};
+
+export const updateProduct = (id, body) => {
+  return async function (dispatch) {
+    const apiData = await axios.put(`http://localhost:3001/articles/${id}`, body);
+    const product = apiData.data;
+    dispatch({ type: UPDATE_PRODUCT, payload: product });
   };
 };
