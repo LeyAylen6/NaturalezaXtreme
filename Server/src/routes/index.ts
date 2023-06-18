@@ -9,7 +9,7 @@ import desactivateArticle from './articles/deactivateArticle';
 import postUser from './users/postUser';
 import getUsers from './users/getUsers';
 import getUserById from './users/getUserById';
-import desactivateUser from './users/desactivateUser';
+import deactivateUser from './users/deactivateUser';
 import updateUser from './users/updateUser';
 import { postMercadoPago } from './mercadoPago/mercadoPago';
 
@@ -22,11 +22,11 @@ router.get('/articles', getArticles)
 router.put('/articles', updateArticle)
 router.put('/articles/:id', desactivateArticle)
 
-router.post('/users', postUser)
-router.get('/users', getUsers)
+router.post('/user', postUser)
+router.get('/user', getUsers)
 router.get('/user/:id', getUserById)
 router.put('/user', updateUser)
-router.put('/user/:id', desactivateUser)
+router.put('/user/:id', deactivateUser)
 
 
 

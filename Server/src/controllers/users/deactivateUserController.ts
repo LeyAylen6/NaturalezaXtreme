@@ -1,7 +1,7 @@
 import { AppDataSource } from "../../db";
 import { User } from "../../entities/userEntity";
 
-const deleteUserController = async(id: number, active: boolean) => {
+const deactivateUserController = async(id: number, active: boolean) => {
 
     const userFound = await AppDataSource.getRepository(User).findOneBy({
         id: id
@@ -19,4 +19,4 @@ const deleteUserController = async(id: number, active: boolean) => {
     return results;
 }
 
-export default deleteUserController;
+export default deactivateUserController;

@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import deleteUserController from "../../controllers/users/desactivateUserController";
+import deactivateUserController from "../../controllers/users/deactivateUserController";
 
-const deleteUser = async (req: Request, res: Response)=>{
+const deactivateUser = async (req: Request, res: Response)=>{
     try {
         const { id } = req.params;
         const active = req.body.active as boolean
 
-        const userToDelete = await deleteUserController(Number(id), active);
+        const userToDelete = await deactivateUserController(Number(id), active);
         
         return res.status(200).json(userToDelete)
     }
@@ -18,4 +18,4 @@ const deleteUser = async (req: Request, res: Response)=>{
     }
 }
 
-export default deleteUser;
+export default deactivateUser;
