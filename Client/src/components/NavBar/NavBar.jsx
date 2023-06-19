@@ -30,11 +30,12 @@ const NavBar = () => {
         <Box bg={"transparent"} color={"white"}>
           <Link to="/favorites">Favorite</Link>
         </Box>
-        <Box bg={"transparent"} color={"white"}>
-          <Link to="/cart">Cart</Link>
-        </Box>
+       
         <Box bg={"transparent"} color={"white"} padding={"20px"}>
           <SearchBar />
+        </Box>
+        <Box bg={"transparent"} color={"white"}>
+          <Link to="/cart">Cart</Link>
         </Box>
         <HStack spacing={10}>
           <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
