@@ -10,7 +10,8 @@ import {
 	GET_ARTICLE_ID,
 	SET_PAYMENT_LINK,
 } from "../actions/actions";
-import { GET_USERS } from "../actions/actionsUsers";
+import { GET_USERS} from "../actions/actionsUsers";
+import { POST_USERS } from "../actions/actionsUsers";
 
 const initialState = {
 	users: [],
@@ -22,6 +23,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+
 	switch (action.type) {
 		case FILTER_SEARCHBAR:
 			const filterArticles = state.allProducts;
@@ -58,6 +60,44 @@ const reducer = (state = initialState, action) => {
 				...state,
 				articleById: action.payload,
 			};
+
+  switch (action.type) {
+    case FILTER_SEARCHBAR:
+      const filterArticles = state.allProducts;
+      const filterFinish = filterArticles.filter((article) => {
+        const name = article.name;
+        if (name.includes(action.payload)) return article;
+      });
+      return {
+        ...state,
+        allProducts: filterFinish,
+      };
+    case GET_ARTICLES_BY_QUERY:
+      return {
+        ...state,
+        allProducts: action.payload,
+      };
+    case GET_ALL_PRODUCTS:
+      return {
+        ...state,
+        allProducts: action.payload,
+      };
+    case ADD_FAV:
+      return {
+        ...state,
+        myFavorites: [...state.myFavorites, action.payload],
+      };
+    case GET_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
+    case UPDATE_PRODUCT:
+      return {
+        ...state,
+        articleById: action.payload,
+      }
+
 		case REMOVE_FAV:
 			return {
 				...state,
@@ -78,15 +118,21 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				detail: [],
-			};
-		case "SET_PAYMENT_LINK":
-			return {
-				...state,
-				paymentLink: action.payload,
-			};
-		default:
-			return { ...state };
-	}
+			}
+			case SET_PAYMENT_LINK:
+      return {
+        ...state,
+        paymentLink: action.payload,
+      }
+      case POST_USERS:
+        return{
+          ...state,
+          users: action.payload
+        }
+    default:
+      return { ...state };
+  }
+
 };
 
 export default reducer;

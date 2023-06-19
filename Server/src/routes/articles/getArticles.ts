@@ -4,13 +4,17 @@ import getArticlesByNameController from "../../controllers/articles/getArticlesB
 
 
 const getArticles = async (req:Request, res:Response) => {
-// const getArticles = async ({query}:Request, res:Response) => {
     try{
         const nameFilter = req.query.name as string
         const genderFilter = req.query.gender as string
         const typeFilter = req.query.type as string
         const colorFilter = req.query.color as string
         const priceOrder = req.query.order as string
+
+        const active = req.query.active;
+
+        let activeBolean: boolean = true;
+        if (active === 'false') activeBolean = false;
         
         let offset = req.query.offset as string
         let limit = req.query.limit as string
@@ -18,10 +22,9 @@ const getArticles = async (req:Request, res:Response) => {
         if(!offset || offset < '0') offset='0'
         if(!limit || limit === '0')  limit= '12'
 
-        if (nameFilter ||  genderFilter || typeFilter || colorFilter) {
-            // const articleByName = await getArticlesByNameController(nameFilter, genderFilter, typeFilter, colorFilter,+offset,+limit, priceOrder);
-            const articleByName = await getArticlesByNameController(nameFilter, genderFilter, typeFilter, colorFilter,+offset,+limit, priceOrder);
-            return res.status(200).json(articleByName)
+        if (nameFilter ||  genderFilter || typeFilter || colorFilter || !activeBolean) {
+            const articlesFiltered = await getArticlesByNameController(nameFilter, genderFilter, typeFilter, colorFilter, activeBolean, +offset, +limit, priceOrder);
+            return res.status(200).json(articlesFiltered)
         }
 
         const getArticlesRes = await getArticlesController(+offset, +limit,priceOrder);

@@ -1,25 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { addFav, removeFav, resState } from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
-import { getDetail } from "../../redux/actions/actions";
+import { getDetail, createPayment } from "../../redux/actions/actions";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Image, Flex, Button } from "@chakra-ui/react";
 
-const hardCode = {
-	articleID: "TS2525",
-	name: "Man Hennia Tshirt UV",
-	price: 25,
-	rating: [5],
-	brand: "Montagne",
-	description:
-		"100% Polyester. Stay protected from harmful UV rays with UPF 50+ Factor & UV PROTECTION. Our sun shirts block 99% more UV rays, keeping your sensitive skin safe in the summer.",
-	gender: "Male",
-	size: { XS: 1, S: 5, M: 6, L: 10, XL: 10, U: 0 },
-	color: "Black",
-	image: "https://d368r8jqz0fwvm.cloudfront.net/34883-product_lg/remera-de-hombre-hanoi-uv.jpg",
-	type: "Tshirt",
-	active: true,
-};
+import { Box, Image, Flex, Button } from "@chakra-ui/react";
 
 const Detail = () => {
 	const [isFavorite, setIsFavorite] = useState(false);
@@ -30,6 +15,17 @@ const Detail = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+  
+import { Box, Image } from "@chakra-ui/react";
+import MercadoPago from "../MercadoPago/Mercadopago";
+
+const Detail = () => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [productPrice, setProductPrice] = useState(0);
+  const [productQuantity, setProductQuantity] = useState(0);
+  let myFavorites = useSelector((state) => state.myFavorites);
+  const articleDetail = useSelector((state) => state.detail);
+  const paymentLink = useSelector((state) => state.paymentLink);
 
 	useEffect(() => {
 		dispatch(getDetail(id));
@@ -43,6 +39,7 @@ const Detail = () => {
 		};
 	}, []);
 
+
 	useEffect(() => {
 		console.log("check is favorite");
 		// myFavorites.forEach((fav) => {
@@ -51,6 +48,20 @@ const Detail = () => {
 		// 	}
 		// });
 	}, []);
+
+  useEffect(() => {
+    dispatch(getDetail(id));
+    myFavorites.forEach((fav) => {
+      if (fav.id == id) {
+        setIsFavorite(true);
+      }
+    });
+    return () => {
+      dispatch(resState(resState));
+    };
+
+  }, []);
+
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -61,10 +72,15 @@ const Detail = () => {
 		console.log("go to cart");
 	};
 
-	const handleAddToCart = (event) => {
-		event.preventDefault();
-		console.log("add to cart");
-	};
+  const handleDispatchToPay = (event) => {
+     event.preventDefault();
+     dispatch(createPayment(productPrice, productQuantity))
+  };
+
+  const handleAddToCart = (event) => {
+    event.preventDefault();
+    console.log("add to cart");
+  };
 
 	const handleFavorites = (event) => {
 		event.preventDefault();
@@ -144,6 +160,7 @@ const Detail = () => {
 
 					{/* para las estrellas haría otro componente ReviewBriefing */}
 
+
 					<p>{articleDetail.color}</p>
 					<p>{articleDetail.type}</p>
 					<form onSubmit={handleSubmit}>
@@ -192,6 +209,31 @@ const Detail = () => {
 			</Flex>
 		</Flex>
 	);
+
+        <label>Quantity</label>
+        <input type="number" id="quantity" name="quantity" min="1" max={articleDetail.stock}></input>
+
+        <MercadoPago productPrice={productPrice} productQuantity={productQuantity} />
+
+        <button onClick={handleAddToCart}>Add to cart</button>
+        {!isFavorite ? (
+          <button onClick={handleFavorites}>Add to favorites</button>
+        ) : (
+          <button onClick={handleFavorites}>Remove from favorites</button>
+        )}
+        
+           {paymentLink ? (
+        <a href={paymentLink} target="_blank" rel="noopener noreferrer">
+          Comprar ahora
+        </a>
+      ) : (
+        <button onClick={handleDispatchToPay}>Comprar</button>
+      )}
+
+      </form>
+    </section>
+  );
+
 };
 
 export default Detail;
