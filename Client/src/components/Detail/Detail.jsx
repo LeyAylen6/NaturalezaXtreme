@@ -7,24 +7,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Box, Image, Flex, Button } from "@chakra-ui/react";
 
 const Detail = () => {
-	const [isFavorite, setIsFavorite] = useState(false);
-	let myFavorites = useSelector((state) => state.myFavorites);
-	// const articleDetail = useSelector((state) => state.detail);
-	const articleDetail = hardCode;
-
-	const { id } = useParams();
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-  
-import { Box, Image } from "@chakra-ui/react";
-import MercadoPago from "../MercadoPago/Mercadopago";
-
-const Detail = () => {
+const dispatch = useDispatch();
+const navigate = useNavigate();
+const { id } = useParams();
   const [isFavorite, setIsFavorite] = useState(false);
+
   const [productPrice, setProductPrice] = useState(0);
+
   const [productQuantity, setProductQuantity] = useState(0);
+
   let myFavorites = useSelector((state) => state.myFavorites);
+
   const articleDetail = useSelector((state) => state.detail);
+
   const paymentLink = useSelector((state) => state.paymentLink);
 
 	useEffect(() => {
@@ -210,30 +205,6 @@ const Detail = () => {
 		</Flex>
 	);
 
-        <label>Quantity</label>
-        <input type="number" id="quantity" name="quantity" min="1" max={articleDetail.stock}></input>
-
-        <MercadoPago productPrice={productPrice} productQuantity={productQuantity} />
-
-        <button onClick={handleAddToCart}>Add to cart</button>
-        {!isFavorite ? (
-          <button onClick={handleFavorites}>Add to favorites</button>
-        ) : (
-          <button onClick={handleFavorites}>Remove from favorites</button>
-        )}
-        
-           {paymentLink ? (
-        <a href={paymentLink} target="_blank" rel="noopener noreferrer">
-          Comprar ahora
-        </a>
-      ) : (
-        <button onClick={handleDispatchToPay}>Comprar</button>
-      )}
-
-      </form>
-    </section>
-  );
-
-};
+}
 
 export default Detail;
