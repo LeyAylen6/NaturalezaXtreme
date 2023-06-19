@@ -10,7 +10,8 @@ import {
 	GET_ARTICLE_ID,
 	SET_PAYMENT_LINK,
 } from "../actions/actions";
-import { GET_USERS } from "../actions/actionsUsers";
+import { GET_USERS} from "../actions/actionsUsers";
+import { POST_USERS } from "../actions/actionsUsers";
 
 const initialState = {
   users: [],
@@ -57,6 +58,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         articleById: action.payload,
+      }
 		case REMOVE_FAV:
 			return {
 				...state,
@@ -77,12 +79,17 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				detail: [],
-			};
-			case 'SET_PAYMENT_LINK':
+			}
+			case SET_PAYMENT_LINK:
       return {
         ...state,
         paymentLink: action.payload,
-      };
+      }
+      case POST_USERS:
+        return{
+          ...state,
+          users: action.payload
+        }
     default:
       return { ...state };
   }
