@@ -36,6 +36,14 @@ Modifica las propiedades de un artículo (excepto la propiedad active).
 Recibe los nuevos valores por body, puede modificar una o varias a la vez.
 Debe incluir la propiedad id para identificar el artículo y active especificando si el artículo está activo o no.
 
+Puede modificar las propiedades rating (number array) y comments (string array), de a una o ambas a la vez.
+Ej. body: {
+  "id": 3,
+  "rating": [5]
+  "comments": ["Super abrigada"],
+  "active": true
+}
+
 #### **📍 PUT | //articles/:id **
 
 Modifica la propiedad active de un artículo. Recibe por param el id del artículo y por body la propiedad active(false/true).
