@@ -6,6 +6,7 @@ import { Box } from "@chakra-ui/react";
 import { getAllProducts } from "../../redux/actions/actions";
 
 const Home = () => {
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProducts());
