@@ -7,8 +7,38 @@ export const GET_DETAIL = "GET_DETAIL";
 export const RES_STATE = "RES_STATE";
 export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
-export const SET_PAYMENT_LINK = 'SET_PAYMENT_LINK';
+export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
+export const GET_ARTICLES = "GET_ARTICLES";
+export const NEXT_PAGE = "NEXT_PAGE";
+export const PREV_PAGE = "PREV_PAGE";
+
 import axios from "axios";
+
+export const getArticles = () => {
+  return async function (dispatch) {
+    var apiData = await axios("http://localhost:3001/articles");
+    const page = apiData.data;
+    dispatch({ type: GET_ARTICLES, payload: page });
+  };
+};
+export const nextPage = (props) => {
+  if (props.next != null) {
+    return async function (dispatch) {
+      const apiData = await axios(props.next);
+      const page = apiData.data;
+      dispatch({ type: NEXT_PAGE, payload: page });
+    };
+  }
+};
+export const prevPage = (props) => {
+  if (props.prev != null) {
+    return async function (dispatch) {
+      const apiData = await axios(props.prev);
+      const page = apiData.data;
+      dispatch({ type: PREV_PAGE, payload: page });
+    };
+  }
+};
 
 export const addFav = (article) => {
   return { type: ADD_FAV, payload: article };
@@ -60,7 +90,10 @@ export function resState() {
 export const getArticleId = (id, active) => {
   return async function (dispatch) {
     const body = { active };
-    const apiData = await axios.put(`http://localhost:3001/articles/${id}`, body);
+    const apiData = await axios.put(
+      `http://localhost:3001/articles/${id}`,
+      body
+    );
     const product = apiData.data;
     dispatch({ type: GET_ARTICLE_ID });
   };
@@ -68,7 +101,10 @@ export const getArticleId = (id, active) => {
 
 export const updateProduct = (id, body) => {
   return async function (dispatch) {
-    const apiData = await axios.put(`http://localhost:3001/articles/${id}`, body);
+    const apiData = await axios.put(
+      `http://localhost:3001/articles/${id}`,
+      body
+    );
     const product = apiData.data;
     dispatch({ type: UPDATE_PRODUCT, payload: product });
   };
@@ -79,7 +115,10 @@ export const createPayment = (productPrice, productQuantity) => {
   return (dispatch) => {
     // Realiza la solicitud al backend para crear el pago
     axios
-      .post('/api/createPayment', { price: productPrice, quantity: productQuantity })
+      .post("/api/createPayment", {
+        price: productPrice,
+        quantity: productQuantity,
+      })
       .then((response) => {
         // Se obtiene el link de pago desde la respuesta del backend
         const paymentLink = response.data.paymentLink;
@@ -88,14 +127,14 @@ export const createPayment = (productPrice, productQuantity) => {
       })
       .catch((error) => {
         // Manejo de errores
-        console.log('Error al crear el pago:', error);
+        console.log("Error al crear el pago:", error);
       });
   };
 };
 // Acción para actualizar el estado de la aplicación con el link de pago
 export const setPaymentLink = (paymentLink) => {
   return {
-    type: 'SET_PAYMENT_LINK',
+    type: "SET_PAYMENT_LINK",
     payload: paymentLink,
   };
 };
