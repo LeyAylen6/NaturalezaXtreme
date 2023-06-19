@@ -27,24 +27,24 @@ export class User extends BaseEntity{
 
     @Column({
         type: "varchar",
-        length: 50,
+        length: 15,
         nullable: false
     })
     password: string
 
     @Column({
         type: "varchar",
-        length: 255,
+        length: 50,
         nullable: false
     })
     adress: string
 
     @Column({
         type: "varchar",
-        length: 50,
+        length: 20,
         nullable: false
     })
-    city: number
+    city: string
     
     @Column()
     avatar: string = "https://cdn-icons-png.flaticon.com/512/3237/3237447.png"
@@ -54,13 +54,6 @@ export class User extends BaseEntity{
         nullable: false,
     })
     rol: string
-
-    // @Column({
-    //     type: "varchar",
-    //     length: 50,
-    //     nullable: false
-    // })
-    // rol: string
 
     @Column({
         nullable: false

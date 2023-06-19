@@ -5,7 +5,7 @@ export interface userStructure {
     email: string,
     password: string,
     adress: string,
-    city: number,
+    city: string,
     avatar: string,
     rol: string,
     active: boolean
