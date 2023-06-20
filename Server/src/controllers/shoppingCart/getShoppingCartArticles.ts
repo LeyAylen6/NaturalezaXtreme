@@ -1,48 +1,56 @@
-import { AppDataSource } from "../../db";
+// import { AppDataSource } from "../../db";
+// import { Shopping_Cart_Article } from "../../entities/shoppingCartArticleEntity";
+// import { Shopping_Cart } from "../../entities/shoppingCartEntity";
+// import { articleCartStructure } from "../../interfaces/articleCartStructure";
 
-const getShoppingCartController = async(user: userStructure, article: articleStructure) => {
+// interface userIdArticleId {
+//     userId: number, 
+//     articleId: number
+// }
 
-    //Busca carrito
-    const carts = await AppDataSource.getRepository(Shopping_Cart).find({
-        where: { 
-            userId: user.id,
-            role: 'pending'
-        }
-    })
+// const getShoppingCartController = async({ userId, articleId }: userIdArticleId) => {
 
-    if(carts.length === 0) throw new Error()
+//     //Busca carrito
+//     const carts = await AppDataSource.getRepository(Shopping_Cart).find({
+//         where: { 
+//             userId: userId,
+//             role: 'pending'
+//         }
+//     })
 
-    // Busca articulo en el carrito
-    const articleFoundInCart  = await AppDataSource.getRepository(Shopping_Cart_Article).findOneBy({ userId: user.id, articleId: article.id })
+//     if(carts.length === 0) throw new Error()
 
-    // Si el articulo no existe lo agrega
-    if(!articleFoundInCart) {
+//     // Busca articulo en el carrito
+//     const articleFoundInCart  = await AppDataSource.getRepository(Shopping_Cart_Article).findOneBy({ userId: userId, articleId: articleId })
 
-        const newArticle: articleCartStructure = {
-            userId: user.id,
-            articleId: article.id,
-            quantity: 1,
-        }
+//     // Si el articulo no existe lo agrega
+//     if(!articleFoundInCart) {
 
-        const articleToCreate = AppDataSource.getRepository(Shopping_Cart_Article).create(newArticle)
-        const result = AppDataSource.getRepository(Shopping_Cart_Article).save(articleToCreate)
+//         const newArticle: articleCartStructure = {
+//             userId: userId,
+//             articleId: articleId,
+//             quantity: 1,
+//         }
 
-        return result;
+//         const articleToCreate = AppDataSource.getRepository(Shopping_Cart_Article).create(newArticle)
+//         const result = AppDataSource.getRepository(Shopping_Cart_Article).save(articleToCreate)
 
-    // Si el articulo existe aumenta quantity en 1 unidad.
-    } else {
+//         return result;
 
-        const newArticle: articleCartStructure = {
-            userId: user.id,
-            articleId: article.id,
-            quantity: articleFoundInCart.quantity++,
-        }
+//     // Si el articulo existe aumenta quantity en 1 unidad.
+//     } else {
 
-        AppDataSource.getRepository(Shopping_Cart_Article).merge(articleFoundInCart, newArticle)
-        const result = AppDataSource.getRepository(Shopping_Cart_Article).save(articleFoundInCart)
+//         const newArticle: articleCartStructure = {
+//             userId: userId,
+//             articleId: articleId,
+//             quantity: articleFoundInCart.quantity++,
+//         }
+
+//         AppDataSource.getRepository(Shopping_Cart_Article).merge(articleFoundInCart, newArticle)
+//         const result = AppDataSource.getRepository(Shopping_Cart_Article).save(articleFoundInCart)
         
-        return result;
-    }
-}
+//         return result;
+//     }
+// }
 
-export default getShoppingCartController;
+// export default getShoppingCartController;

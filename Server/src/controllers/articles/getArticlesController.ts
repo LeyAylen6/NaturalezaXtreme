@@ -10,7 +10,7 @@ const getArticlesController = async(offset:number, limit:number, order:any ) => 
     
     const count = await articleRepository.count();
         
-    const allArticles = await articleRepository.find({
+    const articlesFounded = await articleRepository.find({
         order:{
             price: order
           },
@@ -20,9 +20,8 @@ const getArticlesController = async(offset:number, limit:number, order:any ) => 
     
     const pag = paginado(offset,limit,count)
 
-    if(!allArticles.length) throw new Error ("No hay articulos para mostar");
-    
-    return {...pag, allArticles};
+    if(!articlesFounded.length) throw new Error ("No hay articulos para mostar");
+    return {...pag,articlesFounded};
 }
 
 export default getArticlesController;
