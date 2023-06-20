@@ -60,6 +60,10 @@ Con query active se puede acceder a los usuarios desactivados (active:false), se
 Ej: http://localhost:3001/user?rol=admin&active=false
 Ej: http://localhost:3001/user?active=false
 
+#### **📍 GET | /user/:id **
+
+Busca un usuario por la propiedad id que recibe por param.
+
 #### **📍 POST | /user **
 
 Espera un body con las siguientes propiedades como necesarias { name: string, lastname: string, email: string(255), password: string(15), adress: string(50), city: string(20), rol: string(User/Admin), active: boolean}
@@ -72,6 +76,6 @@ Modifica las propiedades de un usuario (excepto la propiedad active).
 Recibe los nuevos valores por body, puede modificar una o varias a la vez.
 Debe incluir la propiedad id para identificar el artículo y active especificando si el usuario está activo o no.
 
-#### **📍 PUT | //user/:id **
+#### **📍 PUT | /user/:id **
 
 Modifica la propiedad active de un user. Recibe por param el id del user y por body la propiedad active(false/true).
