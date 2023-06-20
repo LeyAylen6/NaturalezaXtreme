@@ -68,14 +68,20 @@ export const getArticlesByQuery = (name) => {
   };
 };
 export const filterSearchBar = (name) => {
-  console.log('action searchbar')
   return async (dispatch) => {
-    const response = await axios.get(`http://localhost:3001/articles?name=${name}`);
-    const payload = response.data;
-    return dispatch({
-      type: FILTER_SEARCHBAR,
-      payload,
-    });
+    try {
+      const response = await axios.get(`http://localhost:3001/articles?name=${name}`);
+      const payload = response.data;
+      return dispatch({
+        type: FILTER_SEARCHBAR,
+        payload,
+      });
+    } catch (error) {
+      return dispatch({
+        type: FILTER_SEARCHBAR,
+        payload: [],
+      });
+    }
   };
 };
 

@@ -10,8 +10,8 @@ const CardContainer = () => {
 
 	return (
 		<Box>
-			{!articles.articlesFounded.length && <Text>No results match your search request</Text>}
 			<Paginate articles={articles} />
+			{!articles.length && <Text>No results match your search request</Text>}
 			<Grid templateColumns="repeat(4, 1fr)" justifyItems={"center"}>
 				{articles.articlesFounded?.map((product, index) => {
 					return (
