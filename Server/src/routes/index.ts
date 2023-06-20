@@ -30,7 +30,7 @@ router.get('/user/:id', getUserById)
 router.put('/user', updateUser)
 router.put('/user/:id', deactivateUser)
 
-router.post('/shoppingcart', postShoppingCart)
+router.put('/shoppingcart', postShoppingCart)
 router.get('/shoppingcart', getShoppingCart)
 
 router.post("/mercadoPago",postMercadoPago)
