@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 const getShoppingCart = async (req: Request, res: Response) => {
     try {
-        const { userId, articleId } = req.body
+        
         // const articleToPost = await getShoppingCartController(userId, articleId);
 
         // res.status(200).json(articleToPost);

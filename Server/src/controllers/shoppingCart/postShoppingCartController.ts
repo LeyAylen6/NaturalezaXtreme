@@ -24,7 +24,7 @@ const putShoppingCartController = async( data: userIdArticleId, method?: string)
         }
     })
 
-    if(carts.length === 0) throw new Error()
+    if(carts.length === 0) throw new Error('you must have a cart created to update it')
 
     // Busca articulo en el carrito
     const articleFoundInCart  = await AppDataSource.getRepository(Shopping_Cart_Article).findOneBy({ userId: data.userId, articleId: data.articleId })
@@ -45,9 +45,10 @@ const putShoppingCartController = async( data: userIdArticleId, method?: string)
         if (method !== 'add' && method !== 'subtract' && method !== 'delete') throw new Error('must send a valid method')
 
         if (method === 'add') newArticle.quantity = articleFoundInCart.quantity + 1 
-        if (method === 'subtract') newArticle.quantity = articleFoundInCart.quantity - 1 
-
-        if (method === 'delete') {
+        
+        if (articleFoundInCart.quantity >= 2 && method === 'subtract') newArticle.quantity = articleFoundInCart.quantity - 1 
+        
+        if ((articleFoundInCart.quantity <= 1 && method === 'subtract') || method === 'delete' ) {
             AppDataSource.getRepository(Shopping_Cart_Article).remove(articleFoundInCart)
             return 'Delete Sucefully!'
         }
