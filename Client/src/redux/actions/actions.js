@@ -14,7 +14,7 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const GET_ARTICLES = "GET_ARTICLES";
 export const NEXT_PAGE = "NEXT_PAGE";
 export const PREV_PAGE = "PREV_PAGE";
-
+export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
 
 import axios from "axios";
 
@@ -78,9 +78,6 @@ export const filterSearchBar = (payload) => {
 
 export function getDetail(id) {
   return async function (dispatch) {
-
-    
-
     const json = await axios.get(
       `http://localhost:3001/articlefinder/?id=${id}`
     );
@@ -111,7 +108,6 @@ export const productdesactivate = (id, active) => {
 
 export const updateProduct = (body) => {
   return async function (dispatch) {
-
     const apiData = await axios.put("http://localhost:3001/articles", body);
 
     const product = apiData.data;
@@ -123,8 +119,6 @@ export const createPayment = (productPrice, productQuantity) => {
   return (dispatch) => {
     axios
 
-      
-
       .post("http://localhost:3001/mercadoPago", {
         price: productPrice,
         quantity: productQuantity,
@@ -135,7 +129,6 @@ export const createPayment = (productPrice, productQuantity) => {
         dispatch(setPaymentLink(paymentLink));
       })
       .catch((error) => {
-
         console.log("Error al crear el pago:", error);
       });
   };
@@ -143,7 +136,6 @@ export const createPayment = (productPrice, productQuantity) => {
 
 export const setPaymentLink = (paymentLink) => {
   return {
-
     type: SET_PAYMENT_LINK,
 
     payload: paymentLink,
