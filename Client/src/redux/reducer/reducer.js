@@ -32,14 +32,9 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case FILTER_SEARCHBAR:
-      const filterArticles = state.allProducts;
-      const filterFinish = filterArticles.filter((article) => {
-        const name = article.name;
-        if (name.includes(action.payload)) return article;
-      });
       return {
         ...state,
-        allProducts: filterFinish,
+        articles: action.payload
       };
     case GET_ARTICLES_BY_QUERY:
       return {
@@ -79,6 +74,7 @@ const reducer = (state = initialState, action) => {
         ...state,
       };
     case GET_ARTICLES:
+      console.log(action.payload)
       return {
         ...state,
         articles: action.payload,
