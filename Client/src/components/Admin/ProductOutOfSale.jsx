@@ -1,12 +1,10 @@
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Image } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
-
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, Image, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { getAllProducts, getDetail, productdesactivate } from "../../redux/actions/actions";
 
-const CrudProduct = () => {
+const ProductOutOfSale = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.allProducts);
@@ -27,7 +25,8 @@ const CrudProduct = () => {
   };
 
   const handleDesactivate = (productId) => {
-    dispatch(productdesactivate(productId, false));
+    dispatch(productdesactivate(productId, true));
+
     window.location.reload();
   };
   const handleEdit = (productId) => {
@@ -36,7 +35,8 @@ const CrudProduct = () => {
     navigate(`/editProduct/`);
   };
   // Filtrar los productos que tienen la propiedad "active" en true
-  const activeProducts = products.allArticles?.filter((product) => product.active === true);
+  const desactiveProducts = products.allArticles?.filter((product) => product.active === false);
+  console.log("desactiveProducts", desactiveProducts);
 
   return (
     <TableContainer
@@ -58,8 +58,8 @@ const CrudProduct = () => {
         <Button colorScheme="orange" size="lg" variant="solid" m="6">
           <Link to="/crudUsers">User</Link>
         </Button>
-        <Button colorScheme="purple" size="lg" variant="solid" m="6">
-          <Link to="/productOutOfSale">Out of sale</Link>
+        <Button colorScheme="whatsapp" size="lg" variant="solid" m="6">
+          <Link to="/crudProduct">Product</Link>
         </Button>
         <Button colorScheme="blue" size="lg" variant="solid" m="6">
           <Link to="/FormProduct">New product</Link>
@@ -68,7 +68,7 @@ const CrudProduct = () => {
       <Table>
         <Thead>
           <TableCaption fontSize={"24px"} fontWeight={"semibold"}>
-            List of products in store
+            List of products out of sale
           </TableCaption>
           <Tr bg="gray.100" border="1px" borderColor="gray.300" p="6" m="6">
             <Th>Id</Th>
@@ -83,7 +83,7 @@ const CrudProduct = () => {
         </Thead>
 
         <Tbody>
-          {activeProducts?.map((product) => (
+          {desactiveProducts?.map((product) => (
             <Tr key={product.id} border={"2px"} borderColor={"gray.300"}>
               <Td maxWidth={"2px"} fontWeight={"extrabold"}>
                 {product.articleID}
@@ -128,7 +128,7 @@ const CrudProduct = () => {
                     handleDesactivate(product.id);
                   }}
                 >
-                  Desactivate
+                  activate
                 </Button>
               </ButtonGroup>
             </Tr>
@@ -148,4 +148,4 @@ const CrudProduct = () => {
   );
 };
 
-export default CrudProduct;
+export default ProductOutOfSale;

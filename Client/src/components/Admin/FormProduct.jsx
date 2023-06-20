@@ -2,6 +2,7 @@ import { Box, Button, Card, Container, FormControl, FormLabel, Heading, Input, S
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux/actions/actions";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const FormProduct = () => {
   const shoeSize = Array.from({ length: 12 }, (_, index) => index + 35);
@@ -16,7 +17,7 @@ const FormProduct = () => {
     price: 0,
     articleID: "",
     active: true,
-    image: "seba",
+    image: "",
   });
 
   const handleChange = (e) => {
@@ -32,9 +33,33 @@ const FormProduct = () => {
     e.preventDefault();
     dispatch(addProduct(form));
   };
+  const handleReset = (event) => {
+    event.preventDefault();
+    setForm({
+      name: "",
+      description: "",
+      type: "",
+      gender: "",
+      color: "",
+      price: 0,
+      articleID: "",
+      active: true,
+      image: "",
+      size: "",
+      shoeSize: "",
+    });
+  };
 
   return (
     <Container marginTop={10}>
+      <Box display={"flex"} justifyContent={"space-between"} border={"1px"} marginBottom="15px">
+        <Button colorScheme="cyan" size="lg" variant="solid" m="6">
+          <Link to="/CrudProduct">Back</Link>
+        </Button>
+        <Button colorScheme="orange" size="lg" variant="solid" m="6">
+          <Link to="/">Home</Link>
+        </Button>
+      </Box>
       <Card padding={4}>
         <Heading>Add Product</Heading>
         <form onSubmit={handleSubmit}>
@@ -95,10 +120,12 @@ const FormProduct = () => {
             <Input type="number" placeholder="Stock" name="stock" value={form.stock} onChange={handleChange} />
             <FormLabel>Price: U$S</FormLabel>
             <Input type="number" placeholder="Price" name="price" value={form.price} onChange={handleChange} />
+            <FormLabel>Image</FormLabel>
+            <Input type="text" placeholder="Image" name="image" value={form.image} onChange={handleChange} />
           </FormControl>
           <Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
             <Button type="submit">Add</Button>
-            <Button>Cancel</Button>
+            <Button onClick={handleReset}>Cancel</Button>
           </Box>
         </form>
       </Card>

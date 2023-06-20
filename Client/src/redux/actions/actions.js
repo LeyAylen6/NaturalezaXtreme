@@ -87,9 +87,7 @@ export const filterSearchBar = (name) => {
 
 export function getDetail(id) {
   return async function (dispatch) {
-    const json = await axios.get(
-      `http://localhost:3001/articlefinder/?id=${id}`
-    );
+    const json = await axios.get(`http://localhost:3001/articlefinder/?id=${id}`);
 
     return dispatch({
       type: GET_DETAIL,
@@ -106,10 +104,7 @@ export function resState() {
 export const productdesactivate = (id, active) => {
   return async function (dispatch) {
     const body = { active };
-    const apiData = await axios.put(
-      `http://localhost:3001/articles/${id}`,
-      body
-    );
+    const apiData = await axios.put(`http://localhost:3001/articles/${id}`, body);
     const product = apiData.data;
     dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
   };
