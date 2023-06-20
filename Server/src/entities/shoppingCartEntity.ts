@@ -17,6 +17,9 @@ export class Shopping_Cart {
     })
     role: CategoryCart
 
+    @Column()
+    userId: number
+
     @ManyToOne(() => User, (user) => user.shoppingCart)
     user: User
 
