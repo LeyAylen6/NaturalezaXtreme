@@ -30,7 +30,7 @@ const getArticlesByNameController = async(name: string, gender: string, type: st
 
     if (articlesFound.length === 0) throw new Error(`no matches were found for your search`)
 
-    return{...pag, articlesFound};
+    return {...pag, articlesFound};
 }
 
 export default getArticlesByNameController;

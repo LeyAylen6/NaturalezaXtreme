@@ -16,5 +16,4 @@ const postShoppingCart = async (req: Request, res: Response) => {
     }
 }
 
-
 export default postShoppingCart;

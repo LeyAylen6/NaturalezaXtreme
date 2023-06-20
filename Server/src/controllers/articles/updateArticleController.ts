@@ -13,7 +13,7 @@ const updateArticleController = async(newArticle: articleStructure) => {
         newArticle.rating = updatedRating;
     }
 
-    if(newArticle.comments){
+    if (newArticle.comments){
         let updatedComments = articleFound.comments.concat(newArticle.comments)
         newArticle.comments = updatedComments;
     }
