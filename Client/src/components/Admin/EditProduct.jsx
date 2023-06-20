@@ -2,8 +2,8 @@ import { Box, Button, Container, FormControl, FormLabel, Heading, Input, Select,
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+/* import { useFormik } from "formik";
+import * as Yup from "yup"; */
 
 // const schema = Yup.object().shape({
 //   name: Yup.string().required("Name is required"),
