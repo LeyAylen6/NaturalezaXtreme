@@ -1,3 +1,4 @@
+
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, BaseEntity } from 'typeorm'
 import { Article } from './articleEntity'
 import { Shopping_Cart } from './shoppingCartEntity'
@@ -67,3 +68,5 @@ export class User extends BaseEntity{
     @OneToMany(() => Shopping_Cart, (shoppingCart) => shoppingCart.user)
     shoppingCart: Shopping_Cart[]
 }
+
+
