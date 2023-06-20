@@ -79,7 +79,7 @@ export const filterSearchBar = (name) => {
     } catch (error) {
       return dispatch({
         type: FILTER_SEARCHBAR,
-        payload: [],
+        payload: {articlesFounded: []},
       });
     }
   };
