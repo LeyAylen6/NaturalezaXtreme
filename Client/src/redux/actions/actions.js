@@ -5,9 +5,10 @@ export const GET_ARTICLES_BY_QUERY = "GET_ARTICLES_BY_QUERY";
 export const FILTER_SEARCHBAR = "FILTERED_SEARCHBAR";
 export const GET_DETAIL = "GET_DETAIL";
 export const RES_STATE = "RES_STATE";
-export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
+export const GET_PRODUCT_DESACTIVATE = "GET_PRODUCT_DESACTIVATE";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
-export const SET_PAYMENT_LINK = 'SET_PAYMENT_LINK';
+export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
+export const ADD_PRODUCT = "ADD_PRODUCT";
 import axios from "axios";
 
 export const addFav = (article) => {
@@ -44,7 +45,7 @@ export const filterSearchBar = (payload) => {
 
 export function getDetail(id) {
   return async function (dispatch) {
-    const json = await axios.get("http://localhost:3001/articles/" + id);
+    const json = await axios.get(`http://localhost:3001/articlefinder?id=${id}`);
     return dispatch({
       type: GET_DETAIL,
       payload: json.data,
@@ -56,19 +57,19 @@ export function resState() {
     type: RES_STATE,
   };
 }
-
-export const getArticleId = (id, active) => {
+// fncion para desactivar o activar un producto
+export const productdesactivate = (id, active) => {
   return async function (dispatch) {
     const body = { active };
     const apiData = await axios.put(`http://localhost:3001/articles/${id}`, body);
     const product = apiData.data;
-    dispatch({ type: GET_ARTICLE_ID });
+    dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
   };
 };
 
-export const updateProduct = (id, body) => {
+export const updateProduct = (body) => {
   return async function (dispatch) {
-    const apiData = await axios.put(`http://localhost:3001/articles/${id}`, body);
+    const apiData = await axios.put("http://localhost:3001/articles", body);
     const product = apiData.data;
     dispatch({ type: UPDATE_PRODUCT, payload: product });
   };
@@ -79,7 +80,7 @@ export const createPayment = (productPrice, productQuantity) => {
   return (dispatch) => {
     // Realiza la solicitud al backend para crear el pago
     axios
-      .post('/api/createPayment', { price: productPrice, quantity: productQuantity })
+      .post("/api/createPayment", { price: productPrice, quantity: productQuantity })
       .then((response) => {
         // Se obtiene el link de pago desde la respuesta del backend
         const paymentLink = response.data.paymentLink;
@@ -88,14 +89,22 @@ export const createPayment = (productPrice, productQuantity) => {
       })
       .catch((error) => {
         // Manejo de errores
-        console.log('Error al crear el pago:', error);
+        console.log("Error al crear el pago:", error);
       });
   };
 };
 // Acción para actualizar el estado de la aplicación con el link de pago
 export const setPaymentLink = (paymentLink) => {
   return {
-    type: 'SET_PAYMENT_LINK',
+    type: "SET_PAYMENT_LINK",
     payload: paymentLink,
+  };
+};
+
+export const addProduct = (body) => {
+  return async function (dispatch) {
+    const apiData = await axios.post("http://localhost:3001/articles", body);
+    const product = apiData.data;
+    dispatch({ type: ADD_PRODUCT, payload: product });
   };
 };

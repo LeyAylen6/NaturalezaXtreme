@@ -1,24 +1,14 @@
-import { useState } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, Input, Button, Box, TableContainer } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const UserEdition = () => {
-  const [data, setData] = useState([
-    { id: 1, name: "John Doe", age: 25 },
-    { id: 2, name: "Jane Smith", age: 30 },
-    // Agrega más objetos de datos según tus necesidades
-  ]);
+  const users = useSelector((state) => state.users);
 
-  // Función para manejar los cambios en los campos de entrada
-  const handleInputChange = (event, id, field) => {
-    const newData = data.map((item) => {
-      if (item.id === id) {
-        return { ...item, [field]: event.target.value };
-      }
-      return item;
-    });
-    setData(newData);
-  };
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
 
   return (
     <TableContainer
@@ -53,7 +43,7 @@ const UserEdition = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((item) => (
+          {users.map((item) => (
             <Tr key={item.id}>
               <Td>{item.id}</Td>
               <Td>
