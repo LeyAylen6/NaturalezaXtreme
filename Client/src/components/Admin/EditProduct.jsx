@@ -1,6 +1,6 @@
 import { Box, Button, Card, Container, FormControl, FormLabel, Heading, Input, Select, Text } from "@chakra-ui/react";
 const EditProduct = () => {
-  const shoeSize = Array.from({ length: 12 }, (_, index) => index + 35);
+  const shoeSize = Array.from({ length: 12  }, (_, index) => index + 35);
   return (
     <Container marginTop={10}>
       <Card padding={4}>
