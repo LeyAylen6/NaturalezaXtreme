@@ -67,12 +67,21 @@ export const getArticlesByQuery = (name) => {
     });
   };
 };
-export const filterSearchBar = (payload) => {
-  return (dispatch) => {
-    return dispatch({
-      type: FILTER_SEARCHBAR,
-      payload,
-    });
+export const filterSearchBar = (name) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/articles?name=${name}`);
+      const payload = response.data;
+      return dispatch({
+        type: FILTER_SEARCHBAR,
+        payload,
+      });
+    } catch (error) {
+      return dispatch({
+        type: FILTER_SEARCHBAR,
+        payload: [],
+      });
+    }
   };
 };
 
