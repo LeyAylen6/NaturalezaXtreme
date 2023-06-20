@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, getDetail, getArticleId } from "../../redux/actions/actions";
+import { getAllProducts, getDetail, productdesactivate } from "../../redux/actions/actions";
 
 const CrudProduct = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,6 @@ const CrudProduct = () => {
     // Si se selecciona un id, se ejecuta la accion getArticleId
     if (selectId !== null) {
       dispatch(getDetail(selectId));
-      console.log(getDetail(selectId));
       setselectId(null); // Se resetea el id
       navigate(`/detail/${selectId}`);
     }
@@ -24,19 +23,20 @@ const CrudProduct = () => {
   }, [dispatch, selectId, navigate]);
 
   const handleClick = (productId) => {
-    console.log(productId + "  click");
     setselectId(productId);
   };
 
   const handleDesactivate = (productId) => {
-    console.log(productId + "  click");
-    dispatch(getArticleId(productId, false));
+    dispatch(productdesactivate(productId, false));
     window.location.reload();
   };
   const handleEdit = (productId) => {
-    console.log(productId + "  edit");
-    navigate(`/editProduct`);
+    dispatch(getDetail(productId));
+    console.log("productId", productId);
+    navigate(`/editProduct/`);
   };
+  // Filtrar los productos que tienen la propiedad "active" en true
+  const activeProducts = products.allArticles?.filter((product) => product.active === true);
 
   return (
     <TableContainer
@@ -80,7 +80,7 @@ const CrudProduct = () => {
         </Thead>
 
         <Tbody>
-          {products.allArticles?.map((product) => (
+          {activeProducts?.map((product) => (
             <Tr key={product.id} border={"2px"} borderColor={"gray.300"}>
               <Td maxWidth={"2px"} fontWeight={"extrabold"}>
                 {product.articleID}
@@ -93,12 +93,19 @@ const CrudProduct = () => {
               </Td>
 
               <Td maxWidth={"10px"}>{product.price}</Td>
+
               <Td maxWidth={"10px"}>
-                {Object.entries(product.size).map(([size, count]) => (
-                  <Box key={size} fontWeight={"semibold"} color={count === 0 ? "red" : "inherit"}>
-                    {size} : {count}
-                  </Box>
-                ))}
+                {product.type !== "shoes" // Si el producto no es de tipo "shoes" se muestra el stock de "size"
+                  ? Object.entries(product.size).map(([size, count]) => (
+                      <Box key={size} fontWeight={"semibold"} color={count === 0 ? "red" : "inherit"}>
+                        {size} : {count}
+                      </Box>
+                    )) // Si el producto es de tipo "shoes" se muestra el stock de "shoeSize"
+                  : Object.entries(product.shoeSize).map(([shoeSize, count]) => (
+                      <Box key={shoeSize} fontWeight={"semibold"} color={count === 0 ? "red" : "inherit"}>
+                        {shoeSize} : {count}
+                      </Box>
+                    ))}
               </Td>
               <ButtonGroup size="md" variant={"solid"} paddingTop={8} paddingRight={10} display={"flex"} alignItems={"center"}>
                 <Button colorScheme="yellow" onClick={() => handleClick(product.id)}>
