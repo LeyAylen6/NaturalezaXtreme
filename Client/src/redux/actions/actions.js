@@ -5,12 +5,16 @@ export const GET_ARTICLES_BY_QUERY = "GET_ARTICLES_BY_QUERY";
 export const FILTER_SEARCHBAR = "FILTERED_SEARCHBAR";
 export const GET_DETAIL = "GET_DETAIL";
 export const RES_STATE = "RES_STATE";
-export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
+export const GET_PRODUCT_DESACTIVATE = "GET_PRODUCT_DESACTIVATE";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
+
+export const ADD_PRODUCT = "ADD_PRODUCT";
+
 export const GET_ARTICLES = "GET_ARTICLES";
 export const NEXT_PAGE = "NEXT_PAGE";
 export const PREV_PAGE = "PREV_PAGE";
+export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
 
 import axios from "axios";
 
@@ -77,6 +81,7 @@ export function getDetail(id) {
     const json = await axios.get(
       `http://localhost:3001/articlefinder/?id=${id}`
     );
+
     return dispatch({
       type: GET_DETAIL,
       payload: json.data,
@@ -88,8 +93,8 @@ export function resState() {
     type: RES_STATE,
   };
 }
-
-export const getArticleId = (id, active) => {
+// fncion para desactivar o activar un producto
+export const productdesactivate = (id, active) => {
   return async function (dispatch) {
     const body = { active };
     const apiData = await axios.put(
@@ -97,16 +102,14 @@ export const getArticleId = (id, active) => {
       body
     );
     const product = apiData.data;
-    dispatch({ type: GET_ARTICLE_ID });
+    dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
   };
 };
 
-export const updateProduct = (id, body) => {
+export const updateProduct = (body) => {
   return async function (dispatch) {
-    const apiData = await axios.put(
-      `http://localhost:3001/articles/${id}`,
-      body
-    );
+    const apiData = await axios.put("http://localhost:3001/articles", body);
+
     const product = apiData.data;
     dispatch({ type: UPDATE_PRODUCT, payload: product });
   };
@@ -115,10 +118,12 @@ export const updateProduct = (id, body) => {
 export const createPayment = (productPrice, productQuantity) => {
   return (dispatch) => {
     axios
+
       .post("http://localhost:3001/mercadoPago", {
         price: productPrice,
         quantity: productQuantity,
       })
+
       .then((response) => {
         const paymentLink = response.data.url;
         dispatch(setPaymentLink(paymentLink));
@@ -132,6 +137,15 @@ export const createPayment = (productPrice, productQuantity) => {
 export const setPaymentLink = (paymentLink) => {
   return {
     type: SET_PAYMENT_LINK,
+
     payload: paymentLink,
+  };
+};
+
+export const addProduct = (body) => {
+  return async function (dispatch) {
+    const apiData = await axios.post("http://localhost:3001/articles", body);
+    const product = apiData.data;
+    dispatch({ type: ADD_PRODUCT, payload: product });
   };
 };

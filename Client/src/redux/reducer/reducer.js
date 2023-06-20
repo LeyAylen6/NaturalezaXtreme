@@ -7,8 +7,10 @@ import {
   FILTER_SEARCHBAR,
   GET_DETAIL,
   RES_STATE,
-  GET_ARTICLE_ID,
+  GET_PRODUCT_DESACTIVATE,
   SET_PAYMENT_LINK,
+  ADD_PRODUCT,
+  GET_ARTICLE_ID,
   GET_ARTICLES,
   NEXT_PAGE,
   PREV_PAGE,
@@ -23,6 +25,7 @@ const initialState = {
   detail: [],
   articleById: {},
   paymentLink: "",
+
   articles: [],
 };
 
@@ -63,6 +66,18 @@ const reducer = (state = initialState, action) => {
         ...state,
         articleById: action.payload,
       };
+
+    case REMOVE_FAV:
+      return {
+        ...state,
+        myFavorites: state.myFavorites.filter(
+          (product) => product.id != action.payload
+        ),
+      };
+    case GET_PRODUCT_DESACTIVATE:
+      return {
+        ...state,
+      };
     case GET_ARTICLES:
       return {
         ...state,
@@ -100,10 +115,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         detail: [],
       };
+
     case SET_PAYMENT_LINK:
       return {
         ...state,
         paymentLink: action.payload,
+      };
+
+    case ADD_PRODUCT:
+      return {
+        ...state,
       };
     case POST_USERS:
       return {

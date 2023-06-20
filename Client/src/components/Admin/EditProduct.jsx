@@ -1,132 +1,133 @@
-import { Box, Button, Container, FormControl, FormLabel, Heading, Input, Select, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Box, Button, Container, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+} from "@chakra-ui/react";
+import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-/* import { useFormik } from "formik";
-import * as Yup from "yup"; */
 
-// const schema = Yup.object().shape({
-//   name: Yup.string().required("Name is required"),
-//   description: Yup.string().required("Description is required"),
-//   stock: Yup.number().required("Stock is required").positive().integer(),
-//   price: Yup.number().required("Price is required").positive(),
-// });
+import { updateProduct } from "../../redux/actions/actions";
+
 
 const EditProduct = () => {
-  const shoeSize = Array.from({ length: 12 }, (_, index) => index + 35);
-
-  // const submitForm = (values) => {};
-  // const { handleSubmit, handleChange, handleReset, errors, values } = useFormik({
-  //   initialValues: {
-  //     name: "",
-  //     description: "",
-  //     Stock: "",
-  //     Price: "",
-  //   },
-  //   onSubmit: submitForm,
-  //   validationSchema: schema,
-  // });
   const dispatch = useDispatch();
-  const [product, setProduct] = useState({
-    name: "",
-    description: "",
-    stock: "",
-    price: "",
-    type: "",
-    gender: "",
-    color: "",
-    size: "",
-    shoeSize: "",
+  const navigate = useNavigate();
+  const product = useSelector((state) => state.detail);
+
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [form, setForm] = useState({
+    id: product.id,
+    active: product.active,
+    name: product.name,
+    description: product.description,
+    price: product.price,
   });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit  " + product.name);
+    setIsAlertOpen(true);
   };
+
+  const handleConfirm = () => {
+    dispatch(updateProduct(form));
+    setIsAlertOpen(false);
+    navigate("/crudProduct");
+  };
+
+  const handleCancel = () => {
+    setIsAlertOpen(false);
+  };
+
   const handleReset = (e) => {
     e.preventDefault();
-    console.log("reset");
+    setForm({
+      id: product.id,
+      active: product.active,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+    });
   };
 
   return (
     <Container border="2px" maxWidth="100%" marginTop={10}>
       <Box display={"flex"} justifyContent={"space-between"} border={"1px"} marginBottom="15px">
         <Button colorScheme="cyan" size="lg" variant="solid" m="6">
-          <Link to="/admin">Back</Link>
+          <Link to="/CrudProduct">Back</Link>
         </Button>
         <Button colorScheme="orange" size="lg" variant="solid" m="6">
           <Link to="/crudProduct">Product</Link>
         </Button>
       </Box>
-      <Box width="75%" display="list-item" justifyContent="center" border={"1px"} borderColor={"red"} p="10">
-        <Heading>Edit Product</Heading>
-        <form onSubmit={handleSubmit} onReset={handleReset}>
-          <FormControl>
-            <FormLabel>Name</FormLabel>
-            <Input type="text" placeholder="name of product" name="name" autoComplete="off" />
-            <br />
+      <Table>
+        <TableCaption>Imperial to metric conversion factors</TableCaption>
+        <Thead>
+          <Tr>
+            <Th>Product</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          <Th>
+            <form onSubmit={handleSubmit}>
+              <FormControl>
+                <FormLabel>Name</FormLabel>
+                <Input type="text" placeholder={product.name} name="name" autoComplete="off" onChange={handleChange} />
+                <br />
+                <FormLabel mb="8px">Description: </FormLabel>
+                <Input
+                  type="text"
+                  placeholder={product.description}
+                  size={"md"}
+                  name="description"
+                  autoComplete="off"
+                  onChange={handleChange}
+                />
 
-            <FormLabel mb="8px">Description:</FormLabel>
-            <Input type="text" placeholder="description" size={"md"} name="description" autoComplete="off" />
-            <FormLabel>Type</FormLabel>
-            <Select>
-              <option value="option1">none</option>
-              <option value="option2">Tshirt</option>
-              <option value="option3">sweatshirt</option>
-              <option value="option4">jacket</option>
-              <option value="option5">pant</option>
-              <option value="option6">accesories</option>
-              <option value="option7">shoes</option>
-              <option value="option8">equipment</option>
-            </Select>
-
-            <FormLabel>Gender</FormLabel>
-            <Select>
-              <option value="option1">none</option>
-              <option value="option2">Male</option>
-              <option value="option3">Female</option>
-            </Select>
-            <FormLabel>Color</FormLabel>
-            <Select>
-              <option value="option1">none</option>
-              <option value="option2">Black</option>
-              <option value="option3">White</option>
-              <option value="option4">Grey</option>
-              <option value="option5">Blue</option>
-              <option value="option6">Red</option>
-              <option value="option7">Yellow</option>
-              <option value="option8">Brown</option>
-              <option value="option9">Pink</option>
-            </Select>
-            <FormLabel>Shoe size</FormLabel>
-            <Select placeholder="shoe size">
-              {shoeSize.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </Select>
-            <FormLabel>Size</FormLabel>
-            <Select>
-              <option value="option1">none</option>
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">Extra Large</option>
-              <option value="Unique">Unique</option>
-            </Select>
-            <FormLabel>Stock</FormLabel>
-            <Input type="number" placeholder="Stock" />
-            <FormLabel>Price: U$S</FormLabel>
-            <Input type="number" placeholder="Price" />
-          </FormControl>
-          <Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
-            <Button type="submit">Add</Button>
-            <Button type="reset">Reset</Button>
-            <Button>Cancel</Button>
-          </Box>
-        </form>
-      </Box>
+                <FormLabel>Price : </FormLabel>
+                <Input type="number" placeholder={product.price} size={"md"} name="price" autoComplete="off" onChange={handleChange} />
+              </FormControl>
+              <Button colorScheme="teal" type="submit" m="6">
+                Submit
+              </Button>
+              <Button colorScheme="teal" type="reset" m="6" onClick={handleReset}>
+                Reset
+              </Button>
+            </form>
+          </Th>
+        </Tbody>
+      </Table>
+      {/* AlertDialog para confirmar el envío */}
+      <AlertDialog isOpen={isAlertOpen} onClose={handleCancel}>
+        <AlertDialogOverlay />
+        <AlertDialogContent>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+            confirm change
+          </AlertDialogHeader>
+          <AlertDialogBody>Are you sure you want to submit the form?</AlertDialogBody>
+          <AlertDialogFooter>
+            <Button colorScheme="teal" onClick={handleConfirm}>
+              Confirm
+            </Button>
+            <Button colorScheme="red" ml={3} onClick={handleCancel}>
+              Cancel
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Container>
   );
 };
