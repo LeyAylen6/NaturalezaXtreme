@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPayment } from '../../redux/actions/actions';
+import { createPayment, setPaymentLink } from '../../redux/actions/actions.js';
+
 
 const MercadoPago = ({ productPrice, productQuantity }) => {
-  const paymentLink = useSelector((state) => state.payment.paymentLink);
+  const paymentLink = useSelector((state) => state.paymentLink);
   const dispatch = useDispatch();
 
   const handlePayment = () => {
-    // Llama a la acción para crear el pago
-    dispatch(createPayment(productPrice, productQuantity));
+    dispatch(createPayment(productPrice, productQuantity))
   };
 
   return (
@@ -25,3 +25,4 @@ const MercadoPago = ({ productPrice, productQuantity }) => {
 };
 
 export default MercadoPago;
+

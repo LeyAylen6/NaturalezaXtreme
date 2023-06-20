@@ -36,7 +36,7 @@ function App() {
             <Route path="/editProduct" element={<EditProduct />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/userEdition" element={<UserEdition />} />
-            <Route path="/Mercado-pago" element={<MercadoPago />} />
+            <Route path="/mercadoPago" element={<MercadoPago/>} />
           </Routes>
         </Box>
       </Provider>

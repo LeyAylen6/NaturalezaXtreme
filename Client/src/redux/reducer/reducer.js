@@ -14,6 +14,7 @@ import {
   PREV_PAGE,
 } from "../actions/actions";
 import { GET_USERS } from "../actions/actionsUsers";
+import { POST_USERS } from "../actions/actionsUsers";
 
 const initialState = {
   users: [],
@@ -27,21 +28,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ARTICLES:
-      return {
-        ...state,
-        articles: action.payload,
-      };
-    case NEXT_PAGE:
-      return {
-        ...state,
-        articles: action.payload,
-      };
-    case PREV_PAGE:
-      return {
-        ...state,
-        articles: action.payload,
-      };
     case FILTER_SEARCHBAR:
       const filterArticles = state.allProducts;
       const filterFinish = filterArticles.filter((article) => {
@@ -77,6 +63,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         articleById: action.payload,
       };
+    case GET_ARTICLES:
+      return {
+        ...state,
+        articles: action.payload,
+      };
+    case NEXT_PAGE:
+      return {
+        ...state,
+        articles: action.payload,
+      };
+    case PREV_PAGE:
+      return {
+        ...state,
+        articles: action.payload,
+      };
+
     case REMOVE_FAV:
       return {
         ...state,
@@ -98,10 +100,15 @@ const reducer = (state = initialState, action) => {
         ...state,
         detail: [],
       };
-    case "SET_PAYMENT_LINK":
+    case SET_PAYMENT_LINK:
       return {
         ...state,
         paymentLink: action.payload,
+      };
+    case POST_USERS:
+      return {
+        ...state,
+        users: action.payload,
       };
     default:
       return { ...state };
