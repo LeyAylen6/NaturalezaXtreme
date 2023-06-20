@@ -7,11 +7,20 @@ import {
   FILTER_SEARCHBAR,
   GET_DETAIL,
   RES_STATE,
+
   GET_PRODUCT_DESACTIVATE,
   SET_PAYMENT_LINK,
   ADD_PRODUCT,
+
+  GET_ARTICLE_ID,
+  SET_PAYMENT_LINK,
+  GET_ARTICLES,
+  NEXT_PAGE,
+  PREV_PAGE,
+
 } from "../actions/actions";
 import { GET_USERS } from "../actions/actionsUsers";
+import { POST_USERS } from "../actions/actionsUsers";
 
 const initialState = {
   users: [],
@@ -20,6 +29,10 @@ const initialState = {
   detail: [],
   articleById: {},
   paymentLink: "",
+
+
+  articles: [],
+
 };
 
 const reducer = (state = initialState, action) => {
@@ -59,6 +72,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         articleById: action.payload,
       };
+
     case REMOVE_FAV:
       return {
         ...state,
@@ -67,6 +81,33 @@ const reducer = (state = initialState, action) => {
     case GET_PRODUCT_DESACTIVATE:
       return {
         ...state,
+
+    case GET_ARTICLES:
+      return {
+        ...state,
+        articles: action.payload,
+      };
+    case NEXT_PAGE:
+      return {
+        ...state,
+        articles: action.payload,
+      };
+    case PREV_PAGE:
+      return {
+        ...state,
+        articles: action.payload,
+      };
+
+    case REMOVE_FAV:
+      return {
+        ...state,
+        myFavorites: state.myFavorites.filter(
+          (product) => product.id != action.payload
+        ),
+      };
+    case GET_ARTICLE_ID:
+      return {
+
         articleById: action.payload,
       };
     case GET_DETAIL:
@@ -79,14 +120,23 @@ const reducer = (state = initialState, action) => {
         ...state,
         detail: [],
       };
-    case "SET_PAYMENT_LINK":
+
+    case SET_PAYMENT_LINK:
+
       return {
         ...state,
         paymentLink: action.payload,
       };
+
     case ADD_PRODUCT:
       return {
         ...state,
+
+    case POST_USERS:
+      return {
+        ...state,
+        users: action.payload,
+
       };
     default:
       return { ...state };

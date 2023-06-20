@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import CardContainer from "../CardContainer/CardContainer";
 import Filters from "../Filters/Filters";
 import { Box } from "@chakra-ui/react";
-import { getAllProducts } from "../../redux/actions/actions";
-
+import { getArticles } from "../../redux/actions/actions";
 const Home = () => {
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllProducts());
+    dispatch(getArticles());
   }, []);
   return (
     <Box>
