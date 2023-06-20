@@ -1,34 +1,72 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, BaseEntity } from 'typeorm'
+import { Article } from './articleEntity'
+import { Shopping_Cart } from './shoppingCartEntity'
 
 @Entity()
-export class User {
+export class User extends BaseEntity{
     @PrimaryGeneratedColumn()
-    id!: number
+    id: number
 
-    @Column()
-    name!: string
+    @Column({        
+        nullable: false
+    })
+    name: string
 
-    @Column()
-    lastname!: string
+    @Column({        
+        nullable: false
+    })
+    lastname: string
 
-    @Column()
-    password!: string
+    @Column({
+        unique: true,
+        type: "varchar",
+        length: 255,
+        nullable: false
+    })
+    email: string
 
-    @Column()
-    adress!: string
+    @Column({
+        type: "varchar",
+        length: 15,
+        nullable: false
+    })
+    password: string
 
-    @Column()
-    city!: number
+    @Column({
+        type: "varchar",
+        length: 50,
+        nullable: false
+    })
+    adress: string
+
+    @Column({
+        type: "varchar",
+        length: 20,
+        nullable: false
+    })
+    city: string
     
     @Column()
-    avatar!: string
+    avatar: string = "https://cdn-icons-png.flaticon.com/512/3237/3237447.png"
 
-    @Column()
-    rol!: number
+    @Column({
+        enum: ['User', 'Admin'], 
+        nullable: false,
+    })
+    rol: string
 
-    @Column()
-    active!: boolean
+    @Column({
+        nullable: false
+    })
+    active: boolean
+
+    @ManyToMany(() => Article, (article) => article.users)
+    @JoinTable()
+    articles: Article[]
+
+    @OneToMany(() => Shopping_Cart, (shoppingCart) => shoppingCart.user)
+    shoppingCart: Shopping_Cart[]
 }
- 
-// Agregaria username, birthday and 
-// disabled se enteria mejor si fuera activated = si o no. o Similar.
+
+

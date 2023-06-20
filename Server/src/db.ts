@@ -1,19 +1,25 @@
 require('dotenv').config();
-const { User } = require('./entities/userEntity')
+
+import { User } from './entities/userEntity';
+import { Article } from './entities/articleEntity';
+import { Post } from "./entities/postEntity";
+import { Shopping_Cart } from "./entities/shoppingCartEntity";
 import "reflect-metadata"
-const { PASSWORD, USERNAME, DB_HOST } = process.env
+import { Shopping_Cart_Article } from './entities/shoppingCartArticleEntity';
+const { DB_PORT, DB_PASSWORD, DB_USER, DB_HOST, DB_NAME_PROJECT } = process.env
+
 import { DataSource } from "typeorm"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
     host: DB_HOST,
-    port: 5432,
-    username: USERNAME,
-    password: PASSWORD,
-    database: "NaturalezaXtreme",
+    port: Number(DB_PORT),
+    username: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_NAME_PROJECT,
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: [User, Article, Post, Shopping_Cart, Shopping_Cart_Article],
     subscribers: [],
     migrations: [],
 })

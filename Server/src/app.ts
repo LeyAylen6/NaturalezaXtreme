@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import express, { Request, Response, NextFunction } from "express";
 const server = express();
+import router from './routes/index'
+
 
 require('./db.ts');
 
@@ -19,17 +21,16 @@ server.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// ! Agregar aca nuestras rutas
-// server.use('/', getUsers)
-// server.use('/', getUsers)
-// server.use('/', getUsers)
+
+server.use('/', router)
 
 // Error catching endware.
-// server.use((err, req: Request, res: Response, next: NextFunction) => { // eslint-disable-line no-unused-vars
-//     const status = err.status || 500;
+// server.use((err: Error, req: Request, res: Response, next: NextFunction) => { // eslint-disable-line no-unused-vars
 //     const message = err.message || err;
 //     console.error(err);
-//     res.status(status).send(message);
+//     res.status(500).send(message);
+
+
 // });
   
 export default server;
