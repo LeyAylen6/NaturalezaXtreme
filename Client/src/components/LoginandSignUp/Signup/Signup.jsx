@@ -13,7 +13,7 @@ const Signup = () => {
     password: '',
     adress: '',
     city: '', 
-    rol: '', 
+    rol: 'user', 
     active: true
   });
 
@@ -102,13 +102,6 @@ const Signup = () => {
               type="city"
               onChange={handleChange}
               placeholder="Enter your city"
-            />
-            <FormLabel>Rol</FormLabel>
-            <Input
-              name="rol"
-              type="rol"
-              onChange={handleChange}
-              placeholder="Enter your rol ej: User"
             />
             <Button
               backgroundColor="black"
