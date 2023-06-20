@@ -25,7 +25,7 @@ const postMercadoPagoController = async (product: articleStructure) =>{
     
     const response =  await mercadopago.preferences.create(preference);
     
-    return {url: response.body.init_point}
+    return { url: response.body.init_point }
 }
 
 export default postMercadoPagoController

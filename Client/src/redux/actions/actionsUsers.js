@@ -2,7 +2,7 @@ export const GET_USERS = "GET_USERS";
 export const POST_USERS = "POST_USERS";
 import axios from "axios";
 
-export const getUsers = () => {
+export const getUsers = (id) => {
   return async function (dispatch) {
     const apiData = await axios.get(`http://localhost:3001/user?id=${id}`);
 
