@@ -11,7 +11,9 @@ import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+
 import { updateProduct } from "../../redux/actions/actions";
+
 
 const EditProduct = () => {
   const dispatch = useDispatch();
