@@ -24,13 +24,13 @@ const getArticlesByNameController = async(name: string, gender: string, type:str
         }
       };
 
-    const articlesFound = await AppDataSource.getRepository(Article).find(query);
+    const articlesFounded = await AppDataSource.getRepository(Article).find(query);
 
-    const pag = paginado(offset,limit,articlesFound.length)
+    const pag = paginado(offset,limit,articlesFounded.length)
 
-    if (articlesFound.length === 0) throw new Error(`no matches were found for your search`)
+    if (articlesFounded.length === 0) throw new Error(`no matches were found for your search`)
 
-    return{...pag, articlesFound};
+    return{...pag, articlesFounded};
 }
 
 export default getArticlesByNameController;
