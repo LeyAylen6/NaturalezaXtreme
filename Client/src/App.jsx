@@ -19,6 +19,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import MercadoPago from "./components/MercadoPago/Mercadopago";
 import Signup2 from "./components/LoginandSignUp/Signup2";
+import MercadoPagoError from "./components/MercadoPago/MercadoPagoError";
 function App() {
   return (
     <ChakraProvider>
@@ -41,6 +42,7 @@ function App() {
             <Route path="/userEdition" element={<UserEdition />} />
             <Route path="/mercadoPago" element={<MercadoPago />} />
             <Route path="/productOutOfSale" element={<ProductOutOfSale />} />
+            <Route path="/error" element={<MercadoPagoError/>}/>
           </Routes>
         </Box>
       </Provider>
