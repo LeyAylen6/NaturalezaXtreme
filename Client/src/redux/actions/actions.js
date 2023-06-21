@@ -67,20 +67,27 @@ export const getArticlesByQuery = (name) => {
     });
   };
 };
-export const filterSearchBar = (payload) => {
-  return (dispatch) => {
-    return dispatch({
-      type: FILTER_SEARCHBAR,
-      payload,
-    });
+export const filterSearchBar = (name) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/articles?name=${name}`);
+      const payload = response.data;
+      return dispatch({
+        type: FILTER_SEARCHBAR,
+        payload,
+      });
+    } catch (error) {
+      return dispatch({
+        type: FILTER_SEARCHBAR,
+        payload: [],
+      });
+    }
   };
 };
 
 export function getDetail(id) {
   return async function (dispatch) {
-    const json = await axios.get(
-      `http://localhost:3001/articlefinder/?id=${id}`
-    );
+    const json = await axios.get(`http://localhost:3001/articlefinder/?id=${id}`);
 
     return dispatch({
       type: GET_DETAIL,
@@ -97,10 +104,7 @@ export function resState() {
 export const productdesactivate = (id, active) => {
   return async function (dispatch) {
     const body = { active };
-    const apiData = await axios.put(
-      `http://localhost:3001/articles/${id}`,
-      body
-    );
+    const apiData = await axios.put(`http://localhost:3001/articles/${id}`, body);
     const product = apiData.data;
     dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
   };

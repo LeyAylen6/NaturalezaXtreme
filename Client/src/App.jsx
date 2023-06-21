@@ -13,6 +13,7 @@ import CrudUsers from "./components/Admin/CrudUsers";
 import FormProduct from "./components/Admin/FormProduct";
 import EditProduct from "./components/Admin/EditProduct";
 import Cart from "./components/Cart/Cart";
+import ProductOutOfSale from "./components/Admin/ProductOutOfSale";
 import UserEdition from "./components/Admin/UserEdition";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
@@ -38,7 +39,8 @@ function App() {
             <Route path="/editProduct" element={<EditProduct />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/userEdition" element={<UserEdition />} />
-            <Route path="/mercadoPago" element={<MercadoPago/>} />
+            <Route path="/mercadoPago" element={<MercadoPago />} />
+            <Route path="/productOutOfSale" element={<ProductOutOfSale />} />
           </Routes>
         </Box>
       </Provider>
