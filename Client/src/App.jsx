@@ -20,6 +20,7 @@ import store from "./redux/store/store";
 import MercadoPago from "./components/MercadoPago/Mercadopago";
 import Signup2 from "./components/LoginandSignUp/Signup2";
 import MercadoPagoError from "./components/MercadoPago/MercadoPagoError";
+
 function App() {
   return (
     <ChakraProvider>
