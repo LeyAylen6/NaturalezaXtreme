@@ -14,7 +14,6 @@ import { useState } from "react";
 
 import { updateProduct } from "../../redux/actions/actions";
 
-
 const EditProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,7 +26,10 @@ const EditProduct = () => {
     name: product.name,
     description: product.description,
     price: product.price,
+    size: product.size,
+    shoeSize: product.shoeSize,
   });
+  console.log(form);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,8 +39,8 @@ const EditProduct = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     setIsAlertOpen(true);
   };
 
@@ -52,8 +54,8 @@ const EditProduct = () => {
     setIsAlertOpen(false);
   };
 
-  const handleReset = (e) => {
-    e.preventDefault();
+  const handleReset = (event) => {
+    event.preventDefault();
     setForm({
       id: product.id,
       active: product.active,
@@ -85,7 +87,7 @@ const EditProduct = () => {
             <form onSubmit={handleSubmit}>
               <FormControl>
                 <FormLabel>Name</FormLabel>
-                <Input type="text" placeholder={product.name} name="name" autoComplete="off" onChange={handleChange} />
+                <Input type="text" placeholder={product.name} name="name" autoComplete="off" value={form.name} onChange={handleChange} />
                 <br />
                 <FormLabel mb="8px">Description: </FormLabel>
                 <Input
@@ -94,11 +96,20 @@ const EditProduct = () => {
                   size={"md"}
                   name="description"
                   autoComplete="off"
+                  value={form.description}
                   onChange={handleChange}
                 />
 
                 <FormLabel>Price : </FormLabel>
-                <Input type="number" placeholder={product.price} size={"md"} name="price" autoComplete="off" onChange={handleChange} />
+                <Input
+                  type="number"
+                  placeholder={product.price}
+                  size={"md"}
+                  name="price"
+                  autoComplete="off"
+                  onChange={handleChange}
+                  value={form.price}
+                />
               </FormControl>
               <Button colorScheme="teal" type="submit" m="6">
                 Submit
