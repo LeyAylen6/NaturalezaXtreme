@@ -75,7 +75,6 @@ const reducer = (state = initialState, action) => {
         ...state,
       };
     case GET_ARTICLES:
-      console.log(action.payload)
       return {
         ...state,
         articles: action.payload,
