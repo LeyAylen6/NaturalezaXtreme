@@ -9,7 +9,13 @@ export class Shopping_Cart_Article {
     public id: number
 
     @Column()
-    public quantily: number
+    public articleId: number
+
+    @Column()
+    public userId: number
+
+    @Column()
+    public quantity: number
 
     @ManyToOne(() => Shopping_Cart, (shoppingCart) => shoppingCart.shoppingArticles)
     public shoppingCarts: Shopping_Cart
