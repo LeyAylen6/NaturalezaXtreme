@@ -14,6 +14,7 @@ import {
   GET_ARTICLES,
   NEXT_PAGE,
   PREV_PAGE,
+  SIGN_UP
 } from "../actions/actions";
 import { GET_USERS } from "../actions/actionsUsers";
 import { POST_USERS } from "../actions/actionsUsers";
@@ -25,21 +26,16 @@ const initialState = {
   detail: [],
   articleById: {},
   paymentLink: "",
-
+  signUp: true,
   articles: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case FILTER_SEARCHBAR:
-      const filterArticles = state.allProducts;
-      const filterFinish = filterArticles.filter((article) => {
-        const name = article.name;
-        if (name.includes(action.payload)) return article;
-      });
       return {
         ...state,
-        allProducts: filterFinish,
+        articles: action.payload
       };
     case GET_ARTICLES_BY_QUERY:
       return {
@@ -131,6 +127,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: action.payload,
       };
+      case SIGN_UP:
+        return {
+            ...state,
+            signUp: action.payload
+        }
+        
     default:
       return { ...state };
   }

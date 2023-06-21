@@ -8,7 +8,7 @@ export const RES_STATE = "RES_STATE";
 export const GET_PRODUCT_DESACTIVATE = "GET_PRODUCT_DESACTIVATE";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
-
+export const  SIGN_UP =  "SIGN_UP";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 
 export const GET_ARTICLES = "GET_ARTICLES";
@@ -18,8 +18,8 @@ export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
 
 import axios from "axios";
 
-const URL ='https://2129-201-190-150-125.ngrok-free.app';
-//const URL ='http://localhost:3001/;
+//const URL ='https://2129-201-190-150-125.ngrok-free.app';
+const URL ='http://localhost:3001/';
 
 export const getArticles = () => {
   return async function (dispatch) {
@@ -70,12 +70,21 @@ export const getArticlesByQuery = (name) => {
     });
   };
 };
-export const filterSearchBar = (payload) => {
-  return (dispatch) => {
-    return dispatch({
-      type: FILTER_SEARCHBAR,
-      payload,
-    });
+export const filterSearchBar = (name) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL}articles?name=${name}`);
+      const payload = response.data;
+      return dispatch({
+        type: FILTER_SEARCHBAR,
+        payload,
+      });
+    } catch (error) {
+      return dispatch({
+        type: FILTER_SEARCHBAR,
+        payload: {articlesFounded: []},
+      });
+    }
   };
 };
 
@@ -153,3 +162,6 @@ export const addProduct = (body) => {
     dispatch({ type: ADD_PRODUCT, payload: product });
   };
 };
+export const redirectSignUp = (dispatch) => {
+  dispatch({ type: SIGN_UP, payload: false})
+}

@@ -11,7 +11,6 @@ const deactivateUserController = async(id: number, active: boolean) => {
 
     let newUser = {...userFound}
     newUser.active = active
-
     
     await AppDataSource.getRepository(User).merge(userFound, newUser)
     const results = await AppDataSource.getRepository(User).save(userFound)
