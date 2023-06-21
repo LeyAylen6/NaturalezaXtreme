@@ -17,6 +17,7 @@ import UserEdition from "./components/Admin/UserEdition";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import MercadoPago from "./components/MercadoPago/Mercadopago";
+import Signup2 from "./components/LoginandSignUp/Signup2";
 function App() {
   return (
     <ChakraProvider>
@@ -25,6 +26,7 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/login-signup" element={<Loginsingup />} />
+            <Route path="/signup" element={<Signup2/>}/>
             <Route path="/" element={<Home />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/admin" element={<Admin />} />

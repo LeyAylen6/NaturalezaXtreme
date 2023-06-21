@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { validation } from "../../Validation/validation";
-import { Box, Button, Card, Container, FormControl, FormLabel, Heading, Input, Select, Text } from "@chakra-ui/react";
+import { Box, Button, Card, Container, FormControl, FormLabel, Heading, Input, Select, Text} from "@chakra-ui/react";
 import { getUsers } from "../../../redux/actions/actionsUsers";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -50,7 +50,7 @@ const Login =()=> {
                 value={userData.email}
                 placeholder="ej: Email@gmail.com"
                 />
-              {errors.email && <p>{errors.email}</p>}
+              {errors.email && <Text>{errors.email}</Text>}
            
             <FormLabel>Password</FormLabel>
                 <Input 
@@ -60,7 +60,7 @@ const Login =()=> {
                 value={userData.password}
                 placeholder="Enter your password"
                 />
-                 {errors.password && <p>{errors.password}</p>}
+                 {errors.password && <Text>{errors.password}</Text>}
                 <Button backgroundColor= "black" color="white"  marginTop= "15px" type="submit" disabled={errors.email || errors.password || !userData.email || !userData.password}>Log In</Button>
                 </FormControl>
             </form>

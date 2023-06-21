@@ -38,7 +38,10 @@ const Signup = () => {
     event.preventDefault();
     try {
       await createNewAccount(signuserData, dispatch);
+      if(signuserData){ 
+        console.log("entra")
        navigate("/")
+      }
     } catch (error) {
       setErrorMessage(error.response.data.error); // Obtener el mensaje de error desde la respuesta del servidor
     }
@@ -48,9 +51,6 @@ const Signup = () => {
   return (
     <Container marginTop={10}>
       <Card padding={4} background={`rgba(255, 255, 255, 0.3)`}>
-        <Heading fontSize="25px" marginBottom="25px" marginTop="20px">
-          I WANT TO BE PART
-        </Heading>
         <Heading fontSize="X" marginBottom="20px">
           complete the information
         </Heading>
