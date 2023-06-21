@@ -1,56 +1,21 @@
-// import { AppDataSource } from "../../db";
-// import { Shopping_Cart_Article } from "../../entities/shoppingCartArticleEntity";
-// import { Shopping_Cart } from "../../entities/shoppingCartEntity";
-// import { articleCartStructure } from "../../interfaces/articleCartStructure";
+import { AppDataSource } from "../../db";
+import { Shopping_Cart } from "../../entities/shoppingCartEntity";
+import { CategoryCart } from "../../interfaces/categoryCart";
+import { queryShoppingCart } from "../../interfaces/queryShoppingCart";
 
-// interface userIdArticleId {
-//     userId: number, 
-//     articleId: number
-// }
+const getShoppingCartController = async(userId?: number, status?: CategoryCart) => {
 
-// const getShoppingCartController = async({ userId, articleId }: userIdArticleId) => {
+    const query: queryShoppingCart = {}
 
-//     //Busca carrito
-//     const carts = await AppDataSource.getRepository(Shopping_Cart).find({
-//         where: { 
-//             userId: userId,
-//             role: 'pending'
-//         }
-//     })
+    if(userId) query.userId = userId;
+    if(status) query.status = status;
 
-//     if(carts.length === 0) throw new Error()
+    const shopping = await AppDataSource.getRepository(Shopping_Cart).find({ where: query })
 
-//     // Busca articulo en el carrito
-//     const articleFoundInCart  = await AppDataSource.getRepository(Shopping_Cart_Article).findOneBy({ userId: userId, articleId: articleId })
+    if(!shopping.length) throw new Error('There must be at least one cart')
+    if(query.status === 'pending' && shopping.length > 1) throw new Error('There can only be one cart in pending status for each user')
 
-//     // Si el articulo no existe lo agrega
-//     if(!articleFoundInCart) {
+    return shopping;
+}
 
-//         const newArticle: articleCartStructure = {
-//             userId: userId,
-//             articleId: articleId,
-//             quantity: 1,
-//         }
-
-//         const articleToCreate = AppDataSource.getRepository(Shopping_Cart_Article).create(newArticle)
-//         const result = AppDataSource.getRepository(Shopping_Cart_Article).save(articleToCreate)
-
-//         return result;
-
-//     // Si el articulo existe aumenta quantity en 1 unidad.
-//     } else {
-
-//         const newArticle: articleCartStructure = {
-//             userId: userId,
-//             articleId: articleId,
-//             quantity: articleFoundInCart.quantity++,
-//         }
-
-//         AppDataSource.getRepository(Shopping_Cart_Article).merge(articleFoundInCart, newArticle)
-//         const result = AppDataSource.getRepository(Shopping_Cart_Article).save(articleFoundInCart)
-        
-//         return result;
-//     }
-// }
-
-// export default getShoppingCartController;
+export default getShoppingCartController;

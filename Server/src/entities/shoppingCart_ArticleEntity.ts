@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column,ManyToOne } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column,ManyToOne, JoinTable } from 'typeorm'
 import { Shopping_Cart } from './shoppingCartEntity'
 import { Article } from './articleEntity' 
 
@@ -9,17 +9,11 @@ export class Shopping_Cart_Article {
     public id: number
 
     @Column()
-    public articleId: number
-
-    @Column()
-    public userId: number
-
-    @Column()
     public quantity: number
 
     @ManyToOne(() => Shopping_Cart, (shoppingCart) => shoppingCart.shoppingArticles)
-    public shoppingCarts: Shopping_Cart
+    public shoppingCartId: Shopping_Cart
 
     @ManyToOne(() => Article, (article) => article.shoppingArticles)
-    public articles: Article
+    public article: Article
 }

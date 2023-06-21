@@ -1,8 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column,ManyToOne, OneToMany } from 'typeorm'
 import{ User } from './userEntity'
-import { Shopping_Cart_Article } from './shoppingCartArticleEntity'
-
-export type CategoryCart = "pending" | "complet"  
+import { Shopping_Cart_Article } from './shoppingCart_ArticleEntity'
+import { CategoryCart } from '../interfaces/categoryCart'
 
 @Entity()
 export class Shopping_Cart {
@@ -12,10 +11,10 @@ export class Shopping_Cart {
     
     @Column({
         type: "enum",
-        enum: ["pending", "complet" ],
-        default: "complet"
+        enum: ["pending", "complete" ],
+        default: "complete"
     })
-    role: CategoryCart
+    status: CategoryCart
 
     @Column()
     userId: number
@@ -23,6 +22,6 @@ export class Shopping_Cart {
     @ManyToOne(() => User, (user) => user.shoppingCart)
     user: User
 
-    @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.shoppingCarts)
+    @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.shoppingCartId)
     public shoppingArticles: Shopping_Cart_Article[];
 }
