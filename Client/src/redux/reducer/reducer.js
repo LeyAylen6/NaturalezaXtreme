@@ -17,6 +17,7 @@ import {
 } from "../actions/actions";
 import { GET_USERS } from "../actions/actionsUsers";
 import { POST_USERS } from "../actions/actionsUsers";
+import { FILTER_COMBINATED } from "../actions/actionFilters";
 
 const initialState = {
   users: [],
@@ -31,10 +32,15 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case FILTER_COMBINATED:
+      return {
+        ...state,
+        articles: action.payload,
+      };
     case FILTER_SEARCHBAR:
       return {
         ...state,
-        articles: action.payload
+        articles: action.payload,
       };
     case GET_ARTICLES_BY_QUERY:
       return {
@@ -74,7 +80,6 @@ const reducer = (state = initialState, action) => {
         ...state,
       };
     case GET_ARTICLES:
-      console.log(action.payload)
       return {
         ...state,
         articles: action.payload,
