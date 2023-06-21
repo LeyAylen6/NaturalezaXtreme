@@ -1,18 +1,23 @@
 import mercadopago from "mercadopago";
 import { CreatePreferencePayload } from "mercadopago/models/preferences/create-payload.model";
-import { articleStructure } from "../../interfaces/articleStructure";
+import { preferenceMP } from "../../interfaces/preferernceMercadoPago";
 
-const postMercadoPagoController = async (product: articleStructure) =>{
-
-    const URL = 'https://localhost:5173/'
+const postMercadoPagoController = async (product: preferenceMP[]) =>{
+    
+    const item = product.map((valorActual: preferenceMP)=>{
+      return  {
+            title: valorActual.name,
+            unit_price: +valorActual.price,
+            quantity: +valorActual.quantity,
+        }
+    })
+   
+    const URL = 'https://7783-201-190-150-125.ngrok-free.app'
+    // si no les funciona con esa url pongan http://localhost:3001/ 
         
     let preference: CreatePreferencePayload  = {
         items:  [
-            {
-                title: product.name,
-                unit_price: +product.price,
-                quantity: 1,
-            }
+            ...item
         ],
         back_urls: {
             "success": `${URL}`,
@@ -23,9 +28,10 @@ const postMercadoPagoController = async (product: articleStructure) =>{
         notification_url: `${URL}`
     };
     
+    
     const response =  await mercadopago.preferences.create(preference);
     
-    return {url: response.body.init_point}
+    return { url: response.body.init_point }
 }
 
 export default postMercadoPagoController

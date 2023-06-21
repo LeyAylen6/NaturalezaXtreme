@@ -45,7 +45,7 @@ const NavBar = () => {
             <Link to="/login-signup">Login / Sign Up</Link>
           </Box>
           <Box bg={"transparent"} color={"white"}>
-            <Link to="/mercadoPago">Mercado Pago</Link>
+            <Link to="/mercadoPago">Mercado Pago</Link> 
           </Box>
         </HStack>
       </Stack>

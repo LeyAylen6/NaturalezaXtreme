@@ -8,8 +8,8 @@ const postUserController = async(user: userStructure) => {
 
     if (userFound) throw new Error('There is a user with that email')
 
-    const articleCreated = await AppDataSource.getRepository(User).create(user)
-    const userCreated = await AppDataSource.getRepository(User).insert(articleCreated)
+    const userToCreate = await AppDataSource.getRepository(User).create(user)
+    const userCreated = await AppDataSource.getRepository(User).insert(userToCreate)
 
     return "User created";
 }

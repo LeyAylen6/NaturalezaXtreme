@@ -8,7 +8,7 @@ export const RES_STATE = "RES_STATE";
 export const GET_PRODUCT_DESACTIVATE = "GET_PRODUCT_DESACTIVATE";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
-
+export const  SIGN_UP =  "SIGN_UP";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 
 export const GET_ARTICLES = "GET_ARTICLES";
@@ -18,9 +18,12 @@ export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
 
 import axios from "axios";
 
+//const URL ='https://2129-201-190-150-125.ngrok-free.app'; (no lo borren plis)
+const URL ='http://localhost:3001/';
+
 export const getArticles = () => {
   return async function (dispatch) {
-    var apiData = await axios("http://localhost:3001/articles");
+    var apiData = await axios(`${URL}articles`);
     const page = apiData.data;
     dispatch({ type: GET_ARTICLES, payload: page });
   };
@@ -52,14 +55,14 @@ export const removeFav = (id) => {
 };
 export const getAllProducts = () => {
   return async function (dispatch) {
-    const apiData = await axios.get("http://localhost:3001/articles");
+    const apiData = await axios.get(`${URL}articles`);
     const products = apiData.data;
     dispatch({ type: GET_ALL_PRODUCTS, payload: products });
   };
 };
 export const getArticlesByQuery = (name) => {
   return async (dispatch) => {
-    const response = await axios.get(`http://localhost:3001/articles`);
+    const response = await axios.get(`${URL}articles`);
     const payload = response.data;
     return dispatch({
       type: GET_ARTICLES_BY_QUERY,
@@ -70,7 +73,7 @@ export const getArticlesByQuery = (name) => {
 export const filterSearchBar = (name) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:3001/articles?name=${name}`);
+      const response = await axios.get(`${URL}articles?name=${name}`);
       const payload = response.data;
       return dispatch({
         type: FILTER_SEARCHBAR,
@@ -79,7 +82,7 @@ export const filterSearchBar = (name) => {
     } catch (error) {
       return dispatch({
         type: FILTER_SEARCHBAR,
-        payload: [],
+        payload: {articlesFounded: []},
       });
     }
   };
@@ -87,7 +90,9 @@ export const filterSearchBar = (name) => {
 
 export function getDetail(id) {
   return async function (dispatch) {
-    const json = await axios.get(`http://localhost:3001/articlefinder/?id=${id}`);
+    const json = await axios.get(
+      `${URL}articlefinder/?id=${id}`
+    );
 
     return dispatch({
       type: GET_DETAIL,
@@ -104,7 +109,10 @@ export function resState() {
 export const productdesactivate = (id, active) => {
   return async function (dispatch) {
     const body = { active };
-    const apiData = await axios.put(`http://localhost:3001/articles/${id}`, body);
+    const apiData = await axios.put(
+      `${URL}articles/${id}`,
+      body
+    );
     const product = apiData.data;
     dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
   };
@@ -112,7 +120,7 @@ export const productdesactivate = (id, active) => {
 
 export const updateProduct = (body) => {
   return async function (dispatch) {
-    const apiData = await axios.put("http://localhost:3001/articles", body);
+    const apiData = await axios.put(`${URL}articles`, body);
 
     const product = apiData.data;
     dispatch({ type: UPDATE_PRODUCT, payload: product });
@@ -123,10 +131,11 @@ export const createPayment = (productPrice, productQuantity) => {
   return (dispatch) => {
     axios
 
-      .post("http://localhost:3001/mercadoPago", {
-        price: productPrice,
-        quantity: productQuantity,
-      })
+      .post(`${URL}mercadoPago`, [{
+        name: 'Descripcion',
+        price: 10,
+        quantity: 1,
+      }])
 
       .then((response) => {
         const paymentLink = response.data.url;
@@ -148,8 +157,11 @@ export const setPaymentLink = (paymentLink) => {
 
 export const addProduct = (body) => {
   return async function (dispatch) {
-    const apiData = await axios.post("http://localhost:3001/articles", body);
+    const apiData = await axios.post(`${URL}articles`, body);
     const product = apiData.data;
     dispatch({ type: ADD_PRODUCT, payload: product });
   };
 };
+export const redirectSignUp = (dispatch) => {
+  dispatch({ type: SIGN_UP, payload: false})
+}
