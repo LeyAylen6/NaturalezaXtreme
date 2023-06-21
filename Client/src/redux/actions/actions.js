@@ -8,7 +8,7 @@ export const RES_STATE = "RES_STATE";
 export const GET_PRODUCT_DESACTIVATE = "GET_PRODUCT_DESACTIVATE";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
-
+export const  SIGN_UP =  "SIGN_UP";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 
 export const GET_ARTICLES = "GET_ARTICLES";
@@ -153,3 +153,6 @@ export const addProduct = (body) => {
     dispatch({ type: ADD_PRODUCT, payload: product });
   };
 };
+export const redirectSignUp = (dispatch) => {
+  dispatch({ type: SIGN_UP, payload: false})
+}

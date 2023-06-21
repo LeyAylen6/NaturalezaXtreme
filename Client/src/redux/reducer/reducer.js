@@ -14,6 +14,7 @@ import {
   GET_ARTICLES,
   NEXT_PAGE,
   PREV_PAGE,
+  SIGN_UP
 } from "../actions/actions";
 import { GET_USERS } from "../actions/actionsUsers";
 import { POST_USERS } from "../actions/actionsUsers";
@@ -25,7 +26,7 @@ const initialState = {
   detail: [],
   articleById: {},
   paymentLink: "",
-
+  signUp: true,
   articles: [],
 };
 
@@ -127,6 +128,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: action.payload,
       };
+      case SIGN_UP:
+        return {
+            ...state,
+            signUp: action.payload
+        }
+        
     default:
       return { ...state };
   }
