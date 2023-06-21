@@ -18,7 +18,7 @@ export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
 
 import axios from "axios";
 
-//const URL ='https://2129-201-190-150-125.ngrok-free.app';
+//const URL ='https://2129-201-190-150-125.ngrok-free.app'; (no lo borren plis)
 const URL ='http://localhost:3001/';
 
 export const getArticles = () => {

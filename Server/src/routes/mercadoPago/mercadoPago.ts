@@ -7,8 +7,10 @@ import { preferenceMP } from '../../interfaces/preferernceMercadoPago';
 
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
 mercadopago.configure({
-	access_token: process.env.MERCADOPAGO_ACCESS! || 'TEST-695361669423091-032219-2948e84b943fcd0abe8ebcb5cd23cd8c-263988706'// esto debe ir en un .env se lo dejo asi no necesitan crear una nueva cuenta en MP
+	access_token: process.env.MERCADOPAGO_ACCESS! // deben agregar a sus .env esta variable MERCADOPAGO_ACCESS con el valor que ya se los pase anteriormente
 });
+
+/* TARJETAS DE PRUEBA PARA PROBAR MP  */
 
 
 
