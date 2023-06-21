@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { validation } from "../../Validation/validation";
 import { Box, Button, Card, Container, FormControl, FormLabel, Heading, Input, Select, Text} from "@chakra-ui/react";
 import { getUsers } from "../../../redux/actions/actionsUsers";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from 'react-google-login';
+import {gapi} from "gapi-script";
 const Login =()=> {
     const [userData, setUserData] = useState({
         email: '',
@@ -13,6 +15,26 @@ const Login =()=> {
 
     const dispatch = useDispatch()
     const navigate = useNavigate();
+    const clientID = "843754372901-q1mqkv17teme8tte8od3qcptd8naficb.apps.googleusercontent.com"
+
+    useEffect(() => {
+        const start = () => {
+          gapi.load("auth2", () => {
+            gapi.auth2.init({
+              clientId: clientID
+            });
+          });
+        };
+      
+        start();
+      }, []);
+    const onSucces = (response) => {
+      console.log(response)
+      navigate("/")
+    }
+    const onFailure = () => {
+        console.log("Something went wrong")
+      }
       
     const handleChange = (event) => {
         event.preventDefault()
@@ -64,6 +86,13 @@ const Login =()=> {
                 <Button backgroundColor= "black" color="white"  marginTop= "15px" type="submit" disabled={errors.email || errors.password || !userData.email || !userData.password}>Log In</Button>
                 </FormControl>
             </form>
+            <GoogleLogin
+             clientId={clientID}
+             buttonText="Login"
+             onSuccess={onSucces}
+             onFailure={onFailure}
+             cookiePolicy={'single_host_origin'}
+  />
             </Card>
             </Container>
     )
