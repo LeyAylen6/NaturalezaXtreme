@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import mercadopago from 'mercadopago';
-import { articleStructure } from '../../interfaces/articleStructure';
 import postMercadoPagoController from '../../controllers/mercadoPago/postMercadoPagoController';
+import { preferenceMP } from '../../interfaces/preferernceMercadoPago';
 
 
 
@@ -14,7 +14,7 @@ mercadopago.configure({
 
 export const postMercadoPago = async (req: Request, res: Response)  => {
     try {
-        const product: articleStructure = req.body
+        const product: preferenceMP[] = req.body
 
         const mercadoPago = await postMercadoPagoController(product)
         return res.status(200).json(mercadoPago)
