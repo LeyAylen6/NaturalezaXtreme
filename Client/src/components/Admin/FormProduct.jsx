@@ -89,11 +89,6 @@ const FormProduct = () => {
 			);
 	};
 
-	const sizeOptionsRender2 = () => {
-		if (form.type === "shoes") {
-			return "opciones de zapatilla";
-		} else return "opciones de ropa";
-	};
 	return (
 		<Container marginTop={10}>
 			<Box
