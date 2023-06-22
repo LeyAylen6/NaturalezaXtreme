@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany, BaseEntity } from 'typeorm'
 import { User } from './userEntity';
-import { Shopping_Cart_Article } from './shoppingCartArticleEntity';
+import { Shopping_Cart_Article } from './shoppingCart_ArticleEntity';
 import { Size } from '../interfaces/sizeArticle';
 import { Shoesize } from '../interfaces/shoeSize';
 
@@ -105,6 +105,7 @@ export class Article extends BaseEntity{
     @ManyToMany(() => User, (user) => user.articles)
     users: User[]
 
-    @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.articles)
-    public shoppingArticles: Shopping_Cart_Article[];
+    @OneToMany(() => Shopping_Cart_Article, (shoppingArticle) => shoppingArticle.article)
+
+    shoppingArticles: Shopping_Cart_Article[];
 }

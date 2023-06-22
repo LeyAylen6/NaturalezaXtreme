@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
-// import getShoppingCartController from "../../controllers/shoppingCart/getShoppingCartArticles";
+import getShoppingCartController from "../../controllers/shoppingCart/getShoppingCartArticles";
+import { CategoryCart } from "../../interfaces/categoryCart";
 
 const getShoppingCart = async (req: Request, res: Response) => {
     try {
+        const status = req.query.status as CategoryCart;
+        const userId = req.query.userId;
         
-        // const articleToPost = await getShoppingCartController(userId, articleId);
+        const shoppingCart = await getShoppingCartController(Number(userId), status);
 
-        // res.status(200).json(articleToPost);
+        res.status(200).json(shoppingCart);
     
-    } catch (error: any){
-        if (error.message === `There is no article with that id`) {
-            return res.status(404).send(error.message)  
-        }
+    } catch (error: any) {
         res.status(500).send(error.message)
     }
 }

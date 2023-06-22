@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import putShoppingCartController from "../../controllers/shoppingCart/postShoppingCartController";
+import putShoppingCartController from "../../controllers/shoppingCart/putShoppingCartController";
 
 const putShoppingCart = async (req: Request, res: Response) => {
     try {

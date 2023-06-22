@@ -12,7 +12,7 @@ export interface articleStructure {
     size: Size, 
     shoeSize: Shoesize,
     color: string, 
-    stock: number, 
+    stock?: number, 
     image: string, 
     type: string, 
     rating: any;

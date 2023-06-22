@@ -14,6 +14,7 @@ import updateUser from './users/updateUser';
 import { postMercadoPago } from './mercadoPago/mercadoPago';
 import putShoppingCart from './shoppingCart/putShoppingCart';
 import getShoppingCart from './shoppingCart/getShoppingCartController';
+import getCartById from './shoppingCart/getCartById';
 
 const router = Router();
 
@@ -32,8 +33,8 @@ router.put('/user/:id', deactivateUser)
 
 router.put('/shoppingcart', putShoppingCart)
 router.get('/shoppingcart', getShoppingCart)
+router.get('/shoppingcart/:id', getCartById)
 
-router.post("/mercadoPago",postMercadoPago)
-
+router.post("/mercadoPago", postMercadoPago)
 
 export default router;
