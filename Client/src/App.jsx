@@ -4,7 +4,7 @@ import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import { Routes, Route } from "react-router-dom";
 import AboutUs from "./components/AboutUs/AboutUs";
-import Loginsingup from "./components/LoginandSignUp/Loginsignup";
+import Login from "./components/LoginandSignUp/Login/Login";
 import Favorites from "./components/Favorites/Favorites";
 import Admin from "./components/Admin/Admin";
 import Detail from "./components/Detail/Detail";
@@ -28,7 +28,7 @@ function App() {
         <Box>
           <NavBar />
           <Routes>
-            <Route path="/login-signup" element={<Loginsingup />} />
+            <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<Signup2/>}/>
             <Route path="/" element={<Home />} />
             <Route path="/aboutus" element={<AboutUs />} />

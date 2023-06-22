@@ -2,8 +2,12 @@ import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import { Box, Stack, HStack, Img } from "@chakra-ui/react";
 import logo from "../../assets/logo.jpg";
-
+import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "../Profile/Profile"
+import Logout from "../LogOut/Logout";
 const NavBar = () => {
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
+
   return (
     <Box>
       <Stack
@@ -41,12 +45,17 @@ const NavBar = () => {
           <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
             <Link to="/admin">Admin</Link>
           </Box>
+          {isAuthenticated ? 
+          <Logout/>    :    
           <Box bg={"transparent"} color={"white"}>
-            <Link to="/login-signup">Login / Sign Up</Link>
+          <button onClick={() => loginWithRedirect()}>Log In</button>
           </Box>
+             }
           <Box bg={"transparent"} color={"white"}>
-            <Link to="/mercadoPago">Mercado Pago</Link> 
+          
           </Box>
+
+        <Profile/>
         </HStack>
       </Stack>
     </Box>
