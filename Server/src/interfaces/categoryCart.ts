@@ -1,1 +1,1 @@
-export type CategoryCart = "pending" | "complete"
+export type CategoryCart = "pending" | "complete" | "rejected"

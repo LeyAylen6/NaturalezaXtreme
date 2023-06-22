@@ -12,10 +12,10 @@ const putShoppingCart = async (req: Request, res: Response) => {
     
     } catch (error: any){
         if (error.message === `you must have a cart created to update it`) {
-            return res.status(404).send(error.message)  
+            return res.status(400).send(error.message)  
         
         } else if (error.message === `must send a valid method`) {
-            return res.status(404).send(error.message)  
+            return res.status(400).send(error.message)  
         }
         res.status(500).send(error.message)
     }
