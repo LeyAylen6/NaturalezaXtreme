@@ -3,13 +3,16 @@ import { addFav, removeFav, resState } from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { getDetail, createPayment } from "../../redux/actions/actions";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Image, Flex, Button } from "@chakra-ui/react";
+import { Box, Image, Flex, Button, Text } from "@chakra-ui/react";
+import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 
 const initProductSelections = {
+	id: "",
 	articleID: "",
 	color: "",
 	image: "",
 	name: "",
+	quantity: 1,
 	price: 0,
 };
 
@@ -17,24 +20,32 @@ const Detail = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	let myFavorites = useSelector((state) => state.myFavorites);
+	const articleDetail = useSelector((state) => state.detail);
+	const cartArticles = useSelector((state) => state.cartArticles);
+	const paymentLink = useSelector((state) => state.paymentLink);
+
 	const [isFavorite, setIsFavorite] = useState(false);
+	const [isInCart, setIsInCart] = useState(false);
 	const [productSelections, setProductSelections] = useState(
 		initProductSelections
 	);
-	const [productPrice, setProductPrice] = useState(0);
-	const [productQuantity, setProductQuantity] = useState(0);
-	let myFavorites = useSelector((state) => state.myFavorites);
-	const articleDetail = useSelector((state) => state.detail);
-	const paymentLink = useSelector((state) => state.paymentLink);
 
-	console.log(articleDetail);
-	// console.log(productSelections);
+	// console.log("article detail", articleDetail);
+	console.log("cart articles", cartArticles);
+	console.log("product selections", productSelections);
 
 	useEffect(() => {
 		dispatch(getDetail(id));
 		myFavorites.forEach((fav) => {
 			if (fav.id == id) {
 				setIsFavorite(true);
+			}
+		});
+		cartArticles.forEach((article) => {
+			if (article.id == id) {
+				setIsInCart(true);
 			}
 		});
 		return () => {
@@ -42,41 +53,44 @@ const Detail = () => {
 		};
 	}, []);
 
-	useEffect(() => {
-		dispatch(getDetail(id));
-		myFavorites.forEach((fav) => {
-			if (fav.id == id) {
-				setIsFavorite(true);
-			}
+	//handler de los campos
+	const handleChange = (event) => {
+		const { name: property, value } = event.target;
+		// console.log('handling change')
+		// console.log(property, value);
+		setProductSelections({
+			id: articleDetail.id,
+			articleID: articleDetail.articleID,
+			color: articleDetail.color,
+			image: articleDetail.image,
+			name: articleDetail.name,
+			quantity: 1,
+			price: articleDetail.price,
+			[property]: value,
 		});
-		return () => {
-			dispatch(resState(resState));
-		};
-	}, []);
-
-  const handleChange = (event) => {
-    const { name: property, value } = event.target
-    console.log('handling change')
-    console.log(property, value)
-    setProductSelections({
-      ...productSelections,
-      [property]: value
-    })
-  }
+	};
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-    console.log('dispatch to pay')
-		dispatch(createPayment(productPrice, productQuantity));
+		dispatch(addToCart(productSelections))
+		navigate("/cart");
 	};
 
+	//boton agregar al carrito
 	const handleAddToCart = (event) => {
 		event.preventDefault();
-		console.log(event.target.name);
-
-		console.log("add to cart");
+		if (isInCart) {
+			setIsInCart(false);
+			dispatch(removeFromCart(id));
+			console.log("remove from cart");
+		} else {
+			setIsInCart(true);
+			dispatch(addToCart(productSelections));
+			console.log("add to cart");
+		}
 	};
 
+	//boton agregar a favoritos
 	const handleFavorites = (event) => {
 		event.preventDefault();
 		console.log(isFavorite);
@@ -91,6 +105,7 @@ const Detail = () => {
 		}
 	};
 
+	//conditional rendering function
 	const stockHandler = () => {
 		let stock = true;
 		for (const size in articleDetail.size) {
@@ -108,6 +123,7 @@ const Detail = () => {
 		}
 	};
 
+	//mapea a string los objetos de talle de ropa
 	let clotheSizeOptions = [];
 	if (articleDetail.size && typeof articleDetail.size === "object") {
 		clotheSizeOptions = Object.entries(articleDetail.size).map(
@@ -119,6 +135,7 @@ const Detail = () => {
 		);
 	}
 
+	//mapea a string los objetos de talle de zapatillas
 	let shoeSizeOptions = [];
 	if (articleDetail.shoeSize && typeof articleDetail.shoeSize === "object") {
 		shoeSizeOptions = Object.entries(articleDetail.shoeSize).map(
@@ -148,22 +165,16 @@ const Detail = () => {
 					/>
 				</Box>
 				<Box textAlign="left" ml="40px">
-					<Box
-						fontSize="40px"
-						fontWeight="semibold"
-						bg="black"
-						color="white"
-						width="100%"
-					>
+					<Box fontSize="40px" fontWeight="semibold" width="100%">
 						{articleDetail.name}
+					</Box>
+					<Box fontSize="25px" fontWeight="semibold">
+						{articleDetail.brand}
 					</Box>
 					<Box fontSize="40px" fontWeight="semibold">
 						${articleDetail.price}
 					</Box>
-					<h2>{articleDetail.gender}</h2>
-					<Box fontSize="25px" fontWeight="semibold">
-						{articleDetail.brand}
-					</Box>
+					<Text>{articleDetail.gender}</Text>
 
 					{/* para las estrellas haría otro componente ReviewBriefing */}
 
@@ -172,19 +183,19 @@ const Detail = () => {
 					<form onSubmit={handleSubmit} onChange={handleChange}>
 						<label>Size</label>
 						{articleDetail.type !== "shoes" ? (
-							<select name='size'>{clotheSizeOptions}</select>
+							<select name="size">{clotheSizeOptions}</select>
 						) : (
-							<select name='shoeSize'>{shoeSizeOptions}</select>
+							<select name="shoeSize">{shoeSizeOptions}</select>
 						)}
 						{stockHandler()}
-						<label>Quantity</label>
+						{/* <label>Quantity</label>
 						<input
 							type="number"
 							id="quantity"
 							name="quantity"
 							min="1"
 							max={articleDetail.stock}
-						></input>
+						></input> */}
 						<Flex
 							id="buttons"
 							direction="row"
@@ -200,9 +211,16 @@ const Detail = () => {
 									Remove from favorites
 								</Button>
 							)}
-							<Button onClick={handleAddToCart} flex="1">
-								Add to cart
-							</Button>
+
+							{!isInCart ? (
+								<Button onClick={handleAddToCart} flex="1">
+									Add to cart
+								</Button>
+							) : (
+								<Button onClick={handleAddToCart} flex="1">
+									Remove from Cart
+								</Button>
+							)}
 						</Flex>
 						<Button
 							type="submit"
