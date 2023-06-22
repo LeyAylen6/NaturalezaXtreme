@@ -6,13 +6,13 @@ import { Article } from './articleEntity'
 export class Shopping_Cart_Article {
     
     @PrimaryGeneratedColumn()
-    public id: number
+    public id?: number
 
     @Column()
     public quantity: number
 
     @ManyToOne(() => Shopping_Cart, (shoppingCart) => shoppingCart.shoppingArticles)
-    public shoppingCartId: Shopping_Cart
+    public shoppingCart: Shopping_Cart
 
     @ManyToOne(() => Article, (article) => article.shoppingArticles)
     public article: Article

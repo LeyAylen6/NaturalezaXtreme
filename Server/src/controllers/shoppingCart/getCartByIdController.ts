@@ -4,11 +4,11 @@ import { Shopping_Cart_Article } from "../../entities/shoppingCart_ArticleEntity
 const getCartByIdController = async(id: number) => {
 
     const detailCart = await AppDataSource.getRepository(Shopping_Cart_Article).find({
-        // relations: {
-        //     article: true
-        // },
+        relations: {
+            article: true
+        },
         where: { 
-            shoppingCartId: id as any,
+            shoppingCart: id as any,
         }
     }) 
 

@@ -7,8 +7,8 @@ const getShoppingCartController = async(userId?: number, status?: CategoryCart) 
 
     const query: queryShoppingCart = {}
 
-    if(userId) query.userId = userId;
     if(status) query.status = status;
+    if(userId) query.userId = userId;
 
     const shopping = await AppDataSource.getRepository(Shopping_Cart).find({ where: query })
 

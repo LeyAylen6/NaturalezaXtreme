@@ -22,6 +22,6 @@ export class Shopping_Cart {
     @ManyToOne(() => User, (user) => user.shoppingCart)
     user: User
 
-    @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.shoppingCartId)
+    @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.shoppingCart)
     public shoppingArticles: Shopping_Cart_Article[];
 }

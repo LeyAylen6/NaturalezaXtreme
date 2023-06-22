@@ -1,6 +1,5 @@
 import { AppDataSource } from "../../db";
 import { Shopping_Cart_Article } from "../../entities/shoppingCart_ArticleEntity";
-import { articleCartStructure } from "../../interfaces/articleCartStructure";
 import { userIdArticleId } from "../../interfaces/userIdArticleIdStructure";
 import getArticlesByIdController from "../articles/getArticleByIdController";
 import findOrCreateShoppingCartController from "./findOrCreateShoppingCartController";
@@ -13,15 +12,15 @@ const putShoppingCartController = async( data: userIdArticleId, method?: string)
 
     // Busca articulo en el carrito
     const itemFound = await AppDataSource.getRepository(Shopping_Cart_Article).findOneBy({ 
-        shoppingCartId: cart.id as any,
+        shoppingCart: cart as any,
         article: data.articleId as any
     });
 
     // console.log(itemFound.articleId)
     const article = await getArticlesByIdController(data.articleId)
 
-    const newArticle: any = {
-        shoppingCartId: cart.id,
+    const newArticle: Shopping_Cart_Article = {
+        shoppingCart: cart,
         quantity: 1,
         article: article,
     }
