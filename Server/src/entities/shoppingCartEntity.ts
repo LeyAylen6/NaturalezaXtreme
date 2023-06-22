@@ -11,8 +11,8 @@ export class Shopping_Cart {
     
     @Column({
         type: "enum",
-        enum: ["pending", "complete" ],
-        default: "complete"
+        enum: ["pending", "complete", "rejected" ],
+        default: "pending"
     })
     status: CategoryCart
 
