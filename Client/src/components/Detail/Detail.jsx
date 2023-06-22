@@ -32,9 +32,9 @@ const Detail = () => {
 		initProductSelections
 	);
 
-	// console.log("article detail", articleDetail);
-	console.log("cart articles", cartArticles);
-	console.log("product selections", productSelections);
+	console.log("article detail", articleDetail);
+	// console.log("cart articles", cartArticles);
+	// console.log("product selections", productSelections);
 
 	useEffect(() => {
 		dispatch(getDetail(id));
@@ -72,7 +72,7 @@ const Detail = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		dispatch(addToCart(productSelections))
+		dispatch(addToCart(productSelections));
 		navigate("/cart");
 	};
 
@@ -82,11 +82,9 @@ const Detail = () => {
 		if (isInCart) {
 			setIsInCart(false);
 			dispatch(removeFromCart(id));
-			console.log("remove from cart");
 		} else {
 			setIsInCart(true);
 			dispatch(addToCart(productSelections));
-			console.log("add to cart");
 		}
 	};
 
@@ -97,11 +95,9 @@ const Detail = () => {
 		if (isFavorite) {
 			setIsFavorite(false);
 			dispatch(removeFav(id));
-			console.log("remove favorite");
 		} else {
 			setIsFavorite(true);
 			dispatch(addFav(articleDetail));
-			console.log("add favorite");
 		}
 	};
 
@@ -181,11 +177,16 @@ const Detail = () => {
 					<p>{articleDetail.color}</p>
 					<p>{articleDetail.type}</p>
 					<form onSubmit={handleSubmit} onChange={handleChange}>
-						<label>Size</label>
 						{articleDetail.type !== "shoes" ? (
-							<select name="size">{clotheSizeOptions}</select>
+							<select name="size">
+								<option value="none">Choose size</option>
+								{clotheSizeOptions}
+							</select>
 						) : (
-							<select name="shoeSize">{shoeSizeOptions}</select>
+							<select name="shoeSize">
+								<option value="none">Choose size</option>
+								{shoeSizeOptions}
+							</select>
 						)}
 						{stockHandler()}
 						{/* <label>Quantity</label>
