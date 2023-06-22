@@ -4,9 +4,15 @@ import { Box, Button, Card, Container, FormControl, FormLabel, Heading, Input, S
 import { getUsers } from "../../../redux/actions/actionsUsers";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from 'react-google-login';
-import {gapi} from "gapi-script";
+import { useAuth0 } from "@auth0/auth0-react";
 const Login =()=> {
+    
+  const { loginWithRedirect } = useAuth0();
+
+  return <button onClick={() => loginWithRedirect()}>Log In</button>;
+
+  /*const clientID = "1003099240176-2sgu85en1tl9g6i4eeputhpr2reeb24j.apps.googleusercontent.com"
+
     const [userData, setUserData] = useState({
         email: '',
         password: ''
@@ -15,19 +21,7 @@ const Login =()=> {
 
     const dispatch = useDispatch()
     const navigate = useNavigate();
-    const clientID = "843754372901-q1mqkv17teme8tte8od3qcptd8naficb.apps.googleusercontent.com"
-
-    useEffect(() => {
-        const start = () => {
-          gapi.load("auth2", () => {
-            gapi.auth2.init({
-              clientId: clientID
-            });
-          });
-        };
-      
-        start();
-      }, []);
+  
     const onSucces = (response) => {
       console.log(response)
       navigate("/")
@@ -87,7 +81,7 @@ const Login =()=> {
                 </FormControl>
             </form>
             <GoogleLogin
-             clientId={clientID}
+              clientId={clientID}
              buttonText="Login"
              onSuccess={onSucces}
              onFailure={onFailure}
@@ -95,6 +89,7 @@ const Login =()=> {
   />
             </Card>
             </Container>
-    )
+    ) 
+  */
 }
 export default Login; 
