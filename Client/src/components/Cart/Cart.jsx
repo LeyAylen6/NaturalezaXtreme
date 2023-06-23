@@ -1,11 +1,18 @@
-import React from 'react';
-import { Box, Heading, UnorderedList, ListItem, Button } from "@chakra-ui/react";
+import {React, useState} from 'react';
+import { Box, Heading, UnorderedList, ListItem, Button, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/actions/actions';
+import { useNavigate } from 'react-router-dom';
+import { createPayment, setPaymentLink } from '../../redux/actions/actions.js';
+import {removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/actions/actions';
 
-const Cart = () => {
+const Cart = ({ productPrice, productQuantity}) => {
   const cartArticles = useSelector((state) => state.cartArticles);
   const dispatch = useDispatch();
+  const paymentLink = useSelector((state) => state.paymentLink);
+  const navigate = useNavigate();
+
+  const [paymentError, setPaymentError] = useState(false);
+
 
   // Función para eliminar un producto del carrito
   const handleRemoveFromCart = (productId) => {
@@ -32,10 +39,17 @@ const Cart = () => {
   };
 
   // Función para finalizar la compra
-  const handleBuy = () => {
-    // Aquí puedes realizar acciones adicionales al finalizar la compra
-    // Por ejemplo, vaciar el carrito, enviar una solicitud de compra, etc.
-    alert('¡Compra realizada con éxito!');
+  const handlePayment = async () => {
+    try {
+      const result = await dispatch(createPayment(productPrice, productQuantity));
+      if (result === 'success') {
+        navigate('/'); 
+      } else {
+        navigate("/error");
+      }
+    } catch (error) {
+      setPaymentError(true);
+    }
   };
 
   return (
@@ -51,7 +65,7 @@ const Cart = () => {
             <ListItem key={item.id} mb={2}>
               <Box border={"1px"} display={"flex"} justifyContent={"space-between"} >
               <Box>
-                <image src={item.image} alt={item.name} width="100px" />
+                <Image src={item.image} alt={item.name} width="100px" />
               </Box>
               <Box display="flex" justifyContent="center" alignItems="center">
       
@@ -95,7 +109,17 @@ const Cart = () => {
       <Box mt={4} color="white" bg="#2C2C2C" display={"flex"} justifyContent={"center"}>
         Total: ${calculateTotal()}
       </Box>
-      <Button mt={4} onClick={handleBuy}>Comprar</Button>
+      <Box>
+      {paymentLink ? (
+        <a href={paymentLink} target="_blank" rel="noopener noreferrer">
+          Pagar
+        </a>
+      ) : (
+        <Box>
+          <Button onClick={handlePayment}>Realizar pago</Button>
+        </Box>
+      )}
+      </Box>
       </UnorderedList>
     </Box>
   );
