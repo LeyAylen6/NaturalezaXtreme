@@ -1,10 +1,13 @@
 import { Request, Response } from "express";
 import postUserController from "../../controllers/users/postUserController";
+import nodemailerController from "../../controllers/nodemailer/nodemailerController";
 
-const postUser = async (req: Request, res: Response)=>{
+const postUser = async (req: Request, res: Response) => {
     try {
         const newUser = req.body;
         const userCreated = await postUserController(newUser);
+
+        nodemailerController(true, newUser.email)
         
         return res.status(200).json(userCreated)
     }

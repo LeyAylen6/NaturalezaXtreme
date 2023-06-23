@@ -1,7 +1,8 @@
 const nodemailer = require("nodemailer");
-const templatePayment = require('./../../utils/templates/payments')
+const template1 = require('./../../utils/templates/payments')
+const template2 = require('./../../utils/templates/signUp')
 
-const nodemailerController = async() => {
+const nodemailerController = async(isSignUp: boolean, userEmail: string, status?: string) => {
     
     const transporter = nodemailer.createTransport({
         host: "smtp-mail.outlook.com", 
@@ -14,18 +15,17 @@ const nodemailerController = async() => {
         }
     });   
       
-    let template = templatePayment()
-    
-    const email = await transporter.sendMail({
-        from: '"NaturalezaXtreme" <NaturalezaXtreme@outlook.com>', 
-        to: "leiisalguero@gmail.com",  
-        subject: template.subject, 
-        html: template.html
+    let templatePayment = template1(status)
+    let templateSignUp = template2()
+
+    const emailToSend = await transporter.sendMail({
+        from: 'NaturalezaXtreme@outlook.com', 
+        to: userEmail,  
+        subject: isSignUp ? templateSignUp.subject : templatePayment.subject,
+        html: isSignUp ? templateSignUp.html : templatePayment.html
     });
 
-    console.log("Message sent: %s", email.messageId);
-
-    transporter.sendMail(email, function (error: any, info: any) { 
+    transporter.sendMail(emailToSend, function (error: any, transporter: any) { 
         if(error){ 
             console.log("Error al enviar email"); 
         } else{ 

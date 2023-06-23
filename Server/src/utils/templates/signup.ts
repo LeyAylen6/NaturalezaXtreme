@@ -1,10 +1,6 @@
-module.exports = (SignUp: boolean) => {
+module.exports = () => {
     
     const URL_DEPLOY = process.env;
-
-
-    // img = 'https://hpy.stripocdn.email/content/guids/CABINET_54100624d621728c49155116bef5e07d/images/84141618400759579.png'
-    
 
     return (
         {

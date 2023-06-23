@@ -37,6 +37,6 @@ router.get('/shoppingcart', getShoppingCart)
 router.get('/shoppingcart/:id', getCartById)
 
 router.post("/mercadoPago", postMercadoPago)
-router.get("/nodemailer", nodemailerPRUEBAS)
+router.post("/nodemailer", nodemailerPRUEBAS)
 
 export default router;
