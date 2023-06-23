@@ -15,6 +15,11 @@ export const GET_ARTICLES = "GET_ARTICLES";
 export const NEXT_PAGE = "NEXT_PAGE";
 export const PREV_PAGE = "PREV_PAGE";
 export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const UPDATE_QUANTITY= "UPDATE_QUANTITY";
+export const INCREASE_QUANTITY= "INCREASE_QUANTITY";
+export const DECREASE_QUANTITY= "DECREASE_QUANTITY";
 
 import axios from "axios";
 
@@ -165,3 +170,42 @@ export const addProduct = (body) => {
 export const redirectSignUp = (dispatch) => {
   dispatch({ type: SIGN_UP, payload: false})
 }
+
+export const addToCart = (product) => {
+  return {
+    type: ADD_TO_CART,
+    payload: product
+  };
+};
+
+export const removeFromCart = (productId) => {
+  return {
+    type: REMOVE_FROM_CART,
+    payload: productId
+  };
+};
+
+export const updateQuantity = (productId, newQuantity) => {
+  return {
+    type: UPDATE_QUANTITY,
+    payload: {
+      productId,
+      newQuantity
+    }
+  };
+};
+
+export const increaseQuantity = (productId) => {
+  return {
+    type: INCREASE_QUANTITY,
+    payload: productId
+  };
+};
+
+
+export const decreaseQuantity = (productId) => {
+  return {
+    type: DECREASE_QUANTITY,
+    payload: productId
+  };
+};
