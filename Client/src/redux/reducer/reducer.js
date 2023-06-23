@@ -32,7 +32,7 @@ const initialState = {
 	users: [],
 	myFavorites: [],
 	allProducts: [],
-	detail: [],
+	detail: {},
 	articleById: {},
 	paymentLink: null,
 	signUp: true,
