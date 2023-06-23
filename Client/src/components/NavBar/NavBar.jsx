@@ -3,8 +3,9 @@ import SearchBar from "../SearchBar/SearchBar";
 import { Box, Stack, HStack, Img } from "@chakra-ui/react";
 import logo from "../../assets/logo.jpg";
 import { useAuth0 } from "@auth0/auth0-react";
-import Profile from "../Profile/Profile"
+import Profile from "../Profile/Profile";
 import Logout from "../LogOut/Logout";
+import Login from "../LoginandSignUp/Login/Login";
 const NavBar = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
 
@@ -20,12 +21,7 @@ const NavBar = () => {
         fontSize={"20px"}
       >
         <Img src={logo} alt="logo" maxHeight={"75px"}></Img>
-        <Box
-          bg={"transparent"}
-          marginLeft={"50px"}
-          border={"none"}
-          color={"white"}
-        >
+        <Box bg={"transparent"} marginLeft={"50px"} border={"none"} color={"white"}>
           <Link to="/">Products</Link>
         </Box>
         <Box bg={"transparent"} color={"white"}>
@@ -34,7 +30,7 @@ const NavBar = () => {
         <Box bg={"transparent"} color={"white"}>
           <Link to="/favorites">Favorite</Link>
         </Box>
-       
+
         <Box bg={"transparent"} color={"white"} padding={"20px"}>
           <SearchBar />
         </Box>
@@ -45,17 +41,11 @@ const NavBar = () => {
           <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
             <Link to="/admin">Admin</Link>
           </Box>
-          {isAuthenticated ? 
-          <Logout/>    :    
-          <Box bg={"transparent"} color={"white"}>
-          <button onClick={() => loginWithRedirect()}>Log In</button>
-          </Box>
-             }
-          <Box bg={"transparent"} color={"white"}>
-          
+          <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
+            {isAuthenticated ? <Logout /> : <Login />}
           </Box>
 
-        <Profile/>
+          <Profile />
         </HStack>
       </Stack>
     </Box>

@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-import { validation } from "../../Validation/validation";
-import { Box, Button, Card, Container, FormControl, FormLabel, Heading, Input, Select, Text} from "@chakra-ui/react";
-import { getUsers } from "../../../redux/actions/actionsUsers";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useEffect, useState } from "react";
+// import { validation } from "../../Validation/validation";
+import { Container } from "@chakra-ui/react";
+// import { getUsers } from "../../../redux/actions/actionsUsers";
+// import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-const Login =()=> {
-    
+const Login = () => {
   const { loginWithRedirect } = useAuth0();
 
-  return <button onClick={() => loginWithRedirect()}>Log In</button>;
+  return <Link onClick={() => loginWithRedirect()}>Log In</Link>;
 
   /*const clientID = "1003099240176-2sgu85en1tl9g6i4eeputhpr2reeb24j.apps.googleusercontent.com"
 
@@ -91,5 +90,5 @@ const Login =()=> {
             </Container>
     ) 
   */
-}
-export default Login; 
+};
+export default Login;
