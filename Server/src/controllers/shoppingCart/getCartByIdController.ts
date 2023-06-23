@@ -1,15 +1,15 @@
 import { AppDataSource } from "../../db";
-import { Shopping_Cart_Article } from "../../entities/shoppingCart_ArticleEntity";
+import { Shopping_Cart } from "../../entities/shoppingCartEntity";
 
 const getCartByIdController = async(id: number) => {
 
-    const detailCart = await AppDataSource.getRepository(Shopping_Cart_Article).find({
+    const detailCart = await AppDataSource.getRepository(Shopping_Cart).find({
         relations: {
-            shoppingCart: true,
-            article: true
+            user: true,
+            shoppingArticles: { article: true },
         },
         where: { 
-            shoppingCart: id as any,
+            id: id,
         }
     }) 
 
@@ -19,3 +19,4 @@ const getCartByIdController = async(id: number) => {
 }
 
 export default getCartByIdController;
+
