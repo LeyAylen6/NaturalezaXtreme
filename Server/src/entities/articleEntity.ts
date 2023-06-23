@@ -6,8 +6,6 @@ import { Shoesize } from '../interfaces/shoeSize';
 
 
 @Entity()
-// @Check('"string" > 0')
-// @Check('"rating" > 0' && '"rating" <= 5')
 
 export class Article extends BaseEntity{
     @PrimaryGeneratedColumn()
@@ -57,8 +55,8 @@ export class Article extends BaseEntity{
         type: 'json',
         nullable: true,
         default: { XS:0, S: 0, M: 0, L: 0, XL: 0, U:0 },
-      })
-      size: Size;
+    })
+    size: Size;
     
     @Column({
         type: 'json',
