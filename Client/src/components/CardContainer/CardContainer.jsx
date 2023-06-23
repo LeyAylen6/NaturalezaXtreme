@@ -1,7 +1,7 @@
 import Tarjeta from "../Card/Card";
 import { Box, Grid, Text } from "@chakra-ui/react";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+
+import { useSelector } from "react-redux";
 
 import Paginate from "../Paginate/Paginate";
 

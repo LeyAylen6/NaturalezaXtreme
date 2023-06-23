@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import {
   Text,
@@ -21,7 +20,9 @@ const Tarjeta = ({
   color,
   gender,
 }) => {
+  let genderFormated 
   if (name && name.length > 34) name = name.slice(0, 42) + "...";
+  if (gender) genderFormated = gender[0].toUpperCase()+gender.substring(1)
   return (
     <Card maxW={"300px"} mt={"10px"} borderRadius={"none"} height={"400px"}>
       <CardBody>
@@ -40,18 +41,26 @@ const Tarjeta = ({
 
         <Divider mt={"10px"} />
 
-        <Stack alignItems={"flex-start"} pb={"8px"}>
-          <Heading mt={"10px"} fontSize={"18px"} objectFit={"contain"}>
+        <Stack  pb={"8px"} alignItems={"flex-start"}>
+          <Heading
+            mt={"10px"}
+            fontSize={"18px"}
+            objectFit={"contain"}
+            noOfLines={"1"}
+            
+          >
             {name}
           </Heading>
+          <Text fontStyle={"oblique"} noOfLines={"2"} >
+            {description}
+          </Text>
 
-          <Text fontStyle={"oblique"}>{description}</Text>
           <Text fontStyle={"oblique"}>Color disponible: {color}</Text>
 
-          <Text fontStyle={"oblique"}>{gender}</Text>
-          <HStack spacing={"8.2rem"}>
+          <Text fontStyle={"oblique"}>{genderFormated}</Text>
+          <HStack spacing={"14rem"}>
             <Text fontStyle={"oblique"}>{rating}</Text>
-            <Text fontStyle={"oblique"}>{price}</Text>
+            <Text fontStyle={"oblique"}>${price}</Text>
           </HStack>
         </Stack>
       </CardBody>

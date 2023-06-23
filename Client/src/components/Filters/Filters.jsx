@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Box, HStack, Select } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { filterCombinated } from "../../redux/actions/actionFilters";
@@ -8,6 +8,7 @@ const Filters = () => {
     gender: "",
     type: "",
     color: "",
+    order:""
   });
 
   const dispatch = useDispatch();
@@ -78,6 +79,21 @@ const Filters = () => {
     }
   };
 
+  const handleChangeOrder=(event)=>{
+    const { value } = event.target;
+    if(value === "asc"|| value === "desc"){
+      setFilters({
+        ...filters,
+        order: value,
+      });
+    } else {
+      setFilters({
+        ...filters,
+        order: "",
+      });
+    }
+  }
+
   return (
     <Box>
       <HStack maxWidth={"700px"} margin={"auto"}>
@@ -139,6 +155,17 @@ const Filters = () => {
           <option value="pink">Pink</option>
           <option value="violet">Violet</option>
         </Select>
+        <Select   name=""
+          id="price"
+          defaultValue="price"
+          variant={"flushed"}
+          onChange={handleChangeOrder}>
+          <option  disabled value="price">Price</option>
+          <option value="none">None</option>
+          <option value="desc">Downward</option>
+          <option value="asc">Upward</option>
+          
+          </Select>
       </HStack>
     </Box>
   );
