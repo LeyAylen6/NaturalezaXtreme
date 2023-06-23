@@ -15,6 +15,7 @@ import { postMercadoPago } from './mercadoPago/mercadoPago';
 import putShoppingCart from './shoppingCart/putShoppingCart';
 import getShoppingCart from './shoppingCart/getShoppingCartController';
 import getCartById from './shoppingCart/getCartById';
+import nodemailerPRUEBAS from './nodemailerPRUEBAS';
 
 const router = Router();
 
@@ -36,5 +37,6 @@ router.get('/shoppingcart', getShoppingCart)
 router.get('/shoppingcart/:id', getCartById)
 
 router.post("/mercadoPago", postMercadoPago)
+router.post("/nodemailer", nodemailerPRUEBAS)
 
 export default router;

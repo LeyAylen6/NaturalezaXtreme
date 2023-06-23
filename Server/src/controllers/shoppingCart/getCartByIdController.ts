@@ -5,6 +5,7 @@ const getCartByIdController = async(id: number) => {
 
     const detailCart = await AppDataSource.getRepository(Shopping_Cart_Article).find({
         relations: {
+            shoppingCart: true,
             article: true
         },
         where: { 
