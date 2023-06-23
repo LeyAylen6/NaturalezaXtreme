@@ -2,10 +2,10 @@ import {React, useState} from 'react';
 import { Box, Heading, UnorderedList, ListItem, Button, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createPayment, setPaymentLink } from '../../redux/actions/actions.js';
+import { createPayment, setPaymentLink, addToMercadoPago } from '../../redux/actions/actions.js';
 import {removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/actions/actions';
 
-const Cart = ({ productPrice, productQuantity}) => {
+const Cart = () => {
   const cartArticles = useSelector((state) => state.cartArticles);
   const dispatch = useDispatch();
   const paymentLink = useSelector((state) => state.paymentLink);
@@ -41,11 +41,17 @@ const Cart = ({ productPrice, productQuantity}) => {
   // Función para finalizar la compra
   const handlePayment = async () => {
     try {
-      const result = await dispatch(createPayment(productPrice, productQuantity));
+      const mercadoPagoItems = cartArticles.map((items) => ({
+        name: items.name,
+        price: items.price,
+        quantity: items.quantity,
+      }));
+      dispatch(addToMercadoPago(mercadoPagoItems));
+      const result = await dispatch(createPayment(mercadoPagoItems));
       if (result === 'success') {
-        navigate('/'); 
+        navigate('/');
       } else {
-        navigate("/error");
+        navigate('/error');
       }
     } catch (error) {
       setPaymentError(true);

@@ -10,6 +10,7 @@ export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
 export const  SIGN_UP =  "SIGN_UP";
 export const ADD_PRODUCT = "ADD_PRODUCT";
+export const ADD_TO_MERCADO_PAGO = 'ADD_TO_MERCADO_PAGO';
 
 export const GET_ARTICLES = "GET_ARTICLES";
 export const NEXT_PAGE = "NEXT_PAGE";
@@ -132,16 +133,21 @@ export const updateProduct = (body) => {
   };
 };
 
-export const createPayment = (productPrice, productQuantity) => {
+export const addToMercadoPago = (items) => {
   return (dispatch) => {
+    dispatch({
+      type: 'ADD_TO_MERCADO_PAGO',
+      payload: items,
+    });
+  };
+};
+
+export const createPayment = () => {
+  return (dispatch, getState) => {
+    const { cartArticles } = getState(); // Obtener los artículos del carrito del estado global
+
     axios
-
-      .post(`${URL}mercadoPago`, [{
-        name: 'Descripcion',
-        price: 10,
-        quantity: 1,
-      }])
-
+      .post(`${URL}mercadoPago`, cartArticles)
       .then((response) => {
         const paymentLink = response.data.url;
         dispatch(setPaymentLink(paymentLink));
