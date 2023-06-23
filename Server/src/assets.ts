@@ -720,7 +720,7 @@ const articlesData= [
         active: true,
     },
     {
-        articleID: "A4601",
+        articleID: "A4609",
         name: "Columbia Rugged Outdoor Mesh Hat B",
         price: 20,
         brand: "Columbia",
@@ -811,7 +811,7 @@ const articlesData= [
         active: true,
     },
     {
-        articleID: "P1214",
+        articleID: "P1215S",
         name: "Fjallraven Men's Keb Trousers G",
         price: 150,
         brand: "Fjallraven",
@@ -824,7 +824,7 @@ const articlesData= [
         active: true,
     },
     {
-        articleID: "A888",
+        articleID: "A4555",
         name: "Cascade Mountain Tech Trekking Poles",
         price: 54,
         brand: "Cascade Mountain",
@@ -889,7 +889,7 @@ const articlesData= [
         active: true,
     },
     {
-        articleID: "SH800",
+        articleID: "SH866",
         name: "Ariat Men's Terrain Leather Outdoor Hiking Boots",
         price: 99,
         brand: "Ariat",
