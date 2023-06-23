@@ -15,6 +15,8 @@ import {
 	NEXT_PAGE,
 	PREV_PAGE,
 	SIGN_UP,
+	INCREASE_QUANTITY,
+	DECREASE_QUANTITY
 } from "../actions/actions";
 import { GET_USERS } from "../actions/actionsUsers";
 import { POST_USERS } from "../actions/actionsUsers";
@@ -163,6 +165,33 @@ const reducer = (state = initialState, action) => {
 				...state,
 				cartArticles: [],
 			};
+
+			case INCREASE_QUANTITY:
+				return {
+				  ...state,
+				  cartArticles: state.cartArticles.map((item) => {
+					if (item.id === action.payload) {
+					  return {
+						...item,
+						quantity: item.quantity + 1
+					  };
+					}
+					return item;
+				  })
+				};
+			  case DECREASE_QUANTITY:
+				return {
+				  ...state,
+				  cartArticles: state.cartArticles.map((item) => {
+					if (item.id === action.payload && item.quantity > 1) {
+					  return {
+						...item,
+						quantity: item.quantity - 1
+					  };
+					}
+					return item;
+				  })
+				};
 
 		default:
 			return { ...state };

@@ -1,74 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Heading, UnorderedList, ListItem, Button} from "@chakra-ui/react";
-import style from '../Cart/Cart.module.css';
-
+import React from 'react';
+import { Box, Heading, UnorderedList, ListItem, Button } from "@chakra-ui/react";
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/actions/actions';
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
-
-  // Cargar el carrito desde el Local Storage al cargar el componente
-  useEffect(() => {
-    const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    setCartItems(savedCartItems);
-  }, []);
-
-  // Guardar el carrito en el Local Storage cuando se actualice
-  useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  // Función para agregar un producto al carrito
-  const addToCart = (product) => {
-    const updatedCart = [...cartItems, { ...product, quantity: 1 }];
-    setCartItems(updatedCart);
-  };
+  const cartArticles = useSelector((state) => state.cartArticles);
+  const dispatch = useDispatch();
 
   // Función para eliminar un producto del carrito
-  const removeFromCart = (productId) => {
-    const updatedCart = cartItems.filter((item) => item.id !== productId);
-    setCartItems(updatedCart);
+  const handleRemoveFromCart = (productId) => {
+    dispatch(removeFromCart(productId));
   };
 
-  // Función para modificar la cantidad de un producto en el carrito
-  const updateQuantity = (productId, newQuantity) => {
-    const updatedCart = cartItems.map((item) => {
-      if (item.id === productId) {
-        return {
-          ...item,
-          quantity: newQuantity
-        };
-      }
-      return item;
-    });
-    setCartItems(updatedCart);
+  // Función para incrementar la cantidad de un producto en el carrito
+  const handleIncreaseQuantity = (productId) => {
+    dispatch(increaseQuantity(productId));
+  };
+
+  // Función para decrementar la cantidad de un producto en el carrito
+  const handleDecreaseQuantity = (productId) => {
+    dispatch(decreaseQuantity(productId));
   };
 
   // Función para calcular el total de los productos en el carrito
   const calculateTotal = () => {
     let total = 0;
-    cartItems.forEach((item) => {
+    cartArticles.forEach((item) => {
       total += item.price * item.quantity;
     });
     return total;
   };
 
+  // Función para finalizar la compra
+  const handleBuy = () => {
+    // Aquí puedes realizar acciones adicionales al finalizar la compra
+    // Por ejemplo, vaciar el carrito, enviar una solicitud de compra, etc.
+    alert('¡Compra realizada con éxito!');
+  };
+
   return (
-    <Box className={style.cart}>
-      <Heading as="h2" size="lg" textAlign="left" px={4} p={4} bgGradient="linear(to-r,#16141c,#6c6f78)" color="white" className={style.shopping}>
+    <Box border={"2px"} >
+      <Heading>
         Shopping Cart
       </Heading>
       <UnorderedList>
-        {cartItems.length === 0 ? (
+        {cartArticles.length === 0 ? (
           <Heading fontSize="14px">No tienes productos en el carrito</Heading>
         ) : (
-          cartItems.map((item) => (
+          cartArticles.map((item) => (
             <ListItem key={item.id} mb={2}>
+              <Box border={"1px"} display={"flex"} justifyContent={"space-between"} >
+              <Box>
+                <image src={item.image} alt={item.name} width="100px" />
+              </Box>
+              <Box display="flex" justifyContent="center" alignItems="center">
+      
               {item.name} - Cantidad: {item.quantity}
+              </Box>
+              
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <p> U$S: {item.price} </p>
+              </Box>
+              <Box display="flex" justifyContent="center" alignItems="center">
               <Button
                 colorScheme="blue"
                 size="sm"
                 ml={2}
-                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                onClick={() => handleIncreaseQuantity(item.id)}
               >
                 +
               </Button>
@@ -76,7 +74,7 @@ const Cart = () => {
                 colorScheme="red"
                 size="sm"
                 ml={2}
-                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                onClick={() => handleDecreaseQuantity(item.id)}
               >
                 -
               </Button>
@@ -84,31 +82,23 @@ const Cart = () => {
                 colorScheme="red"
                 size="sm"
                 ml={2}
-                onClick={() => removeFromCart(item.id)}
-                className={style.eliminar}
+                onClick={() => handleRemoveFromCart(item.id)}
               >
                 Eliminar
               </Button>
+              </Box>
+              </Box>
             </ListItem>
           ))
         )}
-      </UnorderedList>
-      <Box
-        mt={4}
-        className={style.total}
-        color="white"
-        position="absolute"
-        width="392px"
-        height="121px"
-        left="955px"
-        top="291px"
-        bg="#2C2C2C"
-      >
+      
+      <Box mt={4} color="white" bg="#2C2C2C" display={"flex"} justifyContent={"center"}>
         Total: ${calculateTotal()}
       </Box>
+      <Button mt={4} onClick={handleBuy}>Comprar</Button>
+      </UnorderedList>
     </Box>
   );
 };
 
 export default Cart;
-
