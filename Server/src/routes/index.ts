@@ -15,7 +15,7 @@ import { postMercadoPago } from './mercadoPago/mercadoPago';
 import putShoppingCart from './shoppingCart/putShoppingCart';
 import getShoppingCart from './shoppingCart/getShoppingCartController';
 import getCartById from './shoppingCart/getCartById';
-import nodemailerPRUEBAS from './nodemailerPRUEBAS';
+import nodemailerPRUEBAS from './nodemailerTEST/nodemailerPRUEBAS';
 
 const router = Router();
 

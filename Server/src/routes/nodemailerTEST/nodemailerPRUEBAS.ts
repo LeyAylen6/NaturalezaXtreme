@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import nodemailerController from "../controllers/nodemailer/nodemailerController";
+import nodemailerController from "../../controllers/nodemailer/nodemailerController";
 
 // RUTA SOLO DE PRUEBA PARA ENVIO DE EMAILS. 
 // ! TIENE LIMITE DIARIO DE MAILS !
