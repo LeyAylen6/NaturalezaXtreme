@@ -9,11 +9,17 @@ const putShoppingCartController = async( data: userIdArticleId, method?: string)
     const cart = await findOrCreateShoppingCartController(data.userId)
 
     if(!cart) throw new Error('you must have a cart created to update it')
-
+    
     // Busca articulo en el carrito
-    const itemFound = await AppDataSource.getRepository(Shopping_Cart_Article).findOneBy({ 
-        shoppingCart: cart as any,
-        article: data.articleId as any
+    const itemFound2 = await AppDataSource.getRepository(Shopping_Cart_Article).find({ 
+        where: {
+            shoppingCart: { id: cart.id },
+            article: { id: data.articleId }
+        },
+        relations: {
+            shoppingCart: true,
+            article: true  
+        }
     });
 
     // console.log(itemFound.articleId)
@@ -24,6 +30,8 @@ const putShoppingCartController = async( data: userIdArticleId, method?: string)
         quantity: 1,
         article: article,
     }
+
+    let itemFound = itemFound2[0]
 
     // Si el articulo no existe lo agrega
     if(!itemFound) {
