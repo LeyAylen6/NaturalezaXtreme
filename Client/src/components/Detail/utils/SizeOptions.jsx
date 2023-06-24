@@ -1,4 +1,4 @@
-const sizeMapper = detailObject => {
+const SizeOptions = ({detailObject}) => {
 	//mapea a string los objetos de talle de ropa
 	let clotheSizeOptions = []
 	if (detailObject.size && typeof detailObject.size === "object") {
@@ -24,4 +24,4 @@ const sizeMapper = detailObject => {
 	return detailObject.type === "shoes" ? shoeSizeOptions : clotheSizeOptions
 }
 
-export default sizeMapper
+export default SizeOptions

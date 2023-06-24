@@ -6,7 +6,7 @@ import { getDetail, createPayment } from "../../redux/actions/actions"
 import { useNavigate, useParams } from "react-router-dom"
 import { Box, Image, Flex, Button, Text, Select, Stack } from "@chakra-ui/react"
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions"
-import sizeMapper from "./utils/sizeMapper"
+import SizeOptions from "./utils/SizeOptions"
 
 const initProductSelections = {
 	id: "",
@@ -35,10 +35,10 @@ const Detail = () => {
 	const [inStock, setInStock] = useState(false)
 	const [productSelections, setProductSelections] = useState(initProductSelections)
 
-	console.log("article detail", articleDetail)
+	// console.log("article detail", articleDetail)
 	// console.log("cart articles", cartArticles);
 	// console.log("product selections", productSelections);
-	console.log(inStock)
+	// console.log(inStock)
 
 	useEffect(() => {
 		dispatch(getDetail(id))
@@ -82,8 +82,6 @@ const Detail = () => {
 	//handler de los campos
 	const handleChange = event => {
 		const { name: property, value } = event.target
-		// console.log('handling change')
-		// console.log(property, value);
 		setProductSelections({
 			id: articleDetail.id,
 			articleID: articleDetail.articleID,
@@ -117,7 +115,6 @@ const Detail = () => {
 	//boton agregar a favoritos
 	const handleFavorites = event => {
 		event.preventDefault()
-		console.log(isFavorite)
 		if (isFavorite) {
 			setIsFavorite(false)
 			dispatch(removeFav(id))
@@ -127,21 +124,12 @@ const Detail = () => {
 		}
 	}
 
-	const stockDisplayConfig = [
+	const stockComponentConfig = [
 		{ bg: "#48BB78", content: "Product in stock", hidden: !inStock ? "hidden" : null },
 		{ bg: "tomato", content: "Product out of stock", hidden: inStock ? "hidden" : null },
 	]
 	const StockDisplay = ({ content, ...config }) => {
-		console.log("display", inStock)
 		return <Box {...config}>{content}</Box>
-	}
-
-	const enableButtonHandler = () => {
-		if (productSelections.size === "" || productSelections.shoeSize === "") {
-			return true
-		} else {
-			return false
-		}
 	}
 
 	return (
@@ -161,35 +149,24 @@ const Detail = () => {
 						${articleDetail.price}
 					</Box>
 					<Text>{articleDetail.gender}</Text>
-
 					{/* para las estrellas haría otro componente ReviewBriefing */}
-
 					<p>{articleDetail.color}</p>
 					<Box w="500px">
 						<form onSubmit={handleSubmit} onChange={handleChange}>
 							{articleDetail.type !== "shoes" ? (
 								<Select name="size" variant="filled" mt="20px">
 									<option value="">Choose size</option>
-									{sizeMapper(articleDetail)}
+									<SizeOptions detailObject={articleDetail} />
 								</Select>
 							) : (
 								<Select name="shoeSize" variant="filled">
 									<option value="">Choose size</option>
-									{sizeMapper(articleDetail)}
+									<SizeOptions detailObject={articleDetail} />
 								</Select>
 							)}
-							{stockDisplayConfig.map(config => (
+							{stockComponentConfig.map(config => (
 								<StockDisplay {...config} />
 							))}
-
-							{/* <label>Quantity</label>
-						<input
-							type="number"
-							id="quantity"
-							name="quantity"
-							min="1"
-							max={articleDetail.stock}
-						></input> */}
 							<Flex id="buttons" direction="row" alignItems="stretch" gap="10px">
 								{!isFavorite ? (
 									<Button onClick={handleFavorites} flex="1" m="10px">
@@ -202,17 +179,27 @@ const Detail = () => {
 								)}
 
 								{!isInCart ? (
-									<Button onClick={handleAddToCart} isDisabled={enableButtonHandler()} flex="1" m="10px">
+									<Button
+										onClick={handleAddToCart}
+										isDisabled={!(productSelections.size || productSelections.shoeSize)}
+										flex="1"
+										m="10px"
+									>
 										Add to cart
 									</Button>
 								) : (
-									<Button onClick={handleAddToCart} isDisabled={enableButtonHandler()} flex="1" m="10px">
+									<Button
+										onClick={handleAddToCart}
+										isDisabled={!(productSelections.size || productSelections.shoeSize)}
+										flex="1"
+										m="10px"
+									>
 										Remove from Cart
 									</Button>
 								)}
 							</Flex>
 							<Button
-								isDisabled={enableButtonHandler()}
+								isDisabled={!(productSelections.size || productSelections.shoeSize)}
 								type="submit"
 								flex="none"
 								width="100%"
