@@ -10,6 +10,8 @@ const Cart = () => {
   const dispatch = useDispatch();
   const paymentLink = useSelector((state) => state.paymentLink);
   const navigate = useNavigate();
+  const cartId = useSelector((state)=> state.cart)
+  const userId = useSelector((state)=> state.users)
 
   const [paymentError, setPaymentError] = useState(false);
 
@@ -45,6 +47,9 @@ const Cart = () => {
         name: items.name,
         price: items.price,
         quantity: items.quantity,
+        cartId: cartId,
+        userId: userId,
+        size: items.size 
       }));
       dispatch(addToMercadoPago(mercadoPagoItems));
       const result = await dispatch(createPayment(mercadoPagoItems));
