@@ -2,15 +2,17 @@ import {React, useState} from 'react';
 import { Box, Heading, UnorderedList, ListItem, Button, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createPayment, setPaymentLink, addToMercadoPago } from '../../redux/actions/actions.js';
+import { createPayment, setPaymentLink, addToMercadoPago} from '../../redux/actions/actions.js';
 import {removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/actions/actions';
+import { getCartById } from '../../redux/actions/cartActions.js';
+import { getUsers } from '../../redux/actions/actionsUsers.js';
 
 const Cart = () => {
   const cartArticles = useSelector((state) => state.cartArticles);
   const dispatch = useDispatch();
   const paymentLink = useSelector((state) => state.paymentLink);
   const navigate = useNavigate();
-  const cartId = useSelector((state)=> state.cart)
+  const cartId = useSelector((state)=> state.cart.cartId)
   const userId = useSelector((state)=> state.users)
 
   const [paymentError, setPaymentError] = useState(false);
@@ -47,8 +49,8 @@ const Cart = () => {
         name: items.name,
         price: items.price,
         quantity: items.quantity,
-        cartId: cartId,
-        userId: userId,
+        getCartById,
+        getUsers,
         size: items.size 
       }));
       dispatch(addToMercadoPago(mercadoPagoItems));
