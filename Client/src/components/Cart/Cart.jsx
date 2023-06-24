@@ -55,8 +55,6 @@ const Cart = () => {
       const result = await dispatch(createPayment(mercadoPagoItems));
       if (result === 'success') {
         navigate('/');
-      } else {
-        navigate('/error');
       }
     } catch (error) {
       setPaymentError(true);

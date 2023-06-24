@@ -150,7 +150,7 @@ export const addToMercadoPago = (items) => {
   };
 };
 
-export const createPayment = () => {
+export const createPayment = (items) => {
   return (dispatch, getState) => {
     const { userId, cartId } = getState(); // Obtener userId y cartId desde el estado global de Redux
     const { cartArticles } = getState(); // Obtener los artículos del carrito del estado global
