@@ -3,7 +3,7 @@ import { addFav, removeFav, resState } from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { getDetail, createPayment } from "../../redux/actions/actions";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Image, Flex, Button, Text } from "@chakra-ui/react";
+import { Box, Image, Flex, Button, Text, Select } from "@chakra-ui/react";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 
 const initProductSelections = {
@@ -14,6 +14,8 @@ const initProductSelections = {
 	name: "",
 	quantity: 1,
 	price: 0,
+	size: "",
+	shoeSize: "",
 };
 
 const Detail = () => {
@@ -32,9 +34,9 @@ const Detail = () => {
 		initProductSelections
 	);
 
-	console.log("article detail", articleDetail);
+	// console.log("article detail", articleDetail);
 	// console.log("cart articles", cartArticles);
-	// console.log("product selections", productSelections);
+	console.log("product selections", productSelections);
 
 	useEffect(() => {
 		dispatch(getDetail(id));
@@ -124,8 +126,8 @@ const Detail = () => {
 	if (articleDetail.size && typeof articleDetail.size === "object") {
 		clotheSizeOptions = Object.entries(articleDetail.size).map(
 			([key, value]) => (
-				<option key={key} value={key}>
-					{key} ({value})
+				<option key={key} value={key} disabled={!!!value}>
+					"{key}"
 				</option>
 			)
 		);
@@ -136,12 +138,25 @@ const Detail = () => {
 	if (articleDetail.shoeSize && typeof articleDetail.shoeSize === "object") {
 		shoeSizeOptions = Object.entries(articleDetail.shoeSize).map(
 			([key, value]) => (
-				<option key={key} value={key}>
-					{key} ({value})
+				<option key={key} value={key} disabled={!!!value}>
+					N°{key}
 				</option>
 			)
 		);
 	}
+
+	const enableButtonHandler = () => {
+		if (
+			productSelections.size === "" ||
+			productSelections.shoeSize === ""
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	console.log("disable?", enableButtonHandler());
 
 	return (
 		<Flex justify="center" mt="20px">
@@ -175,18 +190,17 @@ const Detail = () => {
 					{/* para las estrellas haría otro componente ReviewBriefing */}
 
 					<p>{articleDetail.color}</p>
-					<p>{articleDetail.type}</p>
 					<form onSubmit={handleSubmit} onChange={handleChange}>
 						{articleDetail.type !== "shoes" ? (
-							<select name="size">
-								<option value="none">Choose size</option>
+							<Select name="size">
+								<option value="">Choose size</option>
 								{clotheSizeOptions}
-							</select>
+							</Select>
 						) : (
-							<select name="shoeSize">
-								<option value="none">Choose size</option>
+							<Select name="shoeSize">
+								<option value="">Choose size</option>
 								{shoeSizeOptions}
-							</select>
+							</Select>
 						)}
 						{stockHandler()}
 						{/* <label>Quantity</label>
@@ -214,16 +228,25 @@ const Detail = () => {
 							)}
 
 							{!isInCart ? (
-								<Button onClick={handleAddToCart} flex="1">
+								<Button
+									onClick={handleAddToCart}
+									isDisabled={enableButtonHandler()}
+									flex="1"
+								>
 									Add to cart
 								</Button>
 							) : (
-								<Button onClick={handleAddToCart} flex="1">
+								<Button
+									onClick={handleAddToCart}
+									isDisabled={enableButtonHandler()}
+									flex="1"
+								>
 									Remove from Cart
 								</Button>
 							)}
 						</Flex>
 						<Button
+							isDisabled={enableButtonHandler()}
 							type="submit"
 							flex="none"
 							width="100%"
