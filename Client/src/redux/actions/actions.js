@@ -134,18 +134,34 @@ export const updateProduct = (body) => {
 };
 
 export const addToMercadoPago = (items) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { users, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
+
+    const itemsWithAdditionalData = items.map((item) => ({
+      ...item,
+      users: users,
+      cart: cart,
+    }));
+
     dispatch({
       type: 'ADD_TO_MERCADO_PAGO',
-      payload: items,
+      payload: itemsWithAdditionalData,
     });
   };
 };
 
 export const createPayment = () => {
   return (dispatch, getState) => {
+    const { userId, cartId } = getState(); // Obtener userId y cartId desde el estado global de Redux
     const { cartArticles } = getState(); // Obtener los artículos del carrito del estado global
 
+    const requestData = {
+      items: items,
+      userId: userId,
+      cartId: cartId,
+      cartArticles: cartArticles,
+    };
+    
     axios
       .post(`${URL}mercadoPago`, cartArticles)
       .then((response) => {
