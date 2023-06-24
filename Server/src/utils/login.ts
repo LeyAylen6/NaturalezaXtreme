@@ -1,22 +1,20 @@
-require('dotenv').config();
-const { DB_PORT, DB_PASSWORD, DB_USER, DB_HOST, DB_NAME_PROJECT } = process.env
-import { User } from './entities/userEntity';
-import { UserProfile } from './interfaces/userProfile';
-import { AppDataSource } from './db';
+import { User } from '../entities/userEntity';
+import { UserProfile } from '../interfaces/userProfile';
+import { AppDataSource } from '../db';
 
-export async function login(email: string, password: string, callback: Function) {
+export async function login(email: string, callback: Function) {
     let connection = AppDataSource;
 
     console.log(email)
     try{
         const userRepository = connection.getRepository(User);
 
-        const user = await userRepository.findOneBy({email: email, password: password});
+        const user = await userRepository.findOneBy({email: email});
         console.log(user)
 
 
         if (!user) {
-        return callback(new WrongUsernameOrPasswordError(email, 'Credenciales inválidas'));
+        return callback(new WrongUsernameOrPasswordError('Credenciales inválidas'));
         }
 
         const profile: UserProfile = {
@@ -39,10 +37,9 @@ export async function login(email: string, password: string, callback: Function)
 }
 
 class WrongUsernameOrPasswordError extends Error {
-  constructor(email: string, message: string) {
+  constructor(message: string) {
     super(message);
     this.name = 'WrongUsernameOrPasswordError';
     this.message = message;
-    // this.email = email;
   }
 }

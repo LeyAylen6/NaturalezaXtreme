@@ -1,8 +1,8 @@
-import { login } from "../../login";
+import { login } from "../../utils/login";
 
-const loginController = async(email: string, password: string)=>{
+const loginController = async(email: string)=>{
 
-    login(email, password, (error: any, profile: any) => {
+    login(email, (error: any, profile: any) => {
         if (error) {
           console.error(error);
           return;

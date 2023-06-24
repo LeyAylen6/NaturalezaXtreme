@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import loginController from "../../controllers/authHelpers/loginController";
 
 const loginRoute = async (req: Request, res: Response)=>{
-    const {email, password} = req.body
+    const {email} = req.body
 
     try{
-        const loginRes = await loginController(email, password);
+        const loginRes = await loginController(email);
         res.status(200).send(loginRes);
     }
     catch(error:any){
