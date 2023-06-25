@@ -1,24 +1,28 @@
-import  { useState } from "react";
-import { Box, HStack, Select } from "@chakra-ui/react";
+import { useState } from "react";
+import { HStack, Select } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { filterCombinated } from "../../redux/actions/actionFilters";
+import {
+  articlesTypes,
+  articlesColor,
+  articlesGender,
+} from "../../utils/constants";
 
 const Filters = () => {
   const [filters, setFilters] = useState({
     gender: "",
     type: "",
     color: "",
-    order:""
+    order: "",
   });
 
   const dispatch = useDispatch();
 
   dispatch(filterCombinated(filters));
-  console.log(filters);
 
   const handleChangeGender = (event) => {
     const { value } = event.target;
-    if (value === "male" || value === "female" || value === "unisex") {
+    if (articlesGender.find((article) => article.value === value)) {
       setFilters({
         ...filters,
         gender: value,
@@ -30,17 +34,10 @@ const Filters = () => {
       });
     }
   };
+
   const handleChangeType = (event) => {
     const { value } = event.target;
-    if (
-      value === "Tshirt" ||
-      value === "sweatshirt" ||
-      value === "jacket" ||
-      value === "pant" ||
-      value === "accesories" ||
-      value === "shoes" ||
-      value === "equipment"
-    ) {
+    if (articlesTypes.find((article) => article.value === value)) {
       setFilters({
         ...filters,
         type: value,
@@ -54,19 +51,7 @@ const Filters = () => {
   };
   const handleChangeColor = (event) => {
     const { value } = event.target;
-    if (
-      value === "white" ||
-      value === "black" ||
-      value === "red" ||
-      value === "green" ||
-      value === "yellow" ||
-      value === "brown" ||
-      value === "orange" ||
-      value === "blue" ||
-      value === "grey" ||
-      value === "pink" ||
-      value === "violet"
-    ) {
+    if (articlesColor.find((article) => article.value === value)) {
       setFilters({
         ...filters,
         color: value,
@@ -79,9 +64,9 @@ const Filters = () => {
     }
   };
 
-  const handleChangeOrder=(event)=>{
+  const handleChangeOrder = (event) => {
     const { value } = event.target;
-    if(value === "asc"|| value === "desc"){
+    if (value === "asc" || value === "desc") {
       setFilters({
         ...filters,
         order: value,
@@ -92,82 +77,85 @@ const Filters = () => {
         order: "",
       });
     }
-  }
+  };
 
   return (
-    <Box>
-      <HStack maxWidth={"700px"} margin={"auto"}>
-        <Select
-          name=""
-          id="Gender"
-          defaultValue="Gender"
-          variant={"flushed"}
-          onChange={handleChangeGender}
-        >
-          <option disabled value="Gender">
-            Gender
-          </option>
-          <option value="none">None</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="unisex">Unisex</option>
-        </Select>
-        <Select
-          name=""
-          id="Type"
-          defaultValue="Type"
-          variant={"flushed"}
-          onChange={handleChangeType}
-        >
-          <option disabled value="Type">
-            Type
-          </option>
-          <option value="none">None</option>
-          <option value="Tshirt">Tshirt</option>
-          <option value="sweatshirt">Sweatshirt</option>
-          <option value="jacket">Jacket</option>
-          <option value="pant">Pants</option>
-          <option value="accesories">Accesories</option>
-          <option value="shoes">Shoes</option>
-          <option value="equipment">Equipament</option>
-        </Select>
+    <HStack justifyContent="center" flexWrap="wrap" pt={5}>
+      <Select
+        name=""
+        id="Gender"
+        defaultValue="Gender"
+        variant={"flushed"}
+        onChange={handleChangeGender}
+        w="300px"
+      >
+        <option disabled value="Gender">
+          Gender
+        </option>
+        {articlesGender.map((article, index) => {
+          return (
+            <option key={index} value={article.value}>
+              {article.name}
+            </option>
+          );
+        })}
+      </Select>
+      <Select
+        name=""
+        id="Type"
+        defaultValue="Type"
+        variant={"flushed"}
+        onChange={handleChangeType}
+        w="300px"
+      >
+        <option disabled value="Type">
+          Type
+        </option>
+        <option value="none">None</option>
+        {articlesTypes.map((article, index) => {
+          return (
+            <option key={index} value={article.value}>
+              {article.name}
+            </option>
+          );
+        })}
+      </Select>
 
-        <Select
-          name=""
-          id=""
-          defaultValue="By Color"
-          variant={"flushed"}
-          onChange={handleChangeColor}
-        >
-          <option disabled value="By Color">
-            Color
-          </option>
-          <option value="none">None</option>
-          <option value="white">White</option>
-          <option value="black">Black</option>
-          <option value="red">Red</option>
-          <option value="green">Green</option>
-          <option value="yellow">Yellow</option>
-          <option value="brown">Brown</option>
-          <option value="oranje">Oranje</option>
-          <option value="blue">Blue</option>
-          <option value="grey">Grey</option>
-          <option value="pink">Pink</option>
-          <option value="violet">Violet</option>
-        </Select>
-        <Select   name=""
-          id="price"
-          defaultValue="price"
-          variant={"flushed"}
-          onChange={handleChangeOrder}>
-          <option  disabled value="price">Price</option>
-          <option value="none">None</option>
-          <option value="desc">Downward</option>
-          <option value="asc">Upward</option>
-          
-          </Select>
-      </HStack>
-    </Box>
+      <Select
+        name=""
+        id=""
+        defaultValue="By Color"
+        variant={"flushed"}
+        onChange={handleChangeColor}
+        w="300px"
+      >
+        <option disabled value="By Color">
+          Color
+        </option>
+        {articlesColor.map((article, index) => {
+          return (
+            <option key={index} value={article.value}>
+              {article.name}
+            </option>
+          );
+        })}
+      </Select>
+      <Select
+        name=""
+        id="price"
+        defaultValue="price"
+        variant={"flushed"}
+        onChange={handleChangeOrder}
+        w="300px"
+      >
+        <option disabled value="price">
+          Price
+        </option>
+        <option value="none">None</option>
+        <option value="desc">Downward</option>
+        <option value="asc">Upward</option>
+      </Select>
+    </HStack>
   );
 };
 
