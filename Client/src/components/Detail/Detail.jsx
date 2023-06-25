@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
+import Comments from "../Comments/Comments";
 import { addFav, removeFav, resState } from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { getDetail, createPayment } from "../../redux/actions/actions";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Image, Flex, Button, Text } from "@chakra-ui/react";
+import {
+	Box,
+	Image,
+	Flex,
+	Button,
+	Text,
+	Select,
+	Stack,
+} from "@chakra-ui/react";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 
 const initProductSelections = {
@@ -14,6 +23,8 @@ const initProductSelections = {
 	name: "",
 	quantity: 1,
 	price: 0,
+	size: "",
+	shoeSize: "",
 };
 
 const Detail = () => {
@@ -101,21 +112,41 @@ const Detail = () => {
 		}
 	};
 
-	//conditional rendering function
 	const stockHandler = () => {
-		let stock = true;
-		for (const size in articleDetail.size) {
-			if (size.hasOwnProperty(size)) {
-				if (size[size] !== 0) {
-					stock = false;
-					break;
+		let stock = false;
+
+		if (articleDetail.type === "shoe") {
+			for (const size in articleDetail.shoeSize) {
+				if (articleDetail.shoeSize.hasOwnProperty(size)) {
+					if (articleDetail.shoeSize[size] !== 0) {
+						stock = true;
+						break;
+					}
+				}
+			}
+		} else {
+			for (const size in articleDetail.size) {
+				if (articleDetail.size.hasOwnProperty(size)) {
+					if (articleDetail.size[size] !== 0) {
+						stock = true;
+						break;
+					}
 				}
 			}
 		}
+
 		if (stock) {
-			return <Box bg="#48BB78">Product in stock</Box>;
+			return (
+				<Box bg="#48BB78" p="5px" textAlign="center">
+					Product in stock
+				</Box>
+			);
 		} else {
-			return <Box bg="tomato">Product out of stock</Box>;
+			return (
+				<Box bg="tomato" p="5px" textAlign="center">
+					Product out of stock
+				</Box>
+			);
 		}
 	};
 
@@ -124,8 +155,8 @@ const Detail = () => {
 	if (articleDetail.size && typeof articleDetail.size === "object") {
 		clotheSizeOptions = Object.entries(articleDetail.size).map(
 			([key, value]) => (
-				<option key={key} value={key}>
-					{key} ({value})
+				<option key={key} value={key} disabled={!!!value}>
+					"{key}"
 				</option>
 			)
 		);
@@ -136,21 +167,28 @@ const Detail = () => {
 	if (articleDetail.shoeSize && typeof articleDetail.shoeSize === "object") {
 		shoeSizeOptions = Object.entries(articleDetail.shoeSize).map(
 			([key, value]) => (
-				<option key={key} value={key}>
-					{key} ({value})
+				<option key={key} value={key} disabled={!!!value}>
+					N°{key}
 				</option>
 			)
 		);
 	}
 
+	const enableButtonHandler = () => {
+		if (
+			productSelections.size === "" ||
+			productSelections.shoeSize === ""
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+	// console.log("disable?", enableButtonHandler());
+
 	return (
-		<Flex justify="center" mt="20px">
-			<Flex
-				id="2box container"
-				flexDirection="row"
-				alignItems="start"
-				gap="20px"
-			>
+		<Flex align={"center"} mt="50px" direction="column">
+			<Flex id="2box container" flexDirection="row" gap="20px">
 				<Box>
 					<Image
 						mt="20px"
@@ -160,7 +198,7 @@ const Detail = () => {
 						alt={articleDetail.name}
 					/>
 				</Box>
-				<Box textAlign="left" ml="40px">
+				<Box textAlign="left">
 					<Box fontSize="40px" fontWeight="semibold" width="100%">
 						{articleDetail.name}
 					</Box>
@@ -175,21 +213,21 @@ const Detail = () => {
 					{/* para las estrellas haría otro componente ReviewBriefing */}
 
 					<p>{articleDetail.color}</p>
-					<p>{articleDetail.type}</p>
-					<form onSubmit={handleSubmit} onChange={handleChange}>
-						{articleDetail.type !== "shoes" ? (
-							<select name="size">
-								<option value="none">Choose size</option>
-								{clotheSizeOptions}
-							</select>
-						) : (
-							<select name="shoeSize">
-								<option value="none">Choose size</option>
-								{shoeSizeOptions}
-							</select>
-						)}
-						{stockHandler()}
-						{/* <label>Quantity</label>
+					<Box w="500px">
+						<form onSubmit={handleSubmit} onChange={handleChange}>
+							{articleDetail.type !== "shoes" ? (
+								<Select name="size" variant="filled" mt="20px">
+									<option value="">Choose size</option>
+									{clotheSizeOptions}
+								</Select>
+							) : (
+								<Select name="shoeSize" variant="filled">
+									<option value="">Choose size</option>
+									{shoeSizeOptions}
+								</Select>
+							)}
+							{stockHandler()}
+							{/* <label>Quantity</label>
 						<input
 							type="number"
 							id="quantity"
@@ -197,44 +235,65 @@ const Detail = () => {
 							min="1"
 							max={articleDetail.stock}
 						></input> */}
-						<Flex
-							id="buttons"
-							direction="row"
-							alignItems="stretch"
-							gap="10px"
-						>
-							{!isFavorite ? (
-								<Button onClick={handleFavorites} flex="1">
-									Add to favorites
-								</Button>
-							) : (
-								<Button onClick={handleFavorites} flex="1">
-									Remove from favorites
-								</Button>
-							)}
+							<Flex
+								id="buttons"
+								direction="row"
+								alignItems="stretch"
+								gap="10px"
+							>
+								{!isFavorite ? (
+									<Button
+										onClick={handleFavorites}
+										flex="1"
+										m="10px"
+									>
+										Add to favorites
+									</Button>
+								) : (
+									<Button
+										onClick={handleFavorites}
+										flex="1"
+										m="10px"
+									>
+										Remove from favorites
+									</Button>
+								)}
 
-							{!isInCart ? (
-								<Button onClick={handleAddToCart} flex="1">
-									Add to cart
-								</Button>
-							) : (
-								<Button onClick={handleAddToCart} flex="1">
-									Remove from Cart
-								</Button>
-							)}
-						</Flex>
-						<Button
-							type="submit"
-							flex="none"
-							width="100%"
-							colorScheme="blackAlpha"
-							bgColor="black"
-							mt="10px"
-						>
-							Comprar
-						</Button>
-					</form>
+								{!isInCart ? (
+									<Button
+										onClick={handleAddToCart}
+										isDisabled={enableButtonHandler()}
+										flex="1"
+										m="10px"
+									>
+										Add to cart
+									</Button>
+								) : (
+									<Button
+										onClick={handleAddToCart}
+										isDisabled={enableButtonHandler()}
+										flex="1"
+										m="10px"
+									>
+										Remove from Cart
+									</Button>
+								)}
+							</Flex>
+							<Button
+								isDisabled={enableButtonHandler()}
+								type="submit"
+								flex="none"
+								width="100%"
+								colorScheme="blackAlpha"
+								bgColor="black"
+								mt="10px"
+							>
+								Buy Now
+							</Button>
+						</form>
+					</Box>
 				</Box>
+				<Comments comments={articleDetail.comments} />
 			</Flex>
 		</Flex>
 	);

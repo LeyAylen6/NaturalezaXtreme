@@ -10,6 +10,7 @@ export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
 export const  SIGN_UP =  "SIGN_UP";
 export const ADD_PRODUCT = "ADD_PRODUCT";
+export const ADD_TO_MERCADO_PAGO = 'ADD_TO_MERCADO_PAGO';
 
 export const GET_ARTICLES = "GET_ARTICLES";
 export const NEXT_PAGE = "NEXT_PAGE";
@@ -132,16 +133,37 @@ export const updateProduct = (body) => {
   };
 };
 
-export const createPayment = (productPrice, productQuantity) => {
-  return (dispatch) => {
+export const addToMercadoPago = (items) => {
+  return (dispatch, getState) => {
+    const { users, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
+
+    const itemsWithAdditionalData = items.map((item) => ({
+      ...item,
+      users: users,
+      cart: cart,
+    }));
+
+    dispatch({
+      type: 'ADD_TO_MERCADO_PAGO',
+      payload: itemsWithAdditionalData,
+    });
+  };
+};
+
+export const createPayment = (items) => {
+  return (dispatch, getState) => {
+    const { userId, cartId } = getState(); // Obtener userId y cartId desde el estado global de Redux
+    const { cartArticles } = getState(); // Obtener los artículos del carrito del estado global
+
+    const requestData = {
+      items: items,
+      userId: userId,
+      cartId: cartId,
+      cartArticles: cartArticles,
+    };
+    
     axios
-
-      .post(`${URL}mercadoPago`, [{
-        name: 'Descripcion',
-        price: 10,
-        quantity: 1,
-      }])
-
+      .post(`${URL}mercadoPago`, cartArticles)
       .then((response) => {
         const paymentLink = response.data.url;
         dispatch(setPaymentLink(paymentLink));
