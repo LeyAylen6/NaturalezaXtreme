@@ -4,9 +4,11 @@ import { addFav, removeFav, resState } from "../../redux/actions/actions"
 import { useSelector, useDispatch } from "react-redux"
 import { getDetail, createPayment } from "../../redux/actions/actions"
 import { useNavigate, useParams } from "react-router-dom"
-import { Box, Image, Flex, Button, Text, Select, Stack } from "@chakra-ui/react"
+import { Box, Image, Flex, Button, Text, Select } from "@chakra-ui/react"
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions"
 import SizeOptions from "./utils/SizeOptions"
+import Rating from "../Rating/Rating"
+import { originalColors } from "../../theme/palette"
 
 const initProductSelections = {
 	id: "",
@@ -134,7 +136,7 @@ const Detail = () => {
 
 	return (
 		<Flex align={"center"} mt="50px" direction="column">
-			<Flex id="2box container" flexDirection="row" gap="20px">
+			<Flex id="2box container" flexDirection="row" gap="100px">
 				<Box>
 					<Image mt="20px" boxSize={"300px"} objectFit={"cover"} src={articleDetail.image} alt={articleDetail.name} />
 				</Box>
@@ -144,6 +146,9 @@ const Detail = () => {
 					</Box>
 					<Box fontSize="25px" fontWeight="semibold">
 						{articleDetail.brand}
+					</Box>
+					<Box mb={5} mt={2}>
+						<Rating rating={articleDetail.rating} color={originalColors.blueRating} size={30} />
 					</Box>
 					<Box fontSize="40px" fontWeight="semibold">
 						${articleDetail.price}
@@ -155,18 +160,20 @@ const Detail = () => {
 						<form onSubmit={handleSubmit} onChange={handleChange}>
 							{articleDetail.type !== "shoes" ? (
 								<Select name="size" variant="filled" mt="20px">
-									<option value="">Choose size</option>
+									<option value="">Choose a size</option>
 									<SizeOptions detailObject={articleDetail} />
 								</Select>
 							) : (
 								<Select name="shoeSize" variant="filled">
-									<option value="">Choose size</option>
+									<option value="">Choose a size</option>
 									<SizeOptions detailObject={articleDetail} />
 								</Select>
 							)}
-							{stockComponentConfig.map(config => (
-								<StockDisplay {...config} />
-							))}
+							<Box>
+								{stockComponentConfig.map(config => (
+									<StockDisplay {...config} />
+								))}
+							</Box>
 							<Flex id="buttons" direction="row" alignItems="stretch" gap="10px">
 								{!isFavorite ? (
 									<Button onClick={handleFavorites} flex="1" m="10px">
@@ -188,12 +195,7 @@ const Detail = () => {
 										Add to cart
 									</Button>
 								) : (
-									<Button
-										onClick={handleAddToCart}
-										isDisabled={!(productSelections.size || productSelections.shoeSize)}
-										flex="1"
-										m="10px"
-									>
+									<Button onClick={handleAddToCart} flex="1" m="10px">
 										Remove from Cart
 									</Button>
 								)}
