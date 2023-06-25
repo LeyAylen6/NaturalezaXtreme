@@ -2,10 +2,10 @@ import axios from "axios";
 
 export const FILTER_COMBINATED = "FILTER_COMBINATED";
 
-export const filterCombinated = ({ gender, type, color }) => {
+export const filterCombinated = ({ gender, type, color,order }) => {
   return async function (dispatch) {
     const apiData = await axios(
-      `http://localhost:3001/articles?gender=${gender}&type=${type}&color=${color}`
+      `http://localhost:3001/articles?gender=${gender}&type=${type}&color=${color}&order=${order}`
     );
 
     const articleFiltered = apiData.data;

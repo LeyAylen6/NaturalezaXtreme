@@ -16,15 +16,26 @@ export const clearCart = (id) => {
 	return { type: CLEAR_CART, payload: id }
 };
 
-export const getCart = (id) => {
-	return async function (dispatch) {
-		const json = await axios.get(
-		  `${URL}/shoppingcart/${id}`
-		);
-	
-		return dispatch({
-		  type: GET_CART,
-		  payload: json.data,
-		});
-	  };
-	}
+export const getCartById = (id) => async (dispatch) => {
+	try {
+	  const response = await axios.get(`${URL}/shoppingcart/${id}`);
+	  const cartById = response.data;
+  
+	  dispatch({
+		type: GET_CART,
+		payload: cartById,
+	  });
+} catch (error) {
+  if (error.response && error.response.data === 'There are no products in the cart') {
+	dispatch({
+	  type: GET_CART,
+	  payload: error.response.data,
+	});
+  } else {
+	dispatch({
+	  type: GET_CART,
+	  payload: 'An error occurred while fetching the cart.',
+	});
+  }
+}
+};
