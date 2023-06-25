@@ -1,17 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import CircleIcon from "../CircleIcon/CircleIcon";
 import {
   Text,
   Card,
   CardBody,
   Img,
-  Stack,
   Heading,
   Divider,
   HStack,
   CardFooter,
-  Box,
   VStack,
 } from "@chakra-ui/react";
 import Rating from "../Rating/Rating";
@@ -53,7 +50,9 @@ const Tarjeta = ({ id, image, name, description, price, rating }) => {
           <Heading mt="10px" fontSize="18px" noOfLines={2} textAlign="left">
             {name}
           </Heading>
-          <Text noOfLines="2" textAlign="left">{description}</Text>
+          <Text noOfLines="2" textAlign="left">
+            {description}
+          </Text>
 
           <HStack pt={2}>
             <Text fontStyle="oblique" fontWeight="bold" fontSize="20px">

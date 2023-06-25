@@ -1,7 +1,6 @@
 import { HStack, Button } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { nextPage, prevPage } from "../../redux/actions/actions";
-import { originalColors } from "../../theme/palette";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
@@ -23,7 +22,7 @@ const Paginate = ({ articles }) => {
         id="prev"
         isDisabled={articles.prev === "null"}
         colorScheme="twitter"
-        leftIcon={<MdKeyboardArrowLeft size={20}/>}
+        leftIcon={<MdKeyboardArrowLeft size={20} />}
       >
         Prev
       </Button>
@@ -32,7 +31,7 @@ const Paginate = ({ articles }) => {
         value="next"
         id="next "
         isDisabled={articles.next === "null"}
-        rightIcon={<MdKeyboardArrowRight size={20}/>}
+        rightIcon={<MdKeyboardArrowRight size={20} />}
         colorScheme="twitter"
       >
         Next
