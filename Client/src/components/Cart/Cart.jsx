@@ -17,6 +17,8 @@ const Cart = () => {
 
   const [paymentError, setPaymentError] = useState(false);
 
+  
+
 
   // Función para eliminar un producto del carrito
   const handleRemoveFromCart = (productId) => {

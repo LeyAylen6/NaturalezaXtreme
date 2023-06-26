@@ -33,7 +33,7 @@ router.get('/user/:id', getUserById)
 router.put('/user', updateUser)
 router.put('/user/:id', deactivateUser)
 
-router.get('/login',loginRoute)
+router.post('/login',loginRoute)
 
 router.put('/shoppingcart', putShoppingCart)
 router.get('/shoppingcart', getShoppingCart)
