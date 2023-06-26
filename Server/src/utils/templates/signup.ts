@@ -7,7 +7,7 @@ module.exports = () => {
             subject: 'Welcome to NatureXtreme',
             html: `    
                 <div style="text-align: center"> 
-                    <img src='./../../../../Client/src/assets/logo_nodemailer.jpg' style="width:350px"/>
+                    <img src='https://github.com/LeyAylen6/NaturalezaXtreme/blob/dev/Client/src/assets/logo_nodemailer.jpg?raw=true' style="width:350px"/>
                     <h2 style="text-align: center; font-size: 40px">We are happy to have you with us!</h2> 
                     <br/>
                     <img src='https://hpy.stripocdn.email/content/guids/CABINET_54100624d621728c49155116bef5e07d/images/84141618400759579.png' style="width:200px"/>
