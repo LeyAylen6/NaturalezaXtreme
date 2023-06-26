@@ -25,7 +25,7 @@ function App() {
   return (
     <ChakraProvider>
       <Provider store={store}>
-        <Box>
+        <Box minHeight="100vh">
           <NavBar />
           <Routes>
             <Route path="/login" element={<Login/>} />

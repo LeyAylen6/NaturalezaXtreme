@@ -16,6 +16,7 @@ import putShoppingCart from './shoppingCart/putShoppingCart';
 import getShoppingCart from './shoppingCart/getShoppingCartController';
 import getCartById from './shoppingCart/getCartById';
 import nodemailerPRUEBAS from './nodemailerTEST/nodemailerPRUEBAS';
+import loginRoute from './auth/loginRoute';
 
 const router = Router();
 
@@ -31,6 +32,8 @@ router.get('/user', getUsers)
 router.get('/user/:id', getUserById)
 router.put('/user', updateUser)
 router.put('/user/:id', deactivateUser)
+
+router.get('/login',loginRoute)
 
 router.put('/shoppingcart', putShoppingCart)
 router.get('/shoppingcart', getShoppingCart)
