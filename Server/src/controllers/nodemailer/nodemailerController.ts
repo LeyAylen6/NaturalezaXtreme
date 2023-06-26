@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
-const template1 = require('./../../utils/templates/payments')
-const template2 = require('./../../utils/templates/signUp')
+import payment from "../../utils/templates/payments";
+import signUp from "../../utils/templates/signup";
 
 const nodemailerController = async(isSignUp: boolean, userEmail: string, status?: string) => {
     
@@ -15,8 +15,8 @@ const nodemailerController = async(isSignUp: boolean, userEmail: string, status?
         }
     });   
       
-    let templatePayment = template1(status)
-    let templateSignUp = template2()
+    let templatePayment = payment(String(status))
+    let templateSignUp = signUp()
 
     const emailToSend = await transporter.sendMail({
         from: 'NaturalezaXtreme@outlook.com', 

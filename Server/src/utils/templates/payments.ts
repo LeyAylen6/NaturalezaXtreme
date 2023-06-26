@@ -1,4 +1,4 @@
-module.exports = (status: string) => {
+const payment = (status: string) => {
 
     const URL_DEPLOY = process.env;
 
@@ -34,3 +34,5 @@ module.exports = (status: string) => {
         }
     )
 }
+
+export default payment;
