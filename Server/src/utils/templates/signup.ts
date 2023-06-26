@@ -1,4 +1,4 @@
-module.exports = () => {
+const signUp = () => {
     
     const URL_DEPLOY = process.env;
 
@@ -25,3 +25,5 @@ module.exports = () => {
         }
     )
 }
+
+export default signUp;
