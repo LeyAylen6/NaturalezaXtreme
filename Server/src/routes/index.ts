@@ -17,6 +17,7 @@ import getShoppingCart from './shoppingCart/getShoppingCartController';
 import getCartById from './shoppingCart/getCartById';
 import nodemailerPRUEBAS from './nodemailerTEST/nodemailerPRUEBAS';
 import loginRoute from './auth/loginRoute';
+import purchasedCarts from './shoppingCart/purchasedCarts';
 
 const router = Router();
 
@@ -38,6 +39,7 @@ router.post('/login',loginRoute)
 router.put('/shoppingcart', putShoppingCart)
 router.get('/shoppingcart', getShoppingCart)
 router.get('/shoppingcart/:id', getCartById)
+router.get('/shoppingcart/purchased/:id', purchasedCarts)
 
 router.post("/mercadoPago", postMercadoPago)
 router.post("/nodemailer", nodemailerPRUEBAS)

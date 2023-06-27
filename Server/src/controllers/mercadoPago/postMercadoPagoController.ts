@@ -12,8 +12,8 @@ const postMercadoPagoController = async (product: preferenceMP[]) =>{
         }
     })
    
-    const URL = 'https://7783-201-190-150-125.ngrok-free.app'
-    // si no les funciona con esa url pongan http://localhost:3001/ 
+    //const URL = 'https://7783-201-190-150-125.ngrok-free.app'
+    const URL = ' http://localhost:5173/'
         
     let preference: CreatePreferencePayload  = {
         items:  [

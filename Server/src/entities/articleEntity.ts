@@ -90,10 +90,8 @@ export class Article extends BaseEntity{
     })
     rating: number[];
 
-    @Column('simple-array', { 
-        nullable: true 
-    })
-    comments: string[];
+    @Column('json', { nullable: true })
+    comments: { userId: number; comment: string }[];
 
     @Column("boolean", {
         nullable: false,
