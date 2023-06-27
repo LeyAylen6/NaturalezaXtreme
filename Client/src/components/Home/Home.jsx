@@ -22,7 +22,6 @@ const Home = () => {
   
   useEffect(() => {
     dispatch(getArticles());
-
   }, [dispatch]);
 
   return (
