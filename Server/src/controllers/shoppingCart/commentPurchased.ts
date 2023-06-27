@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import getShoppingCartController from "./getShoppingCartArticles";
+import getShoppingCartController from "./getShoppingCartController";
 import getCartByIdController from "./getCartByIdController";
 import { Article } from "../../entities/articleEntity"
 
@@ -7,7 +7,7 @@ import { Article } from "../../entities/articleEntity"
 const commentPurchased = async (userId: number) => {
     const carts: number[] = [];
   
-    // Busca los carts de un user, hay que cambiar el estado a completed
+    // Busca los carts de un user que estén pagos
     const purchasedCarts = await getShoppingCartController(userId, "complete");
   
     // Arma un arreglo con los ids de carritos
@@ -39,8 +39,8 @@ const commentPurchased = async (userId: number) => {
     })      
     if (article) {
         const commented = article.comments
-        if(commented) return { id: articleId, commented: true };
-        else return { id: articleId, commented: false };
+        if(commented) return { id: articleId, name: article.name, image: article.image, commented: true };
+        else return { id: articleId, name: article.name, image: article.image, commented: false };
       }
 
     });

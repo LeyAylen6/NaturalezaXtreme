@@ -39,11 +39,11 @@ Modifica las propiedades de un artículo (excepto la propiedad active).
 Recibe los nuevos valores por body, puede modificar una o varias a la vez.
 Debe incluir la propiedad id para identificar el artículo y active especificando si el artículo está activo o no.
 
-Puede modificar las propiedades rating (number array) y comments (string array), de a una o ambas a la vez.
+Puede modificar las propiedades rating (number array) y comments (json array), siempre ambas a la vez.
 Ej. body: {
   "id": 3,
-  "rating": [5]
-  "comments": ["Super abrigada"],
+   "rating": [4],
+  "comments": [{"userId": 15, "comment": "Buena calidad"}],
   "active": true
 }
 
@@ -79,3 +79,9 @@ Debe incluir la propiedad id para identificar el artículo y active especificand
 #### **📍 PUT | /user/:id **
 
 Modifica la propiedad active de un user. Recibe por param el id del user y por body la propiedad active(false/true).
+
+#### **📍 GET | /shoppingcart/reviews/:id **
+
+Recibe por params el id del user y devuelve un arreglo de objetos con las propiedades id (number), name e image de cada artículo comprado por el usuario y la propiedad commented (booleano) de acuerdo a si el user ya puntuó o no ese artículo.
+
+
