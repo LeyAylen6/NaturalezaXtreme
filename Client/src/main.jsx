@@ -5,8 +5,8 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { Auth0Provider } from '@auth0/auth0-react';
 
-const domain = 'dev-vsgjmkp40qf5t2dv.us.auth0.com';
-const clientId = 'ByyZUyh2OH85yx83GcrbbykXYco6dp1N';
+const domain = "dev-p2xqhkfp7nv8gdru.us.auth0.com";
+const clientId = '4cGMuNbLpCY3vzLXqvWxGhXhDEwnctpu';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

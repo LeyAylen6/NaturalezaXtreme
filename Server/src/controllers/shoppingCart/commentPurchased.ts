@@ -7,7 +7,7 @@ import { Article } from "../../entities/articleEntity"
 const commentPurchased = async (userId: number) => {
     const carts: number[] = [];
   
-    // Busca los carts de un user que estén pagos
+    // Busca los carts de un user que estén pagos    
     const purchasedCarts = await getShoppingCartController(userId, "complete");
   
     // Arma un arreglo con los ids de carritos

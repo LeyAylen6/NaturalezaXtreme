@@ -19,7 +19,7 @@ const payment = (status: string) => {
             subject: 'Your purchase in natureXtreme',
             html: `    
                 <div style="text-align: center">
-                    <img src='./../../../../Client/src/assets/logo_nodemailer.jpg' style="width:350px"/>
+                    <img src='https://github.com/LeyAylen6/NaturalezaXtreme/blob/dev/Client/src/assets/logo_nodemailer.jpg?raw=true' style="width:350px"/>
                     <h2 style="text-align: center; font-size: 40px">${statusPayment}</h2> 
                     <img src=${img} style="width: 250px"/>
                     <br/>
