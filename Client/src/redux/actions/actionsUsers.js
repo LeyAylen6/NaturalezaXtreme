@@ -23,9 +23,10 @@ export const createNewAccount = async (signuserData, dispatch) => {
   }
 };
 
-export const getUserId = (email) => {
+export const getUserId = (user) => {
+  //mando todo el user de Auth0 y el back me crea un usuario en la base de datos si no existe
   return async function (dispatch) {
-    const apiData = await axios.post(`http://localhost:3001/login`, email);
+    const apiData = await axios.post(`http://localhost:3001/login`, user);
     const userId = apiData.data;
     console.log(userId);
     dispatch({ type: USER_ID, payload: userId });

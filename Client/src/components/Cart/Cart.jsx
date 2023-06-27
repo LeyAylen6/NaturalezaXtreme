@@ -10,6 +10,7 @@ import { getUsers } from "../../redux/actions/actionsUsers.js";
 
 const Cart = () => {
   //pending cart serían los productos que puso en el carrito para comprar
+  //Intente separar este useSelecto en dos, uno para el pending cart y otro para el cartArticles, pero no me funcionó.
   const { cartArticles, userId, pendingCart } = useSelector((state) => state);
 
   const dispatch = useDispatch();
