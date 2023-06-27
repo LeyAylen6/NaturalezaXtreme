@@ -27,6 +27,7 @@ const Detail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.userId);
+
   console.log("user  " + user);
 
   let myFavorites = useSelector((state) => state.myFavorites);

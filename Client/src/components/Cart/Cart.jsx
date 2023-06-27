@@ -4,18 +4,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPayment, setPaymentLink, addToMercadoPago } from "../../redux/actions/actions.js";
 import { removeFromCart, increaseQuantity, decreaseQuantity } from "../../redux/actions/actions";
-import { getPendingCart } from "../../redux/actions/cartActions.js";
+import { getPendingCart, getCartById } from "../../redux/actions/cartActions.js";
 
 import { getUsers } from "../../redux/actions/actionsUsers.js";
 
 const Cart = () => {
+  //pending cart serían los productos que puso en el carrito para comprar
   const { cartArticles, userId, pendingCart } = useSelector((state) => state);
-  // console.log("cartArticles", cartArticles);
+
   const dispatch = useDispatch();
   const paymentLink = useSelector((state) => state.paymentLink);
   const navigate = useNavigate();
-  console.log("userid", userId);
-  console.log("pendingCart", pendingCart);
 
   const [paymentError, setPaymentError] = useState(false);
 
@@ -72,21 +71,21 @@ const Cart = () => {
     <Box border={"2px"}>
       <Heading>Shopping Cart</Heading>
       <UnorderedList>
-        {cartArticles.article?.length === 0 ? (
+        {pendingCart.shoppingArticles?.length === 0 ? (
           <Heading fontSize="14px">No tienes productos en el carrito</Heading>
         ) : (
-          cartArticles.article?.map((item) => (
+          pendingCart.shoppingArticles?.map((item) => (
             <ListItem key={item.id} mb={2}>
               <Box border={"1px"} display={"flex"} justifyContent={"space-between"}>
                 <Box>
-                  <Image src={item.image} alt={item.name} width="100px" />
+                  <Image src={item.article.image} alt={item.article.name} width="100px" />
                 </Box>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  {item.name} - Cantidad: {item.quantity}
+                  {item.article.name} - Cantidad: {item.quantity}
                 </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <p> U$S: {item.price} </p>
+                  <p> U$S: {item.article.price} </p>
                 </Box>
                 <Box display="flex" justifyContent="center" alignItems="center">
                   <Button colorScheme="blue" size="sm" ml={2} onClick={() => handleIncreaseQuantity(item.id)}>

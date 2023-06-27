@@ -9,9 +9,10 @@ const URL = "http://localhost:3001/";
 
 export const addToCart = (prod) => {
   const { userId, id } = prod;
+
   //   console.log(userId, id);
   return async function (dispatch) {
-    const apiData = await axios.put(`${URL}shoppingcart?method=add`, { userId, articleId: id });
+    const apiData = await axios.put(`${URL}shoppingcart?method=add`, { userId: userId.id, articleId: id });
     const product = apiData.data;
     dispatch({ type: ADD_TO_CART, payload: product });
   };
