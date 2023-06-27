@@ -11,25 +11,23 @@ export const getUsers = (id) => {
   };
 };
 
-export const createNewAccount = async(signuserData, dispatch) => {
-  
-  const response = await axios.post('http://localhost:3001/user', signuserData)
-  
+export const createNewAccount = async (signuserData, dispatch) => {
+  const response = await axios.post("http://localhost:3001/user", signuserData);
+
   try {
     const { signUp } = response.data;
-    dispatch({ type: POST_USERS, payload: signUp })
-    
-  } catch(error) {
+    dispatch({ type: POST_USERS, payload: signUp });
+  } catch (error) {
     const { signUp } = error.response.data;
-    dispatch({ type: POST_USERS, payload: signUp})
+    dispatch({ type: POST_USERS, payload: signUp });
   }
-}
+};
 
-export const getUserId = (user) => {
+export const getUserId = (email) => {
   return async function (dispatch) {
-    const apiData = await axios.post(`http://localhost:3001/login`, user);
+    const apiData = await axios.post(`http://localhost:3001/login`, email);
     const userId = apiData.data;
-    console.log(userId)
-    dispatch({ type: GET_USERS, payload: userId });
+    console.log(userId);
+    dispatch({ type: USER_ID, payload: userId });
   };
 };

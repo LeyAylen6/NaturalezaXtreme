@@ -8,24 +8,24 @@ export const RES_STATE = "RES_STATE";
 export const GET_PRODUCT_DESACTIVATE = "GET_PRODUCT_DESACTIVATE";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
-export const  SIGN_UP =  "SIGN_UP";
+export const SIGN_UP = "SIGN_UP";
 export const ADD_PRODUCT = "ADD_PRODUCT";
-export const ADD_TO_MERCADO_PAGO = 'ADD_TO_MERCADO_PAGO';
+export const ADD_TO_MERCADO_PAGO = "ADD_TO_MERCADO_PAGO";
 
 export const GET_ARTICLES = "GET_ARTICLES";
 export const NEXT_PAGE = "NEXT_PAGE";
 export const PREV_PAGE = "PREV_PAGE";
 export const GET_ARTICLE_ID = "GET_ARTICLE_ID";
-export const ADD_TO_CART = "ADD_TO_CART";
-export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
-export const UPDATE_QUANTITY= "UPDATE_QUANTITY";
-export const INCREASE_QUANTITY= "INCREASE_QUANTITY";
-export const DECREASE_QUANTITY= "DECREASE_QUANTITY";
+
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const UPDATE_QUANTITY = "UPDATE_QUANTITY";
+export const INCREASE_QUANTITY = "INCREASE_QUANTITY";
+export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 
 import axios from "axios";
 
 //const URL ='https://2129-201-190-150-125.ngrok-free.app'; (no lo borren plis)
-const URL ='http://localhost:3001/';
+const URL = "http://localhost:3001/";
 
 export const getArticles = () => {
   return async function (dispatch) {
@@ -88,7 +88,7 @@ export const filterSearchBar = (name) => {
     } catch (error) {
       return dispatch({
         type: FILTER_SEARCHBAR,
-        payload: {articlesFounded: []},
+        payload: { articlesFounded: [] },
       });
     }
   };
@@ -96,9 +96,7 @@ export const filterSearchBar = (name) => {
 
 export function getDetail(id) {
   return async function (dispatch) {
-    const json = await axios.get(
-      `${URL}articlefinder/?id=${id}`
-    );
+    const json = await axios.get(`${URL}articlefinder/?id=${id}`);
 
     return dispatch({
       type: GET_DETAIL,
@@ -115,10 +113,7 @@ export function resState() {
 export const productdesactivate = (id, active) => {
   return async function (dispatch) {
     const body = { active };
-    const apiData = await axios.put(
-      `${URL}articles/${id}`,
-      body
-    );
+    const apiData = await axios.put(`${URL}articles/${id}`, body);
     const product = apiData.data;
     dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
   };
@@ -144,7 +139,7 @@ export const addToMercadoPago = (items) => {
     }));
 
     dispatch({
-      type: 'ADD_TO_MERCADO_PAGO',
+      type: "ADD_TO_MERCADO_PAGO",
       payload: itemsWithAdditionalData,
     });
   };
@@ -161,7 +156,7 @@ export const createPayment = (items) => {
       cartId: cartId,
       cartArticles: cartArticles,
     };
-    
+
     axios
       .post(`${URL}mercadoPago`, cartArticles)
       .then((response) => {
@@ -190,20 +185,13 @@ export const addProduct = (body) => {
   };
 };
 export const redirectSignUp = (dispatch) => {
-  dispatch({ type: SIGN_UP, payload: false})
-}
-
-export const addToCart = (product) => {
-  return {
-    type: ADD_TO_CART,
-    payload: product
-  };
+  dispatch({ type: SIGN_UP, payload: false });
 };
 
 export const removeFromCart = (productId) => {
   return {
     type: REMOVE_FROM_CART,
-    payload: productId
+    payload: productId,
   };
 };
 
@@ -212,22 +200,21 @@ export const updateQuantity = (productId, newQuantity) => {
     type: UPDATE_QUANTITY,
     payload: {
       productId,
-      newQuantity
-    }
+      newQuantity,
+    },
   };
 };
 
 export const increaseQuantity = (productId) => {
   return {
     type: INCREASE_QUANTITY,
-    payload: productId
+    payload: productId,
   };
 };
-
 
 export const decreaseQuantity = (productId) => {
   return {
     type: DECREASE_QUANTITY,
-    payload: productId
+    payload: productId,
   };
 };
