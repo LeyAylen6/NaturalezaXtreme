@@ -80,50 +80,48 @@ const reducer = (state = initialState, action) => {
         articleById: action.payload,
       };
 
-    case REMOVE_FAV:
-      return {
-        ...state,
-        myFavorites: state.myFavorites.filter((product) => product.id != action.payload),
-      };
-    case GET_PRODUCT_DESACTIVATE:
-      return {
-        ...state,
-      };
-    case GET_ARTICLES:
-      return {
-        ...state,
-        articles: action.payload,
-      };
-    case NEXT_PAGE:
-      return {
-        ...state,
-        articles: action.payload,
-      };
-    case PREV_PAGE:
-      return {
-        ...state,
-        articles: action.payload,
-      };
 
-    case REMOVE_FAV:
-      return {
-        ...state,
-        myFavorites: state.myFavorites.filter((product) => product.id != action.payload),
-      };
-    case GET_ARTICLE_ID:
-      return {
-        articleById: action.payload,
-      };
-    case GET_DETAIL:
-      return {
-        ...state,
-        detail: action.payload,
-      };
-    case RES_STATE:
-      return {
-        ...state,
-        detail: [],
-      };
+		case REMOVE_FAV:
+			return {
+				...state,
+				myFavorites: state.myFavorites.filter(
+					(product) => product.id != action.payload
+				),
+			};
+		case GET_PRODUCT_DESACTIVATE:
+			return {
+				...state,
+			};
+		case GET_ARTICLES:
+			return {
+				...state,
+				articles: action.payload,
+			};
+		case NEXT_PAGE:
+			return {
+				...state,
+				articles: action.payload,
+			};
+		case PREV_PAGE:
+			return {
+				...state,
+				articles: action.payload,
+			};
+		case GET_ARTICLE_ID:
+			return {
+				articleById: action.payload,
+			};
+		case GET_DETAIL:
+			return {
+				...state,
+				detail: action.payload,
+			};
+		case RES_STATE:
+			return {
+				...state,
+				detail: [],
+			};
+
 
     case SET_PAYMENT_LINK:
       return {

@@ -1,3 +1,5 @@
+import { Article } from "../entities/articleEntity"
+
 export interface userStructure {
     id: number,
     name: string,
@@ -9,4 +11,5 @@ export interface userStructure {
     avatar: string,
     rol: string,
     active: boolean
+    articles?: Article[]
 }
