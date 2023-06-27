@@ -13,7 +13,7 @@ import deactivateUser from './users/deactivateUser';
 import updateUser from './users/updateUser';
 import { postMercadoPago } from './mercadoPago/mercadoPago';
 import putShoppingCart from './shoppingCart/putShoppingCart';
-import getShoppingCart from './shoppingCart/getShoppingCartController';
+import getShoppingCart from './shoppingCart/getShoppingCart';
 import getCartById from './shoppingCart/getCartById';
 import nodemailerPRUEBAS from './nodemailerTEST/nodemailerPRUEBAS';
 import loginRoute from './auth/loginRoute';
