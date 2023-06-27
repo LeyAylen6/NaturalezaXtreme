@@ -20,6 +20,7 @@ import store from "./redux/store/store";
 import MercadoPago from "./components/MercadoPago/Mercadopago";
 import Signup2 from "./components/LoginandSignUp/Signup2";
 import MercadoPagoError from "./components/MercadoPago/MercadoPagoError";
+import Privateroute from "./components/PrivateRoute/Privateroute";
 
 function App() {
   return (
@@ -44,6 +45,13 @@ function App() {
             <Route path="/mercadoPago" element={<MercadoPago />} />
             <Route path="/productOutOfSale" element={<ProductOutOfSale />} />
             <Route path="/error" element={<MercadoPagoError/>}/>
+            <Privateroute
+          path="/isadmin"
+          component={Admin}
+          isAdmin={isAdmin}
+          isAuthenticated={isAuthenticated}
+          redirectPath="/"
+        />
           </Routes>
         </Box>
       </Provider>
