@@ -23,10 +23,10 @@ const loginController = async(user: any)=>{
     const userCreated = await AppDataSource.getRepository(User).create(userToCreate)
     const newUser = await AppDataSource.getRepository(User).save(userCreated)
     console.log(newUser)
-    return newUser.id;
+    return {id: newUser.id, rol: newUser.rol};
 }
 
-return existentUser.id;
+return {id: existentUser.id, rol: existentUser.rol};
   
 }
 export default loginController;
