@@ -1,10 +1,8 @@
 import { User } from "../../entities/userEntity";
 import { UserProfile } from "../../interfaces/userProfile";
 import { AppDataSource } from "../../db";
-import findOrCreateShoppingCartController from "../shoppingCart/findOrCreateShoppingCartController";
 
-
-const loginController = async(user: any) => {
+const loginController = async(user: any)=>{
 
   const {email} = user;
   
@@ -17,22 +15,18 @@ const loginController = async(user: any) => {
     password: user.sub
   }
 
-  const existentUser = await AppDataSource.getRepository(User).findOneBy({ 
+ const existentUser = await AppDataSource.getRepository(User).findOneBy({ 
     email: email,
   })
 
   if(!existentUser) {
     const userCreated = await AppDataSource.getRepository(User).create(userToCreate)
     const newUser = await AppDataSource.getRepository(User).save(userCreated)
-    
-    findOrCreateShoppingCartController(newUser.id)
-
-    return newUser.id;
-  }
-
-  findOrCreateShoppingCartController(existentUser.id)
-
-  return existentUser.id;
+    console.log(newUser)
+    return {id: newUser.id, rol: newUser.rol};
 }
 
+return {id: existentUser.id, rol: existentUser.rol};
+  
+}
 export default loginController;

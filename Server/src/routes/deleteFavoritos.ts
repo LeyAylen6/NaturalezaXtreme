@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-const deleteFavorito = async (req: Request, res: Response)=>{
+const deleteFavs = async (req: Request, res: Response)=>{
     try{
         
     }
@@ -9,4 +9,4 @@ const deleteFavorito = async (req: Request, res: Response)=>{
     }
 }
 
-export default deleteFavorito;
+export default deleteFavs;
