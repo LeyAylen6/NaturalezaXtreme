@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import commentPurchesed from "../../controllers/shoppingCart/commentPurchased";
 
-const purchasedCarts = async (req: Request, res: Response) => {
+const reviewCarts = async (req: Request, res: Response) => {
     const userId = req.params;
     
     try {
@@ -15,4 +15,4 @@ const purchasedCarts = async (req: Request, res: Response) => {
     }
 }
 
-export default purchasedCarts;
+export default reviewCarts;

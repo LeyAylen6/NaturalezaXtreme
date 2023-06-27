@@ -2,6 +2,7 @@ import { AppDataSource } from "../../db";
 import { Shopping_Cart } from "../../entities/shoppingCartEntity";
 import { CategoryCart } from "../../interfaces/categoryCart";
 import { queryShoppingCart } from "../../interfaces/queryShoppingCart";
+import getCartByIdController from "./getCartByIdController";
 
 const getShoppingCartController = async(userId?: number, status?: CategoryCart) => {
 
@@ -10,12 +11,14 @@ const getShoppingCartController = async(userId?: number, status?: CategoryCart) 
     if(status) query.status = status;
     if(userId) query.userId = userId;
 
-    const shopping = await AppDataSource.getRepository(Shopping_Cart).find({ where: query })
+    const shoppingCart = await AppDataSource.getRepository(Shopping_Cart).find({ where: query })
 
-    if(!shopping.length) throw new Error('There must be at least one cart')
-    if(query.status === 'pending' && shopping.length > 1) throw new Error('There can only be one cart in pending status for each user')
-
-    return shopping;
+    
+    if(!shoppingCart.length) throw new Error('There must be at least one cart')
+    if(query.status === 'pending' && shoppingCart.length > 1) throw new Error('There can only be one cart in pending status for each user')
+    
+    const fullShoppingCart = getCartByIdController(shoppingCart[0].id)
+    return fullShoppingCart;
 }
 
 export default getShoppingCartController;
