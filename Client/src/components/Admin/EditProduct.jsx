@@ -1,69 +1,121 @@
-import { Box, Button, Container, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, Button, Container, FormControl, FormLabel, Input } from "@chakra-ui/react"
 import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-} from "@chakra-ui/react";
-import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+	AlertDialog,
+	AlertDialogBody,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogContent,
+	AlertDialogOverlay,
+} from "@chakra-ui/react"
+import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table"
+import { Link, useNavigate } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { useState } from "react"
 
-import { updateProduct } from "../../redux/actions/actions";
+import { updateProduct } from "../../redux/actions/actions"
 
 const EditProduct = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const product = useSelector((state) => state.detail);
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
+	const product = useSelector(state => state.detail)
 
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [form, setForm] = useState({
-    id: product.id,
-    active: product.active,
-    name: product.name,
-    description: product.description,
-    price: product.price,
-    size: product.size,
-    shoeSize: product.shoeSize,
-  });
-  console.log(form);
+	const [isAlertOpen, setIsAlertOpen] = useState(false)
+	const [form, setForm] = useState({
+		id: product.id,
+		active: product.active,
+		name: product.name,
+		description: product.description,
+		price: product.price,
+		size: product.size,
+		shoeSize: product.shoeSize,
+		// [product.type === "shoes" ? "shoeSize" : "size"]: product.type === "shoes" ? product.shoeSize : product.size
+	})
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+	console.log(form)
+	console.log(product)
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setIsAlertOpen(true);
-  };
+	const handleChange = e => {
+    e.preventDefault()
+		const { name, value } = e.target
 
-  const handleConfirm = () => {
-    dispatch(updateProduct(form));
-    setIsAlertOpen(false);
-    navigate("/crudProduct");
-  };
+		setForm(prev => {
+			// Verificar si el campo es 'shoeSize'
+			if (name.startsWith("shoeSize")) {
+				const shoeSizeKey = name.split(".")[1]
+				return {
+					...prev,
+					shoeSize: {
+						...prev.shoeSize,
+						[shoeSizeKey]: parseInt(value),
+					},
+				}
+			}
+			if (name.startsWith("size")) {
+				const sizeKey = name.split(".")[1]
+				return {
+					...prev,
+					size: {
+						...prev.size,
+						[sizeKey]: parseInt(value),
+					},
+				}
+			}
 
-  const handleCancel = () => {
-    setIsAlertOpen(false);
-  };
+			if (name.startsWith("price")) {
+				return {
+					...prev,
+					price: parseInt(value),
+				}
+			}
 
-  const handleReset = (event) => {
-    event.preventDefault();
-    setForm({
-      id: product.id,
-      active: product.active,
-      name: product.name,
-      description: product.description,
-      price: product.price,
-    });
-  };
+			return {
+				...prev,
+				[name]: value,
+			}
+		})
+	}
+
+	const handleSubmit = event => {
+		event.preventDefault()
+		setIsAlertOpen(true)
+	}
+
+	const handleConfirm = () => {
+		dispatch(updateProduct(form))
+		setIsAlertOpen(false)
+		navigate("/crudProduct")
+	}
+
+	const handleCancel = () => {
+		setIsAlertOpen(false)
+	}
+
+	const handleReset = event => {
+		event.preventDefault()
+		setForm({
+			id: product.id,
+			active: product.active,
+			name: product.name,
+			description: product.description,
+			price: product.price,
+		})
+	}
+
+	const SizeOptions = () => {
+		const sizes = product.type === "shoes" ? form.shoeSize : form.size
+
+		return Object.entries(sizes).map(([key, value]) => (
+			<div>
+				<FormLabel>{key}</FormLabel>
+				<Input
+					type="number"
+					value={form[product.type === "shoes" ? 'shoeSize' : 'size'][key]}
+					name={product.type === "shoes" ? `shoeSize.${key}` : `size.${key}`}
+					onChange={handleChange}
+				/>
+			</div>
+		))
+	}
 
   return (
     <Container border="2px" maxWidth="100%" marginTop={10}>
@@ -110,6 +162,8 @@ const EditProduct = () => {
                   onChange={handleChange}
                   value={form.price}
                 />
+                <FormLabel>Size : </FormLabel>
+                <SizeOptions></SizeOptions>
               </FormControl>
               <Button colorScheme="teal" type="submit" m="6">
                 Submit
