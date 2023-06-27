@@ -17,7 +17,7 @@ const getArticlesByIdController = async(id: number, articleID?: string) => {
         //En caso de enviar algo como lo de abajo hay que modificar los controladores de update y deactivate
         // articleData = {id: articleFound.id, message: "The article is on existence"}
         // return articleData;
-        return articleFound
+        return articleFound;
     }
 
     const articleFound = await Article.findOneBy({

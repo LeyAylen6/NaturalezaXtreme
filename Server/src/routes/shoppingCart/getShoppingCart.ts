@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import getShoppingCartController from "../../controllers/shoppingCart/getShoppingCartArticles";
+import getShoppingCartController from "../../controllers/shoppingCart/getShoppingCartController";
 import { CategoryCart } from "../../interfaces/categoryCart";
 
 const getShoppingCart = async (req: Request, res: Response) => {
