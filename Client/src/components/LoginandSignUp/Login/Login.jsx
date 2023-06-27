@@ -3,10 +3,11 @@
 import { Container } from "@chakra-ui/react";
 // import { getUsers } from "../../../redux/actions/actionsUsers";
 // import { useDispatch } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 const Login = () => {
   
+  const navigate = useNavigate()
 
   const handleLogin = () => {
    
@@ -14,7 +15,7 @@ const Login = () => {
   const isAdmin = true; 
 
   if (isAuthenticated && isAdmin) {
-    return <Redirect to="/admin" />;
+    return navigate ("/admin") ;
   }
   }   
 

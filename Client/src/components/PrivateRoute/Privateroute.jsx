@@ -1,20 +1,18 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet, Route, useNavigate } from 'react-router-dom';
 
-const Privateroute = ({component: Admin, redirectPath, ...rest})=> {
-    const isAuthenticated = true; 
-    const isAdmin = true; 
+const Privateroute = ()=> {
+    const user = useSelector((state) => state.users)
     return(
-        <Route
-        {...rest}
-        render={(props) =>
-          isAuthenticated && isAdmin ? (
-            <Admin {...props} />
-          ) : (
-            <Redirect to="/" />
-          )
+       <div>
+        {
+            user.id ? <Outlet/> :
+            <Navigate to={"/"}/>
         }
-      />
+
+
+        </div>
     );
 }
 export default Privateroute; 
