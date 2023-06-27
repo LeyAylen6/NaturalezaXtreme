@@ -20,8 +20,11 @@ import store from "./redux/store/store";
 import MercadoPago from "./components/MercadoPago/Mercadopago";
 import Signup2 from "./components/LoginandSignUp/Signup2";
 import MercadoPagoError from "./components/MercadoPago/MercadoPagoError";
+import Privateroute from "./components/PrivateRoute/Privateroute";
 
 function App() {
+  const isAuthenticated = true; 
+  const isAdmin = true; 
   return (
     <ChakraProvider>
       <Provider store={store}>
@@ -32,7 +35,7 @@ function App() {
             <Route path="/signup" element={<Signup2/>}/>
             <Route path="/" element={<Home />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/admin" element={<Admin />} />
+           
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/crudProduct" element={<CrudProduct />} />
@@ -44,7 +47,11 @@ function App() {
             <Route path="/mercadoPago" element={<MercadoPago />} />
             <Route path="/productOutOfSale" element={<ProductOutOfSale />} />
             <Route path="/error" element={<MercadoPagoError/>}/>
-          </Routes>
+            <Route element={<Privateroute/>}>
+             <Route path="/admin" element={<Admin />} />
+             </Route>
+           </Routes> 
+        
         </Box>
       </Provider>
     </ChakraProvider>
