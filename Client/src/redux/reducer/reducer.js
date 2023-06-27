@@ -16,10 +16,9 @@ import {
 	PREV_PAGE,
 	SIGN_UP,
 	INCREASE_QUANTITY,
-	DECREASE_QUANTITY
+	DECREASE_QUANTITY, 
 } from "../actions/actions";
-import { GET_USERS } from "../actions/actionsUsers";
-import { POST_USERS } from "../actions/actionsUsers";
+import { GET_USERS, POST_USERS, USER_ID} from "../actions/actionsUsers";
 import { FILTER_COMBINATED } from "../actions/actionFilters";
 import {
 	ADD_TO_CART,
@@ -38,11 +37,16 @@ const initialState = {
 	signUp: true,
 	articles: [],
 	cartArticles: [],
-	cart: []
+	cart: [],
+	userId: null,
 };
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
+		case USER_ID:
+			return {
+				userId: action.payload,
+			}
 		case FILTER_COMBINATED:
 			return {
 				...state,

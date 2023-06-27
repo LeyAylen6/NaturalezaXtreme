@@ -1,9 +1,11 @@
 import { User } from "../../entities/userEntity";
 import { UserProfile } from "../../interfaces/userProfile";
+import { AppDataSource } from "../../db";
 
 const loginController = async(user: any)=>{
 
   const {email} = user;
+  
   const userToCreate: UserProfile = {
     name: user.given_name,
     email: user.email,
@@ -13,13 +15,18 @@ const loginController = async(user: any)=>{
     password: user.sub
   }
 
-  const findUser = await User.findOneBy({email: email});
-  if(findUser) return {"id": findUser.id};
+  const existentUser = await AppDataSource.getRepository(User).findOneBy({ 
+    email: email,
+  })
 
-  const createdUser = await User.insert(userToCreate)
+  if(!existentUser) {
+    const userCreated = await AppDataSource.getRepository(User).create(userToCreate)
+    const newUser = await AppDataSource.getRepository(User).save(userCreated)
+    console.log(newUser)
+    return newUser.id;
+}
 
-  console.log(createdUser)
-  return createdUser.identifiers[0];
+return existentUser.id;
   
 }
 export default loginController;
