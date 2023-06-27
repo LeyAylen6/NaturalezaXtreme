@@ -13,10 +13,11 @@ const Home = () => {
 
   const dispatch = useDispatch();
   let { user, isAuthenticated } = useAuth0();
+  console.log(user);
   //Pregunto si está autenticado y si lo está, le paso el usuario al back para que me lo agregue a la base de datos
 
   if (isAuthenticated) {
-    dispatch(getUserId(user.email));
+    dispatch(getUserId(user));
     // dispatch(addToCart(userId));
   }
 
