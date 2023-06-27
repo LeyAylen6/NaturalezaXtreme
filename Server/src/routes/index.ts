@@ -18,6 +18,7 @@ import getCartById from './shoppingCart/getCartById';
 import nodemailerPRUEBAS from './nodemailerTEST/nodemailerPRUEBAS';
 import loginRoute from './auth/loginRoute';
 import cloudinary from './cloudinaryTEST/cloudinary';
+import deleteFavorito from './deleteFavoritos';
 
 const router = Router();
 
@@ -43,6 +44,8 @@ router.get('/shoppingcart/:id', getCartById)
 router.post("/mercadoPago", postMercadoPago)
 router.post("/nodemailer", nodemailerPRUEBAS)
 router.post("/cloudinary", cloudinary)
+
+router.post('favorito', deleteFavorito)
 
 
 
