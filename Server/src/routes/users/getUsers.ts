@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
 import getUsersController from "../../controllers/users/getUsersController";
-import { isBoolean } from "util";
 
 const getUsers = async (req: Request, res: Response)=>{
     try {
-        // const { email } = req.query
-        // if (email) {} 
         
         const rol = req.query.rol as string;
         const active = req.query.active;

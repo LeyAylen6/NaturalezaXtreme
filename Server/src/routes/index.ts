@@ -13,10 +13,11 @@ import deactivateUser from './users/deactivateUser';
 import updateUser from './users/updateUser';
 import { postMercadoPago } from './mercadoPago/mercadoPago';
 import putShoppingCart from './shoppingCart/putShoppingCart';
-import getShoppingCart from './shoppingCart/getShoppingCartController';
+import getShoppingCart from './shoppingCart/getShoppingCart';
 import getCartById from './shoppingCart/getCartById';
 import nodemailerPRUEBAS from './nodemailerTEST/nodemailerPRUEBAS';
 import loginRoute from './auth/loginRoute';
+import cloudinary from './cloudinaryTEST/cloudinary';
 
 const router = Router();
 
@@ -33,7 +34,7 @@ router.get('/user/:id', getUserById)
 router.put('/user', updateUser)
 router.put('/user/:id', deactivateUser)
 
-router.post('/login',loginRoute)
+router.post('/login', loginRoute)
 
 router.put('/shoppingcart', putShoppingCart)
 router.get('/shoppingcart', getShoppingCart)
@@ -41,5 +42,8 @@ router.get('/shoppingcart/:id', getCartById)
 
 router.post("/mercadoPago", postMercadoPago)
 router.post("/nodemailer", nodemailerPRUEBAS)
+router.post("/cloudinary", cloudinary)
+
+
 
 export default router;

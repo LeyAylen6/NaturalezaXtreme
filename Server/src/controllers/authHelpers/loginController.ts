@@ -15,7 +15,7 @@ const loginController = async(user: any)=>{
     password: user.sub
   }
 
-  const existentUser = await AppDataSource.getRepository(User).findOneBy({ 
+ const existentUser = await AppDataSource.getRepository(User).findOneBy({ 
     email: email,
   })
 
