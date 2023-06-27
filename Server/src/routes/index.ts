@@ -17,6 +17,7 @@ import getShoppingCart from './shoppingCart/getShoppingCartController';
 import getCartById from './shoppingCart/getCartById';
 import nodemailerPRUEBAS from './nodemailerTEST/nodemailerPRUEBAS';
 import loginRoute from './auth/loginRoute';
+import cloudinary from './cloudinaryTEST/cloudinary';
 
 const router = Router();
 
@@ -41,5 +42,8 @@ router.get('/shoppingcart/:id', getCartById)
 
 router.post("/mercadoPago", postMercadoPago)
 router.post("/nodemailer", nodemailerPRUEBAS)
+router.post("/cloudinary", cloudinary)
+
+
 
 export default router;
