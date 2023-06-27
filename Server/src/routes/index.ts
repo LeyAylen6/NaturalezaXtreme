@@ -5,7 +5,6 @@ import bulkArticles from './articles/bulkArticles';
 import getArticleById from './articles/getArticleById';
 import updateArticle from './articles/updateArticle';
 import desactivateArticle from './articles/deactivateArticle';
-
 import postUser from './users/postUser';
 import getUsers from './users/getUsers';
 import getUserById from './users/getUserById';
@@ -20,6 +19,7 @@ import loginRoute from './auth/loginRoute';
 import cloudinary from './cloudinaryTEST/cloudinary';
 import addFavs from './favs/addFavs';
 import getFavsByUserId from './favs/getFavsByUserId';
+import deleteFavs from './favs/deleteFavoritos';
 
 const router = Router();
 
@@ -48,7 +48,7 @@ router.post("/cloudinary", cloudinary)
 
 router.post("/fav", addFavs)
 router.get("/fav/:id", getFavsByUserId)
-// router.delete("/fav", deleteFavs)
+router.delete("/fav", deleteFavs)
 
 
 
