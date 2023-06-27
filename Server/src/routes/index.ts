@@ -18,6 +18,8 @@ import getCartById from './shoppingCart/getCartById';
 import nodemailerPRUEBAS from './nodemailerTEST/nodemailerPRUEBAS';
 import loginRoute from './auth/loginRoute';
 import cloudinary from './cloudinaryTEST/cloudinary';
+import addFavs from './favs/addFavs';
+import getFavsByUserId from './favs/getFavsByUserId';
 
 const router = Router();
 
@@ -43,6 +45,10 @@ router.get('/shoppingcart/:id', getCartById)
 router.post("/mercadoPago", postMercadoPago)
 router.post("/nodemailer", nodemailerPRUEBAS)
 router.post("/cloudinary", cloudinary)
+
+router.post("/fav", addFavs)
+router.get("/fav/:id", getFavsByUserId)
+// router.delete("/fav", deleteFavs)
 
 
 
