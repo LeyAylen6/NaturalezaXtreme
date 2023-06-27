@@ -19,7 +19,7 @@ import loginRoute from './auth/loginRoute';
 import cloudinary from './cloudinaryTEST/cloudinary';
 import addFavs from './favs/addFavs';
 import getFavsByUserId from './favs/getFavsByUserId';
-import deleteFavs from './deleteFavoritos';
+import deleteFavs from './favs/deleteFavoritos';
 
 const router = Router();
 
