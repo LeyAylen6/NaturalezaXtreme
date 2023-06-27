@@ -6,6 +6,7 @@ import {
 	AlertDialogHeader,
 	AlertDialogContent,
 	AlertDialogOverlay,
+	Flex,
 } from "@chakra-ui/react"
 import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table"
 import { Link, useNavigate } from "react-router-dom"
@@ -35,7 +36,7 @@ const EditProduct = () => {
 	console.log(product)
 
 	const handleChange = e => {
-    e.preventDefault()
+		e.preventDefault()
 		const { name, value } = e.target
 
 		setForm(prev => {
@@ -104,97 +105,108 @@ const EditProduct = () => {
 	const SizeOptions = () => {
 		const sizes = product.type === "shoes" ? form.shoeSize : form.size
 
-		return Object.entries(sizes).map(([key, value]) => (
-			<div>
-				<FormLabel>{key}</FormLabel>
-				<Input
-					type="number"
-					value={form[product.type === "shoes" ? 'shoeSize' : 'size'][key]}
-					name={product.type === "shoes" ? `shoeSize.${key}` : `size.${key}`}
-					onChange={handleChange}
-				/>
-			</div>
-		))
+		return (
+			<Flex >
+				{Object.entries(sizes).map(([key, value]) => (
+					<Box key={key} width="50%" marginBottom="10px">
+						<FormLabel>{key}</FormLabel>
+						<Input
+							type="number"
+							value={value}
+							name={`${product.type === "shoes" ? "shoeSize" : "size"}.${key}`}
+							onChange={handleChange}
+						/>
+					</Box>
+				))}
+			</Flex>
+		)
 	}
 
-  return (
-    <Container border="2px" maxWidth="100%" marginTop={10}>
-      <Box display={"flex"} justifyContent={"space-between"} border={"1px"} marginBottom="15px">
-        <Button colorScheme="cyan" size="lg" variant="solid" m="6">
-          <Link to="/CrudProduct">Back</Link>
-        </Button>
-        <Button colorScheme="orange" size="lg" variant="solid" m="6">
-          <Link to="/crudProduct">Product</Link>
-        </Button>
-      </Box>
-      <Table>
-        <TableCaption>Imperial to metric conversion factors</TableCaption>
-        <Thead>
-          <Tr>
-            <Th>Product</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          <Th>
-            <form onSubmit={handleSubmit}>
-              <FormControl>
-                <FormLabel>Name</FormLabel>
-                <Input type="text" placeholder={product.name} name="name" autoComplete="off" value={form.name} onChange={handleChange} />
-                <br />
-                <FormLabel mb="8px">Description: </FormLabel>
-                <Input
-                  type="text"
-                  placeholder={product.description}
-                  size={"md"}
-                  name="description"
-                  autoComplete="off"
-                  value={form.description}
-                  onChange={handleChange}
-                />
+	return (
+		<Container border="2px" maxWidth="100%" marginTop={10}>
+			<Box display={"flex"} justifyContent={"space-between"} border={"1px"} marginBottom="15px">
+				<Button colorScheme="cyan" size="lg" variant="solid" m="6">
+					<Link to="/CrudProduct">Back</Link>
+				</Button>
+				<Button colorScheme="orange" size="lg" variant="solid" m="6">
+					<Link to="/crudProduct">Product</Link>
+				</Button>
+			</Box>
+			<Table>
+				<TableCaption>Imperial to metric conversion factors</TableCaption>
+				<Thead>
+					<Tr>
+						<Th>Product</Th>
+					</Tr>
+				</Thead>
+				<Tbody>
+					<Th>
+						<form onSubmit={handleSubmit}>
+							<FormControl>
+								<FormLabel>Name</FormLabel>
+								<Input
+									type="text"
+									placeholder={product.name}
+									name="name"
+									autoComplete="off"
+									value={form.name}
+									onChange={handleChange}
+								/>
+								<br />
+								<FormLabel mb="8px">Description: </FormLabel>
+								<Input
+									type="text"
+									placeholder={product.description}
+									size={"md"}
+									name="description"
+									autoComplete="off"
+									value={form.description}
+									onChange={handleChange}
+								/>
 
-                <FormLabel>Price : </FormLabel>
-                <Input
-                  type="number"
-                  placeholder={product.price}
-                  size={"md"}
-                  name="price"
-                  autoComplete="off"
-                  onChange={handleChange}
-                  value={form.price}
-                />
-                <FormLabel>Size : </FormLabel>
-                <SizeOptions></SizeOptions>
-              </FormControl>
-              <Button colorScheme="teal" type="submit" m="6">
-                Submit
-              </Button>
-              <Button colorScheme="teal" type="reset" m="6" onClick={handleReset}>
-                Reset
-              </Button>
-            </form>
-          </Th>
-        </Tbody>
-      </Table>
-      {/* AlertDialog para confirmar el envío */}
-      <AlertDialog isOpen={isAlertOpen} onClose={handleCancel}>
-        <AlertDialogOverlay />
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            confirm change
-          </AlertDialogHeader>
-          <AlertDialogBody>Are you sure you want to submit the form?</AlertDialogBody>
-          <AlertDialogFooter>
-            <Button colorScheme="teal" onClick={handleConfirm}>
-              Confirm
-            </Button>
-            <Button colorScheme="red" ml={3} onClick={handleCancel}>
-              Cancel
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </Container>
-  );
-};
+								<FormLabel>Price : </FormLabel>
+								<Input
+									type="number"
+									placeholder={product.price}
+									size={"md"}
+									name="price"
+									autoComplete="off"
+									onChange={handleChange}
+									value={form.price}
+								/>
+								<FormLabel>Size : </FormLabel>
+								<SizeOptions></SizeOptions>
+							</FormControl>
+							<Button colorScheme="teal" type="submit" m="6">
+								Submit
+							</Button>
+							<Button colorScheme="teal" type="reset" m="6" onClick={handleReset}>
+								Reset
+							</Button>
+						</form>
+					</Th>
+				</Tbody>
+			</Table>
+			{/* AlertDialog para confirmar el envío */}
+			<AlertDialog isOpen={isAlertOpen} onClose={handleCancel}>
+				<AlertDialogOverlay />
+				<AlertDialogContent>
+					<AlertDialogHeader fontSize="lg" fontWeight="bold">
+						confirm change
+					</AlertDialogHeader>
+					<AlertDialogBody>Are you sure you want to submit the form?</AlertDialogBody>
+					<AlertDialogFooter>
+						<Button colorScheme="teal" onClick={handleConfirm}>
+							Confirm
+						</Button>
+						<Button colorScheme="red" ml={3} onClick={handleCancel}>
+							Cancel
+						</Button>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
+		</Container>
+	)
+}
 
-export default EditProduct;
+export default EditProduct
