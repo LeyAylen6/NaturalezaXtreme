@@ -15,7 +15,7 @@ const getCartByIdController = async(id: number) => {
 
     if(!detailCart.length) throw new Error('There are no products in the cart')
 
-    return detailCart;
+    return detailCart[0];
 }
 
 export default getCartByIdController;

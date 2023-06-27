@@ -1,8 +1,10 @@
 import { User } from "../../entities/userEntity";
 import { UserProfile } from "../../interfaces/userProfile";
 import { AppDataSource } from "../../db";
+import findOrCreateShoppingCartController from "../shoppingCart/findOrCreateShoppingCartController";
 
-const loginController = async(user: any)=>{
+
+const loginController = async(user: any) => {
 
   const {email} = user;
   
@@ -22,11 +24,15 @@ const loginController = async(user: any)=>{
   if(!existentUser) {
     const userCreated = await AppDataSource.getRepository(User).create(userToCreate)
     const newUser = await AppDataSource.getRepository(User).save(userCreated)
-    console.log(newUser)
+    
+    findOrCreateShoppingCartController(newUser.id)
+
     return newUser.id;
+  }
+
+  findOrCreateShoppingCartController(existentUser.id)
+
+  return existentUser.id;
 }
 
-return existentUser.id;
-  
-}
 export default loginController;
