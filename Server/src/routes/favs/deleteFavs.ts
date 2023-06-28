@@ -6,7 +6,7 @@ const deleteFavs = async (req: Request, res: Response) => {
 
         const data = req.body
         const { userId, articleId } = data;
-        const favsToDelete = await deleteFavsController(userId, articleId);
+        const favsToDelete = await deleteFavsController(Number(userId), Number(articleId));
 
         res.status(200).send(favsToDelete);
     
