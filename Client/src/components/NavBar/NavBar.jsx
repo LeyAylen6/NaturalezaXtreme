@@ -7,9 +7,11 @@ import Profile from "../Profile/Profile";
 import Logout from "../LogOut/Logout";
 import Login from "../LoginandSignUp/Login/Login";
 import { BsCart3 } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const { isAuthenticated } = useAuth0();
+  const user = useSelector((state) => state.users)
 
   return (
     <Stack
@@ -48,7 +50,8 @@ const NavBar = () => {
           </Link>
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
-          <Link to="/admin">Admin</Link>
+          { isAuthenticated && user.rol === "Admin" ?
+          <Link to="/admin">Admin</Link> : null }
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
           {isAuthenticated ? <Logout /> : <Login />}
