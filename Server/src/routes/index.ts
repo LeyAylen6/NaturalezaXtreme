@@ -16,6 +16,7 @@ import getShoppingCart from './shoppingCart/getShoppingCart';
 import getCartById from './shoppingCart/getCartById';
 import nodemailerPRUEBAS from './nodemailerTEST/nodemailerPRUEBAS';
 import loginRoute from './auth/loginRoute';
+import reviewCarts from './shoppingCart/reviewCarts';
 import cloudinary from './cloudinaryTEST/cloudinary';
 import addFavs from './favs/addFavs';
 import getFavsByUserId from './favs/getFavsByUserId';
@@ -42,6 +43,7 @@ router.post('/login', loginRoute)
 router.put('/shoppingcart', putShoppingCart)
 router.get('/shoppingcart', getShoppingCart)
 router.get('/shoppingcart/:id', getCartById)
+router.get('/shoppingcart/reviews/:id', reviewCarts)
 
 router.post("/mercadoPago", postMercadoPago)
 router.post('/infoMercadoPago',infoMercadoPago)

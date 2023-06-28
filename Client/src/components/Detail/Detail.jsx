@@ -28,7 +28,7 @@ const Detail = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.userId);
 
-  console.log("user  " + user);
+  console.log(user);
 
   let myFavorites = useSelector((state) => state.myFavorites);
   const articleDetail = useSelector((state) => state.detail);
