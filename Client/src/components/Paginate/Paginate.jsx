@@ -1,12 +1,12 @@
-import { HStack, Button } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
+import { HStack, Button, Box, Center } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
 import { nextPage, prevPage } from "../../redux/actions/actions";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
 const Paginate = ({ articles }) => {
   const dispatch = useDispatch();
-
+  const page = useSelector(state => state.page)
   const handleNext = () => {
     if (articles.next !== null) return dispatch(nextPage(articles));
   };
@@ -26,6 +26,22 @@ const Paginate = ({ articles }) => {
       >
         Prev
       </Button>
+      
+      <Box
+        display='flex' 
+        alignItems='center'
+        justifyContent="center"
+        bg="transparent"
+        h={10}
+        w={10}
+        background="twitter.500"
+        borderRadius={7}
+        border="none"
+        color="white"
+        textAlign='center'
+      >
+        {page}
+      </Box>
       <Button
         onClick={handleNext}
         value="next"
