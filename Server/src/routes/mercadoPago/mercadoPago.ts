@@ -16,9 +16,8 @@ mercadopago.configure({
 
 export const postMercadoPago = async (req: Request, res: Response)  => {
     try {
-        const product: preferenceMP[] = req.body
 
-        const mercadoPago = await postMercadoPagoController(product)
+        const mercadoPago = await postMercadoPagoController(req.body.userId.id)
         return res.status(200).json(mercadoPago)
         
     } catch (error) {
