@@ -21,6 +21,7 @@ import cloudinary from './cloudinaryTEST/cloudinary';
 import addFavs from './favs/addFavs';
 import getFavsByUserId from './favs/getFavsByUserId';
 import deleteFavs from './favs/deleteFavs';
+import { infoMercadoPago } from './mercadoPago/infoMercadoPago';
 
 const router = Router();
 
@@ -45,7 +46,10 @@ router.get('/shoppingcart/:id', getCartById)
 router.get('/shoppingcart/reviews/:id', reviewCarts)
 
 router.post("/mercadoPago", postMercadoPago)
+router.post('/infoMercadoPago', infoMercadoPago)
+
 router.post("/nodemailer", nodemailerPRUEBAS)
+
 router.post("/cloudinary", cloudinary)
 
 router.post("/fav", addFavs)
