@@ -1,3 +1,4 @@
+export const GET_ALL_FAVS = "GET_ALL_FAVS";
 export const ADD_FAV = "ADD_FAV";
 export const REMOVE_FAV = "REMOVE_FAV";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
@@ -55,14 +56,24 @@ export const prevPage = (props) => {
   }
 };
 
-export const addFav = async(data) => {
-  const fav = await axios.post(`${URL}fav`, data);
-  return { type: ADD_FAV, payload: fav };
+export const getAllFavs = async(id, dispatch) => {
+  const { data } = await axios.get(`${URL}fav/${id}`);
+  dispatch({ type: GET_ALL_FAVS , payload: data.articles });
 };
 
-export const removeFav = async(data) => {
-  await axios.delete(`${URL}fav`, data);
-  return { type: REMOVE_FAV, payload: data.id };
+export const addFav = async(userAndArticleId, dispatch) => {
+  try {
+    const { data } = await axios.post(`${URL}fav`, userAndArticleId);
+    dispatch({ type: ADD_FAV, payload: data });
+
+  } catch(error) {
+    console.log(error)
+  }
+};
+
+export const removeFav = async(userAndArticleId, dispatch) => {
+  await axios.delete(`${URL}fav`, {data: userAndArticleId});
+  dispatch({ type: REMOVE_FAV, payload: userAndArticleId.articleId });
 };
 
 export const getAllProducts = () => {

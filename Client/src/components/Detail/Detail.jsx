@@ -28,8 +28,6 @@ const Detail = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.userId);
 
-  // console.log('user', user);
-
   let myFavorites = useSelector((state) => state.myFavorites);
   const articleDetail = useSelector((state) => state.detail);
   const cartArticles = useSelector((state) => state.cartArticles);
@@ -118,15 +116,17 @@ const Detail = () => {
     }
   };
 
+  console.log({userId: user, articleId: id})
+  
   //boton agregar a favoritos
   const handleFavorites = (event) => {
     event.preventDefault();
     if (isFavorite) {
       setIsFavorite(false);
-      dispatch(removeFav({userId: user, articleId: id}));
+      removeFav({ userId: user.id, articleId: id }, dispatch);
     } else {
       setIsFavorite(true);
-      dispatch(addFav({userId: user, articleId: id}));
+      addFav({ userId: user.id, articleId: id }, dispatch);
     }
   };
 
@@ -174,8 +174,8 @@ const Detail = () => {
                 </Select>
               )}
               <Box>
-                {stockComponentConfig.map((config) => (
-                  <StockDisplay {...config} />
+                {stockComponentConfig.map((config, index) => (
+                  <StockDisplay {...config} key={`config${index}`} />
                 ))}
               </Box>
               <Flex id="buttons" direction="row" alignItems="stretch" gap="10px">

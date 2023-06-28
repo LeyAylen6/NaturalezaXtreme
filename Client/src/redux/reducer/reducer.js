@@ -1,5 +1,6 @@
 import {
   UPDATE_PRODUCT,
+  GET_ALL_FAVS,
   ADD_FAV,
   REMOVE_FAV,
   GET_ALL_PRODUCTS,
@@ -66,6 +67,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         allProducts: action.payload,
       };
+    case GET_ALL_FAVS:
+      return {
+        ...state,
+        myFavorites: action.payload
+      }
     case ADD_FAV:
       return {
         ...state,
