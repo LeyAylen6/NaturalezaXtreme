@@ -6,23 +6,24 @@ import { Box } from "@chakra-ui/react";
 import { getArticles } from "../../redux/actions/actions";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getUserId } from "../../redux/actions/actionsUsers";
+// import { addToCart } from "../../redux/actions/cartActions";
 
 const Home = () => {
-
-  const userId = useSelector(state => state.userId)
-  console.log(userId)
   //no me trae el estado actualizado... no se si está pisando el estado
 
   const dispatch = useDispatch();
   let { user, isAuthenticated } = useAuth0();
-  
-  if(isAuthenticated) {
-    dispatch(getUserId(user))
+  console.log(user);
+  //Pregunto si está autenticado y si lo está, le paso el usuario al back para que me lo agregue a la base de datos
+
+  if (isAuthenticated) {
+    dispatch(getUserId(user));
+    // dispatch(addToCart(userId));
   }
-  
+
   useEffect(() => {
     dispatch(getArticles());
-  }, [dispatch]);
+  }, []);
 
   return (
     <Box>
