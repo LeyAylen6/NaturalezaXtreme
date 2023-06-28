@@ -13,7 +13,6 @@ const Home = () => {
   const userId = useSelector(state => state.userId)
   const dispatch = useDispatch();
   let { user, isAuthenticated } = useAuth0();
-  console.log('User', user, "TEST", isAuthenticated);
   //Pregunto si está autenticado y si lo está, le paso el usuario al back para que me lo agregue a la base de datos
 
   useEffect(() => {
