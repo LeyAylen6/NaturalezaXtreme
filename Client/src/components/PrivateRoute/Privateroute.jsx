@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, Route, useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const Privateroute = () => {
-  const user = useSelector((state) => state.users);
-  const allowedRoles = ['admin']; // Define los roles permitidos aquí
+const Privateroute = ()=> {
+    const users= useSelector((state) => state.users)
 
-  if (allowedRoles.includes(user.rol)) {
-    return <Outlet />;
-  } else {
-    return <Navigate to="/admin" />;
-  }
+    const {user}=useAuth0()
+    console.log(user);
+    const userFinded= users.find(element => element.email===user.email)
+
+    let permision;
+    if(userFinded && userFinded.rol==="Admin"){
+         permision = userFinded
+        
+    }else {
+        permision = null
+    }
+
+    return(
+       <div>
+        {
+             permision !== null ? <Outlet/> :
+            <Navigate to={"/"}/>
+        }
+
+
+        </div>
+    );
 }
-
 export default Privateroute;

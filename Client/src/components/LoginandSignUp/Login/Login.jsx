@@ -1,27 +1,17 @@
 // import { useEffect, useState } from "react";
-// import { validation } from "../../Validation/validation";
+//zz import { validation } from "../../Validation/validation";
 import { Container } from "@chakra-ui/react";
 // import { getUsers } from "../../../redux/actions/actionsUsers";
 // import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useSelector } from "react-redux";
 const Login = () => {
-  
-  const navigate = useNavigate()
-
-  const handleLogin = () => {
-   
-  const isAuthenticated = true; 
-  const isAdmin = true; 
-
-  if (isAuthenticated && isAdmin) {
-    return navigate ("/admin") ;
-  }
-  }   
-
+ 
   const { loginWithRedirect } = useAuth0();
 
-  return <Link onClick={() => [loginWithRedirect(), handleLogin]}>Log In</Link>;
+
+  return <Link onClick={() => [loginWithRedirect()]}>Log In</Link>;
 
   /*const clientID = "1003099240176-2sgu85en1tl9g6i4eeputhpr2reeb24j.apps.googleusercontent.com"
 
