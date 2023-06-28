@@ -55,12 +55,16 @@ export const prevPage = (props) => {
   }
 };
 
-export const addFav = (article) => {
-  return { type: ADD_FAV, payload: article };
+export const addFav = async(data) => {
+  const fav = await axios.post(`${URL}fav`, data);
+  return { type: ADD_FAV, payload: fav };
 };
-export const removeFav = (id) => {
-  return { type: REMOVE_FAV, payload: id };
+
+export const removeFav = async(data) => {
+  await axios.delete(`${URL}fav`, data);
+  return { type: REMOVE_FAV, payload: data.id };
 };
+
 export const getAllProducts = () => {
   return async function (dispatch) {
     const apiData = await axios.get(`${URL}articles`);
@@ -68,16 +72,19 @@ export const getAllProducts = () => {
     dispatch({ type: GET_ALL_PRODUCTS, payload: products });
   };
 };
+
 export const getArticlesByQuery = (name) => {
   return async (dispatch) => {
     const response = await axios.get(`${URL}articles`);
     const payload = response.data;
+    
     return dispatch({
       type: GET_ARTICLES_BY_QUERY,
       payload,
     });
   };
 };
+
 export const filterSearchBar = (name) => {
   return async (dispatch) => {
     try {
@@ -106,11 +113,13 @@ export function getDetail(id) {
     });
   };
 }
+
 export function resState() {
   return {
     type: RES_STATE,
   };
 }
+
 // fncion para desactivar o activar un producto
 export const productdesactivate = (id, active) => {
   return async function (dispatch) {
@@ -186,6 +195,7 @@ export const addProduct = (body) => {
     dispatch({ type: ADD_PRODUCT, payload: product });
   };
 };
+
 export const redirectSignUp = (dispatch) => {
   dispatch({ type: SIGN_UP, payload: false });
 };

@@ -28,7 +28,7 @@ const Detail = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.userId);
 
-  console.log(user);
+  // console.log('user', user);
 
   let myFavorites = useSelector((state) => state.myFavorites);
   const articleDetail = useSelector((state) => state.detail);
@@ -123,10 +123,10 @@ const Detail = () => {
     event.preventDefault();
     if (isFavorite) {
       setIsFavorite(false);
-      dispatch(removeFav(id));
+      dispatch(removeFav({userId: user, articleId: id}));
     } else {
       setIsFavorite(true);
-      dispatch(addFav(articleDetail));
+      dispatch(addFav({userId: user, articleId: id}));
     }
   };
 
