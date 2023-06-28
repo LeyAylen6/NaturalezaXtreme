@@ -147,18 +147,16 @@ export const addToMercadoPago = (items) => {
 
 export const createPayment = (items) => {
   return (dispatch, getState) => {
-    const { userId, cartId } = getState(); // Obtener userId y cartId desde el estado global de Redux
+    const { userId, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
     const { cartArticles } = getState(); // Obtener los artículos del carrito del estado global
-
+    console.log({userId});
     const requestData = {
-      items: items,
-      userId: userId,
-      cartId: cartId,
-      cartArticles: cartArticles,
+      userId:userId,
+      cartId:cart
     };
 
     axios
-      .post(`${URL}mercadoPago`, cartArticles)
+      .post(`${URL}mercadoPago`, requestData)
       .then((response) => {
         const paymentLink = response.data.url;
         dispatch(setPaymentLink(paymentLink));
