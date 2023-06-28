@@ -15,6 +15,7 @@ const postMercadoPagoController = async (userId: string) =>{
             quantity: +valorActual.quantity,
         }
     })
+    
     const URLBK = 'https://2129-201-190-150-125.ngrok-free.app'
     const URL = 'https://7783-201-190-150-125.ngrok-free.app'
     // si no les funciona con esa url pongan http://localhost:3001/ 
