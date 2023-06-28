@@ -1,4 +1,4 @@
-import { HStack, Button } from "@chakra-ui/react";
+import { HStack, Button, Box, Center } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { nextPage, prevPage } from "../../redux/actions/actions";
 import { MdKeyboardArrowRight } from "react-icons/md";
@@ -26,13 +26,22 @@ const Paginate = ({ articles }) => {
       >
         Prev
       </Button>
-      <Button
-        value="page"
-        id="page"
-        colorScheme="twitter"
+      
+      <Box
+        display='flex' 
+        alignItems='center'
+        justifyContent="center"
+        bg="transparent"
+        h={10}
+        w={10}
+        background="twitter.500"
+        borderRadius={7}
+        border="none"
+        color="white"
+        textAlign='center'
       >
         {page}
-      </Button>
+      </Box>
       <Button
         onClick={handleNext}
         value="next"
