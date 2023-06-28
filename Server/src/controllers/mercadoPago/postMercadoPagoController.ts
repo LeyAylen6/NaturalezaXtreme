@@ -3,8 +3,10 @@ import { CreatePreferencePayload } from "mercadopago/models/preferences/create-p
 import axios from "axios";
 
 const postMercadoPagoController = async (userId: string) =>{
-    const {data} = await axios(`http://localhost:3001/shoppingcart?userId=${userId}`)
-    console.log({MP:data.shoppingArticles[0].article});
+    console.log({userId});
+    
+    const {data} = await axios(`http://localhost:3001/shoppingcart?userId=${userId}&status=pending`)
+    console.log({MP:data});
     const product: [] = data.shoppingArticles;
     
     
@@ -16,7 +18,7 @@ const postMercadoPagoController = async (userId: string) =>{
         }
     })
     
-    const URLBK = 'https://2129-201-190-150-125.ngrok-free.app'
+    const URLBK = 'https://7e3c-201-190-150-125.ngrok-free.app'
     const URL = 'https://7783-201-190-150-125.ngrok-free.app'
     // si no les funciona con esa url pongan http://localhost:3001/ 
         

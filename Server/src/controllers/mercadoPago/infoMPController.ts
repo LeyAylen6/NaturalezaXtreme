@@ -11,6 +11,8 @@ const infoMercadoPagoController = async (userId: string) => {
 
     const { data } = await axios(`http://localhost:3001/shoppingcart?userId=${userId}`)
     const product: [] = data.shoppingArticles;
+    console.log({data});
+    
 
 
     const items = product.map(async (valorActual: any) => {
