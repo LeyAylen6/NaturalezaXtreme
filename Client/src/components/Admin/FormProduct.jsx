@@ -9,11 +9,16 @@ import {
 	Input,
 	Select,
 	Text,
-} from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
-import { addProduct } from "../../redux/actions/actions";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+	Flex,
+	WrapItem,
+	Wrap,
+	NumberInput,
+	NumberInputField,
+} from "@chakra-ui/react"
+import { useDispatch } from "react-redux"
+import { addProduct } from "../../redux/actions/actions"
+import { useState } from "react"
+import { Link } from "react-router-dom"
 
 const initialFormState = {
 	name: "",
@@ -21,82 +26,96 @@ const initialFormState = {
 	type: "",
 	gender: "",
 	color: "",
-	price: 0,
+	price: undefined,
 	articleID: "",
 	active: true,
 	image: "",
-	size: "",
-	shoeSize: "",
-};
+	size: {},
+	shoeSize: {},
+}
 
 const FormProduct = () => {
-	const dispatch = useDispatch();
-	const [form, setForm] = useState(initialFormState);
+	const dispatch = useDispatch()
+	const [form, setForm] = useState(initialFormState)
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setForm((prev) => ({
+	const handleChange = e => {
+		const { name, value } = e.target
+		setForm(prev => ({
 			...prev,
 			[name]: value,
-		}));
-	};
-	console.log(form);
+		}))
+	}
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		dispatch(addProduct(form));
-	};
-	const handleReset = (event) => {
-		event.preventDefault();
-		setForm(initialFormState);
-	};
+	const handleSizeChange = e => {
+		e.preventDefault()
+		const { name, value } = e.target
+		console.log(name, value)
+
+		setForm(prev => {
+			if (form.type === "shoes") {
+				return {
+					...prev,
+					shoeSize: {
+						...prev.size,
+						[name]: parseInt(value),
+					},
+				}
+			} else
+				return {
+					...prev,
+					size: {
+						...prev.size,
+						[name]: parseInt(value),
+					},
+				}
+		})
+	}
+
+	console.log(form)
+
+	const handleSubmit = e => {
+		e.preventDefault()
+		dispatch(addProduct(form))
+	}
+	const handleReset = event => {
+		event.preventDefault()
+		setForm(initialFormState)
+	}
 
 	const sizes = {
 		shoeSizes: Array.from({ length: 12 }, (_, index) => index + 35),
 		clotheSizes: ["S", "M", "L", "XL", "Unique"],
-	};
+	}
 
-	const sizeOptionsRender = () => {
+	const SizeOptionsRender = () => {
 		if (form.type === "shoes") {
 			return (
-				<Select
-					name="shoeSize"
-					value={form.shoeSize}
-					onChange={handleChange}
-				>
-					<option key="none" value="none">
-						Select size
-					</option>
-					{sizes.shoeSizes?.map((size) => (
-						<option key={size} value={size}>
-							{size}
-						</option>
+				<Wrap spacing="2" >
+					{sizes.shoeSizes.map(size => (
+						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
+							<FormLabel>{size}</FormLabel>
+							<Input type="number" name={size} value={form.shoeSize[size] || ""} onChange={handleSizeChange} />
+						</WrapItem>
 					))}
-				</Select>
-			);
-		} else
+				</Wrap>
+			)
+		} else {
 			return (
-				<Select name="size" value={form.size} onChange={handleChange}>
-					<option key="none" value="none">
-						Select size
-					</option>
-					{sizes.clotheSizes?.map((size) => (
-						<option key={size} value={size}>
-							{size}
-						</option>
+				<Wrap spacing="2">
+					{sizes.clotheSizes.map(size => (
+						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
+							<FormLabel>{size}</FormLabel>
+							<Input type="number" name={size} value={form.size[size] || ""} onChange={handleSizeChange} />
+						</WrapItem>
 					))}
-				</Select>
-			);
-	};
+				</Wrap>
+			)
+		}
+	}
 
 	return (
 		<Container marginTop={10}>
-			<Box
-				display={"flex"}
-				justifyContent={"space-between"}
-				border={"1px"}
-				marginBottom="15px"
-			>
+			<Box display={"flex"} justifyContent={"space-between"} border={"1px"} marginBottom="15px">
 				<Button colorScheme="cyan" size="lg" variant="solid" m="6">
 					<Link to="/CrudProduct">Back</Link>
 				</Button>
@@ -109,26 +128,18 @@ const FormProduct = () => {
 				<form onSubmit={handleSubmit}>
 					<FormControl>
 						<FormLabel>Name</FormLabel>
-						<Input
-							type="text"
-							name="name"
-							placeholder="name of product"
-						/>
+						<Input type="text" name="name" placeholder="name of product" />
 						<FormLabel mb="8px">Description:</FormLabel>
 						<Input
 							type="text"
 							name="description"
 							placeholder="description"
-							value={form.name}
+							value={form.description}
 							onChange={handleChange}
 							size={"md"}
 						/>
 						<FormLabel>Type</FormLabel>
-						<Select
-							name="type"
-							value={form.type}
-							onChange={handleChange}
-						>
+						<Select name="type" value={form.type} onChange={handleChange}>
 							<option value="none">none</option>
 							<option value="Tshirt">Tshirt</option>
 							<option value="sweatshirt">sweatshirt</option>
@@ -139,21 +150,13 @@ const FormProduct = () => {
 							<option value="equipment">equipment</option>
 						</Select>
 						<FormLabel>Gender</FormLabel>
-						<Select
-							name="gender"
-							value={form.gender}
-							onChange={handleChange}
-						>
+						<Select name="gender" value={form.gender} onChange={handleChange}>
 							<option value="none">none</option>
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
 						</Select>
 						<FormLabel>Color</FormLabel>
-						<Select
-							name="color"
-							value={form.color}
-							onChange={handleChange}
-						>
+						<Select name="color" value={form.color} onChange={handleChange}>
 							<option value="option1">none</option>
 							<option value="option2">Black</option>
 							<option value="option3">White</option>
@@ -165,8 +168,8 @@ const FormProduct = () => {
 							<option value="option9">Pink</option>
 						</Select>
 
-						<FormLabel>Size</FormLabel>
-						{sizeOptionsRender()}
+						<FormLabel>Sizes</FormLabel>
+						<SizeOptionsRender />
 
 						<FormLabel>ArticleID</FormLabel>
 						<Input
@@ -176,43 +179,25 @@ const FormProduct = () => {
 							value={form.articleID}
 							onChange={handleChange}
 						/>
-						<FormLabel>Stock</FormLabel>
-						<Input
-							type="number"
-							placeholder="Stock"
-							name="stock"
-							value={form.stock}
-							onChange={handleChange}
-						/>
-						<FormLabel>Price: U$S</FormLabel>
-						<Input
-							type="number"
-							placeholder="Price"
+						<FormLabel>Price $</FormLabel>
+						<NumberInput
 							name="price"
 							value={form.price}
-							onChange={handleChange}
-						/>
+							onChange={value => handleChange({ target: { name: "price", value: parseInt(value) } })}
+						>
+							<NumberInputField />
+						</NumberInput>
 						<FormLabel>Image</FormLabel>
-						<Input
-							type="text"
-							placeholder="Image"
-							name="image"
-							value={form.image}
-							onChange={handleChange}
-						/>
+						<Input type="text" placeholder="Image" name="image" value={form.image} onChange={handleChange} />
 					</FormControl>
-					<Box
-						marginTop={4}
-						display={"flex"}
-						justifyContent={"space-between"}
-					>
+					<Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
 						<Button type="submit">Add</Button>
 						<Button onClick={handleReset}>Cancel</Button>
 					</Box>
 				</form>
 			</Card>
 		</Container>
-	);
-};
+	)
+}
 
-export default FormProduct;
+export default FormProduct
