@@ -35,6 +35,7 @@ const initialState = {
   cart: [],
   userId: 0,
   pendingCart: [],
+  page: 1
 };
 
 const reducer = (state = initialState, action) => {
@@ -48,6 +49,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         articles: action.payload,
+        page: 1
       };
     case FILTER_SEARCHBAR:
       return {
@@ -98,11 +100,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         articles: action.payload,
+        page: state.page + 1
       };
     case PREV_PAGE:
       return {
         ...state,
         articles: action.payload,
+        page: state.page - 1
       };
     case GET_ARTICLE_ID:
       return {

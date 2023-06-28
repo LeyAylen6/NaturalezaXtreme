@@ -34,6 +34,7 @@ export const getArticles = () => {
     dispatch({ type: GET_ARTICLES, payload: page });
   };
 };
+
 export const nextPage = (props) => {
   if (props.next != null) {
     return async function (dispatch) {
@@ -43,6 +44,7 @@ export const nextPage = (props) => {
     };
   }
 };
+
 export const prevPage = (props) => {
   if (props.prev != null) {
     return async function (dispatch) {
