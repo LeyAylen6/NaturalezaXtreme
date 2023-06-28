@@ -16,9 +16,11 @@ const getShoppingCartController = async(userId?: number, status?: CategoryCart) 
     
     if(!shoppingCart.length) throw new Error('There must be at least one cart')
     if(query.status === 'pending' && shoppingCart.length > 1) throw new Error('There can only be one cart in pending status for each user')
-    
-    const fullShoppingCart = getCartByIdController(shoppingCart[0].id)
-    return fullShoppingCart;
+    if(query.status === 'pending'){
+        const fullShoppingCart = getCartByIdController(shoppingCart[0].id)
+        return fullShoppingCart;
+    }
+    if(query.status === 'complete') return shoppingCart;
 }
 
 export default getShoppingCartController;

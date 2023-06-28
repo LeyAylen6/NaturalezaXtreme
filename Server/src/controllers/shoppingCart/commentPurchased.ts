@@ -1,23 +1,25 @@
-import { getRepository } from "typeorm";
 import getShoppingCartController from "./getShoppingCartController";
 import getCartByIdController from "./getCartByIdController";
 import { Article } from "../../entities/articleEntity"
 
 
 const commentPurchased = async (userId: number) => {
-    const carts: number[] = [];
   
+  try{
+    const carts: number[] = [];
     // Busca los carts de un user que estén pagos    
     const purchasedCarts = await getShoppingCartController(userId, "complete");
-  
-    // Arma un arreglo con los ids de carritos
-    purchasedCarts.forEach((cart) => {
-      carts.push(cart.id);
-    });
     
+    // Arma un arreglo con los ids de carritos
+    if (Array.isArray(purchasedCarts)) {
+      purchasedCarts.forEach((cart) => {
+        carts.push(cart.id);
+      });
+    }
+
     // Mapea el arreglo y recupera los artículos de cada carrito en un arreglo
     const getArticles = carts.map((cart) => getCartByIdController(cart));
-  
+      
     // Espera a que todas las promesas se resuelvan, resolvedArticles es un arreglo de articulos
     const resolvedArticles = await Promise.all(getArticles);
 
@@ -27,10 +29,11 @@ const commentPurchased = async (userId: number) => {
     //resolvedArticles[0][0].shoppingArticles.map(article => purchasedArticles.push(article.article.id))
   
     //Se guardan los artículos comprados en un arreglo
-    resolvedArticles.forEach((cart) => {
-        cart[0].shoppingArticles.map(article => purchasedArticles.push(article.article.id))
-    });
-
+    if (Array.isArray(resolvedArticles)) {
+      resolvedArticles.forEach((cart) => {
+          cart.shoppingArticles.map((article) => purchasedArticles.push(article.article.id))
+      });
+    }
 
     //Se recorre el arreglo revisando por cada artículo si tiene o no un comentario con el userId
     const revisedArticles = purchasedArticles.map(async (articleId) => {
@@ -44,10 +47,15 @@ const commentPurchased = async (userId: number) => {
       }
 
     });
-    
+      
     const commentedArticles = await Promise.all(revisedArticles);
     
-    return commentedArticles;  
-  };
+    return commentedArticles;
+  }
   
-  export default commentPurchased;
+  catch(error){
+    console.log(error);
+  }  
+};
+  
+export default commentPurchased;
