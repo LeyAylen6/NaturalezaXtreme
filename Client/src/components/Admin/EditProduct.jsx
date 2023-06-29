@@ -37,11 +37,12 @@ const EditProduct = () => {
 
 	const handleChange = e => {
 		e.preventDefault()
-		const { name, value } = e.target
+		let { name, value } = e.target
 
 		setForm(prev => {
 			// Verificar si el campo es 'shoeSize'
 			if (name.startsWith("shoeSize")) {
+				if (value === "") value = 0
 				const shoeSizeKey = name.split(".")[1]
 				return {
 					...prev,
@@ -52,6 +53,7 @@ const EditProduct = () => {
 				}
 			}
 			if (name.startsWith("size")) {
+				if (value === "") value = 0
 				const sizeKey = name.split(".")[1]
 				return {
 					...prev,
@@ -63,6 +65,7 @@ const EditProduct = () => {
 			}
 
 			if (name.startsWith("price")) {
+				if (value === "") value = 0
 				return {
 					...prev,
 					price: parseInt(value),
@@ -106,7 +109,7 @@ const EditProduct = () => {
 		const sizes = product.type === "shoes" ? form.shoeSize : form.size
 
 		return (
-			<Flex >
+			<Flex>
 				{Object.entries(sizes).map(([key, value]) => (
 					<Box key={key} width="50%" marginBottom="10px">
 						<FormLabel>{key}</FormLabel>

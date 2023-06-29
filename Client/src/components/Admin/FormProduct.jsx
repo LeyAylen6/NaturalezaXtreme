@@ -30,8 +30,8 @@ const initialFormState = {
 	articleID: "",
 	active: true,
 	image: "",
-	size: {},
-	shoeSize: {},
+	size: { XS: 0, S: 0, M: 0, L: 0, XL: 0, U: 0 },
+	shoeSize: { 35: 0, 36: 0, 37: 0, 38: 0, 39: 0, 40: 0, 41: 0, 42: 0, 43: 0, 44: 0, 45: 0, 46: 0 },
 }
 
 const initialErrors = {
@@ -60,35 +60,46 @@ const FormProduct = () => {
 	}, [form])
 
 	const handleChange = e => {
-		const { name, value } = e.target
-		setForm(prev => ({
-			...prev,
-			[name]: value,
-		}))
-	}
-
-	const handleSizeChange = e => {
 		e.preventDefault()
 		let { name, value } = e.target
-		if (value === '') value = 0
 
 		setForm(prev => {
-			if (form.type === "shoes") {
+			// Verificar si el campo es 'shoeSize'
+			if (name.startsWith("shoeSize")) {
+				if (value === "") value = 0
+				const shoeSizeKey = name.split(".")[1]
 				return {
 					...prev,
 					shoeSize: {
 						...prev.shoeSize,
-						[name]: parseInt(value),
+						[shoeSizeKey]: parseInt(value),
 					},
 				}
-			} else
+			}
+			if (name.startsWith("size")) {
+				if (value === "") value = 0
+				const sizeKey = name.split(".")[1]
 				return {
 					...prev,
 					size: {
 						...prev.size,
-						[name]: parseInt(value),
+						[sizeKey]: parseInt(value),
 					},
 				}
+			}
+
+			if (name.startsWith("price")) {
+				if (value === "") value = 0
+				return {
+					...prev,
+					price: parseInt(value),
+				}
+			}
+
+			return {
+				...prev,
+				[name]: value,
+			}
 		})
 	}
 
@@ -112,41 +123,24 @@ const FormProduct = () => {
 		setForm(initialFormState)
 	}
 
-	const sizes = {
-		shoeSizes: Array.from({ length: 12 }, (_, index) => index + 35),
-		clotheSizes: ["S", "M", "L", "XL", "Unique"],
-	}
+	const SizeOptions = () => {
+		const sizes = form.type === "shoes" ? form.shoeSize : form.size
 
-	const SizeOptionsRender = () => {
-		if (form.type === "shoes") {
-			return (
-				<Wrap spacing="2">
-					{sizes.shoeSizes.map(size => (
-						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
-							<FormLabel>{size}</FormLabel>
-							<Input
-								type="number"
-								name={size}
-								defaultValue={0}
-								value={form.shoeSize[size]}
-								onChange={handleSizeChange}
-							/>
-						</WrapItem>
-					))}
-				</Wrap>
-			)
-		} else {
-			return (
-				<Wrap spacing="2">
-					{sizes.clotheSizes.map(size => (
-						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
-							<FormLabel>{size}</FormLabel>
-							<Input type="number" name={size} defaultValue={0} value={form.size[size]} onChange={handleSizeChange} />
-						</WrapItem>
-					))}
-				</Wrap>
-			)
-		}
+		return (
+			<Wrap>
+				{Object.entries(sizes).map(([key, value]) => (
+					<WrapItem key={key} width="32%" marginBottom="10px">
+						<FormLabel>{key}</FormLabel>
+						<Input
+							type="number"
+							value={value}
+							name={`${form.type === "shoes" ? "shoeSize" : "size"}.${key}`}
+							onChange={handleChange}
+						/>
+					</WrapItem>
+				))}
+			</Wrap>
+		)
 	}
 
 	return (
@@ -194,18 +188,18 @@ const FormProduct = () => {
 						<FormLabel>Color</FormLabel>
 						<Select name="color" value={form.color} onChange={handleChange}>
 							<option value="option1">none</option>
-							<option value="option2">Black</option>
-							<option value="option3">White</option>
-							<option value="option4">Grey</option>
-							<option value="option5">Blue</option>
-							<option value="option6">Red</option>
-							<option value="option7">Yellow</option>
-							<option value="option8">Brown</option>
-							<option value="option9">Pink</option>
+							<option value="Black">Black</option>
+							<option value="White">White</option>
+							<option value="Grey">Grey</option>
+							<option value="Blue">Blue</option>
+							<option value="Red">Red</option>
+							<option value="Yellow">Yellow</option>
+							<option value="Brown">Brown</option>
+							<option value="Pink">Pink</option>
 						</Select>
 
 						<FormLabel>Sizes</FormLabel>
-						<SizeOptionsRender />
+						<SizeOptions />
 
 						<FormLabel>ArticleID</FormLabel>
 						<Input
