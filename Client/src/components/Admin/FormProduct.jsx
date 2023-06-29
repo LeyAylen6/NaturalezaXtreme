@@ -26,7 +26,7 @@ const initialFormState = {
 	type: "",
 	gender: "",
 	color: "",
-	price: undefined,
+	price: 0,
 	articleID: "",
 	active: true,
 	image: "",
@@ -40,20 +40,22 @@ const initialErrors = {
 	type: "",
 	gender: "",
 	color: "",
-	price: undefined,
+	price: "",
 	articleID: "",
-	active: true,
+	active: "",
 	image: "",
-	size: {},
-	shoeSize: {},
+	size: "",
+	shoeSize: "",
 }
 
 const FormProduct = () => {
 	const dispatch = useDispatch()
 	const [form, setForm] = useState(initialFormState)
 	const [disableSubmit, setDisableSubmit] = useState(true)
+	const [errors, setErrors] = useState(initialErrors)
 
 	console.log("disable submit :", disableSubmit)
+	console.log('form', form)
 
 	useEffect(() => {
 		handleDisable({ ...form })
@@ -221,10 +223,10 @@ const FormProduct = () => {
 						<Input type="text" placeholder="Image" name="image" value={form.image} onChange={handleChange} />
 					</FormControl>
 					<Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
+						<Button onClick={handleReset}>Cancel</Button>
 						<Button type="submit" isDisabled={disableSubmit}>
 							Add
 						</Button>
-						<Button onClick={handleReset}>Cancel</Button>
 					</Box>
 				</form>
 			</Box>

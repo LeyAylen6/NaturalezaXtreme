@@ -199,11 +199,11 @@ const EditProduct = () => {
 					</AlertDialogHeader>
 					<AlertDialogBody>Are you sure you want to submit the form?</AlertDialogBody>
 					<AlertDialogFooter>
-						<Button colorScheme="teal" onClick={handleConfirm}>
-							Confirm
-						</Button>
 						<Button colorScheme="red" ml={3} onClick={handleCancel}>
 							Cancel
+						</Button>
+						<Button colorScheme="teal" onClick={handleConfirm}>
+							Confirm
 						</Button>
 					</AlertDialogFooter>
 				</AlertDialogContent>
