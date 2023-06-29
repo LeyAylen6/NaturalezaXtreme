@@ -23,8 +23,6 @@ import MercadoPagoError from "./components/MercadoPago/MercadoPagoError";
 import Privateroute from "./components/PrivateRoute/Privateroute";
 
 function App() {
-  const isAuthenticated = true; 
-  const isAdmin = true; 
   return (
     <ChakraProvider>
       <Provider store={store}>
@@ -35,7 +33,6 @@ function App() {
             <Route path="/signup" element={<Signup2/>}/>
             <Route path="/" element={<Home />} />
             <Route path="/aboutus" element={<AboutUs />} />
-           
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/crudProduct" element={<CrudProduct />} />

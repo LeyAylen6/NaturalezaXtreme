@@ -5,7 +5,7 @@ import Filters from "../Filters/Filters";
 import { Box } from "@chakra-ui/react";
 import { getAllFavs, getArticles } from "../../redux/actions/actions";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getUserId } from "../../redux/actions/actionsUsers";
+import { getUserId, getUsers } from "../../redux/actions/actionsUsers";
 // import { addToCart } from "../../redux/actions/cartActions";
 
 const Home = () => {
@@ -17,6 +17,8 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getArticles());
+    dispatch(getUsers());
+
     if (isAuthenticated) {
       getAllFavs(userId.id, dispatch)
       getUserId(user, dispatch);

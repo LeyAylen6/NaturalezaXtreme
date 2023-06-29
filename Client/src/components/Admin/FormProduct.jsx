@@ -56,7 +56,7 @@ const FormProduct = () => {
 				return {
 					...prev,
 					shoeSize: {
-						...prev.size,
+						...prev.shoeSize,
 						[name]: parseInt(value),
 					},
 				}
@@ -94,7 +94,7 @@ const FormProduct = () => {
 					{sizes.shoeSizes.map(size => (
 						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
 							<FormLabel>{size}</FormLabel>
-							<Input type="number" name={size} value={form.shoeSize[size] || ""} onChange={handleSizeChange} />
+							<Input type="number" name={size} value={form.shoeSize[size]} onChange={handleSizeChange} />
 						</WrapItem>
 					))}
 				</Wrap>
@@ -105,7 +105,7 @@ const FormProduct = () => {
 					{sizes.clotheSizes.map(size => (
 						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
 							<FormLabel>{size}</FormLabel>
-							<Input type="number" name={size} value={form.size[size] || ""} onChange={handleSizeChange} />
+							<Input type="number" name={size} value={form.size[size]} onChange={handleSizeChange} />
 						</WrapItem>
 					))}
 				</Wrap>
@@ -128,7 +128,7 @@ const FormProduct = () => {
 				<form onSubmit={handleSubmit}>
 					<FormControl>
 						<FormLabel>Name</FormLabel>
-						<Input type="text" name="name" placeholder="name of product" />
+						<Input type="text" name="name" placeholder="name of product" onChange={handleChange}/>
 						<FormLabel mb="8px">Description:</FormLabel>
 						<Input
 							type="text"

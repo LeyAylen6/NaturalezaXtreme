@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HStack, Select } from "@chakra-ui/react";
+import { Button, Center, HStack, Select } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { filterCombinated } from "../../redux/actions/actionFilters";
 import {
@@ -7,6 +7,7 @@ import {
   articlesColor,
   articlesGender,
 } from "../../utils/constants";
+import {MdOutlineRefresh} from 'react-icons/md'
 
 const Filters = () => {
   const [filters, setFilters] = useState({
@@ -79,6 +80,21 @@ const Filters = () => {
     }
   };
 
+  const handlerReset = ()=>{
+    setFilters({
+      gender: "",
+      type: "",
+      color: "",
+      order: "",
+    })
+    document.getElementById("Gender").value="Gender"
+    document.getElementById("Type").value="Type"
+    document.getElementById("Color").value="Color"
+    document.getElementById("Price").value="Price"
+    
+   
+  }
+
   return (
     <HStack justifyContent="center" flexWrap="wrap" pt={5}>
       <Select
@@ -89,9 +105,10 @@ const Filters = () => {
         onChange={handleChangeGender}
         w="300px"
       >
-        <option disabled value="Gender">
+        <option disabled value="Gender" id>
           Gender
         </option>
+        <option value="none">None</option>
         {articlesGender.map((article, index) => {
           return (
             <option key={index} value={article.value}>
@@ -123,15 +140,16 @@ const Filters = () => {
 
       <Select
         name=""
-        id=""
-        defaultValue="By Color"
+        id="Color"
+        defaultValue="Color"
         variant={"flushed"}
         onChange={handleChangeColor}
         w="300px"
       >
-        <option disabled value="By Color">
+        <option disabled value="Color">
           Color
         </option>
+        <option value="none">None</option>
         {articlesColor.map((article, index) => {
           return (
             <option key={index} value={article.value}>
@@ -141,7 +159,7 @@ const Filters = () => {
         })}
       </Select>
       <Select
-        name=""
+        name="Price"
         id="price"
         defaultValue="price"
         variant={"flushed"}
@@ -155,8 +173,13 @@ const Filters = () => {
         <option value="desc">Downward</option>
         <option value="asc">Upward</option>
       </Select>
+      <Button onClick={handlerReset} leftIcon={<MdOutlineRefresh size={40}/>} maxW="30px" 
+      paddingRight="10px" bg="transparent">
+ 
+      </Button>
     </HStack>
   );
 };
 
 export default Filters;
+
