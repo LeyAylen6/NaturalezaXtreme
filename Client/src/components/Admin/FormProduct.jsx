@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux"
 import { addProduct } from "../../redux/actions/actions"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+// import cloudinary from "cloudinary"
 
 const initialFormState = {
 	name: "",
@@ -49,11 +50,10 @@ const initialErrors = {
 }
 
 const FormProduct = () => {
+
 	const dispatch = useDispatch()
 	const [form, setForm] = useState(initialFormState)
 	const [disableSubmit, setDisableSubmit] = useState(true)
-
-	console.log("disable submit :", disableSubmit)
 
 	useEffect(() => {
 		handleDisable({ ...form })
@@ -92,11 +92,8 @@ const FormProduct = () => {
 		})
 	}
 
-	console.log(form)
-
 	const handleDisable = form => {
 		const values = Object.values(form)
-		console.log("values: ", values)
 		// const allKeysFilled = values.every(value => value.length > 0)
 		const allKeysFilled = values.every(value => !!value)
 
@@ -116,6 +113,60 @@ const FormProduct = () => {
 		shoeSizes: Array.from({ length: 12 }, (_, index) => index + 35),
 		clotheSizes: ["S", "M", "L", "XL", "Unique"],
 	}
+
+	const showUploadWidget = () => {
+		cloudinary.openUploadWidget({
+			cloudName: "dn3tgaige",
+			uploadPreset: "articles",
+			sources: [
+				"local",
+				"camera",
+				"image_search",
+				"url"
+			],
+			showAdvancedOptions: true,
+			cropping: true,
+			multiple: false,
+			defaultSource: "local",
+			styles: {
+			   palette: {
+				   window: "#FFFFFF",
+				   windowBorder: "#90A0B3",
+				   tabIcon: "#0078FF",
+				   menuIcons: "#5A616A",
+				   textDark: "#000000",
+				   textLight: "#FFFFFF",
+				   link: "#0078FF",
+				   action: "#FF620C",
+				   inactiveTabIcon: "#0E2F5A",
+				   error: "#F44235",
+				   inProgress: "#0078FF",
+				   complete: "#20B832",
+				   sourceBg: "#E4EBF1"
+			  	},
+			   	fonts: {
+				   default: {
+					   active: true
+				   }
+			   }
+		   }
+	   	},
+
+		(err, result) => {
+
+			if (err) {    
+				console.log(err);
+			}
+
+			if(result.event = 'success' && result.info.url) {
+				setForm({
+					...form,
+					image: result.info.url
+				})
+			}
+		},
+	)};
+
 
 	const SizeOptionsRender = () => {
 		if (form.type === "shoes") {
@@ -224,13 +275,26 @@ const FormProduct = () => {
 							<NumberInputField />
 						</NumberInput>
 						<FormLabel>Image</FormLabel>
-						<Input type="text" placeholder="Image" name="image" value={form.image} onChange={handleChange} />
+
+						<Button 
+							onClick={showUploadWidget}
+							color="black"
+							border="none"
+							borderRadius={7}
+							// bg="lightgrey"
+							w={80}
+							h={10}
+							background="gray.300"
+						>
+							Upload image
+						</Button>
+						
 					</FormControl>
 					<Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
-						<Button type="submit" isDisabled={disableSubmit}>
+						<Button type="submit" isDisabled={disableSubmit} colorScheme="linkedin" w={100}>
 							Add
 						</Button>
-						<Button onClick={handleReset}>Cancel</Button>
+						<Button onClick={handleReset} w={100}>Cancel</Button>
 					</Box>
 				</form>
 			</Box>
