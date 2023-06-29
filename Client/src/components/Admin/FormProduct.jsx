@@ -62,7 +62,7 @@ const FormProduct = () => {
 	console.log("errors", errors)
 
 	useEffect(() => {
-		handleDisable({ ...errors })
+		handleDisable({ ...form })
 	}, [form])
 
 	const handleChange = e => {
@@ -120,9 +120,9 @@ const FormProduct = () => {
 		)
 	}
 
-	const handleDisable = errors => {
-		const values = Object.values(errors)
-		const allKeysFilled = values.every(value => !value)
+	const handleDisable = form => {
+		const values = Object.values(form)
+		const allKeysFilled = values.every(value => !!value)
 		setDisableSubmit(!allKeysFilled)
 	}
 

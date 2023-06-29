@@ -13,7 +13,7 @@ import {
 import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table"
 import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import validateForm from "./helpers/validateForm"
 import { updateProduct } from "../../redux/actions/actions"
 
@@ -32,6 +32,7 @@ const EditProduct = () => {
 
 	const [isAlertOpen, setIsAlertOpen] = useState(false)
 	const [errors, setErrors] = useState(initialErrors)
+	const [disableSubmit, setDisableSubmit] = useState(true)
 	const [form, setForm] = useState({
 		id: product.id,
 		active: product.active,
@@ -46,6 +47,16 @@ const EditProduct = () => {
 	// console.log(form)
 	// console.log(product)
 	console.log(errors)
+
+	useEffect(() => {
+		handleDisable({ ...form })
+	}, [form])
+
+	const handleDisable = form => {
+		const values = Object.values(form)
+		const allKeysFilled = values.every(value => !!value)
+		setDisableSubmit(!allKeysFilled)
+	}
 
 	const handleChange = e => {
 		// e.preventDefault()
@@ -205,7 +216,7 @@ const EditProduct = () => {
 								<FormLabel>Size : </FormLabel>
 								<SizeOptions></SizeOptions>
 							</FormControl>
-							<Button colorScheme="teal" type="submit" m="6">
+							<Button isDisabled={disableSubmit} colorScheme="teal" type="submit" m="6">
 								Submit
 							</Button>
 							<Button colorScheme="teal" type="reset" m="6" onClick={handleReset}>
