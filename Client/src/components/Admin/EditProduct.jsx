@@ -7,13 +7,23 @@ import {
 	AlertDialogContent,
 	AlertDialogOverlay,
 	Flex,
+	NumberInput,
+	NumberInputField
 } from "@chakra-ui/react"
 import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table"
 import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { useState } from "react"
-
+import validateForm from "./helpers/validateForm"
 import { updateProduct } from "../../redux/actions/actions"
+
+const initialErrors = {
+	name: "",
+	description: "",
+	price: "",
+	size: "",
+	shoeSize: "",
+}
 
 const EditProduct = () => {
 	const dispatch = useDispatch()
@@ -21,6 +31,7 @@ const EditProduct = () => {
 	const product = useSelector(state => state.detail)
 
 	const [isAlertOpen, setIsAlertOpen] = useState(false)
+	const [errors, setErrors] = useState(initialErrors)
 	const [form, setForm] = useState({
 		id: product.id,
 		active: product.active,
@@ -32,11 +43,12 @@ const EditProduct = () => {
 		// [product.type === "shoes" ? "shoeSize" : "size"]: product.type === "shoes" ? product.shoeSize : product.size
 	})
 
-	console.log(form)
-	console.log(product)
+	// console.log(form)
+	// console.log(product)
+	console.log(errors)
 
 	const handleChange = e => {
-		e.preventDefault()
+		// e.preventDefault()
 		let { name, value } = e.target
 
 		setForm(prev => {
@@ -65,10 +77,10 @@ const EditProduct = () => {
 			}
 
 			if (name.startsWith("price")) {
-				if (value === "") value = 0
+				if (value !== '') value = parseInt(value)
 				return {
 					...prev,
-					price: parseInt(value),
+					price: value,
 				}
 			}
 
@@ -77,6 +89,16 @@ const EditProduct = () => {
 				[name]: value,
 			}
 		})
+
+		validateForm(
+			{
+				...form,
+				[name]: value,
+			},
+			name,
+			errors,
+			setErrors
+		)
 	}
 
 	const handleSubmit = event => {
@@ -155,7 +177,7 @@ const EditProduct = () => {
 									value={form.name}
 									onChange={handleChange}
 								/>
-								<br />
+								<p>{errors.name}</p>
 								<FormLabel mb="8px">Description: </FormLabel>
 								<Input
 									type="text"
@@ -166,17 +188,20 @@ const EditProduct = () => {
 									value={form.description}
 									onChange={handleChange}
 								/>
-
+								<p>{errors.description}</p>
 								<FormLabel>Price : </FormLabel>
-								<Input
+								<NumberInput
 									type="number"
 									placeholder={product.price}
 									size={"md"}
 									name="price"
 									autoComplete="off"
-									onChange={handleChange}
+									onChange={value => handleChange({ target: { name: "price", value } })}
 									value={form.price}
-								/>
+								>
+									<NumberInputField />
+								</NumberInput>
+								<p>{errors.price}</p>
 								<FormLabel>Size : </FormLabel>
 								<SizeOptions></SizeOptions>
 							</FormControl>

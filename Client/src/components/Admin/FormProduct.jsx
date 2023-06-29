@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux"
 import { addProduct } from "../../redux/actions/actions"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import validateForm from "./helpers/validateForm"
 
 const initialFormState = {
 	name: "",
@@ -42,7 +43,7 @@ const initialErrors = {
 	color: "",
 	price: "",
 	articleID: "",
-	active: "",
+	// active: "",
 	image: "",
 	size: "",
 	shoeSize: "",
@@ -52,19 +53,20 @@ const FormProduct = () => {
 	const dispatch = useDispatch()
 	const [form, setForm] = useState(initialFormState)
 	const [disableSubmit, setDisableSubmit] = useState(true)
-	const [errors, setErrors] = useState(initialErrors
-		 )
+	const [errors, setErrors] = useState(initialErrors)
 
-	console.log("disable submit :", disableSubmit)
+	// console.log("disable submit :", disableSubmit)
 	console.log('form', form)
+	console.log("errors", errors)
 
 	useEffect(() => {
-		handleDisable({ ...form })
+		handleDisable({ ...errors })
 	}, [form])
 
 	const handleChange = e => {
-		e.preventDefault()
+		// e.preventDefault()
 		let { name, value } = e.target
+		console.log(name, value)
 
 		setForm(prev => {
 			// Verificar si el campo es 'shoeSize'
@@ -92,10 +94,10 @@ const FormProduct = () => {
 			}
 
 			if (name.startsWith("price")) {
-				if (value === "") value = 0
+				if (value !== '') value = parseInt(value)
 				return {
 					...prev,
-					price: parseInt(value),
+					price: value,
 				}
 			}
 
@@ -104,16 +106,21 @@ const FormProduct = () => {
 				[name]: value,
 			}
 		})
+
+		validateForm(
+			{
+				...form,
+				[name]: value,
+			},
+			name,
+			errors,
+			setErrors
+		)
 	}
 
-	console.log(form)
-
-	const handleDisable = form => {
-		const values = Object.values(form)
-		console.log("values: ", values)
-		// const allKeysFilled = values.every(value => value.length > 0)
-		const allKeysFilled = values.every(value => !!value)
-
+	const handleDisable = errors => {
+		const values = Object.values(errors)
+		const allKeysFilled = values.every(value => !value)
 		setDisableSubmit(!allKeysFilled)
 	}
 
@@ -162,6 +169,7 @@ const FormProduct = () => {
 					<FormControl>
 						<FormLabel>Name</FormLabel>
 						<Input type="text" name="name" placeholder="name of product" onChange={handleChange} />
+						<p>{errors.name}</p>
 						<FormLabel mb="8px">Description:</FormLabel>
 						<Input
 							type="text"
@@ -171,6 +179,7 @@ const FormProduct = () => {
 							onChange={handleChange}
 							size={"md"}
 						/>
+						<p>{errors.description}</p>
 						<FormLabel>Type</FormLabel>
 						<Select name="type" value={form.type} onChange={handleChange}>
 							<option value="none">none</option>
@@ -182,12 +191,14 @@ const FormProduct = () => {
 							<option value="shoes">shoes</option>
 							<option value="equipment">equipment</option>
 						</Select>
+						<p>{errors.type}</p>
 						<FormLabel>Gender</FormLabel>
 						<Select name="gender" value={form.gender} onChange={handleChange}>
 							<option value="none">none</option>
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
 						</Select>
+						<p>{errors.gender}</p>
 						<FormLabel>Color</FormLabel>
 						<Select name="color" value={form.color} onChange={handleChange}>
 							<option value="option1">none</option>
@@ -200,7 +211,7 @@ const FormProduct = () => {
 							<option value="Brown">Brown</option>
 							<option value="Pink">Pink</option>
 						</Select>
-
+						<p>{errors.gender}</p>
 						<FormLabel>Sizes</FormLabel>
 						<SizeOptions />
 
@@ -212,16 +223,19 @@ const FormProduct = () => {
 							value={form.articleID}
 							onChange={handleChange}
 						/>
+						<p>{errors.articleID}</p>
 						<FormLabel>Price $</FormLabel>
 						<NumberInput
 							name="price"
 							value={form.price}
-							onChange={value => handleChange({ target: { name: "price", value: parseInt(value) } })}
+							onChange={value => handleChange({ target: { name: "price", value } })}
 						>
 							<NumberInputField />
 						</NumberInput>
+						<p>{errors.price}</p>
 						<FormLabel>Image</FormLabel>
 						<Input type="text" placeholder="Image" name="image" value={form.image} onChange={handleChange} />
+						<p>{errors.image}</p>
 					</FormControl>
 					<Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
 						<Button onClick={handleReset}>Cancel</Button>
