@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react"
 import { useDispatch } from "react-redux"
 import { addProduct } from "../../redux/actions/actions"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 const initialFormState = {
@@ -34,9 +34,30 @@ const initialFormState = {
 	shoeSize: {},
 }
 
+const initialErrors = {
+	name: "",
+	description: "",
+	type: "",
+	gender: "",
+	color: "",
+	price: undefined,
+	articleID: "",
+	active: true,
+	image: "",
+	size: {},
+	shoeSize: {},
+}
+
 const FormProduct = () => {
 	const dispatch = useDispatch()
 	const [form, setForm] = useState(initialFormState)
+	const [disableSubmit, setDisableSubmit] = useState(true)
+
+	console.log("disable submit :", disableSubmit)
+
+	useEffect(() => {
+		handleDisable({ ...form })
+	}, [form])
 
 	const handleChange = e => {
 		const { name, value } = e.target
@@ -48,8 +69,8 @@ const FormProduct = () => {
 
 	const handleSizeChange = e => {
 		e.preventDefault()
-		const { name, value } = e.target
-		console.log(name, value)
+		let { name, value } = e.target
+		if (value === '') value = 0
 
 		setForm(prev => {
 			if (form.type === "shoes") {
@@ -73,6 +94,15 @@ const FormProduct = () => {
 
 	console.log(form)
 
+	const handleDisable = form => {
+		const values = Object.values(form)
+		console.log("values: ", values)
+		// const allKeysFilled = values.every(value => value.length > 0)
+		const allKeysFilled = values.every(value => !!value)
+
+		setDisableSubmit(!allKeysFilled)
+	}
+
 	const handleSubmit = e => {
 		e.preventDefault()
 		dispatch(addProduct(form))
@@ -90,11 +120,17 @@ const FormProduct = () => {
 	const SizeOptionsRender = () => {
 		if (form.type === "shoes") {
 			return (
-				<Wrap spacing="2" >
+				<Wrap spacing="2">
 					{sizes.shoeSizes.map(size => (
 						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
 							<FormLabel>{size}</FormLabel>
-							<Input type="number" name={size} value={form.shoeSize[size]} onChange={handleSizeChange} />
+							<Input
+								type="number"
+								name={size}
+								defaultValue={0}
+								value={form.shoeSize[size]}
+								onChange={handleSizeChange}
+							/>
 						</WrapItem>
 					))}
 				</Wrap>
@@ -105,7 +141,7 @@ const FormProduct = () => {
 					{sizes.clotheSizes.map(size => (
 						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
 							<FormLabel>{size}</FormLabel>
-							<Input type="number" name={size} value={form.size[size]} onChange={handleSizeChange} />
+							<Input type="number" name={size} defaultValue={0} value={form.size[size]} onChange={handleSizeChange} />
 						</WrapItem>
 					))}
 				</Wrap>
@@ -114,8 +150,8 @@ const FormProduct = () => {
 	}
 
 	return (
-		<Container marginTop={10}>
-			<Box display={"flex"} justifyContent={"space-between"} border={"1px"} marginBottom="15px">
+		<Container w="100%" marginTop={10}>
+			<Box display={"flex"} justifyContent={"space-between"} marginBottom="15px">
 				<Button colorScheme="cyan" size="lg" variant="solid" m="6">
 					<Link to="/CrudProduct">Back</Link>
 				</Button>
@@ -123,12 +159,12 @@ const FormProduct = () => {
 					<Link to="/">Home</Link>
 				</Button>
 			</Box>
-			<Card padding={4}>
+			<Box padding={4}>
 				<Heading>Add Product</Heading>
 				<form onSubmit={handleSubmit}>
 					<FormControl>
 						<FormLabel>Name</FormLabel>
-						<Input type="text" name="name" placeholder="name of product" onChange={handleChange}/>
+						<Input type="text" name="name" placeholder="name of product" onChange={handleChange} />
 						<FormLabel mb="8px">Description:</FormLabel>
 						<Input
 							type="text"
@@ -191,11 +227,13 @@ const FormProduct = () => {
 						<Input type="text" placeholder="Image" name="image" value={form.image} onChange={handleChange} />
 					</FormControl>
 					<Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
-						<Button type="submit">Add</Button>
+						<Button type="submit" isDisabled={disableSubmit}>
+							Add
+						</Button>
 						<Button onClick={handleReset}>Cancel</Button>
 					</Box>
 				</form>
-			</Card>
+			</Box>
 		</Container>
 	)
 }
