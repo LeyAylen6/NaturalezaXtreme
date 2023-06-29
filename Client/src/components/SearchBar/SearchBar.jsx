@@ -6,13 +6,12 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   
-  dispatch(filterSearchBar(name));
+  if(name) dispatch(filterSearchBar(name));
   
   const handleChange = (event) => {
     const { value } = event.target;
-    if (!value) dispatch(getArticles());
-    setName(value);
-    // dispatch(filterSearchBar(name));
+    value ? setName(value) : dispatch(getArticles());    
+    //dispatch(filterSearchBar(name));
   };
 
   return (

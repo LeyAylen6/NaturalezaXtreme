@@ -19,7 +19,7 @@ const Filters = () => {
 
   const dispatch = useDispatch();
 
-  dispatch(filterCombinated(filters));
+  if(filters.gender || filters.type || filters.color || filters.order) dispatch(filterCombinated(filters));
 
   const handleChangeGender = (event) => {
     const { value } = event.target;
