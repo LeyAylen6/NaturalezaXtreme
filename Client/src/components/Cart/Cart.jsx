@@ -12,7 +12,7 @@ const Cart = () => {
   //pending cart serían los productos que puso en el carrito para comprar
   //Intente separar este useSelecto en dos, uno para el pending cart y otro para el cartArticles, pero no me funcionó.
   const { cartArticles, userId, pendingCart } = useSelector((state) => state);
-
+  console.log(localStorage.getItem("userId"));
   const dispatch = useDispatch();
   const paymentLink = useSelector((state) => state.paymentLink);
   const navigate = useNavigate();
@@ -58,6 +58,7 @@ const Cart = () => {
         getUsers,
         size: items.size,
       }));
+      savelocalStorage();
       dispatch(addToMercadoPago(mercadoPagoItems));
       const result = await dispatch(createPayment(mercadoPagoItems));
       if (result === "success") {
@@ -67,6 +68,12 @@ const Cart = () => {
       setPaymentError(true);
     }
   };
+  const savelocalStorage = () => {
+    localStorage.setItem("cart", JSON.stringify(cartArticles));
+  };
+
+  const carrito = JSON.parse(localStorage.getItem("cart"));
+  console.log(carrito);
 
   return (
     <Box border={"2px"}>
