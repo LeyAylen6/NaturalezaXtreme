@@ -45,8 +45,8 @@ function App() {
             <Route path="/productOutOfSale" element={<ProductOutOfSale />} />
             <Route path="/error" element={<MercadoPagoError/>}/>
             <Route element={<Privateroute/>}>
-             <Route path="/admin" element={<Admin />} />
              </Route>
+             <Route path="/admin" element={<Admin />} />
            </Routes> 
         
         </Box>

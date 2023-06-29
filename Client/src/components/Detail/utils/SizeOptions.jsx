@@ -19,8 +19,6 @@ const SizeOptions = ({detailObject}) => {
 		))
 	}
 
-	console.log(shoeSizeOptions, clotheSizeOptions)
-
 	return detailObject.type === "shoes" ? shoeSizeOptions : clotheSizeOptions
 }
 
