@@ -29,6 +29,7 @@ function App() {
         <Box minHeight="100vh">
           <NavBar />
           <Routes>
+         
             <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<Signup2/>}/>
             <Route path="/" element={<Home />} />
@@ -44,9 +45,10 @@ function App() {
             <Route path="/mercadoPago" element={<MercadoPago />} />
             <Route path="/productOutOfSale" element={<ProductOutOfSale />} />
             <Route path="/error" element={<MercadoPagoError/>}/>
-            <Route element={<Privateroute/>}>
-             </Route>
-             <Route path="/admin" element={<Admin />} />
+            <Route element={<Privateroute/>}>  
+            <Route path="/admin" element={<Admin />} />
+           </Route>
+      
            </Routes> 
         
         </Box>
