@@ -15,6 +15,7 @@ const Home = () => {
   let { user, isAuthenticated } = useAuth0();
   //Pregunto si está autenticado y si lo está, le paso el usuario al back para que me lo agregue a la base de datos
   console.log("USER", userId);
+
   useEffect(() => {
     dispatch(getArticles());
     dispatch(getUsers());

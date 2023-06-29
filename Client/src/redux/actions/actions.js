@@ -99,7 +99,7 @@ export const getArticlesByQuery = (name) => {
 export const filterSearchBar = (name) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${URL}articles?name=${name}`);
+      const response = await axios.get(`${URL}articles?${name ? `name=${name}` : ``}`);
       const payload = response.data;
       return dispatch({
         type: FILTER_SEARCHBAR,
