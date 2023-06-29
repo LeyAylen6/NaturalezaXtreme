@@ -52,7 +52,8 @@ const FormProduct = () => {
 	const dispatch = useDispatch()
 	const [form, setForm] = useState(initialFormState)
 	const [disableSubmit, setDisableSubmit] = useState(true)
-	const [errors, setErrors] = useState(initialErrors)
+	const [errors, setErrors] = useState(initialErrors
+		 )
 
 	console.log("disable submit :", disableSubmit)
 	console.log('form', form)
