@@ -20,6 +20,7 @@ import { addProduct } from "../../redux/actions/actions"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 // import cloudinary from "cloudinary"
+import validateForm from "./helpers/validateForm"
 
 const initialFormState = {
 	name: "",
@@ -27,12 +28,12 @@ const initialFormState = {
 	type: "",
 	gender: "",
 	color: "",
-	price: undefined,
+	price: 0,
 	articleID: "",
 	active: true,
 	image: "",
-	size: {},
-	shoeSize: {},
+	size: { XS: 0, S: 0, M: 0, L: 0, XL: 0, U: 0 },
+	shoeSize: { 35: 0, 36: 0, 37: 0, 38: 0, 39: 0, 40: 0, 41: 0, 42: 0, 43: 0, 44: 0, 45: 0, 46: 0 },
 }
 
 const initialErrors = {
@@ -41,12 +42,12 @@ const initialErrors = {
 	type: "",
 	gender: "",
 	color: "",
-	price: undefined,
+	price: "",
 	articleID: "",
-	active: true,
+	// active: "",
 	image: "",
-	size: {},
-	shoeSize: {},
+	size: "",
+	shoeSize: "",
 }
 
 const FormProduct = () => {
@@ -54,49 +55,74 @@ const FormProduct = () => {
 	const dispatch = useDispatch()
 	const [form, setForm] = useState(initialFormState)
 	const [disableSubmit, setDisableSubmit] = useState(true)
+	const [errors, setErrors] = useState(initialErrors)
+
+	// console.log("disable submit :", disableSubmit)
+	console.log('form', form)
+	console.log("errors", errors)
 
 	useEffect(() => {
 		handleDisable({ ...form })
 	}, [form])
 
 	const handleChange = e => {
-		const { name, value } = e.target
-		setForm(prev => ({
-			...prev,
-			[name]: value,
-		}))
-	}
-
-	const handleSizeChange = e => {
-		e.preventDefault()
+		// e.preventDefault()
 		let { name, value } = e.target
-		if (value === '') value = 0
+		console.log(name, value)
 
 		setForm(prev => {
-			if (form.type === "shoes") {
+			// Verificar si el campo es 'shoeSize'
+			if (name.startsWith("shoeSize")) {
+				if (value === "") value = 0
+				const shoeSizeKey = name.split(".")[1]
 				return {
 					...prev,
 					shoeSize: {
 						...prev.shoeSize,
-						[name]: parseInt(value),
+						[shoeSizeKey]: parseInt(value),
 					},
 				}
-			} else
+			}
+			if (name.startsWith("size")) {
+				if (value === "") value = 0
+				const sizeKey = name.split(".")[1]
 				return {
 					...prev,
 					size: {
 						...prev.size,
-						[name]: parseInt(value),
+						[sizeKey]: parseInt(value),
 					},
 				}
+			}
+
+			if (name.startsWith("price")) {
+				if (value !== '') value = parseInt(value)
+				return {
+					...prev,
+					price: value,
+				}
+			}
+
+			return {
+				...prev,
+				[name]: value,
+			}
 		})
+
+		validateForm(
+			{
+				...form,
+				[name]: value,
+			},
+			name,
+			errors,
+			setErrors
+		)
 	}
 
 	const handleDisable = form => {
 		const values = Object.values(form)
-		// const allKeysFilled = values.every(value => value.length > 0)
 		const allKeysFilled = values.every(value => !!value)
-
 		setDisableSubmit(!allKeysFilled)
 	}
 
@@ -109,11 +135,27 @@ const FormProduct = () => {
 		setForm(initialFormState)
 	}
 
-	const sizes = {
-		shoeSizes: Array.from({ length: 12 }, (_, index) => index + 35),
-		clotheSizes: ["S", "M", "L", "XL", "Unique"],
-	}
+	const SizeOptions = () => {
+		const sizes = form.type === "shoes" ? form.shoeSize : form.size
 
+		return (
+			<Wrap>
+				{Object.entries(sizes).map(([key, value]) => (
+					<WrapItem key={key} width="32%" marginBottom="10px">
+						<FormLabel>{key}</FormLabel>
+						<Input
+							type="number"
+							value={value}
+							name={`${form.type === "shoes" ? "shoeSize" : "size"}.${key}`}
+							onChange={handleChange}
+						/>
+					</WrapItem>
+				))}
+			</Wrap>
+		)
+		
+	}
+	
 	const showUploadWidget = () => {
 		cloudinary.openUploadWidget({
 			cloudName: "dn3tgaige",
@@ -167,39 +209,6 @@ const FormProduct = () => {
 		},
 	)};
 
-
-	const SizeOptionsRender = () => {
-		if (form.type === "shoes") {
-			return (
-				<Wrap spacing="2">
-					{sizes.shoeSizes.map(size => (
-						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
-							<FormLabel>{size}</FormLabel>
-							<Input
-								type="number"
-								name={size}
-								defaultValue={0}
-								value={form.shoeSize[size]}
-								onChange={handleSizeChange}
-							/>
-						</WrapItem>
-					))}
-				</Wrap>
-			)
-		} else {
-			return (
-				<Wrap spacing="2">
-					{sizes.clotheSizes.map(size => (
-						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
-							<FormLabel>{size}</FormLabel>
-							<Input type="number" name={size} defaultValue={0} value={form.size[size]} onChange={handleSizeChange} />
-						</WrapItem>
-					))}
-				</Wrap>
-			)
-		}
-	}
-
 	return (
 		<Container w="100%" marginTop={10}>
 			<Box display={"flex"} justifyContent={"space-between"} marginBottom="15px">
@@ -216,6 +225,7 @@ const FormProduct = () => {
 					<FormControl>
 						<FormLabel>Name</FormLabel>
 						<Input type="text" name="name" placeholder="name of product" onChange={handleChange} />
+						<p>{errors.name}</p>
 						<FormLabel mb="8px">Description:</FormLabel>
 						<Input
 							type="text"
@@ -225,6 +235,7 @@ const FormProduct = () => {
 							onChange={handleChange}
 							size={"md"}
 						/>
+						<p>{errors.description}</p>
 						<FormLabel>Type</FormLabel>
 						<Select name="type" value={form.type} onChange={handleChange}>
 							<option value="none">none</option>
@@ -236,27 +247,29 @@ const FormProduct = () => {
 							<option value="shoes">shoes</option>
 							<option value="equipment">equipment</option>
 						</Select>
+						<p>{errors.type}</p>
 						<FormLabel>Gender</FormLabel>
 						<Select name="gender" value={form.gender} onChange={handleChange}>
 							<option value="none">none</option>
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
 						</Select>
+						<p>{errors.gender}</p>
 						<FormLabel>Color</FormLabel>
 						<Select name="color" value={form.color} onChange={handleChange}>
 							<option value="option1">none</option>
-							<option value="option2">Black</option>
-							<option value="option3">White</option>
-							<option value="option4">Grey</option>
-							<option value="option5">Blue</option>
-							<option value="option6">Red</option>
-							<option value="option7">Yellow</option>
-							<option value="option8">Brown</option>
-							<option value="option9">Pink</option>
+							<option value="Black">Black</option>
+							<option value="White">White</option>
+							<option value="Grey">Grey</option>
+							<option value="Blue">Blue</option>
+							<option value="Red">Red</option>
+							<option value="Yellow">Yellow</option>
+							<option value="Brown">Brown</option>
+							<option value="Pink">Pink</option>
 						</Select>
-
+						<p>{errors.gender}</p>
 						<FormLabel>Sizes</FormLabel>
-						<SizeOptionsRender />
+						<SizeOptions />
 
 						<FormLabel>ArticleID</FormLabel>
 						<Input
@@ -266,14 +279,16 @@ const FormProduct = () => {
 							value={form.articleID}
 							onChange={handleChange}
 						/>
+						<p>{errors.articleID}</p>
 						<FormLabel>Price $</FormLabel>
 						<NumberInput
 							name="price"
 							value={form.price}
-							onChange={value => handleChange({ target: { name: "price", value: parseInt(value) } })}
+							onChange={value => handleChange({ target: { name: "price", value } })}
 						>
 							<NumberInputField />
 						</NumberInput>
+						<p>{errors.price}</p>
 						<FormLabel>Image</FormLabel>
 
 						<Button 
