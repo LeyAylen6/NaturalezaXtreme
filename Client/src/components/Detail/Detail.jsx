@@ -38,7 +38,7 @@ const Detail = () => {
   const [inStock, setInStock] = useState(false);
   const [productSelections, setProductSelections] = useState(initProductSelections);
 
-  // console.log("article detail", articleDetail)
+  console.log("article detail", articleDetail)
   // console.log("cart articles", cartArticles);
   // console.log("product selections", productSelections);
   // console.log(inStock)

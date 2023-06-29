@@ -6,6 +6,7 @@ import fileUpload from 'express-fileupload';
 const server = express();
 import router from './routes/index'
 
+
 require('./db.ts');
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -25,6 +26,7 @@ server.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+
 server.use('/', router)
 
 // Error catching endware.
@@ -32,6 +34,8 @@ server.use('/', router)
 //     const message = err.message || err;
 //     console.error(err);
 //     res.status(500).send(message);
+
+
 // });
   
 export default server;
