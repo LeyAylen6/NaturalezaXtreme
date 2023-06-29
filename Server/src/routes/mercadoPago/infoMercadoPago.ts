@@ -33,13 +33,13 @@ export const infoMercadoPago = async (req: Request, res: Response)  => {
             let payment = await mercadopago.payment.findById(+paymentId!)
            
             if(payment.response.status === 'approved'){                
-                infoMercadoPagoController(String(userId))
+                await infoMercadoPagoController(String(userId))
             }
         }
 
 
             
-        return res.status(200).json(query)
+        return res.status(200).send( `Se actualizo la base de datos`)
         
     } catch (error) {
         return res.status(400).json({error: 'Algo salio mal'})

@@ -7,8 +7,9 @@ import { removeFromCart, increaseQuantity, decreaseQuantity } from "../../redux/
 import { getPendingCart, getCartById } from "../../redux/actions/cartActions.js";
 
 import { getUsers } from "../../redux/actions/actionsUsers.js";
-
+import { useAuth0 } from "@auth0/auth0-react";
 const Cart = () => {
+  let { user } = useAuth0();
   //pending cart serían los productos que puso en el carrito para comprar
   //Intente separar este useSelecto en dos, uno para el pending cart y otro para el cartArticles, pero no me funcionó.
   const { cartArticles, userId, pendingCart } = useSelector((state) => state);
@@ -59,7 +60,7 @@ const Cart = () => {
         size: items.size,
       }));
       dispatch(addToMercadoPago(mercadoPagoItems));
-      const result = await dispatch(createPayment(mercadoPagoItems));
+      const result = await dispatch(createPayment(mercadoPagoItems, user.email));
       if (result === "success") {
         navigate("/");
       }

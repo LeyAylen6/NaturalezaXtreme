@@ -19,7 +19,7 @@ export const postMercadoPago = async (req: Request, res: Response)  => {
         console.log(req.body);
         
 
-        const mercadoPago = await postMercadoPagoController(req.body.userId.id)
+        const mercadoPago = await postMercadoPagoController(req.body.userId)
         return res.status(200).json(mercadoPago)
         
     } catch (error) {
