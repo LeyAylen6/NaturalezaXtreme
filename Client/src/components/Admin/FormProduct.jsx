@@ -276,14 +276,25 @@ const FormProduct = () => {
 						</NumberInput>
 						<FormLabel>Image</FormLabel>
 
-						<Button onClick={showUploadWidget} />
+						<Button 
+							onClick={showUploadWidget}
+							color="black"
+							border="none"
+							borderRadius={7}
+							// bg="lightgrey"
+							w={80}
+							h={10}
+							background="gray.300"
+						>
+							Upload image
+						</Button>
 						
 					</FormControl>
 					<Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
-						<Button type="submit" isDisabled={disableSubmit}>
+						<Button type="submit" isDisabled={disableSubmit} colorScheme="linkedin" w={100}>
 							Add
 						</Button>
-						<Button onClick={handleReset}>Cancel</Button>
+						<Button onClick={handleReset} w={100}>Cancel</Button>
 					</Box>
 				</form>
 			</Box>
