@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column,ManyToOne, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column,ManyToOne, OneToMany, BaseEntity } from 'typeorm'
 import{ User } from './userEntity'
 import { Shopping_Cart_Article } from './shoppingCart_ArticleEntity'
 import { CategoryCart } from '../interfaces/categoryCart'
 
 @Entity()
-export class Shopping_Cart {
+export class Shopping_Cart extends BaseEntity {
     
     @PrimaryGeneratedColumn()
     id: number
