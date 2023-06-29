@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux"
 import { addProduct } from "../../redux/actions/actions"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+// import cloudinary from "cloudinary"
 import validateForm from "./helpers/validateForm"
 
 const initialFormState = {
@@ -50,6 +51,7 @@ const initialErrors = {
 }
 
 const FormProduct = () => {
+
 	const dispatch = useDispatch()
 	const [form, setForm] = useState(initialFormState)
 	const [disableSubmit, setDisableSubmit] = useState(true)
@@ -151,7 +153,61 @@ const FormProduct = () => {
 				))}
 			</Wrap>
 		)
+		
 	}
+	
+	const showUploadWidget = () => {
+		cloudinary.openUploadWidget({
+			cloudName: "dn3tgaige",
+			uploadPreset: "articles",
+			sources: [
+				"local",
+				"camera",
+				"image_search",
+				"url"
+			],
+			showAdvancedOptions: true,
+			cropping: true,
+			multiple: false,
+			defaultSource: "local",
+			styles: {
+			   palette: {
+				   window: "#FFFFFF",
+				   windowBorder: "#90A0B3",
+				   tabIcon: "#0078FF",
+				   menuIcons: "#5A616A",
+				   textDark: "#000000",
+				   textLight: "#FFFFFF",
+				   link: "#0078FF",
+				   action: "#FF620C",
+				   inactiveTabIcon: "#0E2F5A",
+				   error: "#F44235",
+				   inProgress: "#0078FF",
+				   complete: "#20B832",
+				   sourceBg: "#E4EBF1"
+			  	},
+			   	fonts: {
+				   default: {
+					   active: true
+				   }
+			   }
+		   }
+	   	},
+
+		(err, result) => {
+
+			if (err) {    
+				console.log(err);
+			}
+
+			if(result.event = 'success' && result.info.url) {
+				setForm({
+					...form,
+					image: result.info.url
+				})
+			}
+		},
+	)};
 
 	return (
 		<Container w="100%" marginTop={10}>
@@ -234,14 +290,26 @@ const FormProduct = () => {
 						</NumberInput>
 						<p>{errors.price}</p>
 						<FormLabel>Image</FormLabel>
-						<Input type="text" placeholder="Image" name="image" value={form.image} onChange={handleChange} />
-						<p>{errors.image}</p>
+
+						<Button 
+							onClick={showUploadWidget}
+							color="black"
+							border="none"
+							borderRadius={7}
+							// bg="lightgrey"
+							w={80}
+							h={10}
+							background="gray.300"
+						>
+							Upload image
+						</Button>
+						
 					</FormControl>
 					<Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
-						<Button onClick={handleReset}>Cancel</Button>
-						<Button type="submit" isDisabled={disableSubmit}>
+						<Button type="submit" isDisabled={disableSubmit} colorScheme="linkedin" w={100}>
 							Add
 						</Button>
+						<Button onClick={handleReset} w={100}>Cancel</Button>
 					</Box>
 				</form>
 			</Box>
