@@ -10,21 +10,23 @@ import { getUserId, getUsers } from "../../redux/actions/actionsUsers";
 
 const Home = () => {
   //no me trae el estado actualizado... no se si está pisando el estado
-  const userId = useSelector(state => state.userId)
+  const userId = useSelector((state) => state.userId);
   const dispatch = useDispatch();
   let { user, isAuthenticated } = useAuth0();
   //Pregunto si está autenticado y si lo está, le paso el usuario al back para que me lo agregue a la base de datos
-
+  console.log("USER", userId);
   useEffect(() => {
     dispatch(getArticles());
     dispatch(getUsers());
-
     if (isAuthenticated) {
-      getAllFavs(userId.id, dispatch)
       getUserId(user, dispatch);
+      getAllFavs(userId.id);
       // dispatch(addToCart(userId));
+      //guardo el id del usuario en el local storage para poder usarlo en el carrito
+      const userIdStorage = userId.id;
+      localStorage.setItem("userId", JSON.stringify(userIdStorage));
     }
-  }, []);
+  }, [dispatch, userId.id]);
 
   return (
     <Box>
