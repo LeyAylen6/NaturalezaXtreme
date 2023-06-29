@@ -18,12 +18,19 @@ const postMercadoPagoController = async (userId: string) =>{
         }
     })
     
-    const URLBK = 'https://7e3c-201-190-150-125.ngrok-free.app'
+    const payer = {
+        email: data.user.email
+    }
+    const URLBK = 'https://c831-201-190-150-125.ngrok-free.app'
     const URL = 'https://7783-201-190-150-125.ngrok-free.app'
     // si no les funciona con esa url pongan http://localhost:3001/ 
         
     let preference: CreatePreferencePayload  = {
         items,
+        payer,
+        payment_methods:{
+            installments: 6
+        },
         back_urls: {
             "success": `${URL}`,
             "failure": `${URL}`,
