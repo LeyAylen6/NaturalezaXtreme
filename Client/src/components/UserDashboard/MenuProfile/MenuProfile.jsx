@@ -1,9 +1,12 @@
 import { IconButton, Menu, MenuButton, MenuItem, MenuList,Avatar, Box } from "@chakra-ui/react";
 import {HamburgerIcon} from '@chakra-ui/icons'
+import { useNavigate} from "react-router-dom";
 
 
 
 const MenuProfile=()=>{
+
+  const navigate = useNavigate()
 
   return (
     <Menu>
@@ -13,10 +16,10 @@ const MenuProfile=()=>{
     variant='outline'/>
 <MenuList fontSize="20px">
   
-  <MenuItem >
-  My Profile
+  <MenuItem onClick={()=>navigate("/account")}>
+  My Account
   </MenuItem>
-  <MenuItem>
+  <MenuItem onClick={()=>navigate("/myshopping")}>
   My Shopping
   </MenuItem>
 </MenuList>

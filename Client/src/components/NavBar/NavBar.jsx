@@ -9,7 +9,7 @@ import Login from "../LoginandSignUp/Login/Login";
 import { BsCart3 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../redux/actions/actionsUsers";
-import MenuProfile from "../MenuProfile/MenuProfile";
+import MenuProfile from "../UserDashboard/MenuProfile/MenuProfile";
 
 const NavBar = () => { 
   const users = useSelector((state) => state.users)
@@ -18,11 +18,11 @@ const NavBar = () => {
   const userFinded= users.find(element => element.email===user?.email) 
   
   let admin 
-  const userAdmin = () => {
-    if (userFinded.rol === 'admin'){admin = userFinded} 
+  
+    if (userFinded?.rol === 'admin'){admin = userFinded} 
    else {
       admin = null;
-  }
+  
 }
   return (
     <Stack
@@ -61,8 +61,7 @@ const NavBar = () => {
           </Link>
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
-          { userFinded ?
-          <Link to="/admin">Admin</Link> : null}
+          { admin !== null ?<Link to="/admin">Admin</Link>:null}
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
           {isAuthenticated ? <Logout /> : <Login />}
@@ -70,11 +69,7 @@ const NavBar = () => {
 
         <Profile />
       
-        
-        <Box>
-          <MenuProfile/>
-        </Box>
-        
+        { isAuthenticated &&  <MenuProfile/>}
       </HStack>
     </Stack>
   );

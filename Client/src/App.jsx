@@ -21,6 +21,8 @@ import MercadoPago from "./components/MercadoPago/Mercadopago";
 import Signup2 from "./components/LoginandSignUp/Signup2";
 import MercadoPagoError from "./components/MercadoPago/MercadoPagoError";
 import Privateroute from "./components/PrivateRoute/Privateroute";
+import Account from "./components/UserDashboard/Account";
+import Shopping from "./components/UserDashboard/Shopping";
 
 function App() {
   return (
@@ -47,6 +49,8 @@ function App() {
             <Route element={<Privateroute/>}>
              </Route>
              <Route path="/admin" element={<Admin />} />
+             <Route path="/account" element={<Account/>}/>
+             <Route path="/myshopping" element={<Shopping/>}/>
            </Routes> 
         
         </Box>
