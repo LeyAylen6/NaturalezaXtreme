@@ -19,6 +19,8 @@ import Signup2 from "./components/LoginandSignUp/Signup2";
 import MercadoPagoError from "./components/MercadoPago/MercadoPagoError";
 import Privateroute from "./components/PrivateRoute/Privateroute";
 import Stadistics from "./components/Admin/Statistics";
+import { useSelector } from "react-redux";
+import { Box } from "@chakra-ui/react";
 
 function App() {
 
