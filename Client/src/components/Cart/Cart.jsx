@@ -7,13 +7,12 @@ import { removeFromCart, increaseQuantity, decreaseQuantity } from "../../redux/
 import { getUsers } from "../../redux/actions/actionsUsers.js";
 
 const Cart = () => {
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const paymentLink = useSelector((state) => state.paymentLink);
   const [paymentError, setPaymentError] = useState(false);
   const [cartUpdated, setCartUpdated] = useState(false);
-  
+
   const fullCart = JSON.parse(localStorage.getItem("cart"));
   let modifiedCart = fullCart;
 
@@ -76,12 +75,12 @@ const Cart = () => {
       setPaymentError(true);
     }
   };
- 
+
   return (
     <Box border={"2px"}>
       <Heading>Shopping Cart</Heading>
       <UnorderedList>
-        {!fullCart?.length? (
+        {!fullCart?.length ? (
           <Heading fontSize="14px">No tienes productos en el carrito</Heading>
         ) : (
           fullCart?.map((item) => (
@@ -92,6 +91,9 @@ const Cart = () => {
                 </Box>
                 <Box display="flex" justifyContent="center" alignItems="center">
                   {item.name} - Cantidad: {item.quantity}
+                </Box>
+                <Box dosplay="flex" justifyContent={"center"} alignItems={"center"}>
+                  <p> size: {item.size} </p>
                 </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center">

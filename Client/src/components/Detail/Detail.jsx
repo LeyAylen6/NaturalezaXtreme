@@ -31,8 +31,8 @@ const Detail = () => {
   const navigate = useNavigate();
 
   //Trae user Id y el carrito del localStorage
-  const user = JSON.parse(localStorage.getItem("userId"))
-//  const storageCart = JSON.parse(localStorage.getItem("cart")) //Se usaría si hay una vista de payments
+  const user = JSON.parse(localStorage.getItem("userId"));
+  //  const storageCart = JSON.parse(localStorage.getItem("cart")) //Se usaría si hay una vista de payments
 
   //Suscripcion a estados globales
   let myFavorites = useSelector((state) => state.myFavorites);
@@ -55,10 +55,10 @@ const Detail = () => {
         setIsFavorite(true);
       }
     });
-  }, []);   
+  }, []);
 
   //Muestra los talles de prendas o calzados según corresponda
-    useEffect(() => {
+  useEffect(() => {
     if (articleDetail.type === "shoes") {
       for (const size in articleDetail.shoeSize) {
         if (articleDetail.shoeSize.hasOwnProperty(size)) {
@@ -77,8 +77,8 @@ const Detail = () => {
           }
         }
       }
-    };
-  }, [articleDetail]);    
+    }
+  }, [articleDetail]);
 
   //Guarda las selecciones en el estado local productSelections
   const handleChange = (event) => {
@@ -98,28 +98,28 @@ const Detail = () => {
 
   //Guarda el carrito en localStorage
   const saveLocalStorage = () => {
-    localStorage.setItem("cart", JSON.stringify(cartLocal))
-  }
-  
+    localStorage.setItem("cart", JSON.stringify(cartLocal));
+  };
+
   //Agrega el artículo al carrito estado global
   const handleAddToCart = (event) => {
     event.preventDefault();
     if (isInCart) {
       setIsInCart(false);
-      cartLocal.pop()
-      saveLocalStorage()
+      cartLocal.pop();
+      saveLocalStorage();
     } else {
       setIsInCart(true);
-      cartLocal.push(productSelections)
-      saveLocalStorage()
+      cartLocal.push(productSelections);
+      saveLocalStorage();
     }
-  }
+  };
 
   //Botón buyNow
   const handleSubmit = (event) => {
     event.preventDefault();
-// !storageCart.length? navigate ("/payment"):
-    navigate("/cart")
+    // !storageCart.length? navigate ("/payment"):
+    navigate("/cart");
     backHome();
   };
 
@@ -134,7 +134,7 @@ const Detail = () => {
       addFav({ userId: user.id, articleId: id }, dispatch);
     }
   };
-  
+
   //Muestra si el producto está en stock o no
   const stockComponentConfig = [
     { bg: "#48BB78", content: "Product in stock", hidden: !inStock ? "hidden" : null },
@@ -143,9 +143,11 @@ const Detail = () => {
   const StockDisplay = ({ content, ...config }) => {
     return <Box {...config}>{content}</Box>;
   };
-  
+
   //Limpia el estado de detail con botón back to home y en buyNow
-  const cleanDetailState = () => {dispatch(resState())}
+  const cleanDetailState = () => {
+    dispatch(resState());
+  };
 
   return (
     <Flex align={"center"} mt="50px" direction="column">
@@ -216,7 +218,8 @@ const Detail = () => {
                 colorScheme="blackAlpha"
                 bgColor="black"
                 mt="10px"
-              >Buy Now
+              >
+                Buy Now
               </Button>
             </form>
           </Box>

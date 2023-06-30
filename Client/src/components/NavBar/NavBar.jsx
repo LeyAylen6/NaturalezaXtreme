@@ -9,20 +9,25 @@ import Login from "../LoginandSignUp/Login/Login";
 import { BsCart3 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../redux/actions/actionsUsers";
+import CartItems from "../Cart/CartItems";
 
-const NavBar = () => { 
-  const users = useSelector((state) => state.users)
+const NavBar = () => {
+  const users = useSelector((state) => state.users);
   const { isAuthenticated, user } = useAuth0();
- 
-  const userFinded= users.find(element => element.email===user?.email) 
-  
-  let admin 
+
+  const userFinded = users.find((element) => element.email === user?.email);
+
+  let admin;
   const userAdmin = () => {
-    if (userFinded.rol === 'admin'){admin = userFinded} 
-   else {
+    if (userFinded.rol === "admin") {
+      admin = userFinded;
+    } else {
       admin = null;
-  }
-}
+    }
+  };
+  const fullCart = JSON.parse(localStorage.getItem("cart"));
+  console.log(fullCart);
+  const totalQuantity = fullCart?.reduce((acc, item) => acc + item.quantity, 0);
   return (
     <Stack
       direction={"row"}
@@ -32,15 +37,10 @@ const NavBar = () => {
       alignItems={"center"}
       fontSize={"20px"}
     >
-      <Box  pl={5}>
+      <Box pl={5}>
         <Img src={logo} alt="logo" maxHeight={"75px"}></Img>
       </Box>
-      <Box
-        bg={"transparent"}
-        marginLeft={"50px"}
-        border={"none"}
-        color={"white"}
-      >
+      <Box bg={"transparent"} marginLeft={"50px"} border={"none"} color={"white"}>
         <Link to="/">Products</Link>
       </Box>
       <Box bg={"transparent"} color={"white"}>
@@ -57,11 +57,11 @@ const NavBar = () => {
         <Box bg={"transparent"} color={"white"}>
           <Link to="/cart">
             <BsCart3 />
+            {fullCart?.length > 0 ? totalQuantity : null}
           </Link>
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
-          { userFinded ?
-          <Link to="/admin">Admin</Link> : null}
+          {userFinded ? <Link to="/admin">Admin</Link> : null}
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
           {isAuthenticated ? <Logout /> : <Login />}
