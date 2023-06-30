@@ -174,6 +174,7 @@ export const productdesactivate = (id, active) => {
       const apiData = await axios.put(`${URL}articles/${id}`, body);
       const product = apiData.data;
       dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
+      dispatch({ type: MESSAGE, payload: 'The product was deactivated. You can look for it in the "Out to sale" section' })
     };
   } catch(error) {
     dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
@@ -187,6 +188,7 @@ export const updateProduct = (body) => {
   
       const product = apiData.data;
       dispatch({ type: UPDATE_PRODUCT, payload: product });
+      dispatch({ type: MESSAGE, payload: 'Successfully updated!' })
     };
   } catch(error) {
     dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
@@ -224,8 +226,6 @@ export const createPayment = (items, email) => {
       const requestData = {
         userId:data.id
       };
- 
-      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
       axios
         .post(`${URL}mercadoPago`, requestData)
@@ -257,11 +257,11 @@ export const addProduct = (body) => {
       const apiData = await axios.post(`${URL}articles`, body);
       const product = apiData.data;
       dispatch({ type: ADD_PRODUCT, payload: product });
+      dispatch({ type: MESSAGE, payload: 'Successfully created!' })
     
     } catch (error) {
       dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
     }
-    
   };
 };
 
