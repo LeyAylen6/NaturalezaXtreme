@@ -18,9 +18,7 @@ import MercadoPago from "./components/MercadoPago/Mercadopago";
 import Signup2 from "./components/LoginandSignUp/Signup2";
 import MercadoPagoError from "./components/MercadoPago/MercadoPagoError";
 import Privateroute from "./components/PrivateRoute/Privateroute";
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import { Box } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import Stadistics from "./components/Admin/Statistics";
 
 function App() {
 
@@ -28,10 +26,9 @@ function App() {
 
   return (
     <Box minHeight="100vh">
-      
       {message ? <ErrorMessage message={message} /> : null}
       <NavBar />
-      
+
       <Routes>
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup2/>}/>
@@ -48,10 +45,13 @@ function App() {
         <Route path="/mercadoPago" element={<MercadoPago />} />
         <Route path="/productOutOfSale" element={<ProductOutOfSale />} />
         <Route path="/error" element={<MercadoPagoError/>}/>
+        <Route path="/estadisticas" element={<Stadistics/>}/>
         <Route element={<Privateroute/>}>  
-          <Route path="/admin" element={<Admin />} />
-        </Route> 
-      </Routes> 
+        <Route path="/admin" element={<Admin />} />
+        </Route>
+  
+        </Routes> 
+    
     </Box>
   );
 }
