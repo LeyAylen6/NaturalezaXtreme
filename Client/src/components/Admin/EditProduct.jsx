@@ -8,7 +8,9 @@ import {
 	AlertDialogOverlay,
 	Flex,
 	NumberInput,
-	NumberInputField
+	NumberInputField,
+	FormHelperText,
+	FormErrorMessage
 } from "@chakra-ui/react"
 import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table"
 import { Link, useNavigate } from "react-router-dom"
@@ -88,7 +90,7 @@ const EditProduct = () => {
 			}
 
 			if (name.startsWith("price")) {
-				if (value !== '') value = parseInt(value)
+				if (value !== "") value = parseInt(value)
 				return {
 					...prev,
 					price: value,
@@ -178,7 +180,7 @@ const EditProduct = () => {
 				<Tbody>
 					<Th>
 						<form onSubmit={handleSubmit}>
-							<FormControl>
+							<FormControl isInvalid={errors.name}>
 								<FormLabel>Name</FormLabel>
 								<Input
 									type="text"
@@ -188,7 +190,16 @@ const EditProduct = () => {
 									value={form.name}
 									onChange={handleChange}
 								/>
-								<p>{errors.name}</p>
+								{!errors.name ? (
+									<FormHelperText textAlign={"left"}>
+										Enter new article name
+									</FormHelperText>
+								) : (
+									<FormErrorMessage>Name is required</FormErrorMessage>
+								)}
+							</FormControl>
+
+							<FormControl isInvalid={errors.description}>
 								<FormLabel mb="8px">Description: </FormLabel>
 								<Input
 									type="text"
@@ -199,7 +210,16 @@ const EditProduct = () => {
 									value={form.description}
 									onChange={handleChange}
 								/>
-								<p>{errors.description}</p>
+								{!errors.description ? (
+									<FormHelperText textAlign={"left"}>
+										Enter the new article description
+									</FormHelperText>
+								) : (
+									<FormErrorMessage>Description is required</FormErrorMessage>
+								)}
+							</FormControl>
+
+							<FormControl isInvalid={errors.price}>
 								<FormLabel>Price : </FormLabel>
 								<NumberInput
 									type="number"
@@ -212,10 +232,18 @@ const EditProduct = () => {
 								>
 									<NumberInputField />
 								</NumberInput>
-								<p>{errors.price}</p>
-								<FormLabel>Size : </FormLabel>
-								<SizeOptions></SizeOptions>
+								{!errors.price ? (
+									<FormHelperText textAlign={"left"}>
+										Enter the new price of the article
+									</FormHelperText>
+								) : (
+									<FormErrorMessage>Price is required</FormErrorMessage>
+								)}
 							</FormControl>
+
+							<FormLabel>Size : </FormLabel>
+							<SizeOptions></SizeOptions>
+
 							<Button isDisabled={disableSubmit} colorScheme="teal" type="submit" m="6">
 								Submit
 							</Button>
@@ -231,11 +259,11 @@ const EditProduct = () => {
 				<AlertDialogOverlay />
 				<AlertDialogContent>
 					<AlertDialogHeader fontSize="lg" fontWeight="bold">
-						confirm change
+						Confirm alert
 					</AlertDialogHeader>
-					<AlertDialogBody>Are you sure you want to submit the form?</AlertDialogBody>
+					<AlertDialogBody>Confirm this article changes?</AlertDialogBody>
 					<AlertDialogFooter>
-						<Button colorScheme="red" ml={3} onClick={handleCancel}>
+						<Button colorScheme="red" mr={3} onClick={handleCancel}>
 							Cancel
 						</Button>
 						<Button colorScheme="teal" onClick={handleConfirm}>

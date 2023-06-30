@@ -247,12 +247,12 @@ const FormProduct = () => {
 						<Select name="type" value={form.type} onChange={handleChange}>
 							<option value="none">none</option>
 							<option value="Tshirt">Tshirt</option>
-							<option value="sweatshirt">sweatshirt</option>
-							<option value="jacket">jacket</option>
-							<option value="pant">pant</option>
-							<option value="accesories">accesories</option>
-							<option value="shoes">shoes</option>
-							<option value="equipment">equipment</option>
+							<option value="sweatshirt">Sweatshirt</option>
+							<option value="jacket">Jacket</option>
+							<option value="pant">Pant</option>
+							<option value="accesories">Accesories</option>
+							<option value="shoes">Shoes</option>
+							<option value="equipment">Equipment</option>
 						</Select>
 						{!errors.type ? (
 							<FormHelperText textAlign={"left"}>Select the article type</FormHelperText>
