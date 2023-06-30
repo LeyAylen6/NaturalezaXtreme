@@ -21,7 +21,7 @@ import MercadoPago from "./components/MercadoPago/Mercadopago";
 import Signup2 from "./components/LoginandSignUp/Signup2";
 import MercadoPagoError from "./components/MercadoPago/MercadoPagoError";
 import Privateroute from "./components/PrivateRoute/Privateroute";
-
+import Stadistics from "./components/Admin/Statistics";
 function App() {
   return (
     <ChakraProvider>
@@ -45,6 +45,7 @@ function App() {
             <Route path="/mercadoPago" element={<MercadoPago />} />
             <Route path="/productOutOfSale" element={<ProductOutOfSale />} />
             <Route path="/error" element={<MercadoPagoError/>}/>
+            <Route path="/estadisticas" element={<Stadistics/>}/>
             <Route element={<Privateroute/>}>  
             <Route path="/admin" element={<Admin />} />
            </Route>

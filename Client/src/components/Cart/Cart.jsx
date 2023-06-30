@@ -8,6 +8,7 @@ import { getPendingCart, getCartById } from "../../redux/actions/cartActions.js"
 
 import { getUsers } from "../../redux/actions/actionsUsers.js";
 import { useAuth0 } from "@auth0/auth0-react";
+import Stadistics from "../Admin/Statistics.jsx";
 const Cart = () => {
   let { user } = useAuth0();
   //pending cart serían los productos que puso en el carrito para comprar
