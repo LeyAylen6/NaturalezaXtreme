@@ -1,15 +1,12 @@
 import {
 	Box,
 	Button,
-	Card,
 	Container,
 	FormControl,
 	FormLabel,
 	Heading,
 	Input,
 	Select,
-	Text,
-	Flex,
 	WrapItem,
 	Wrap,
 	NumberInput,
@@ -281,7 +278,7 @@ const FormProduct = () => {
 					<FormControl isInvalid={errors.color}>
 						<FormLabel>Color</FormLabel>
 						<Select name="color" value={form.color} onChange={handleChange}>
-							<option value="option1">none</option>
+							<option value="none">none</option>
 							<option value="Black">Black</option>
 							<option value="White">White</option>
 							<option value="Grey">Grey</option>
