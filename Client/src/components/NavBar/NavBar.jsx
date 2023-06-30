@@ -10,19 +10,26 @@ import { BsCart3 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../redux/actions/actionsUsers";
 
-const NavBar = () => { 
-  const users = useSelector((state) => state.users)
+//Carrito nuevo
+import { useContext } from "react";
+import { dataContext } from "../Context/DataContext";
+import TotalItems from "../CartContent/TotalItems";
+
+const NavBar = () => {
+  const users = useSelector((state) => state.users);
   const { isAuthenticated, user } = useAuth0();
- 
-  const userFinded= users.find(element => element.email===user?.email) 
-  
-  let admin 
+  const { cart } = useContext(dataContext);
+
+  const userFinded = users.find((element) => element.email === user?.email);
+
+  let admin;
   const userAdmin = () => {
-    if (userFinded.rol === 'admin'){admin = userFinded} 
-   else {
+    if (userFinded.rol === "admin") {
+      admin = userFinded;
+    } else {
       admin = null;
-  }
-}
+    }
+  };
   return (
     <Stack
       direction={"row"}
@@ -32,15 +39,10 @@ const NavBar = () => {
       alignItems={"center"}
       fontSize={"20px"}
     >
-      <Box  pl={5}>
+      <Box pl={5}>
         <Img src={logo} alt="logo" maxHeight={"75px"}></Img>
       </Box>
-      <Box
-        bg={"transparent"}
-        marginLeft={"50px"}
-        border={"none"}
-        color={"white"}
-      >
+      <Box bg={"transparent"} marginLeft={"50px"} border={"none"} color={"white"}>
         <Link to="/">Products</Link>
       </Box>
       <Box bg={"transparent"} color={"white"}>
@@ -57,11 +59,11 @@ const NavBar = () => {
         <Box bg={"transparent"} color={"white"}>
           <Link to="/cart">
             <BsCart3 />
+            {cart.length > 0 ? <TotalItems /> : null}
           </Link>
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
-          { userFinded ?
-          <Link to="/admin">Admin</Link> : null}
+          {userFinded ? <Link to="/admin">Admin</Link> : null}
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
           {isAuthenticated ? <Logout /> : <Login />}

@@ -10,6 +10,10 @@ import SizeOptions from "./utils/SizeOptions";
 import Rating from "../Rating/Rating";
 import { originalColors } from "../../theme/palette";
 
+//nuevo carrito
+import { useContext } from "react";
+import { dataContext } from "../Context/DataContext";
+
 const initProductSelections = {
   id: "",
   articleID: "",
@@ -37,8 +41,9 @@ const Detail = () => {
   const [isInCart, setIsInCart] = useState(false);
   const [inStock, setInStock] = useState(false);
   const [productSelections, setProductSelections] = useState(initProductSelections);
-
-  console.log("article detail", articleDetail)
+  //nuevo carrito
+  const { addCart, deleteProduct } = useContext(dataContext);
+  console.log("article detail", articleDetail);
   // console.log("cart articles", cartArticles);
   // console.log("product selections", productSelections);
   // console.log(inStock)
@@ -100,7 +105,8 @@ const Detail = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(addToCart(productSelections));
+    addCart(productSelections);
+
     navigate("/cart");
   };
 
@@ -109,15 +115,19 @@ const Detail = () => {
     event.preventDefault();
     if (isInCart) {
       setIsInCart(false);
-      dispatch(removeFromCart(id));
+      // dispatch(removeFromCart(id));
+      //nuevo carrito
+      deleteProduct(articleDetail.id);
     } else {
       setIsInCart(true);
-      dispatch(addToCart(productSelections));
+      // dispatch(addToCart(productSelections));
+      //nuevo carrito
+      addCart(productSelections);
     }
   };
 
-  console.log({userId: user, articleId: id})
-  
+  console.log({ userId: user, articleId: id });
+
   //boton agregar a favoritos
   const handleFavorites = (event) => {
     event.preventDefault();

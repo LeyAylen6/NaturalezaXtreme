@@ -56,23 +56,22 @@ export const prevPage = (props) => {
   }
 };
 
-export const getAllFavs = async(id, dispatch) => {
+export const getAllFavs = async (id, dispatch) => {
   const { data } = await axios.get(`${URL}fav/${id}`);
-  dispatch({ type: GET_ALL_FAVS , payload: data.articles });
+  dispatch({ type: GET_ALL_FAVS, payload: data.articles });
 };
 
-export const addFav = async(userAndArticleId, dispatch) => {
+export const addFav = async (userAndArticleId, dispatch) => {
   try {
     const { data } = await axios.post(`${URL}fav`, userAndArticleId);
     dispatch({ type: ADD_FAV, payload: data });
-
-  } catch(error) {
-    console.log(error)
+  } catch (error) {
+    console.log(error);
   }
 };
 
-export const removeFav = async(userAndArticleId, dispatch) => {
-  await axios.delete(`${URL}fav`, {data: userAndArticleId});
+export const removeFav = async (userAndArticleId, dispatch) => {
+  await axios.delete(`${URL}fav`, { data: userAndArticleId });
   dispatch({ type: REMOVE_FAV, payload: userAndArticleId.articleId });
 };
 
@@ -88,7 +87,7 @@ export const getArticlesByQuery = (name) => {
   return async (dispatch) => {
     const response = await axios.get(`${URL}articles`);
     const payload = response.data;
-    
+
     return dispatch({
       type: GET_ARTICLES_BY_QUERY,
       payload,
@@ -151,6 +150,7 @@ export const updateProduct = (body) => {
 };
 
 export const addToMercadoPago = (items) => {
+  console.log("items", items);
   return (dispatch, getState) => {
     const { users, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
 
@@ -169,12 +169,12 @@ export const addToMercadoPago = (items) => {
 
 export const createPayment = (items, email) => {
   return async (dispatch, getState) => {
-    const {data} = await axios.post(`${URL}login`, {email})
+    const { data } = await axios.post(`${URL}login`, { email });
     //const { userId, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
     //const { cartArticles } = getState(); // Obtener los artículos del carrito del estado global
- 
+
     const requestData = {
-      userId:data.id
+      userId: data.id,
     };
 
     axios
