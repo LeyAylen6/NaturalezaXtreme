@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import { Box, Stack, HStack, Img } from "@chakra-ui/react";
+import { Box, Stack, HStack, Img, Menu } from "@chakra-ui/react";
 import logo from "../../assets/logo.jpg";
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "../Profile/Profile";
@@ -9,6 +9,7 @@ import Login from "../LoginandSignUp/Login/Login";
 import { BsCart3 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../redux/actions/actionsUsers";
+import MenuProfile from "../MenuProfile/MenuProfile";
 
 const NavBar = () => { 
   const users = useSelector((state) => state.users)
@@ -68,6 +69,12 @@ const NavBar = () => {
         </Box>
 
         <Profile />
+      
+        
+        <Box>
+          <MenuProfile/>
+        </Box>
+        
       </HStack>
     </Stack>
   );
