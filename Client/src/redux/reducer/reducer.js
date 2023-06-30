@@ -18,10 +18,14 @@ import {
   SIGN_UP,
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
+  CLEAR_MESSAGE,
+  MESSAGE
 } from "../actions/actions";
+
 import { GET_USERS, POST_USERS, USER_ID } from "../actions/actionsUsers";
 import { FILTER_COMBINATED } from "../actions/actionFilters";
 import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, GET_CART, GET_PENDING_CART } from "../actions/cartActions";
+
 
 const initialState = {
   users: [],
@@ -36,7 +40,8 @@ const initialState = {
   cart: [],
   userId: 0,
   pendingCart: [],
-  page: 1
+  page: 1,
+  message: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -46,42 +51,50 @@ const reducer = (state = initialState, action) => {
         ...state,
         userId: action.payload,
       };
+
     case FILTER_COMBINATED:
       return {
         ...state,
         articles: action.payload,
         page: 1
       };
+
     case FILTER_SEARCHBAR:
       return {
         ...state,
         articles: action.payload,
       };
+
     case GET_ARTICLES_BY_QUERY:
       return {
         ...state,
         allProducts: action.payload,
       };
+
     case GET_ALL_PRODUCTS:
       return {
         ...state,
         allProducts: action.payload,
       };
+
     case GET_ALL_FAVS:
       return {
         ...state,
         myFavorites: action.payload
       }
+
     case ADD_FAV:
       return {
         ...state,
         myFavorites: [...state.myFavorites, action.payload],
       };
+
     case GET_USERS:
       return {
         ...state,
         users: action.payload,
       };
+
     case UPDATE_PRODUCT:
       return {
         ...state,
@@ -93,36 +106,43 @@ const reducer = (state = initialState, action) => {
         ...state,
         myFavorites: state.myFavorites.filter((product) => product.id != action.payload),
       };
+
     case GET_PRODUCT_DESACTIVATE:
       return {
         ...state,
       };
+
     case GET_ARTICLES:
       return {
         ...state,
         articles: action.payload,
       };
+
     case NEXT_PAGE:
       return {
         ...state,
         articles: action.payload,
         page: state.page + 1
       };
+
     case PREV_PAGE:
       return {
         ...state,
         articles: action.payload,
         page: state.page - 1
       };
+
     case GET_ARTICLE_ID:
       return {
         articleById: action.payload,
       };
+
     case GET_DETAIL:
       return {
         ...state,
         detail: action.payload,
       };
+
     case RES_STATE:
       return {
         ...state,
@@ -140,26 +160,31 @@ const reducer = (state = initialState, action) => {
         ...state,
         allProducts: [...state.allProducts, action.payload],
       };
+
     case POST_USERS:
       return {
         ...state,
         users: action.payload,
       };
+
     case SIGN_UP:
       return {
         ...state,
         signUp: action.payload,
       };
+
     case ADD_TO_CART:
       return {
         ...state,
         cartArticles: [...state.cartArticles, action.payload],
       };
+
     case REMOVE_FROM_CART:
       return {
         ...state,
         cartArticles: [...state.cartArticles.filter((article) => article.id != action.payload)],
       };
+
     case CLEAR_CART:
       return {
         ...state,
@@ -179,6 +204,7 @@ const reducer = (state = initialState, action) => {
           return item;
         }),
       };
+      
     case DECREASE_QUANTITY:
       return {
         ...state,
@@ -192,16 +218,30 @@ const reducer = (state = initialState, action) => {
           return item;
         }),
       };
+
     case GET_CART:
       return {
         ...state,
         cart: action.payload,
       };
+
     case GET_PENDING_CART:
       return {
         ...state,
         pendingCart: action.payload,
       };
+
+    case MESSAGE:
+      return {
+        ...state,
+        message: action.payload
+      }
+
+    case CLEAR_MESSAGE:
+      return {
+        ...state,
+        message: ''
+      }
 
     default:
       return { ...state };
