@@ -8,7 +8,7 @@ const Privateroute = ()=> {
 
     const {user}=useAuth0()
     console.log(user);
-    const userFinded= users.find(element => element.email===user.email)
+    const userFinded= users.find(element => element.email===user?.email)
 
     let permision;
     if(userFinded && userFinded.rol==="Admin"){
