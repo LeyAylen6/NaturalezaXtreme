@@ -1,25 +1,25 @@
 import {
 	Box,
 	Button,
-	Card,
 	Container,
 	FormControl,
 	FormLabel,
 	Heading,
 	Input,
 	Select,
-	Text,
-	Flex,
 	WrapItem,
 	Wrap,
 	NumberInput,
 	NumberInputField,
+	FormHelperText,
+	FormErrorMessage,
 } from "@chakra-ui/react"
 import { useDispatch } from "react-redux"
 import { addProduct } from "../../redux/actions/actions"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 // import cloudinary from "cloudinary"
+import validateForm from "./helpers/validateForm"
 
 const initialFormState = {
 	name: "",
@@ -27,12 +27,12 @@ const initialFormState = {
 	type: "",
 	gender: "",
 	color: "",
-	price: undefined,
+	price: 0,
 	articleID: "",
 	active: true,
 	image: "",
-	size: {},
-	shoeSize: {},
+	size: { XS: 0, S: 0, M: 0, L: 0, XL: 0, U: 0 },
+	shoeSize: { 35: 0, 36: 0, 37: 0, 38: 0, 39: 0, 40: 0, 41: 0, 42: 0, 43: 0, 44: 0, 45: 0, 46: 0 },
 }
 
 const initialErrors = {
@@ -41,62 +41,86 @@ const initialErrors = {
 	type: "",
 	gender: "",
 	color: "",
-	price: undefined,
+	price: "",
 	articleID: "",
-	active: true,
+	// active: "",
 	image: "",
-	size: {},
-	shoeSize: {},
+	size: "",
+	shoeSize: "",
 }
 
 const FormProduct = () => {
-
 	const dispatch = useDispatch()
 	const [form, setForm] = useState(initialFormState)
 	const [disableSubmit, setDisableSubmit] = useState(true)
+	const [errors, setErrors] = useState(initialErrors)
+
+	// console.log("disable submit :", disableSubmit)
+	console.log("form", form)
+	console.log("errors", errors)
 
 	useEffect(() => {
 		handleDisable({ ...form })
 	}, [form])
 
 	const handleChange = e => {
-		const { name, value } = e.target
-		setForm(prev => ({
-			...prev,
-			[name]: value,
-		}))
-	}
-
-	const handleSizeChange = e => {
-		e.preventDefault()
+		// e.preventDefault()
 		let { name, value } = e.target
-		if (value === '') value = 0
+		console.log(name, value)
 
 		setForm(prev => {
-			if (form.type === "shoes") {
+			// Verificar si el campo es 'shoeSize'
+			if (name.startsWith("shoeSize")) {
+				if (value === "") value = 0
+				const shoeSizeKey = name.split(".")[1]
 				return {
 					...prev,
 					shoeSize: {
 						...prev.shoeSize,
-						[name]: parseInt(value),
+						[shoeSizeKey]: parseInt(value),
 					},
 				}
-			} else
+			}
+			if (name.startsWith("size")) {
+				if (value === "") value = 0
+				const sizeKey = name.split(".")[1]
 				return {
 					...prev,
 					size: {
 						...prev.size,
-						[name]: parseInt(value),
+						[sizeKey]: parseInt(value),
 					},
 				}
+			}
+
+			if (name.startsWith("price")) {
+				if (value !== "") value = parseInt(value)
+				return {
+					...prev,
+					price: value,
+				}
+			}
+
+			return {
+				...prev,
+				[name]: value,
+			}
 		})
+
+		validateForm(
+			{
+				...form,
+				[name]: value,
+			},
+			name,
+			errors,
+			setErrors
+		)
 	}
 
 	const handleDisable = form => {
 		const values = Object.values(form)
-		// const allKeysFilled = values.every(value => value.length > 0)
 		const allKeysFilled = values.every(value => !!value)
-
 		setDisableSubmit(!allKeysFilled)
 	}
 
@@ -109,95 +133,73 @@ const FormProduct = () => {
 		setForm(initialFormState)
 	}
 
-	const sizes = {
-		shoeSizes: Array.from({ length: 12 }, (_, index) => index + 35),
-		clotheSizes: ["S", "M", "L", "XL", "Unique"],
+	const SizeOptions = () => {
+		const sizes = form.type === "shoes" ? form.shoeSize : form.size
+
+		return (
+			<Wrap>
+				{Object.entries(sizes).map(([key, value]) => (
+					<WrapItem key={key} width="32%" marginBottom="10px">
+						<FormLabel>{key}</FormLabel>
+						<Input
+							type="number"
+							value={value}
+							name={`${form.type === "shoes" ? "shoeSize" : "size"}.${key}`}
+							onChange={handleChange}
+						/>
+					</WrapItem>
+				))}
+			</Wrap>
+		)
 	}
 
 	const showUploadWidget = () => {
-		cloudinary.openUploadWidget({
-			cloudName: "dn3tgaige",
-			uploadPreset: "articles",
-			sources: [
-				"local",
-				"camera",
-				"image_search",
-				"url"
-			],
-			showAdvancedOptions: true,
-			cropping: true,
-			multiple: false,
-			defaultSource: "local",
-			styles: {
-			   palette: {
-				   window: "#FFFFFF",
-				   windowBorder: "#90A0B3",
-				   tabIcon: "#0078FF",
-				   menuIcons: "#5A616A",
-				   textDark: "#000000",
-				   textLight: "#FFFFFF",
-				   link: "#0078FF",
-				   action: "#FF620C",
-				   inactiveTabIcon: "#0E2F5A",
-				   error: "#F44235",
-				   inProgress: "#0078FF",
-				   complete: "#20B832",
-				   sourceBg: "#E4EBF1"
-			  	},
-			   	fonts: {
-				   default: {
-					   active: true
-				   }
-			   }
-		   }
-	   	},
+		cloudinary.openUploadWidget(
+			{
+				cloudName: "dn3tgaige",
+				uploadPreset: "articles",
+				sources: ["local", "camera", "image_search", "url"],
+				showAdvancedOptions: true,
+				cropping: true,
+				multiple: false,
+				defaultSource: "local",
+				styles: {
+					palette: {
+						window: "#FFFFFF",
+						windowBorder: "#90A0B3",
+						tabIcon: "#0078FF",
+						menuIcons: "#5A616A",
+						textDark: "#000000",
+						textLight: "#FFFFFF",
+						link: "#0078FF",
+						action: "#FF620C",
+						inactiveTabIcon: "#0E2F5A",
+						error: "#F44235",
+						inProgress: "#0078FF",
+						complete: "#20B832",
+						sourceBg: "#E4EBF1",
+					},
+					fonts: {
+						default: {
+							active: true,
+						},
+					},
+				},
+			},
 
-		(err, result) => {
+			(err, result) => {
+				if (err) {
+					console.log(err)
+				}
 
-			if (err) {    
-				console.log(err);
+				if ((result.event = "success" && result.info.url)) {
+					setForm({
+						...form,
+						image: result.info.url,
+					})
+				}
 			}
-
-			if(result.event = 'success' && result.info.url) {
-				setForm({
-					...form,
-					image: result.info.url
-				})
-			}
-		},
-	)};
-
-
-	const SizeOptionsRender = () => {
-		if (form.type === "shoes") {
-			return (
-				<Wrap spacing="2">
-					{sizes.shoeSizes.map(size => (
-						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
-							<FormLabel>{size}</FormLabel>
-							<Input
-								type="number"
-								name={size}
-								defaultValue={0}
-								value={form.shoeSize[size]}
-								onChange={handleSizeChange}
-							/>
-						</WrapItem>
-					))}
-				</Wrap>
-			)
-		} else {
-			return (
-				<Wrap spacing="2">
-					{sizes.clotheSizes.map(size => (
-						<WrapItem key={size} flexBasis="16.666%" flexGrow="0">
-							<FormLabel>{size}</FormLabel>
-							<Input type="number" name={size} defaultValue={0} value={form.size[size]} onChange={handleSizeChange} />
-						</WrapItem>
-					))}
-				</Wrap>
-			)
-		}
+		)
 	}
 
 	return (
@@ -213,9 +215,17 @@ const FormProduct = () => {
 			<Box padding={4}>
 				<Heading>Add Product</Heading>
 				<form onSubmit={handleSubmit}>
-					<FormControl>
+					<FormControl isInvalid={errors.name}>
 						<FormLabel>Name</FormLabel>
-						<Input type="text" name="name" placeholder="name of product" onChange={handleChange} />
+						<Input type="text" name="name" value={form.name} placeholder="Article name" onChange={handleChange} />
+						{!errors.name ? (
+							<FormHelperText textAlign={"left"}>Enter the name of the article you want to create</FormHelperText>
+						) : (
+							<FormErrorMessage>Name is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.description}>
 						<FormLabel mb="8px">Description:</FormLabel>
 						<Input
 							type="text"
@@ -225,6 +235,14 @@ const FormProduct = () => {
 							onChange={handleChange}
 							size={"md"}
 						/>
+						{!errors.description ? (
+							<FormHelperText textAlign={"left"}>Enter the description of the article</FormHelperText>
+						) : (
+							<FormErrorMessage>Description is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.type}>
 						<FormLabel>Type</FormLabel>
 						<Select name="type" value={form.type} onChange={handleChange}>
 							<option value="none">none</option>
@@ -236,28 +254,51 @@ const FormProduct = () => {
 							<option value="shoes">shoes</option>
 							<option value="equipment">equipment</option>
 						</Select>
+						{!errors.type ? (
+							<FormHelperText textAlign={"left"}>Select the article type</FormHelperText>
+						) : (
+							<FormErrorMessage>Type is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.gender}>
 						<FormLabel>Gender</FormLabel>
 						<Select name="gender" value={form.gender} onChange={handleChange}>
 							<option value="none">none</option>
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
 						</Select>
+						{!errors.gender ? (
+							<FormHelperText textAlign={"left"}>Select the gender of the article</FormHelperText>
+						) : (
+							<FormErrorMessage>Gender is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.color}>
 						<FormLabel>Color</FormLabel>
 						<Select name="color" value={form.color} onChange={handleChange}>
-							<option value="option1">none</option>
-							<option value="option2">Black</option>
-							<option value="option3">White</option>
-							<option value="option4">Grey</option>
-							<option value="option5">Blue</option>
-							<option value="option6">Red</option>
-							<option value="option7">Yellow</option>
-							<option value="option8">Brown</option>
-							<option value="option9">Pink</option>
+							<option value="none">none</option>
+							<option value="Black">Black</option>
+							<option value="White">White</option>
+							<option value="Grey">Grey</option>
+							<option value="Blue">Blue</option>
+							<option value="Red">Red</option>
+							<option value="Yellow">Yellow</option>
+							<option value="Brown">Brown</option>
+							<option value="Pink">Pink</option>
 						</Select>
+						{!errors.color ? (
+							<FormHelperText textAlign={"left"}>Select the color of the article</FormHelperText>
+						) : (
+							<FormErrorMessage>Color is required</FormErrorMessage>
+						)}
+					</FormControl>
 
-						<FormLabel>Sizes</FormLabel>
-						<SizeOptionsRender />
+					<FormLabel>Sizes</FormLabel>
+					<SizeOptions />
 
+					<FormControl isInvalid={errors.articleID}>
 						<FormLabel>ArticleID</FormLabel>
 						<Input
 							type="text"
@@ -266,17 +307,33 @@ const FormProduct = () => {
 							value={form.articleID}
 							onChange={handleChange}
 						/>
+						{!errors.articleID ? (
+							<FormHelperText textAlign={"left"}>Enter the article ID</FormHelperText>
+						) : (
+							<FormErrorMessage>Article ID is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.price}>
 						<FormLabel>Price $</FormLabel>
 						<NumberInput
 							name="price"
 							value={form.price}
-							onChange={value => handleChange({ target: { name: "price", value: parseInt(value) } })}
+							onChange={value => handleChange({ target: { name: "price", value } })}
 						>
 							<NumberInputField />
 						</NumberInput>
+						{!errors.price ? (
+							<FormHelperText textAlign={"left"}>Enter the price of the article</FormHelperText>
+						) : (
+							<FormErrorMessage>Price is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.image}>
 						<FormLabel>Image</FormLabel>
 
-						<Button 
+						<Button
 							onClick={showUploadWidget}
 							color="black"
 							border="none"
@@ -288,13 +345,20 @@ const FormProduct = () => {
 						>
 							Upload image
 						</Button>
-						
+						{!errors.image ? (
+							<FormHelperText>Upload an article image</FormHelperText>
+						) : (
+							<FormErrorMessage>An image is required</FormErrorMessage>
+						)}
 					</FormControl>
+
 					<Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
 						<Button type="submit" isDisabled={disableSubmit} colorScheme="linkedin" w={100}>
 							Add
 						</Button>
-						<Button onClick={handleReset} w={100}>Cancel</Button>
+						<Button onClick={handleReset} w={100}>
+							Clear
+						</Button>
 					</Box>
 				</form>
 			</Box>
