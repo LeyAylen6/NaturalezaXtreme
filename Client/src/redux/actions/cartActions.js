@@ -1,6 +1,6 @@
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
-export const CLEAR_CART = "CLEAR_CART";
+export const EMPTY_CART = "EMPTY_CART";
 export const GET_CART = "GET_CART";
 export const GET_PENDING_CART = "GET_PENDING_CART";
 export const MESSAGE = "MESSAGE"
@@ -8,6 +8,8 @@ export const MESSAGE = "MESSAGE"
 import axios from "axios";
 const URL = "http://localhost:3001/";
 
+
+//se puede borrar?
 export const addToCart = (prod) => {
   const { userId, id } = prod;
 
@@ -23,12 +25,13 @@ export const addToCart = (prod) => {
   };
 };
 
+//se puede borrar?
 export const removeFromCart = (id) => {
   return { type: REMOVE_FROM_CART, payload: id };
 };
 
-export const clearCart = (id) => {
-  return { type: CLEAR_CART, payload: id };
+export const emptyCart = (id) => {
+  return { type: EMPTY_CART, payload: id };
 };
 
 export const getCartById = (id) => async (dispatch) => {

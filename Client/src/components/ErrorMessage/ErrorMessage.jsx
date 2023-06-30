@@ -1,5 +1,5 @@
-import { Box, Flex, VStack, Button, Center, Container, Stack, AbsoluteCenter, Spacer } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { Box, Flex, Button } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 import { clearMessage } from "../../redux/actions/actions";
 
 const ErrorMessage = (props) => {
@@ -19,21 +19,20 @@ const ErrorMessage = (props) => {
         pos={"Absolute"} 
         zIndex={1000}
         justify={"center"}  
-        _before= {{
-            content: `''`,
-            opacity: 0.5,
-        }}>
+        >
 
             <Flex 
             pos={"relative"}
                 top={300}
-                h={300} 
-                w={400} 
-                bg={"blue.200"} 
-                borderRadius={30} 
-                flexDirection={"column"} 
-                alignItems={"center"} 
-                justify="space-evenly" 
+                h={300}
+                w={400}
+                fontWeight={"bold"}
+                color="black"
+                bgGradient="linear(to-b,white,grey)"
+                borderRadius={30}
+                flexDirection={"column"}
+                alignItems={"center"}
+                justify="space-evenly"
                 boxShadow='lg'
             >
                 
@@ -41,14 +40,12 @@ const ErrorMessage = (props) => {
                     {props.message}
                 </Box>
 
-                <Button onClick={closeMessage} w={150} border= {"none"} boxShadow={""} _hover={{ 
+                <Button fontSize={20} onClick={closeMessage} w={150} border= {"none"} boxShadow='lg' _hover={{ 
                     bg: "gray.300"
                 }}>
                     Acept
                 </Button>
-
             </Flex>
-           
         </Flex> 
     )
 }

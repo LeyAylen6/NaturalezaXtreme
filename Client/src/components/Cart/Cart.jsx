@@ -1,48 +1,55 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { Box, Heading, UnorderedList, ListItem, Button, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPayment, setPaymentLink, addToMercadoPago } from "../../redux/actions/actions.js";
 import { removeFromCart, increaseQuantity, decreaseQuantity } from "../../redux/actions/actions";
-import { getPendingCart, getCartById } from "../../redux/actions/cartActions.js";
-
 import { getUsers } from "../../redux/actions/actionsUsers.js";
-import { useAuth0 } from "@auth0/auth0-react";
+
 const Cart = () => {
-  let { user } = useAuth0();
-  //pending cart serían los productos que puso en el carrito para comprar
-  //Intente separar este useSelecto en dos, uno para el pending cart y otro para el cartArticles, pero no me funcionó.
-  const { cartArticles, userId, pendingCart } = useSelector((state) => state);
-  console.log(localStorage.getItem("userId"));
+  
   const dispatch = useDispatch();
-  const paymentLink = useSelector((state) => state.paymentLink);
   const navigate = useNavigate();
-
+  const paymentLink = useSelector((state) => state.paymentLink);
   const [paymentError, setPaymentError] = useState(false);
+  const [cartUpdated, setCartUpdated] = useState(false);
+  
+  const fullCart = JSON.parse(localStorage.getItem("cart"));
+  let modifiedCart = fullCart;
 
-  useEffect(() => {
-    dispatch(getPendingCart(userId.id));
-  }, [dispatch, userId.id]);
+  const saveLocalStorage = (modifiedCart) => {
+    localStorage.setItem("cart", JSON.stringify(modifiedCart));
+    setCartUpdated(!cartUpdated); // Actualiza el estado para forzar el renderizado
+  };
 
-  // Función para eliminar un producto del carrito
+  //Elimina el artículo del carrito
   const handleRemoveFromCart = (productId) => {
-    dispatch(removeFromCart(productId));
+    modifiedCart = fullCart.filter((article) => article.id !== productId);
+    saveLocalStorage(modifiedCart);
   };
 
-  // Función para incrementar la cantidad de un producto en el carrito
+  //Aumenta la cantidad de un artículo
   const handleIncreaseQuantity = (productId) => {
-    dispatch(increaseQuantity(productId));
+    const index = fullCart.findIndex((article) => article.id === productId);
+    let increasedQuantity = modifiedCart[index].quantity + 1;
+    fullCart[index].quantity = increasedQuantity;
+    modifiedCart = fullCart;
+    saveLocalStorage(modifiedCart);
   };
 
-  // Función para decrementar la cantidad de un producto en el carrito
+  //Disminuye la cantidad de un artículo
   const handleDecreaseQuantity = (productId) => {
-    dispatch(decreaseQuantity(productId));
+    const index = fullCart.findIndex((article) => article.id === productId);
+    let increasedQuantity = modifiedCart[index].quantity - 1;
+    fullCart[index].quantity = increasedQuantity;
+    modifiedCart = fullCart;
+    saveLocalStorage(modifiedCart);
   };
 
   // Función para calcular el total de los productos en el carrito
   const calculateTotal = () => {
     let total = 0;
-    cartArticles.forEach((item) => {
+    fullCart?.forEach((item) => {
       total += item.price * item.quantity;
     });
     return total;
@@ -51,7 +58,7 @@ const Cart = () => {
   // Función para finalizar la compra
   const handlePayment = async () => {
     try {
-      const mercadoPagoItems = cartArticles.map((items) => ({
+      const mercadoPagoItems = fullCart?.map((items) => ({
         name: items.name,
         price: items.price,
         quantity: items.quantity,
@@ -59,8 +66,8 @@ const Cart = () => {
         getUsers,
         size: items.size,
       }));
-      savelocalStorage();
       dispatch(addToMercadoPago(mercadoPagoItems));
+      saveLocalStorage([]);
       const result = await dispatch(createPayment(mercadoPagoItems, user.email));
       if (result === "success") {
         navigate("/");
@@ -69,39 +76,33 @@ const Cart = () => {
       setPaymentError(true);
     }
   };
-  const savelocalStorage = () => {
-    localStorage.setItem("cart", JSON.stringify(cartArticles));
-  };
-
-  const carrito = JSON.parse(localStorage.getItem("cart"));
-  console.log(carrito);
-
+ 
   return (
     <Box border={"2px"}>
       <Heading>Shopping Cart</Heading>
       <UnorderedList>
-        {pendingCart.shoppingArticles?.length === 0 ? (
+        {!fullCart?.length? (
           <Heading fontSize="14px">No tienes productos en el carrito</Heading>
         ) : (
-          pendingCart.shoppingArticles?.map((item) => (
+          fullCart?.map((item) => (
             <ListItem key={item.id} mb={2}>
               <Box border={"1px"} display={"flex"} justifyContent={"space-between"}>
                 <Box>
-                  <Image src={item.article.image} alt={item.article.name} width="100px" />
+                  <Image src={item.image} alt={item.name} width="100px" />
                 </Box>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  {item.article.name} - Cantidad: {item.quantity}
+                  {item.name} - Cantidad: {item.quantity}
                 </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <p> U$S: {item.article.price} </p>
+                  <p> U$S: {item.price} </p>
                 </Box>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <Button colorScheme="blue" size="sm" ml={2} onClick={() => handleIncreaseQuantity(item.id)}>
-                    +
-                  </Button>
                   <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDecreaseQuantity(item.id)}>
                     -
+                  </Button>
+                  <Button colorScheme="blue" size="sm" ml={2} onClick={() => handleIncreaseQuantity(item.id)}>
+                    +
                   </Button>
                   <Button colorScheme="red" size="sm" ml={2} onClick={() => handleRemoveFromCart(item.id)}>
                     Eliminar

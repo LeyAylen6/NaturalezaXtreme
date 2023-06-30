@@ -24,7 +24,7 @@ import {
 
 import { GET_USERS, POST_USERS, USER_ID } from "../actions/actionsUsers";
 import { FILTER_COMBINATED } from "../actions/actionFilters";
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, GET_CART, GET_PENDING_CART } from "../actions/cartActions";
+import { ADD_TO_CART, REMOVE_FROM_CART, EMPTY_CART, GET_CART, GET_PENDING_CART } from "../actions/cartActions";
 
 
 const initialState = {
@@ -36,7 +36,7 @@ const initialState = {
   paymentLink: null,
   signUp: true,
   articles: [],
-  cartArticles: [],
+  //cartArticles: [],
   cart: [],
   userId: 0,
   pendingCart: [],
@@ -185,7 +185,7 @@ const reducer = (state = initialState, action) => {
         cartArticles: [...state.cartArticles.filter((article) => article.id != action.payload)],
       };
 
-    case CLEAR_CART:
+    case EMPTY_CART:
       return {
         ...state,
         cartArticles: [],
