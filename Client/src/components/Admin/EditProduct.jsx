@@ -8,7 +8,9 @@ import {
 	AlertDialogOverlay,
 	Flex,
 	NumberInput,
-	NumberInputField
+	NumberInputField,
+	FormHelperText,
+	FormErrorMessage
 } from "@chakra-ui/react"
 import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table"
 import { Link, useNavigate } from "react-router-dom"
@@ -88,7 +90,7 @@ const EditProduct = () => {
 			}
 
 			if (name.startsWith("price")) {
-				if (value !== '') value = parseInt(value)
+				if (value !== "") value = parseInt(value)
 				return {
 					...prev,
 					price: value,
@@ -142,9 +144,9 @@ const EditProduct = () => {
 		const sizes = product.type === "shoes" ? form.shoeSize : form.size
 
 		return (
-			<Flex>
+			<Flex gap={3}>
 				{Object.entries(sizes).map(([key, value]) => (
-					<Box key={key} width="50%" marginBottom="10px">
+					<Box key={key} w={"28"} marginBottom="10px">
 						<FormLabel>{key}</FormLabel>
 						<Input
 							type="number"
@@ -159,26 +161,19 @@ const EditProduct = () => {
 	}
 
 	return (
-		<Container border="2px" maxWidth="100%" marginTop={10}>
-			<Box display={"flex"} justifyContent={"space-between"} border={"1px"} marginBottom="15px">
+		<Container minW={'1000px'} marginTop={10}>
+			<Box display={"flex"} justifyContent={"space-between"} marginBottom="15px">
 				<Button colorScheme="cyan" size="lg" variant="solid" m="6">
 					<Link to="/CrudProduct">Back</Link>
 				</Button>
 				<Button colorScheme="orange" size="lg" variant="solid" m="6">
-					<Link to="/crudProduct">Product</Link>
+					<Link to="/crudProduct">Products</Link>
 				</Button>
 			</Box>
-			<Table>
-				<TableCaption>Imperial to metric conversion factors</TableCaption>
-				<Thead>
-					<Tr>
-						<Th>Product</Th>
-					</Tr>
-				</Thead>
-				<Tbody>
-					<Th>
+		
+				
 						<form onSubmit={handleSubmit}>
-							<FormControl>
+							<FormControl isInvalid={errors.name}>
 								<FormLabel>Name</FormLabel>
 								<Input
 									type="text"
@@ -188,7 +183,16 @@ const EditProduct = () => {
 									value={form.name}
 									onChange={handleChange}
 								/>
-								<p>{errors.name}</p>
+								{!errors.name ? (
+									<FormHelperText textAlign={"left"}>
+										Enter new article name
+									</FormHelperText>
+								) : (
+									<FormErrorMessage>Name is required</FormErrorMessage>
+								)}
+							</FormControl>
+
+							<FormControl isInvalid={errors.description}>
 								<FormLabel mb="8px">Description: </FormLabel>
 								<Input
 									type="text"
@@ -199,7 +203,16 @@ const EditProduct = () => {
 									value={form.description}
 									onChange={handleChange}
 								/>
-								<p>{errors.description}</p>
+								{!errors.description ? (
+									<FormHelperText textAlign={"left"}>
+										Enter the new article description
+									</FormHelperText>
+								) : (
+									<FormErrorMessage>Description is required</FormErrorMessage>
+								)}
+							</FormControl>
+
+							<FormControl isInvalid={errors.price}>
 								<FormLabel>Price : </FormLabel>
 								<NumberInput
 									type="number"
@@ -212,10 +225,18 @@ const EditProduct = () => {
 								>
 									<NumberInputField />
 								</NumberInput>
-								<p>{errors.price}</p>
-								<FormLabel>Size : </FormLabel>
-								<SizeOptions></SizeOptions>
+								{!errors.price ? (
+									<FormHelperText textAlign={"left"}>
+										Enter the new article price
+									</FormHelperText>
+								) : (
+									<FormErrorMessage>Price is required</FormErrorMessage>
+								)}
 							</FormControl>
+
+							<FormLabel>Size : </FormLabel>
+							<SizeOptions></SizeOptions>
+
 							<Button isDisabled={disableSubmit} colorScheme="teal" type="submit" m="6">
 								Submit
 							</Button>
@@ -223,19 +244,18 @@ const EditProduct = () => {
 								Reset
 							</Button>
 						</form>
-					</Th>
-				</Tbody>
-			</Table>
+					
+			
 			{/* AlertDialog para confirmar el envío */}
 			<AlertDialog isOpen={isAlertOpen} onClose={handleCancel}>
 				<AlertDialogOverlay />
 				<AlertDialogContent>
 					<AlertDialogHeader fontSize="lg" fontWeight="bold">
-						confirm change
+						Confirm alert
 					</AlertDialogHeader>
-					<AlertDialogBody>Are you sure you want to submit the form?</AlertDialogBody>
+					<AlertDialogBody>Confirm this article changes?</AlertDialogBody>
 					<AlertDialogFooter>
-						<Button colorScheme="red" ml={3} onClick={handleCancel}>
+						<Button colorScheme="red" mr={3} onClick={handleCancel}>
 							Cancel
 						</Button>
 						<Button colorScheme="teal" onClick={handleConfirm}>
