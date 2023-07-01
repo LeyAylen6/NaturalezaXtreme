@@ -10,6 +10,7 @@ const getArticles = async (req:Request, res:Response) => {
         const typeFilter = req.query.type as string
         const colorFilter = req.query.color as string
         const priceOrder = req.query.order as string
+        const count = req.query.count as string
 
         const active = req.query.active;
 
@@ -27,7 +28,7 @@ const getArticles = async (req:Request, res:Response) => {
             return res.status(200).json(articlesFiltered)
         }
 
-        const getArticlesRes = await getArticlesController(+offset, +limit,priceOrder);
+        const getArticlesRes = await getArticlesController(+offset, +limit,priceOrder,count);
         return res.status(200).json(getArticlesRes);
     
     } catch (error: any){
