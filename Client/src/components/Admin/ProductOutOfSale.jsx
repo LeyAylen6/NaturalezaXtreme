@@ -75,32 +75,21 @@ const ProductOutOfSale = () => {
   console.log("desactiveProducts", desactiveProducts);
 
   return (
-    <Container maxW="container.xl" centerContent>
+    <Container maxW="container.xl" centerContent rounded="md" justifyContent="rigth" alignItems="center">
       <Paginate articles={products} />
-      <TableContainer
-        maxW="container.xl"
-        borderWidth="1px"
-        borderRadius="lg"
-        overflow="hidden"
-        boxShadow="lg"
-        m="4"
-        bg="green.50"
-        rounded="md"
-        justifyContent="rigth"
-        alignItems="center"
-      >
+      <TableContainer maxW="container.xl" m="4" p="4" rounded="md" justifyContent="rigth" alignItems="center">
         <Box display={"flex"} justifyContent={"space-between"}>
-          <Button colorScheme="cyan" size="lg" variant="solid" m="6">
-            <Link to="/admin">Admin</Link>
+          <Button as={Link} to="/admin" colorScheme="cyan" size="lg" variant="solid" borderRadius={"15px"} m="6">
+            Admin
           </Button>
-          <Button colorScheme="orange" size="lg" variant="solid" m="6">
-            <Link to="/crudUsers">User</Link>
+          <Button as={Link} to="/crudUsers" colorScheme="orange" size="lg" variant="solid" m="6" borderRadius={"15px"}>
+            User
           </Button>
-          <Button colorScheme="whatsapp" size="lg" variant="solid" m="6">
-            <Link to="/crudProduct">Product</Link>
+          <Button as={Link} to="/crudProduct" colorScheme="whatsapp" size="lg" variant="solid" m="6" borderRadius={"15px"}>
+            Product
           </Button>
-          <Button colorScheme="blue" size="lg" variant="solid" m="6">
-            <Link to="/FormProduct">New product</Link>
+          <Button as={Link} to="/FormProduct" colorScheme="blue" size="lg" variant="solid" m="6" borderRadius={"15px"}>
+            New product
           </Button>
         </Box>
         <Table>
@@ -123,11 +112,19 @@ const ProductOutOfSale = () => {
           <Tbody>
             {desactiveProducts?.map((product) => (
               <Tr key={product.id} border={"2px"} borderColor={"gray.300"}>
+                <Td
+                  maxWidth="400px"
+                  fontSize="18px"
+                  fontWeight={"bold"}
+                  wordBreak="break-all"
+                  overflow={"hidden"}
+                  whiteSpace={"nowrap"}
+                  textOverflow={"ellipsis"}
+                >
+                  {product.name}
+                </Td>
                 <Td maxWidth={"2px"} fontWeight={"extrabold"}>
                   {product.articleID}
-                </Td>
-                <Td maxWidth="350px" fontSize="12px" fontWeight={"bold"} wordBreak="break-all">
-                  {product.name}
                 </Td>
                 <Td>
                   <Image src={product.image} alt="product" maxWidth={"100px"} height={"100px"} />
@@ -148,7 +145,7 @@ const ProductOutOfSale = () => {
                         </Box>
                       ))}
                 </Td>
-                <ButtonGroup size="md" variant={"solid"} paddingTop={8} paddingRight={10} display={"flex"} alignItems={"center"}>
+                <ButtonGroup size="md" variant={"outline"} paddingTop={8} paddingRight={10} display={"flex"} alignItems={"center"}>
                   <Button colorScheme="yellow" onClick={() => handleClick(product.id)}>
                     View
                   </Button>
@@ -187,15 +184,15 @@ const ProductOutOfSale = () => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Confirmar Edición
+              confirm edition
             </AlertDialogHeader>
-            <AlertDialogBody>¿Estás seguro de que quieres editar este producto?</AlertDialogBody>
+            <AlertDialogBody>Are you sure you want to edit this product?</AlertDialogBody>
             <AlertDialogFooter>
               <Button colorScheme="red" onClick={confirmarEdicion}>
-                Editar
+                Edit
               </Button>
               <Button onClick={cerrarAlerta} ml={3}>
-                Cancelar
+                Cancel
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

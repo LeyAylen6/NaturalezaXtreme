@@ -6,12 +6,22 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArticles, getDetail, productdesactivate } from "../../redux/actions/actions";
 import crudImage from "../../assets/crudProduct.jpg";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+} from "@chakra-ui/react";
 const CrudProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.articles);
   console.log("products", products);
   const [selectId, setselectId] = useState(null);
+  const [mostrarAlerta, setMostrarAlerta] = useState(false);
+  const [productoIdEditar, setProductoIdEditar] = useState(null);
 
   useEffect(() => {
     // Si se selecciona un id, se ejecuta la accion getArticleId
@@ -32,8 +42,16 @@ const CrudProduct = () => {
     window.location.reload();
   };
   const handleEdit = (productId) => {
-    dispatch(getDetail(productId));
-    console.log("productId", productId);
+    setProductoIdEditar(productId);
+    setMostrarAlerta(true);
+  };
+  const cerrarAlerta = () => {
+    setMostrarAlerta(false);
+  };
+  const confirmarEdicion = () => {
+    dispatch(getDetail(productoIdEditar));
+    console.log("productId", productoIdEditar);
+    cerrarAlerta();
     navigate(`/editProduct/`);
   };
   // Filtrar los productos que tienen la propiedad "active" en true
@@ -146,6 +164,24 @@ const CrudProduct = () => {
             </Tfoot>
           </Table>
         </TableContainer>
+        <AlertDialog isOpen={mostrarAlerta} leastDestructiveRef={null} onClose={cerrarAlerta}>
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                confirm edition
+              </AlertDialogHeader>
+              <AlertDialogBody>Are you sure you want to edit this product?</AlertDialogBody>
+              <AlertDialogFooter>
+                <Button colorScheme="red" onClick={confirmarEdicion}>
+                  Edit
+                </Button>
+                <Button onClick={cerrarAlerta} ml={3}>
+                  Cancel
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
       </Container>
     </Container>
   );
