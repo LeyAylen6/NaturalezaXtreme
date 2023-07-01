@@ -105,7 +105,7 @@ const Filters = () => {
         onChange={handleChangeGender}
         w="300px"
       >
-        <option disabled value="Gender" id>
+        <option disabled value="Gender">
           Gender
         </option>
         <option value="none">None</option>
@@ -137,7 +137,6 @@ const Filters = () => {
           );
         })}
       </Select>
-
       <Select
         name=""
         id="Color"
@@ -159,9 +158,9 @@ const Filters = () => {
         })}
       </Select>
       <Select
-        name="Price"
-        id="price"
-        defaultValue="price"
+        name=""
+        id="Price"
+        defaultValue="Price"
         variant={"flushed"}
         onChange={handleChangeOrder}
         w="300px"
@@ -173,7 +172,7 @@ const Filters = () => {
         <option value="desc">Downward</option>
         <option value="asc">Upward</option>
       </Select>
-      <Button onClick={handlerReset} leftIcon={<MdOutlineRefresh size={40}/>} maxW="30px" 
+      <Button id="Icon" onClick={handlerReset} leftIcon={<MdOutlineRefresh size={40}/>} maxW="30px" 
       paddingRight="10px" bg="transparent">
  
       </Button>

@@ -1,11 +1,10 @@
-// import { useEffect, useState } from "react";
-//zz import { validation } from "../../Validation/validation";
-import { Container } from "@chakra-ui/react";
-// import { getUsers } from "../../../redux/actions/actionsUsers";
+// import { Container } from "@chakra-ui/react";
+// import { useState } from "react";
 // import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+// import { validation } from "../../Validation/validation";
+// import { getUsers } from "../../../redux/actions/actionsUsers";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useSelector } from "react-redux";
 
 const Login = () => {
   const { loginWithRedirect } = useAuth0();
@@ -16,6 +15,7 @@ const Login = () => {
  
   );
 
+//Este era el login antes de reemplazarlo con Auth0//
   /*const clientID = "1003099240176-2sgu85en1tl9g6i4eeputhpr2reeb24j.apps.googleusercontent.com"
 
     const [userData, setUserData] = useState({
