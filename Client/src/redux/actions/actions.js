@@ -1,6 +1,7 @@
 export const GET_ALL_FAVS = "GET_ALL_FAVS";
 export const ADD_FAV = "ADD_FAV";
 export const REMOVE_FAV = "REMOVE_FAV";
+
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_ARTICLES_BY_QUERY = "GET_ARTICLES_BY_QUERY";
 export const FILTER_SEARCHBAR = "FILTERED_SEARCHBAR";
@@ -23,6 +24,9 @@ export const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 export const INCREASE_QUANTITY = "INCREASE_QUANTITY";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 
+export const MESSAGE = "MESSAGE"
+export const CLEAR_MESSAGE = "CLEAR_MESSAGE"
+
 import axios from "axios";
 
 //const URL ='https://2129-201-190-150-125.ngrok-free.app'; (no lo borren plis)
@@ -30,9 +34,15 @@ const URL = "http://localhost:3001/";
 
 export const getArticles = () => {
   return async function (dispatch) {
-    var apiData = await axios(`${URL}articles`);
-    const page = apiData.data;
-    dispatch({ type: GET_ARTICLES, payload: page });
+    
+    try {
+      var apiData = await axios(`${URL}articles`);
+      const page = apiData.data;
+      dispatch({ type: GET_ARTICLES, payload: page });
+      
+    } catch(error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    }
   };
 };
 
@@ -57,8 +67,13 @@ export const prevPage = (props) => {
 };
 
 export const getAllFavs = async(id, dispatch) => {
-  const { data } = await axios.get(`${URL}fav/${id}`);
-  dispatch({ type: GET_ALL_FAVS , payload: data.articles });
+  try {
+    const { data } = await axios.get(`${URL}fav/${id}`);
+    dispatch({ type: GET_ALL_FAVS , payload: data.articles });
+  
+  } catch(error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+  }
 };
 
 export const addFav = async(userAndArticleId, dispatch) => {
@@ -67,33 +82,48 @@ export const addFav = async(userAndArticleId, dispatch) => {
     dispatch({ type: ADD_FAV, payload: data });
 
   } catch(error) {
-    console.log(error)
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
   }
 };
 
 export const removeFav = async(userAndArticleId, dispatch) => {
-  await axios.delete(`${URL}fav`, {data: userAndArticleId});
-  dispatch({ type: REMOVE_FAV, payload: userAndArticleId.articleId });
+  try {
+    await axios.delete(`${URL}fav`, {data: userAndArticleId});
+    dispatch({ type: REMOVE_FAV, payload: userAndArticleId.articleId });
+  
+  } catch(error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+  }
 };
 
 export const getAllProducts = () => {
   return async function (dispatch) {
-    const apiData = await axios.get(`${URL}articles`);
-    const products = apiData.data;
-    dispatch({ type: GET_ALL_PRODUCTS, payload: products });
+    try {
+      const apiData = await axios.get(`${URL}articles`);
+      const products = apiData.data;
+      dispatch({ type: GET_ALL_PRODUCTS, payload: products });
+      
+    } catch(error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    }
   };
 };
 
 export const getArticlesByQuery = (name) => {
-  return async (dispatch) => {
-    const response = await axios.get(`${URL}articles`);
-    const payload = response.data;
-    
-    return dispatch({
-      type: GET_ARTICLES_BY_QUERY,
-      payload,
-    });
-  };
+  try {
+    return async (dispatch) => {
+      const response = await axios.get(`${URL}articles`);
+      const payload = response.data;
+      
+      return dispatch({
+        type: GET_ARTICLES_BY_QUERY,
+        payload,
+      });
+    };
+
+  } catch(error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+  } 
 };
 
 export const filterSearchBar = (name) => {
@@ -105,6 +135,7 @@ export const filterSearchBar = (name) => {
         type: FILTER_SEARCHBAR,
         payload,
       });
+      
     } catch (error) {
       return dispatch({
         type: FILTER_SEARCHBAR,
@@ -116,12 +147,17 @@ export const filterSearchBar = (name) => {
 
 export function getDetail(id) {
   return async function (dispatch) {
-    const json = await axios.get(`${URL}articlefinder/?id=${id}`);
+    try {
+      const json = await axios.get(`${URL}articlefinder/?id=${id}`);
 
-    return dispatch({
-      type: GET_DETAIL,
-      payload: json.data,
-    });
+      return dispatch({
+        type: GET_DETAIL,
+        payload: json.data,
+      });
+    
+    } catch(error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    } 
   };
 }
 
@@ -131,62 +167,80 @@ export function resState() {
   };
 }
 
-// fncion para desactivar o activar un producto
 export const productdesactivate = (id, active) => {
-  return async function (dispatch) {
-    const body = { active };
-    const apiData = await axios.put(`${URL}articles/${id}`, body);
-    const product = apiData.data;
-    dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
-  };
+  try {
+    return async function (dispatch) {
+      const body = { active };
+      const apiData = await axios.put(`${URL}articles/${id}`, body);
+      const product = apiData.data;
+      dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
+      dispatch({ type: MESSAGE, payload: 'The product was deactivated. You can look for it in the "Out to sale" section' })
+    };
+  } catch(error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+  }
 };
 
 export const updateProduct = (body) => {
-  return async function (dispatch) {
-    const apiData = await axios.put(`${URL}articles`, body);
-
-    const product = apiData.data;
-    dispatch({ type: UPDATE_PRODUCT, payload: product });
-  };
+  try {
+    return async function (dispatch) {
+      const apiData = await axios.put(`${URL}articles`, body);
+  
+      const product = apiData.data;
+      dispatch({ type: UPDATE_PRODUCT, payload: product });
+      dispatch({ type: MESSAGE, payload: 'Successfully updated!' })
+    };
+  } catch(error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+  }
 };
 
 export const addToMercadoPago = (items) => {
   return (dispatch, getState) => {
-    const { users, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
+    try {
+      const { users, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
 
-    const itemsWithAdditionalData = items.map((item) => ({
-      ...item,
-      users: users,
-      cart: cart,
-    }));
-
-    dispatch({
-      type: "ADD_TO_MERCADO_PAGO",
-      payload: itemsWithAdditionalData,
-    });
+      const itemsWithAdditionalData = items.map((item) => ({
+        ...item,
+        users: users,
+        cart: cart,
+      }));
+  
+      dispatch({
+        type: "ADD_TO_MERCADO_PAGO",
+        payload: itemsWithAdditionalData,
+      });
+    } catch(error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    }
   };
 };
 
 export const createPayment = (items, email) => {
   return async (dispatch, getState) => {
-    const {data} = await axios.post(`${URL}login`, {email})
-    //const { userId, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
-    //const { cartArticles } = getState(); // Obtener los artículos del carrito del estado global
- 
-    const requestData = {
-      userId:data.id
-    };
+    try {
+      const { data } = await axios.post(`${URL}login`, { email })
+      //const { userId, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
+      //const { cartArticles } = getState(); // Obtener los artículos del carrito del estado global
+  
+      const requestData = {
+        userId:data.id
+      };
 
-    axios
-      .post(`${URL}mercadoPago`, requestData)
-      .then((response) => {
-        const paymentLink = response.data.url;
-        dispatch(setPaymentLink(paymentLink));
-      })
-      .catch((error) => {
-        console.log("Error al crear el pago:", error);
-      });
-  };
+      axios
+        .post(`${URL}mercadoPago`, requestData)
+        .then((response) => {
+          const paymentLink = response.data.url;
+          dispatch(setPaymentLink(paymentLink));
+        })
+        .catch((error) => {
+          console.log("Error al crear el pago:", error);
+        });
+        
+    } catch(error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    }
+  }
 };
 
 export const setPaymentLink = (paymentLink) => {
@@ -199,9 +253,15 @@ export const setPaymentLink = (paymentLink) => {
 
 export const addProduct = (body) => {
   return async function (dispatch) {
-    const apiData = await axios.post(`${URL}articles`, body);
-    const product = apiData.data;
-    dispatch({ type: ADD_PRODUCT, payload: product });
+    try {
+      const apiData = await axios.post(`${URL}articles`, body);
+      const product = apiData.data;
+      dispatch({ type: ADD_PRODUCT, payload: product });
+      dispatch({ type: MESSAGE, payload: 'Successfully created!' })
+    
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    }
   };
 };
 
@@ -238,4 +298,8 @@ export const decreaseQuantity = (productId) => {
     type: DECREASE_QUANTITY,
     payload: productId,
   };
+};
+
+export const clearMessage = (dispatch) => {
+  dispatch({ type: CLEAR_MESSAGE });
 };

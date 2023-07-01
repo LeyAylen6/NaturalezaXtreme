@@ -7,22 +7,22 @@ import Profile from "../Profile/Profile";
 import Logout from "../LogOut/Logout";
 import Login from "../LoginandSignUp/Login/Login";
 import { BsCart3 } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../redux/actions/actionsUsers";
+import { useSelector } from "react-redux";
 
 const NavBar = () => { 
-  const users = useSelector((state) => state.users)
+  const users = useSelector(state => state.users)
   const { isAuthenticated, user } = useAuth0();
  
-  const userFinded= users.find(element => element.email===user?.email) 
+  const userFinded= users.find( element => element.email === user?.email ) 
   
   let admin 
   const userAdmin = () => {
-    if (userFinded.rol === 'admin'){admin = userFinded} 
-   else {
+    if (userFinded.rol === 'admin'){ admin = userFinded } 
+    else {
       admin = null;
-  }
-}
+    }
+  } 
+
   return (
     <Stack
       direction={"row"}

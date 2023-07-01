@@ -1,19 +1,18 @@
 import {
 	Box,
 	Button,
-	Card,
 	Container,
 	FormControl,
 	FormLabel,
 	Heading,
 	Input,
 	Select,
-	Text,
-	Flex,
 	WrapItem,
 	Wrap,
 	NumberInput,
 	NumberInputField,
+	FormHelperText,
+	FormErrorMessage,
 } from "@chakra-ui/react"
 import { useDispatch } from "react-redux"
 import { addProduct } from "../../redux/actions/actions"
@@ -51,14 +50,13 @@ const initialErrors = {
 }
 
 const FormProduct = () => {
-
 	const dispatch = useDispatch()
 	const [form, setForm] = useState(initialFormState)
 	const [disableSubmit, setDisableSubmit] = useState(true)
 	const [errors, setErrors] = useState(initialErrors)
 
 	// console.log("disable submit :", disableSubmit)
-	console.log('form', form)
+	console.log("form", form)
 	console.log("errors", errors)
 
 	useEffect(() => {
@@ -96,7 +94,7 @@ const FormProduct = () => {
 			}
 
 			if (name.startsWith("price")) {
-				if (value !== '') value = parseInt(value)
+				if (value !== "") value = parseInt(value)
 				return {
 					...prev,
 					price: value,
@@ -153,61 +151,56 @@ const FormProduct = () => {
 				))}
 			</Wrap>
 		)
-		
 	}
-	
+
 	const showUploadWidget = () => {
-		cloudinary.openUploadWidget({
-			cloudName: "dn3tgaige",
-			uploadPreset: "articles",
-			sources: [
-				"local",
-				"camera",
-				"image_search",
-				"url"
-			],
-			showAdvancedOptions: true,
-			cropping: true,
-			multiple: false,
-			defaultSource: "local",
-			styles: {
-			   palette: {
-				   window: "#FFFFFF",
-				   windowBorder: "#90A0B3",
-				   tabIcon: "#0078FF",
-				   menuIcons: "#5A616A",
-				   textDark: "#000000",
-				   textLight: "#FFFFFF",
-				   link: "#0078FF",
-				   action: "#FF620C",
-				   inactiveTabIcon: "#0E2F5A",
-				   error: "#F44235",
-				   inProgress: "#0078FF",
-				   complete: "#20B832",
-				   sourceBg: "#E4EBF1"
-			  	},
-			   	fonts: {
-				   default: {
-					   active: true
-				   }
-			   }
-		   }
-	   	},
+		cloudinary.openUploadWidget(
+			{
+				cloudName: "dn3tgaige",
+				uploadPreset: "articles",
+				sources: ["local", "camera", "image_search", "url"],
+				showAdvancedOptions: true,
+				cropping: true,
+				multiple: false,
+				defaultSource: "local",
+				styles: {
+					palette: {
+						window: "#FFFFFF",
+						windowBorder: "#90A0B3",
+						tabIcon: "#0078FF",
+						menuIcons: "#5A616A",
+						textDark: "#000000",
+						textLight: "#FFFFFF",
+						link: "#0078FF",
+						action: "#FF620C",
+						inactiveTabIcon: "#0E2F5A",
+						error: "#F44235",
+						inProgress: "#0078FF",
+						complete: "#20B832",
+						sourceBg: "#E4EBF1",
+					},
+					fonts: {
+						default: {
+							active: true,
+						},
+					},
+				},
+			},
 
-		(err, result) => {
+			(err, result) => {
+				if (err) {
+					console.log(err)
+				}
 
-			if (err) {    
-				console.log(err);
+				if ((result.event = "success" && result.info.url)) {
+					setForm({
+						...form,
+						image: result.info.url,
+					})
+				}
 			}
-
-			if(result.event = 'success' && result.info.url) {
-				setForm({
-					...form,
-					image: result.info.url
-				})
-			}
-		},
-	)};
+		)
+	}
 
 	return (
 		<Container w="100%" marginTop={10}>
@@ -222,10 +215,17 @@ const FormProduct = () => {
 			<Box padding={4}>
 				<Heading>Add Product</Heading>
 				<form onSubmit={handleSubmit}>
-					<FormControl>
+					<FormControl isInvalid={errors.name}>
 						<FormLabel>Name</FormLabel>
-						<Input type="text" name="name" placeholder="name of product" onChange={handleChange} />
-						<p>{errors.name}</p>
+						<Input type="text" name="name" value={form.name} placeholder="Article name" onChange={handleChange} />
+						{!errors.name ? (
+							<FormHelperText textAlign={"left"}>Enter the name of the article you want to create</FormHelperText>
+						) : (
+							<FormErrorMessage>Name is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.description}>
 						<FormLabel mb="8px">Description:</FormLabel>
 						<Input
 							type="text"
@@ -235,7 +235,14 @@ const FormProduct = () => {
 							onChange={handleChange}
 							size={"md"}
 						/>
-						<p>{errors.description}</p>
+						{!errors.description ? (
+							<FormHelperText textAlign={"left"}>Enter the description of the article</FormHelperText>
+						) : (
+							<FormErrorMessage>Description is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.type}>
 						<FormLabel>Type</FormLabel>
 						<Select name="type" value={form.type} onChange={handleChange}>
 							<option value="none">none</option>
@@ -247,17 +254,31 @@ const FormProduct = () => {
 							<option value="shoes">shoes</option>
 							<option value="equipment">equipment</option>
 						</Select>
-						<p>{errors.type}</p>
+						{!errors.type ? (
+							<FormHelperText textAlign={"left"}>Select the article type</FormHelperText>
+						) : (
+							<FormErrorMessage>Type is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.gender}>
 						<FormLabel>Gender</FormLabel>
 						<Select name="gender" value={form.gender} onChange={handleChange}>
 							<option value="none">none</option>
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
 						</Select>
-						<p>{errors.gender}</p>
+						{!errors.gender ? (
+							<FormHelperText textAlign={"left"}>Select the gender of the article</FormHelperText>
+						) : (
+							<FormErrorMessage>Gender is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.color}>
 						<FormLabel>Color</FormLabel>
 						<Select name="color" value={form.color} onChange={handleChange}>
-							<option value="option1">none</option>
+							<option value="none">none</option>
 							<option value="Black">Black</option>
 							<option value="White">White</option>
 							<option value="Grey">Grey</option>
@@ -267,10 +288,17 @@ const FormProduct = () => {
 							<option value="Brown">Brown</option>
 							<option value="Pink">Pink</option>
 						</Select>
-						<p>{errors.gender}</p>
-						<FormLabel>Sizes</FormLabel>
-						<SizeOptions />
+						{!errors.color ? (
+							<FormHelperText textAlign={"left"}>Select the color of the article</FormHelperText>
+						) : (
+							<FormErrorMessage>Color is required</FormErrorMessage>
+						)}
+					</FormControl>
 
+					<FormLabel>Sizes</FormLabel>
+					<SizeOptions />
+
+					<FormControl isInvalid={errors.articleID}>
 						<FormLabel>ArticleID</FormLabel>
 						<Input
 							type="text"
@@ -279,7 +307,14 @@ const FormProduct = () => {
 							value={form.articleID}
 							onChange={handleChange}
 						/>
-						<p>{errors.articleID}</p>
+						{!errors.articleID ? (
+							<FormHelperText textAlign={"left"}>Enter the article ID</FormHelperText>
+						) : (
+							<FormErrorMessage>Article ID is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.price}>
 						<FormLabel>Price $</FormLabel>
 						<NumberInput
 							name="price"
@@ -288,10 +323,17 @@ const FormProduct = () => {
 						>
 							<NumberInputField />
 						</NumberInput>
-						<p>{errors.price}</p>
+						{!errors.price ? (
+							<FormHelperText textAlign={"left"}>Enter the price of the article</FormHelperText>
+						) : (
+							<FormErrorMessage>Price is required</FormErrorMessage>
+						)}
+					</FormControl>
+
+					<FormControl isInvalid={errors.image}>
 						<FormLabel>Image</FormLabel>
 
-						<Button 
+						<Button
 							onClick={showUploadWidget}
 							color="black"
 							border="none"
@@ -303,13 +345,20 @@ const FormProduct = () => {
 						>
 							Upload image
 						</Button>
-						
+						{!errors.image ? (
+							<FormHelperText>Upload an article image</FormHelperText>
+						) : (
+							<FormErrorMessage>An image is required</FormErrorMessage>
+						)}
 					</FormControl>
+
 					<Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
 						<Button type="submit" isDisabled={disableSubmit} colorScheme="linkedin" w={100}>
 							Add
 						</Button>
-						<Button onClick={handleReset} w={100}>Cancel</Button>
+						<Button onClick={handleReset} w={100}>
+							Clear
+						</Button>
 					</Box>
 				</form>
 			</Box>

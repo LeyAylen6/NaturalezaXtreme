@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPayment, setPaymentLink, addToMercadoPago } from "../../redux/actions/actions.js";
 import { getUsers } from "../../redux/actions/actionsUsers.js";
+import { useAuth0 } from "@auth0/auth0-react";
+import Stadistics from "../Admin/Statistics.jsx";
 
 const Cart = () => {
   
