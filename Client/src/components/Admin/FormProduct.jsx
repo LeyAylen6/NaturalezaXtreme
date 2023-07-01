@@ -13,6 +13,9 @@ import {
 	NumberInputField,
 	FormHelperText,
 	FormErrorMessage,
+	NumberInputStepper,
+	NumberIncrementStepper,
+	NumberDecrementStepper,
 } from "@chakra-ui/react"
 import { useDispatch } from "react-redux"
 import { addProduct } from "../../redux/actions/actions"
@@ -141,12 +144,19 @@ const FormProduct = () => {
 				{Object.entries(sizes).map(([key, value]) => (
 					<WrapItem key={key} width="32%" marginBottom="10px">
 						<FormLabel>{key}</FormLabel>
-						<Input
+						<NumberInput
 							type="number"
 							value={value}
 							name={`${form.type === "shoes" ? "shoeSize" : "size"}.${key}`}
-							onChange={handleChange}
-						/>
+							min={0}
+							onChange={value => handleChange({ target: { name: `${form.type === "shoes" ? "shoeSize" : "size"}.${key}`, value } })}
+						>
+							<NumberInputField />
+							<NumberInputStepper>
+								<NumberIncrementStepper />
+								<NumberDecrementStepper />
+							</NumberInputStepper>
+						</NumberInput>
 					</WrapItem>
 				))}
 			</Wrap>
@@ -220,7 +230,7 @@ const FormProduct = () => {
 							<FormLabel>Name</FormLabel>
 							<Input type="text" name="name" value={form.name} placeholder="Article name" onChange={handleChange} />
 							{!errors.name ? (
-								<FormHelperText textAlign={"left"}>Enter the name of the article you want to create</FormHelperText>
+								<FormHelperText textAlign={"left"}>Enter the name of the new article</FormHelperText>
 							) : (
 								<FormErrorMessage>Name is required</FormErrorMessage>
 							)}
@@ -232,13 +242,13 @@ const FormProduct = () => {
 							<Input
 								type="text"
 								name="description"
-								placeholder="description"
+								placeholder="Description"
 								value={form.description}
 								onChange={handleChange}
 								size={"md"}
 							/>
 							{!errors.description ? (
-								<FormHelperText textAlign={"left"}>Enter the description of the article</FormHelperText>
+								<FormHelperText textAlign={"left"}>Enter the description of the new article</FormHelperText>
 							) : (
 								<FormErrorMessage>Description is required</FormErrorMessage>
 							)}
@@ -248,7 +258,7 @@ const FormProduct = () => {
 						<FormControl isInvalid={errors.type}>
 							<FormLabel>Type</FormLabel>
 							<Select name="type" value={form.type} onChange={handleChange}>
-								<option value="none">none</option>
+								<option value="none">None</option>
 								<option value="Tshirt">Tshirt</option>
 								<option value="sweatshirt">Sweatshirt</option>
 								<option value="jacket">Jacket</option>
@@ -268,12 +278,12 @@ const FormProduct = () => {
 						<FormControl isInvalid={errors.gender}>
 							<FormLabel>Gender</FormLabel>
 							<Select name="gender" value={form.gender} onChange={handleChange}>
-								<option value="none">none</option>
+								<option value="none">None</option>
 								<option value="Male">Male</option>
 								<option value="Female">Female</option>
 							</Select>
 							{!errors.gender ? (
-								<FormHelperText textAlign={"left"}>Select the gender of the article</FormHelperText>
+								<FormHelperText textAlign={"left"}>Select the gender of the new article</FormHelperText>
 							) : (
 								<FormErrorMessage>Gender is required</FormErrorMessage>
 							)}
@@ -294,7 +304,7 @@ const FormProduct = () => {
 								<option value="Pink">Pink</option>
 							</Select>
 							{!errors.color ? (
-								<FormHelperText textAlign={"left"}>Select the color of the article</FormHelperText>
+								<FormHelperText textAlign={"left"}>Select the color of the new article</FormHelperText>
 							) : (
 								<FormErrorMessage>Color is required</FormErrorMessage>
 							)}
@@ -314,7 +324,7 @@ const FormProduct = () => {
 								onChange={handleChange}
 							/>
 							{!errors.articleID ? (
-								<FormHelperText textAlign={"left"}>Enter the article ID</FormHelperText>
+								<FormHelperText textAlign={"left"}>Enter the ID of the new article</FormHelperText>
 							) : (
 								<FormErrorMessage>Article ID is required</FormErrorMessage>
 							)}
@@ -331,13 +341,13 @@ const FormProduct = () => {
 								<NumberInputField />
 							</NumberInput>
 							{!errors.price ? (
-								<FormHelperText textAlign={"left"}>Enter the price of the article</FormHelperText>
+								<FormHelperText textAlign={"left"}>Enter the price of the new article</FormHelperText>
 							) : (
 								<FormErrorMessage>Price is required</FormErrorMessage>
 							)}
 						</FormControl>
 					</Box>
-					<Box mb={10} >
+					<Box mb={10}>
 						<FormControl isInvalid={errors.image}>
 							<Button
 								onClick={showUploadWidget}
