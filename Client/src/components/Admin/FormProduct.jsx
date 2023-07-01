@@ -136,33 +136,6 @@ const FormProduct = () => {
 		setForm(initialFormState)
 	}
 
-	const SizeOptions = () => {
-		const sizes = form.type === "shoes" ? form.shoeSize : form.size
-
-		return (
-			<Wrap>
-				{Object.entries(sizes).map(([key, value]) => (
-					<WrapItem key={key} width="32%" marginBottom="10px">
-						<FormLabel>{key}</FormLabel>
-						<NumberInput
-							type="number"
-							value={value}
-							name={`${form.type === "shoes" ? "shoeSize" : "size"}.${key}`}
-							min={0}
-							onChange={value => handleChange({ target: { name: `${form.type === "shoes" ? "shoeSize" : "size"}.${key}`, value } })}
-						>
-							<NumberInputField />
-							<NumberInputStepper>
-								<NumberIncrementStepper />
-								<NumberDecrementStepper />
-							</NumberInputStepper>
-						</NumberInput>
-					</WrapItem>
-				))}
-			</Wrap>
-		)
-	}
-
 	const showUploadWidget = () => {
 		cloudinary.openUploadWidget(
 			{
@@ -209,6 +182,33 @@ const FormProduct = () => {
 					})
 				}
 			}
+		)
+	}
+
+	const SizeOptions = () => {
+		const sizes = form.type === "shoes" ? form.shoeSize : form.size
+
+		return (
+			<Wrap>
+				{Object.entries(sizes).map(([key, value]) => (
+					<WrapItem key={key} width="32%" marginBottom="10px">
+						<FormLabel>{key}</FormLabel>
+						<NumberInput
+							type="number"
+							value={value}
+							name={`${form.type === "shoes" ? "shoeSize" : "size"}.${key}`}
+							min={0}
+							onChange={value => handleChange({ target: { name: `${form.type === "shoes" ? "shoeSize" : "size"}.${key}`, value } })}
+						>
+							<NumberInputField />
+							<NumberInputStepper>
+								<NumberIncrementStepper />
+								<NumberDecrementStepper />
+							</NumberInputStepper>
+						</NumberInput>
+					</WrapItem>
+				))}
+			</Wrap>
 		)
 	}
 
