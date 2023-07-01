@@ -213,144 +213,151 @@ const FormProduct = () => {
 				</Button>
 			</Box>
 			<Box padding={4}>
-				<Heading>Add Product</Heading>
+				<Heading>New Article</Heading>
 				<form onSubmit={handleSubmit}>
-					<FormControl isInvalid={errors.name}>
-						<FormLabel>Name</FormLabel>
-						<Input type="text" name="name" value={form.name} placeholder="Article name" onChange={handleChange} />
-						{!errors.name ? (
-							<FormHelperText textAlign={"left"}>Enter the name of the article you want to create</FormHelperText>
-						) : (
-							<FormErrorMessage>Name is required</FormErrorMessage>
-						)}
-					</FormControl>
-
-					<FormControl isInvalid={errors.description}>
-						<FormLabel mb="8px">Description:</FormLabel>
-						<Input
-							type="text"
-							name="description"
-							placeholder="description"
-							value={form.description}
-							onChange={handleChange}
-							size={"md"}
-						/>
-						{!errors.description ? (
-							<FormHelperText textAlign={"left"}>Enter the description of the article</FormHelperText>
-						) : (
-							<FormErrorMessage>Description is required</FormErrorMessage>
-						)}
-					</FormControl>
-
-					<FormControl isInvalid={errors.type}>
-						<FormLabel>Type</FormLabel>
-						<Select name="type" value={form.type} onChange={handleChange}>
-							<option value="none">none</option>
-							<option value="Tshirt">Tshirt</option>
-							<option value="sweatshirt">Sweatshirt</option>
-							<option value="jacket">Jacket</option>
-							<option value="pant">Pant</option>
-							<option value="accesories">Accesories</option>
-							<option value="shoes">Shoes</option>
-							<option value="equipment">Equipment</option>
-						</Select>
-						{!errors.type ? (
-							<FormHelperText textAlign={"left"}>Select the article type</FormHelperText>
-						) : (
-							<FormErrorMessage>Type is required</FormErrorMessage>
-						)}
-					</FormControl>
-
-					<FormControl isInvalid={errors.gender}>
-						<FormLabel>Gender</FormLabel>
-						<Select name="gender" value={form.gender} onChange={handleChange}>
-							<option value="none">none</option>
-							<option value="Male">Male</option>
-							<option value="Female">Female</option>
-						</Select>
-						{!errors.gender ? (
-							<FormHelperText textAlign={"left"}>Select the gender of the article</FormHelperText>
-						) : (
-							<FormErrorMessage>Gender is required</FormErrorMessage>
-						)}
-					</FormControl>
-
-					<FormControl isInvalid={errors.color}>
-						<FormLabel>Color</FormLabel>
-						<Select name="color" value={form.color} onChange={handleChange}>
-							<option value="none">none</option>
-							<option value="Black">Black</option>
-							<option value="White">White</option>
-							<option value="Grey">Grey</option>
-							<option value="Blue">Blue</option>
-							<option value="Red">Red</option>
-							<option value="Yellow">Yellow</option>
-							<option value="Brown">Brown</option>
-							<option value="Pink">Pink</option>
-						</Select>
-						{!errors.color ? (
-							<FormHelperText textAlign={"left"}>Select the color of the article</FormHelperText>
-						) : (
-							<FormErrorMessage>Color is required</FormErrorMessage>
-						)}
-					</FormControl>
+					<Box mb={10}>
+						<FormControl isInvalid={errors.name}>
+							<FormLabel>Name</FormLabel>
+							<Input type="text" name="name" value={form.name} placeholder="Article name" onChange={handleChange} />
+							{!errors.name ? (
+								<FormHelperText textAlign={"left"}>Enter the name of the article you want to create</FormHelperText>
+							) : (
+								<FormErrorMessage>Name is required</FormErrorMessage>
+							)}
+						</FormControl>
+					</Box>
+					<Box mb={10}>
+						<FormControl isInvalid={errors.description}>
+							<FormLabel mb="8px">Description</FormLabel>
+							<Input
+								type="text"
+								name="description"
+								placeholder="description"
+								value={form.description}
+								onChange={handleChange}
+								size={"md"}
+							/>
+							{!errors.description ? (
+								<FormHelperText textAlign={"left"}>Enter the description of the article</FormHelperText>
+							) : (
+								<FormErrorMessage>Description is required</FormErrorMessage>
+							)}
+						</FormControl>
+					</Box>
+					<Box mb={10}>
+						<FormControl isInvalid={errors.type}>
+							<FormLabel>Type</FormLabel>
+							<Select name="type" value={form.type} onChange={handleChange}>
+								<option value="none">none</option>
+								<option value="Tshirt">Tshirt</option>
+								<option value="sweatshirt">Sweatshirt</option>
+								<option value="jacket">Jacket</option>
+								<option value="pant">Pant</option>
+								<option value="accesories">Accesories</option>
+								<option value="shoes">Shoes</option>
+								<option value="equipment">Equipment</option>
+							</Select>
+							{!errors.type ? (
+								<FormHelperText textAlign={"left"}>Select the article type</FormHelperText>
+							) : (
+								<FormErrorMessage>Type is required</FormErrorMessage>
+							)}
+						</FormControl>
+					</Box>
+					<Box mb={10}>
+						<FormControl isInvalid={errors.gender}>
+							<FormLabel>Gender</FormLabel>
+							<Select name="gender" value={form.gender} onChange={handleChange}>
+								<option value="none">none</option>
+								<option value="Male">Male</option>
+								<option value="Female">Female</option>
+							</Select>
+							{!errors.gender ? (
+								<FormHelperText textAlign={"left"}>Select the gender of the article</FormHelperText>
+							) : (
+								<FormErrorMessage>Gender is required</FormErrorMessage>
+							)}
+						</FormControl>
+					</Box>
+					<Box mb={10}>
+						<FormControl isInvalid={errors.color}>
+							<FormLabel>Color</FormLabel>
+							<Select name="color" value={form.color} onChange={handleChange}>
+								<option value="none">none</option>
+								<option value="Black">Black</option>
+								<option value="White">White</option>
+								<option value="Grey">Grey</option>
+								<option value="Blue">Blue</option>
+								<option value="Red">Red</option>
+								<option value="Yellow">Yellow</option>
+								<option value="Brown">Brown</option>
+								<option value="Pink">Pink</option>
+							</Select>
+							{!errors.color ? (
+								<FormHelperText textAlign={"left"}>Select the color of the article</FormHelperText>
+							) : (
+								<FormErrorMessage>Color is required</FormErrorMessage>
+							)}
+						</FormControl>
+					</Box>
 
 					<FormLabel>Sizes</FormLabel>
 					<SizeOptions />
-
-					<FormControl isInvalid={errors.articleID}>
-						<FormLabel>ArticleID</FormLabel>
-						<Input
-							type="text"
-							placeholder="ArticleID"
-							name="articleID"
-							value={form.articleID}
-							onChange={handleChange}
-						/>
-						{!errors.articleID ? (
-							<FormHelperText textAlign={"left"}>Enter the article ID</FormHelperText>
-						) : (
-							<FormErrorMessage>Article ID is required</FormErrorMessage>
-						)}
-					</FormControl>
-
-					<FormControl isInvalid={errors.price}>
-						<FormLabel>Price $</FormLabel>
-						<NumberInput
-							name="price"
-							value={form.price}
-							onChange={value => handleChange({ target: { name: "price", value } })}
-						>
-							<NumberInputField />
-						</NumberInput>
-						{!errors.price ? (
-							<FormHelperText textAlign={"left"}>Enter the price of the article</FormHelperText>
-						) : (
-							<FormErrorMessage>Price is required</FormErrorMessage>
-						)}
-					</FormControl>
-
-					<FormControl isInvalid={errors.image}>
-						<FormLabel>Image</FormLabel>
-
-						<Button
-							onClick={showUploadWidget}
-							color="black"
-							border="none"
-							borderRadius={7}
-							// bg="lightgrey"
-							w={80}
-							h={10}
-							background="gray.300"
-						>
-							Upload image
-						</Button>
-						{!errors.image ? (
-							<FormHelperText>Upload an article image</FormHelperText>
-						) : (
-							<FormErrorMessage>An image is required</FormErrorMessage>
-						)}
-					</FormControl>
+					<Box mb={10}>
+						<FormControl isInvalid={errors.articleID}>
+							<FormLabel>ArticleID</FormLabel>
+							<Input
+								type="text"
+								placeholder="ArticleID"
+								name="articleID"
+								value={form.articleID}
+								onChange={handleChange}
+							/>
+							{!errors.articleID ? (
+								<FormHelperText textAlign={"left"}>Enter the article ID</FormHelperText>
+							) : (
+								<FormErrorMessage>Article ID is required</FormErrorMessage>
+							)}
+						</FormControl>
+					</Box>
+					<Box mb={10}>
+						<FormControl isInvalid={errors.price}>
+							<FormLabel>Price</FormLabel>
+							<NumberInput
+								name="price"
+								value={form.price}
+								onChange={value => handleChange({ target: { name: "price", value } })}
+							>
+								<NumberInputField />
+							</NumberInput>
+							{!errors.price ? (
+								<FormHelperText textAlign={"left"}>Enter the price of the article</FormHelperText>
+							) : (
+								<FormErrorMessage>Price is required</FormErrorMessage>
+							)}
+						</FormControl>
+					</Box>
+					<Box mb={10} >
+						<FormControl isInvalid={errors.image}>
+							<Button
+								onClick={showUploadWidget}
+								color="black"
+								border="none"
+								borderRadius={7}
+								// bg="lightgrey"
+								w={80}
+								h={10}
+								background="gray.300"
+							>
+								Upload image
+							</Button>
+							{!errors.image ? (
+								<FormHelperText>Upload an article image</FormHelperText>
+							) : (
+								<FormErrorMessage>An image is required</FormErrorMessage>
+							)}
+						</FormControl>
+					</Box>
 
 					<Box marginTop={4} display={"flex"} justifyContent={"space-between"}>
 						<Button type="submit" isDisabled={disableSubmit} colorScheme="linkedin" w={100}>

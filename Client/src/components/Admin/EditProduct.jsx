@@ -144,9 +144,9 @@ const EditProduct = () => {
 		const sizes = product.type === "shoes" ? form.shoeSize : form.size
 
 		return (
-			<Flex>
+			<Flex gap={3}>
 				{Object.entries(sizes).map(([key, value]) => (
-					<Box key={key} width="50%" marginBottom="10px">
+					<Box key={key} w={"28"} marginBottom="10px">
 						<FormLabel>{key}</FormLabel>
 						<Input
 							type="number"
@@ -161,24 +161,17 @@ const EditProduct = () => {
 	}
 
 	return (
-		<Container border="2px" maxWidth="100%" marginTop={10}>
-			<Box display={"flex"} justifyContent={"space-between"} border={"1px"} marginBottom="15px">
+		<Container minW={'1000px'} marginTop={10}>
+			<Box display={"flex"} justifyContent={"space-between"} marginBottom="15px">
 				<Button colorScheme="cyan" size="lg" variant="solid" m="6">
 					<Link to="/CrudProduct">Back</Link>
 				</Button>
 				<Button colorScheme="orange" size="lg" variant="solid" m="6">
-					<Link to="/crudProduct">Product</Link>
+					<Link to="/crudProduct">Products</Link>
 				</Button>
 			</Box>
-			<Table>
-				<TableCaption>Imperial to metric conversion factors</TableCaption>
-				<Thead>
-					<Tr>
-						<Th>Product</Th>
-					</Tr>
-				</Thead>
-				<Tbody>
-					<Th>
+		
+				
 						<form onSubmit={handleSubmit}>
 							<FormControl isInvalid={errors.name}>
 								<FormLabel>Name</FormLabel>
@@ -234,7 +227,7 @@ const EditProduct = () => {
 								</NumberInput>
 								{!errors.price ? (
 									<FormHelperText textAlign={"left"}>
-										Enter the new price of the article
+										Enter the new article price
 									</FormHelperText>
 								) : (
 									<FormErrorMessage>Price is required</FormErrorMessage>
@@ -251,9 +244,8 @@ const EditProduct = () => {
 								Reset
 							</Button>
 						</form>
-					</Th>
-				</Tbody>
-			</Table>
+					
+			
 			{/* AlertDialog para confirmar el envío */}
 			<AlertDialog isOpen={isAlertOpen} onClose={handleCancel}>
 				<AlertDialogOverlay />
