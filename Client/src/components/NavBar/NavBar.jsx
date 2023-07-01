@@ -7,9 +7,7 @@ import Profile from "../Profile/Profile";
 import Logout from "../LogOut/Logout";
 import Login from "../LoginandSignUp/Login/Login";
 import { BsCart3 } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../redux/actions/actionsUsers";
-import CartItems from "../Cart/CartItems";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const users = useSelector((state) => state.users);
@@ -25,9 +23,7 @@ const NavBar = () => {
       admin = null;
     }
   };
-  const fullCart = JSON.parse(localStorage.getItem("cart"));
-  console.log(fullCart);
-  const totalQuantity = fullCart?.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <Stack
       direction={"row"}
@@ -57,7 +53,6 @@ const NavBar = () => {
         <Box bg={"transparent"} color={"white"}>
           <Link to="/cart">
             <BsCart3 />
-            {fullCart?.length > 0 ? totalQuantity : null}
           </Link>
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
