@@ -49,7 +49,7 @@ const CrudProduct = () => {
         overflow="hidden"
         boxShadow="lg"
         m="4"
-        bg="green.50"
+        // bg="green.50"
         rounded="md"
         justifyContent="rigth"
         alignItems="center"
@@ -73,7 +73,7 @@ const CrudProduct = () => {
             <TableCaption fontSize={"24px"} fontWeight={"semibold"}>
               List of products in store
             </TableCaption>
-            <Tr bg="gray.100" border="1px" borderColor="gray.300" p="6" m="6">
+            <Tr bg="gray.50" border="1px" borderColor="gray.300" p="6" m="6">
               <Th>Id</Th>
               <Th>Product</Th>
               <Th>Image</Th>
@@ -113,8 +113,8 @@ const CrudProduct = () => {
                         </Box>
                       ))}
                 </Td>
-                <ButtonGroup size="md" variant={"solid"} paddingTop={8} paddingRight={10} display={"flex"} alignItems={"center"}>
-                  <Button colorScheme="yellow" onClick={() => handleClick(product.id)}>
+                <ButtonGroup size="md" variant={"outline"} paddingTop={8} paddingRight={10} display={"flex"} alignItems={"center"}>
+                  <Button colorScheme={"yellow"} fontWeight={"extrabold"} onClick={() => handleClick(product.id)}>
                     View
                   </Button>
                   <Button
