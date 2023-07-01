@@ -3,7 +3,6 @@ import { Box, Heading, UnorderedList, ListItem, Button, Image } from "@chakra-ui
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPayment, setPaymentLink, addToMercadoPago } from "../../redux/actions/actions.js";
-import { removeFromCart, increaseQuantity, decreaseQuantity } from "../../redux/actions/actions";
 import { getUsers } from "../../redux/actions/actionsUsers.js";
 
 const Cart = () => {

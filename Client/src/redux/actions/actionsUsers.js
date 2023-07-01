@@ -27,6 +27,6 @@ export const getUserId = async (user, dispatch) => {
   //mando todo el user de Auth0 y el back me crea un usuario en la base de datos si no existe
   const apiData = await axios.post(`http://localhost:3001/login`, user);
   const userId = apiData.data;
-  // console.log(userId);
+  localStorage.setItem("userId", JSON.stringify(userId.id));  
   dispatch({ type: USER_ID, payload: userId });
 };

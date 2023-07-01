@@ -25,6 +25,7 @@ import { ADD_TO_CART, REMOVE_FROM_CART, EMPTY_CART, GET_CART, GET_PENDING_CART }
 
 const initialState = {
   users: [],
+  userId: {},
   myFavorites: [],
   allProducts: [],
   detail: {},
@@ -34,7 +35,6 @@ const initialState = {
   articles: [],
   //cartArticles: [],
   cart: [],
-  userId: 0,
   pendingCart: [],
   page: 1
 };
@@ -77,11 +77,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         myFavorites: [...state.myFavorites, action.payload],
       };
-    case GET_USERS:
-      return {
-        ...state,
-        users: action.payload,
-      };
+    // case GET_USERS:
+    //   return {
+    //     ...state,
+    //     users: action.payload,
+    //   };
     case UPDATE_PRODUCT:
       return {
         ...state,
