@@ -4,7 +4,6 @@ import { originalColors } from "../../theme/palette";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addFav, removeFav, resState, getDetail } from "../../redux/actions/actions";
-//import { addToCart, removeFromCart } from "../../redux/actions/cartActions"; //Se pueden borrar estas actions??
 import SizeOptions from "./utils/SizeOptions";
 import Rating from "../Rating/Rating";
 import Comments from "../Comments/Comments";
@@ -119,8 +118,7 @@ const Detail = () => {
   //Botón buyNow
   const handleSubmit = (event) => {
     event.preventDefault();
-// !storageCart.length? navigate ("/payment"):
-    navigate("/cart")
+    //Usar función que genera link de MP que Agus está armando para el carrito
     backHome();
   };
 
