@@ -21,7 +21,7 @@ import Privateroute from "./components/PrivateRoute/Privateroute";
 import Stadistics from "./components/Admin/Statistics";
 import { useSelector } from "react-redux";
 import { Box } from "@chakra-ui/react";
-
+import ErrorMessage from '../src/components/ErrorMessage/ErrorMessage'
 function App() {
 
   const message = useSelector(state => state.message)

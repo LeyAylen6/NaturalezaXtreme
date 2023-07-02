@@ -1,21 +1,23 @@
-import { Line } from 'react-chartjs-2'; 
+import { Bar } from 'react-chartjs-2'; 
+import { useEffect, React } from 'react';
+import { useDispatch, useSelector} from 'react-redux'
 import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
     PointElement,
-    LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend, 
-    Filler
+    Filler,
 } from 'chart.js';
-
+import {getCountArticle} from '../../redux/actions/actions'
 ChartJS.register(
     CategoryScale,
     LinearScale,
     PointElement,
-    LineElement,
+    BarElement,
     Title, 
     Tooltip,
     Legend,
@@ -23,35 +25,58 @@ ChartJS.register(
 )
 
 var beneficios = [0, 56, 20, 36, 80, 40, 30, -20, 25, 30, 12,60]
-var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-
-var midata = {
-    labels: meses, 
-    datasets : [
-        {
-    label: 'Beneficios',
-    data: beneficios,
-    tension : 0.5, 
-    fill: true,
-    borderColor: 'rgb(255,99,132)',
-    backgroundColor: 'rgb(255,99,132,0.5)',
-    pointRadius: 5, 
-    ponitBorderColor: 'rgb(255,99,132)', 
-    pointBackgroundColor: 'rgb(255,99,132)'
-}
-]
-}
-var misoptions = {}
 
 
 
 
 const Stadistics = () => {
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(getCountArticle());
+    }, [dispatch]);
+    
+    const Count = useSelector((state) => state.articleCount)
+    console.log(Count) 
+  
+ 
+    const midata = {
+        labels: Count && Array.isArray(Count) ? Count.map((item) => item.name) : [],
+        datasets: [
+          {
+            label: 'Articulos',
+            data: Count && Array.isArray(Count) ? Count.map((item) => item.countSales) : [],
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          },
+        ],
+      };
+
+var misoptions = {
+    responsive: true,
+    animation: false,
+    plugins : {
+        legend : {
+            display : false 
+        }
+    },
+    scales : {
+        y : {
+            min : -25,
+            max : 100
+        },
+        x : {
+            ticks: {
+                color: 'rgba(0,220,195)'
+            }
+        }
+    }
+}
+
     return ( 
         <div>
-         <Line data={midata} options={misoptions}/>
+         <Bar data={midata} options={misoptions}/>
         </div>
     )
 
 }
-export default Stadistics;
+export default Stadistics; 
