@@ -28,24 +28,18 @@ const infoMercadoPagoController = async (userId: string) => {
 
     // Recorre el array donde estan los articulos para obtener los id y poder modificar los datos de ese articulo
     for(let i = 0; i < product.length;i++) {
-        console.log('hasta aqui llegamos');
-        console.log(+product[i]['article']['id']);
-        console.log(product[i]['quantity']);
-        console.log('hasta aqui llegamos 2');
-        
-        
         
         const article = await AppDataSource.getRepository(Article).findOneBy({id: +product[i]['article']['id']})
 
         console.log(article);
-        
+        ++article!.countSales
 
         if (product[i]['article']['type'] === 'shoes') {
             //@ts-ignore
-            article!.shoeSize[39] = article!.shoeSize[39] - +product[i]['quantity'];
+            article!.shoeSize[product[i]['size']] = article!.shoeSize[product[i]['size']] - +product[i]['quantity'];
         } else {
             //@ts-ignore
-            article!.size['U'] = article!.size['U'] - +product[i]['quantity'];
+            article!.size[product[i]['size']] = article!.size[product[i]['size']] - +product[i]['quantity'];
         }
         
         await article!.save()

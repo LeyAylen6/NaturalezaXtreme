@@ -7,10 +7,8 @@ import findOrCreateShoppingCartController from "./findOrCreateShoppingCartContro
 const putShoppingCartController = async( data: userIdArticleId[], method?: string) => {
 
     console.log(data);
-    
-    
     for(let i = 0;i<data.length;i++){
-        const cart = await findOrCreateShoppingCartController(data[0].userId)
+        const cart = await findOrCreateShoppingCartController(data[i].userId)
 
         if(!cart) throw new Error('you must have a cart created to update it')
 
@@ -64,7 +62,6 @@ const putShoppingCartController = async( data: userIdArticleId[], method?: strin
     
             AppDataSource.getRepository(Shopping_Cart_Article).merge(itemFound, newArticle)
             const result = AppDataSource.getRepository(Shopping_Cart_Article).save(itemFound)
-            
         }
 
     }

@@ -217,16 +217,11 @@ export const createPayment = (user) => {
       const requestData = {
         userId:data.id
       };
-      console.log(requestData);
-      axios
-        .post(`${URL}mercadoPago`, requestData)
-        .then((response) => {
-          const paymentLink = response.data.url;
+      const respons = await axios.post(`${URL}mercadoPago`, requestData)
+      console.log(respons.data.url);
+        
+          const paymentLink = respons.data.url;
           dispatch(setPaymentLink(paymentLink));
-        })
-        .catch((error) => {
-          console.log("Error al crear el pago:", error);
-        });
         
     } catch(error) {
       dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
