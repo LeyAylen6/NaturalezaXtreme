@@ -45,7 +45,7 @@ router.get('/shoppingcart', getShoppingCart)
 router.get('/shoppingcart/:id', getCartById)
 router.get('/shoppingcart/reviews/:id', reviewCarts)
 
-router.post("/mercadoPago", postMercadoPago)
+router.post('/mercadoPago', postMercadoPago)
 router.post('/infoMercadoPago', infoMercadoPago)
 
 router.post("/nodemailer", nodemailerPRUEBAS)

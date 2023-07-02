@@ -15,6 +15,7 @@ const Cart = () => {
   const paymentLink = useSelector((state) => state.paymentLink);
   const [paymentError, setPaymentError] = useState(false);
   const [cartUpdated, setCartUpdated] = useState(false);
+  const {user} = useAuth0()
   
   const fullCart = JSON.parse(localStorage.getItem("cart"));
   let modifiedCart = fullCart;
@@ -61,16 +62,15 @@ const Cart = () => {
   const handlePayment = async () => {
     try {
       const mercadoPagoItems = fullCart?.map((items) => ({
-        name: items.name,
-        price: items.price,
+        userId: items.userId, 
+        articleId: items.id,
         quantity: items.quantity,
-        getCartById,
-        getUsers,
         size: items.size,
       }));
+      console.log(fullCart);
       dispatch(addToMercadoPago(mercadoPagoItems));
+      const result = await dispatch(createPayment( user));
       saveLocalStorage([]);
-      const result = await dispatch(createPayment(mercadoPagoItems, user.email));
       if (result === "success") {
         navigate("/");
       }

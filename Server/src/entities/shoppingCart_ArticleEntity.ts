@@ -11,6 +11,9 @@ export class Shopping_Cart_Article {
     @Column()
     public quantity: number
 
+    @Column()
+    public size: string
+
     @ManyToOne(() => Shopping_Cart, (shoppingCart) => shoppingCart.shoppingArticles)
     public shoppingCart: Shopping_Cart
 

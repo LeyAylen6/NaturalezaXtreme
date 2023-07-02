@@ -91,6 +91,7 @@ const Detail = () => {
       image: articleDetail.image,
       name: articleDetail.name,
       quantity: 1,
+      type:articleDetail.type,
       price: articleDetail.price,
       [property]: value,
     });

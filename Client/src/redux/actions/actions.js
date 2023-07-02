@@ -195,38 +195,29 @@ export const updateProduct = (body) => {
   }
 };
 
-export const addToMercadoPago = (items) => {
-  return (dispatch, getState) => {
+export const addToMercadoPago = (cart) => {
+  return async () => {
     try {
-      const { users, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
 
-      const itemsWithAdditionalData = items.map((item) => ({
-        ...item,
-        users: users,
-        cart: cart,
-      }));
+      const { data } = await axios.put(`${URL}shoppingcart?method=add`, cart)
   
-      dispatch({
-        type: "ADD_TO_MERCADO_PAGO",
-        payload: itemsWithAdditionalData,
-      });
+
     } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+      return {error: 'hubo algun error'}
     }
   };
 };
 
-export const createPayment = (items, email) => {
-  return async (dispatch, getState) => {
+export const createPayment = (user) => {
+  return async (dispatch) => {
     try {
-      const { data } = await axios.post(`${URL}login`, { email })
-      //const { userId, cart } = getState(); // Obtener userId y cartId desde el estado global de Redux
-      //const { cartArticles } = getState(); // Obtener los artículos del carrito del estado global
+
+      const { data } = await axios.post(`${URL}login`, user)
   
       const requestData = {
         userId:data.id
       };
-
+      console.log(requestData);
       axios
         .post(`${URL}mercadoPago`, requestData)
         .then((response) => {
