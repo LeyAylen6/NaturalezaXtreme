@@ -7,6 +7,7 @@ import { getArticles } from "../../redux/actions/actions";
 import { getUserId } from "../../redux/actions/actionsUsers";
 import { useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import Carousel from "../Carousel/Carousel";
 
 const Home = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -31,6 +32,11 @@ const Home = () => {
       </Box>
       <Box>
         <Filters />
+      </Box>
+      <Box>
+        <Carousel />
+      </Box>
+      <Box>
         <CardContainer />
       </Box>
     </Box>
