@@ -9,11 +9,9 @@ const CardContainer = () => {
   const articles = useSelector((state) => state.articles);
 
   return (
-    <Box>
+    <Box mx={"auto"} maxWidth={"1480px"} p={"0 20px"}>
       <Paginate articles={articles} />
-      {!articles.articlesFounded?.length && (
-        <Text>No results match your search request</Text>
-      )}
+      {!articles.articlesFounded?.length && <Text>No results match your search request</Text>}
       <Flex flexWrap="wrap" justifyContent={"center"} gap={3}>
         {articles.articlesFounded?.map((product, index) => {
           return (
