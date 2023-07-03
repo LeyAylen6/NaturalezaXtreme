@@ -48,8 +48,8 @@ function App() {
         <Route path="/productOutOfSale" element={<ProductOutOfSale />} />
         <Route path="/error" element={<MercadoPagoError/>}/>
         <Route path="/estadisticas" element={<Stadistics/>}/>
-        <Route element={<Privateroute/>}>  
-        <Route path="/admin" element={<Admin />} />
+        <Route element={<Privateroute/>}>
+          <Route path="/admin" element={<Admin />} />
         </Route>
   
         </Routes> 
