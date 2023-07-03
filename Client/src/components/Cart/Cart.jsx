@@ -42,10 +42,10 @@ const Cart = () => {
   //Disminuye la cantidad de un artículo
   const handleDecreaseQuantity = (productId) => {
     const index = fullCart.findIndex((article) => article.id === productId);
-    let increasedQuantity = modifiedCart[index].quantity - 1;
+    if(fullCart[index].quantity > 1){let increasedQuantity = modifiedCart[index].quantity - 1;
     fullCart[index].quantity = increasedQuantity;
     modifiedCart = fullCart;
-    saveLocalStorage(modifiedCart);
+    saveLocalStorage(modifiedCart);}
   };
 
   // Función para calcular el total de los productos en el carrito
@@ -93,6 +93,10 @@ const Cart = () => {
                 </Box>
                 <Box display="flex" justifyContent="center" alignItems="center">
                   {item.name} - Cantidad: {item.quantity}
+                </Box>
+
+                <Box display="flex" justifyContent="center" alignItems="center">
+                  Talle: {item.size}
                 </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center">
