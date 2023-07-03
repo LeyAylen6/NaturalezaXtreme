@@ -6,7 +6,6 @@ import findOrCreateShoppingCartController from "./findOrCreateShoppingCartContro
 
 const putShoppingCartController = async( data: userIdArticleId[], method?: string) => {
 
-    console.log(data);
     let result;
     
     for(let i = 0;i<data.length;i++){
@@ -14,8 +13,6 @@ const putShoppingCartController = async( data: userIdArticleId[], method?: strin
 
         if(!cart) throw new Error('you must have a cart created to update it')
 
-
-        
         // Busca articulo en el carrito
         const itemFound2 = await AppDataSource.getRepository(Shopping_Cart_Article).find({ 
             where: {
@@ -29,7 +26,6 @@ const putShoppingCartController = async( data: userIdArticleId[], method?: strin
             }
         });
     
-        // console.log(itemFound.articleId)
         const article = await getArticlesByIdController(data[i].articleId)
     
         const newArticle: Shopping_Cart_Article = {

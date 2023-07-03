@@ -22,6 +22,11 @@ import addFavs from './favs/addFavs';
 import getFavsByUserId from './favs/getFavsByUserId';
 import deleteFavs from './favs/deleteFavs';
 import { infoMercadoPago } from './mercadoPago/infoMercadoPago';
+import postBlog from './Blog/post';
+import getBlog from './Blog/get';
+import updateBlog from './Blog/update';
+import deleteBlog from './Blog/delete';
+import getCategorys from './Blog/getCategorys';
 
 const router = Router();
 
@@ -55,6 +60,14 @@ router.post("/cloudinary", cloudinary)
 router.post("/fav", addFavs)
 router.get("/fav/:id", getFavsByUserId)
 router.delete("/fav", deleteFavs)
+
+router.post("/blog", postBlog)
+router.get("/blog", getBlog)
+router.put("/blog", updateBlog)
+router.delete("/blog/:id", deleteBlog)
+router.get("/blog/categorys", getCategorys)
+
+
 
 
 
