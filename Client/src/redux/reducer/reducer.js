@@ -19,7 +19,8 @@ import {
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
   CLEAR_MESSAGE,
-  MESSAGE
+  MESSAGE,
+  GET_COUNT_ARTICLES
 } from "../actions/actions";
 
 import { GET_USERS, POST_USERS, USER_ID } from "../actions/actionsUsers";
@@ -41,7 +42,8 @@ const initialState = {
   cart: [],
   pendingCart: [],
   page: 1,
-  message: ''
+  message: '',
+  articleCount: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -240,6 +242,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         message: ''
       }
+      case GET_COUNT_ARTICLES: 
+    return {
+      ...state,
+      articleCount: action.payload
+    }
 
     default:
       return { ...state };
