@@ -7,6 +7,7 @@ import { addFav, removeFav, resState, getDetail } from "../../redux/actions/acti
 import SizeOptions from "./utils/SizeOptions";
 import Rating from "../Rating/Rating";
 import Comments from "../Comments/Comments";
+import { setPaymentLink } from "../../redux/actions/actions";
 
 //Interface para cargar el estado local prouctSelections
 const initProductSelections = {
@@ -113,6 +114,7 @@ const Detail = () => {
       cartLocal.push(productSelections)
       saveLocalStorage()
     }
+    dispatch(setPaymentLink(''))
   }
 
   //Botón buyNow
