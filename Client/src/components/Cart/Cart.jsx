@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Box, Heading, UnorderedList, ListItem, Button, Image, Container, Divider, Center } from "@chakra-ui/react";
+import { Box, Button, Heading, UnorderedList, ListItem, Image, Container, Divider, Center } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPayment, setPaymentLink, addToMercadoPago } from "../../redux/actions/actions.js";
@@ -14,7 +14,7 @@ const Cart = () => {
   const [paymentError, setPaymentError] = useState(false);
   const [cartUpdated, setCartUpdated] = useState(false);
 
-  const {user} = useAuth0()
+  const { user } = useAuth0();
 
   const fullCart = JSON.parse(localStorage.getItem("cart"));
   let modifiedCart = fullCart;
@@ -44,10 +44,12 @@ const Cart = () => {
   //Disminuye la cantidad de un artículo
   const handleDecreaseQuantity = (productId) => {
     const index = fullCart.findIndex((article) => article.id === productId);
-    if(fullCart[index].quantity > 1){let increasedQuantity = modifiedCart[index].quantity - 1;
-    fullCart[index].quantity = increasedQuantity;
-    modifiedCart = fullCart;
-    saveLocalStorage(modifiedCart);}
+    if (fullCart[index].quantity > 1) {
+      let increasedQuantity = modifiedCart[index].quantity - 1;
+      fullCart[index].quantity = increasedQuantity;
+      modifiedCart = fullCart;
+      saveLocalStorage(modifiedCart);
+    }
   };
 
   // Función para calcular el total de los productos en el carrito
@@ -63,14 +65,14 @@ const Cart = () => {
   const handlePayment = async () => {
     try {
       const mercadoPagoItems = fullCart?.map((items) => ({
-        userId: items.userId, 
+        userId: items.userId,
         articleId: items.id,
         quantity: items.quantity,
         size: items.size,
       }));
       console.log(fullCart);
       dispatch(addToMercadoPago(mercadoPagoItems));
-      const result = await dispatch(createPayment( user));
+      const result = await dispatch(createPayment(user));
       saveLocalStorage([]);
       if (result === "success") {
         navigate("/");
@@ -106,10 +108,10 @@ const Cart = () => {
                   <Box display="flex" justifyContent="center" alignItems="center">
                     {item.name} - Cantidad: {item.quantity}
                   </Box>
-
+                </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  Talle: {item.type === 'shoes' ? item.shoeSize :item.size}
+                  Talle: {item.type === "shoes" ? item.shoeSize : item.size}
                 </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center">
@@ -129,7 +131,6 @@ const Cart = () => {
                       Eliminar
                     </Button>
                   </Box>
-
                 </Box>
               </ListItem>
             ))
