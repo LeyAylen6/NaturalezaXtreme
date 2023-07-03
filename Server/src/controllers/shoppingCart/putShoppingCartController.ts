@@ -7,6 +7,8 @@ import findOrCreateShoppingCartController from "./findOrCreateShoppingCartContro
 const putShoppingCartController = async( data: userIdArticleId[], method?: string) => {
 
     console.log(data);
+    let result;
+    
     for(let i = 0;i<data.length;i++){
         const cart = await findOrCreateShoppingCartController(data[i].userId)
 
@@ -42,7 +44,8 @@ const putShoppingCartController = async( data: userIdArticleId[], method?: strin
         // Si el articulo no existe lo agrega
         if(!itemFound) {
             const articleToCreate = AppDataSource.getRepository(Shopping_Cart_Article).create(newArticle)
-            const result = await AppDataSource.getRepository(Shopping_Cart_Article).save(articleToCreate)
+            result = await AppDataSource.getRepository(Shopping_Cart_Article).save(articleToCreate)
+            
             
         // Si el articulo existe modifica quantity segun la query que se haya pasado
         } else {
@@ -61,7 +64,7 @@ const putShoppingCartController = async( data: userIdArticleId[], method?: strin
             }
     
             AppDataSource.getRepository(Shopping_Cart_Article).merge(itemFound, newArticle)
-            const result = AppDataSource.getRepository(Shopping_Cart_Article).save(itemFound)
+            result = await AppDataSource.getRepository(Shopping_Cart_Article).save(itemFound)
         }
 
     }

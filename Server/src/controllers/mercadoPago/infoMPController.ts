@@ -12,26 +12,18 @@ const infoMercadoPagoController = async (userId: string) => {
     
 
     const { data } = await axios(`http://localhost:3001/shoppingcart?userId=${userId}&status=pending`)
-    const product: [] = data.shoppingArticles;
-    console.log({data});
-    console.log('comienza otro');
-    console.log(product);
-    console.log({id:+data.id!});
-    
+    const product: [] = data.shoppingArticles;  
     
 
     const cart = await AppDataSource.getRepository(Shopping_Cart).findOneBy({id:+data.id!})
     cart!.status = 'complete'
     await cart!.save()
-    console.log({cart});
     
 
     // Recorre el array donde estan los articulos para obtener los id y poder modificar los datos de ese articulo
     for(let i = 0; i < product.length;i++) {
         
         const article = await AppDataSource.getRepository(Article).findOneBy({id: +product[i]['article']['id']})
-
-        console.log(article);
         ++article!.countSales
 
         if (product[i]['article']['type'] === 'shoes') {
