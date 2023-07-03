@@ -9,21 +9,7 @@ import axios from "axios";
 const URL = "http://localhost:3001/";
 
 
-//se puede borrar?
-export const addToCart = (prod) => {
-  const { userId, id } = prod;
 
-  return async function (dispatch) {
-    try {
-      const apiData = await axios.put(`${URL}shoppingcart?method=add`, { userId: userId.id, articleId: id });
-      const product = apiData.data;
-      dispatch({ type: ADD_TO_CART, payload: product });
-    
-    } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
-    }
-  };
-};
 
 //se puede borrar?
 export const removeFromCart = (id) => {

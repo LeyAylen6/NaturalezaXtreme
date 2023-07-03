@@ -8,14 +8,13 @@ const findOrCreateShoppingCartController = async(userId: number) => {
         status: 'pending'
     })
 
-    if(!cart) {
-        const cartCreated = await AppDataSource.getRepository(Shopping_Cart).create({ userId: userId, status: 'pending' })
+    if(cart) return cart
+
+
+        const cartCreated = await AppDataSource.getRepository(Shopping_Cart).create({ userId})
         const newCart = await AppDataSource.getRepository(Shopping_Cart).save(cartCreated)
 
         return newCart;
-    }
-
-    return cart;
 }
 
 export default findOrCreateShoppingCartController;

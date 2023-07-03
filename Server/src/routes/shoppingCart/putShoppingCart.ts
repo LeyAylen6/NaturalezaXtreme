@@ -5,6 +5,7 @@ const putShoppingCart = async (req: Request, res: Response) => {
     try {
         const data = req.body
         const method = req.query.method as string;
+        console.log(method,data)
 
         const articleToPost = await putShoppingCartController(data, method);
 

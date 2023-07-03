@@ -14,8 +14,12 @@ const Cart = () => {
   const [paymentError, setPaymentError] = useState(false);
   const [cartUpdated, setCartUpdated] = useState(false);
 
+  const {user} = useAuth0()
+
   const fullCart = JSON.parse(localStorage.getItem("cart"));
   let modifiedCart = fullCart;
+
+  console.log(fullCart);
 
   const saveLocalStorage = (modifiedCart) => {
     localStorage.setItem("cart", JSON.stringify(modifiedCart));
@@ -40,10 +44,10 @@ const Cart = () => {
   //Disminuye la cantidad de un artículo
   const handleDecreaseQuantity = (productId) => {
     const index = fullCart.findIndex((article) => article.id === productId);
-    let increasedQuantity = modifiedCart[index].quantity - 1;
+    if(fullCart[index].quantity > 1){let increasedQuantity = modifiedCart[index].quantity - 1;
     fullCart[index].quantity = increasedQuantity;
     modifiedCart = fullCart;
-    saveLocalStorage(modifiedCart);
+    saveLocalStorage(modifiedCart);}
   };
 
   // Función para calcular el total de los productos en el carrito
@@ -59,16 +63,15 @@ const Cart = () => {
   const handlePayment = async () => {
     try {
       const mercadoPagoItems = fullCart?.map((items) => ({
-        name: items.name,
-        price: items.price,
+        userId: items.userId, 
+        articleId: items.id,
         quantity: items.quantity,
-        getCartById,
-        getUsers,
         size: items.size,
       }));
+      console.log(fullCart);
       dispatch(addToMercadoPago(mercadoPagoItems));
+      const result = await dispatch(createPayment( user));
       saveLocalStorage([]);
-      const result = await dispatch(createPayment(mercadoPagoItems, user.email));
       if (result === "success") {
         navigate("/");
       }
@@ -104,6 +107,14 @@ const Cart = () => {
                     {item.name} - Cantidad: {item.quantity}
                   </Box>
 
+
+                <Box display="flex" justifyContent="center" alignItems="center">
+                  Talle: {item.type === 'shoes' ? item.shoeSize :item.size}
+                </Box>
+
+                <Box display="flex" justifyContent="center" alignItems="center">
+                  <p> U$S: {item.price} </p>
+
                   <Box display="flex" justifyContent="center" alignItems="center">
                     <p> U$S: {item.price} </p>
                   </Box>
@@ -118,6 +129,7 @@ const Cart = () => {
                       Eliminar
                     </Button>
                   </Box>
+
                 </Box>
               </ListItem>
             ))
