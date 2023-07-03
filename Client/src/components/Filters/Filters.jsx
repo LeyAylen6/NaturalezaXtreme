@@ -1,13 +1,9 @@
 import { useState } from "react";
-import { Button, Center, HStack, Select } from "@chakra-ui/react";
+import { Button, Center, Box, HStack, Select } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { filterCombinated } from "../../redux/actions/actionFilters";
-import {
-  articlesTypes,
-  articlesColor,
-  articlesGender,
-} from "../../utils/constants";
-import {MdOutlineRefresh} from 'react-icons/md'
+import { articlesTypes, articlesColor, articlesGender } from "../../utils/constants";
+import { MdOutlineRefresh } from "react-icons/md";
 
 const Filters = () => {
   const [filters, setFilters] = useState({
@@ -19,7 +15,7 @@ const Filters = () => {
 
   const dispatch = useDispatch();
 
-  if(filters.gender || filters.type || filters.color || filters.order) dispatch(filterCombinated(filters));
+  if (filters.gender || filters.type || filters.color || filters.order) dispatch(filterCombinated(filters));
 
   const handleChangeGender = (event) => {
     const { value } = event.target;
@@ -80,105 +76,121 @@ const Filters = () => {
     }
   };
 
-  const handlerReset = ()=>{
+  const handlerReset = () => {
     setFilters({
       gender: "",
       type: "",
       color: "",
       order: "",
-    })
-    document.getElementById("Gender").value="Gender"
-    document.getElementById("Type").value="Type"
-    document.getElementById("Color").value="Color"
-    document.getElementById("Price").value="Price"
-    
-   
-  }
+    });
+    document.getElementById("Gender").value = "Gender";
+    document.getElementById("Type").value = "Type";
+    document.getElementById("Color").value = "Color";
+    document.getElementById("Price").value = "Price";
+  };
 
   return (
-    <HStack justifyContent="center" flexWrap="wrap" pt={5}>
-      <Select
-        name=""
-        id="Gender"
-        defaultValue="Gender"
-        variant={"flushed"}
-        onChange={handleChangeGender}
-        w="300px"
-      >
-        <option disabled value="Gender">
-          Gender
-        </option>
-        <option value="none">None</option>
-        {articlesGender.map((article, index) => {
-          return (
-            <option key={index} value={article.value}>
-              {article.name}
-            </option>
-          );
-        })}
-      </Select>
-      <Select
-        name=""
-        id="Type"
-        defaultValue="Type"
-        variant={"flushed"}
-        onChange={handleChangeType}
-        w="300px"
-      >
-        <option disabled value="Type">
-          Type
-        </option>
-        <option value="none">None</option>
-        {articlesTypes.map((article, index) => {
-          return (
-            <option key={index} value={article.value}>
-              {article.name}
-            </option>
-          );
-        })}
-      </Select>
-      <Select
-        name=""
-        id="Color"
-        defaultValue="Color"
-        variant={"flushed"}
-        onChange={handleChangeColor}
-        w="300px"
-      >
-        <option disabled value="Color">
-          Color
-        </option>
-        <option value="none">None</option>
-        {articlesColor.map((article, index) => {
-          return (
-            <option key={index} value={article.value}>
-              {article.name}
-            </option>
-          );
-        })}
-      </Select>
-      <Select
-        name=""
-        id="Price"
-        defaultValue="Price"
-        variant={"flushed"}
-        onChange={handleChangeOrder}
-        w="300px"
-      >
-        <option disabled value="price">
-          Price
-        </option>
-        <option value="none">None</option>
-        <option value="desc">Downward</option>
-        <option value="asc">Upward</option>
-      </Select>
-      <Button id="Icon" onClick={handlerReset} leftIcon={<MdOutlineRefresh size={40}/>} maxW="30px" 
-      paddingRight="10px" bg="transparent">
- 
-      </Button>
+    <HStack display={"flex"} justifyContent={"center"} p="0" marginBottom={"20px"} marginLeft={"0"} marginRight={"0"}>
+      <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
+        <Select
+          name=""
+          id="Gender"
+          defaultValue="Gender"
+          variant={"flushed"}
+          border={"1px"}
+          borderRight={"none"}
+          borderRadius={"8px 0 0 8px"}
+          onChange={handleChangeGender}
+          w="300px"
+          padding={"2px 0 2px 0"}
+        >
+          <option disabled value="Gender">
+            Gender
+          </option>
+          <option value="none">None</option>
+          {articlesGender.map((article, index) => {
+            return (
+              <option key={index} value={article.value}>
+                {article.name}
+              </option>
+            );
+          })}
+        </Select>
+        <Select
+          name=""
+          id="Type"
+          defaultValue="Type"
+          variant={"flushed"}
+          border={"1px"}
+          borderRight={"none"}
+          borderLeft={"none"}
+          onChange={handleChangeType}
+          w="300px"
+        >
+          <option disabled value="Type">
+            Type
+          </option>
+          <option value="none">None</option>
+          {articlesTypes.map((article, index) => {
+            return (
+              <option key={index} value={article.value}>
+                {article.name}
+              </option>
+            );
+          })}
+        </Select>
+        <Select
+          name=""
+          id="Color"
+          defaultValue="Color"
+          variant={"flushed"}
+          border={"1px"}
+          borderRight={"none"}
+          borderLeft={"none"}
+          onChange={handleChangeColor}
+          w="300px"
+        >
+          <option disabled value="Color">
+            Color
+          </option>
+          <option value="none">None</option>
+          {articlesColor.map((article, index) => {
+            return (
+              <option key={index} value={article.value}>
+                {article.name}
+              </option>
+            );
+          })}
+        </Select>
+        <Select
+          name=""
+          id="Price"
+          defaultValue="Price"
+          variant={"flushed"}
+          border={"1px"}
+          borderLeft={"none"}
+          borderRadius={"0 8px 8px 0"}
+          onChange={handleChangeOrder}
+          w="300px"
+        >
+          <option disabled value="price">
+            Price
+          </option>
+          <option value="none">None</option>
+          <option value="desc">Downward</option>
+          <option value="asc">Upward</option>
+        </Select>
+        <Button
+          id="Icon"
+          onClick={handlerReset}
+          leftIcon={<MdOutlineRefresh size={40} />}
+          maxW="30px"
+          bg="transparent"
+          marginLeft={"10px"}
+        ></Button>
+      </Box>
     </HStack>
   );
 };
 
 export default Filters;
-
