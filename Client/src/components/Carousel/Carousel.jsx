@@ -51,74 +51,72 @@ export default function CaptionCarousel() {
   ];
 
   return (
-    <Container maxW="container.xl" marginTop={"2rem"} marginBottom={"2rem"}>
-      <Box position={"relative"} height={"450px"} overflow={"hidden"}>
-        {/* CSS files for react-slick */}
-        <link
-          rel="stylesheet"
-          type="text/css"
-          // charSet="UTF-8"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-        />
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
-        {/* Left Icon */}
-        <IconButton
-          aria-label="left-arrow"
-          variant="ghost"
-          color={"Black"}
-          position="absolute"
-          left={side}
-          top={top}
-          transform={"translate(0%, -50%)"}
-          zIndex={2}
-          onClick={() => slider?.slickPrev()}
-        >
-          <BiLeftArrowAlt size="40px" />
-        </IconButton>
-        {/* Right Icon */}
-        <IconButton
-          aria-label="right-arrow"
-          variant="ghost"
-          color={"Black"}
-          position="absolute"
-          right={side}
-          top={top}
-          transform={"translate(0%, -50%)"}
-          zIndex={2}
-          onClick={() => slider?.slickNext()}
-        >
-          <BiRightArrowAlt size="40px" />
-        </IconButton>
-        {/* Slider */}
-        <Slider {...settings} ref={(slider) => setSlider(slider)}>
-          {cards.map((card, id) => (
-            <Link to="/blog" key={id}>
-              <Box
-                key={id}
-                height={"auto"}
-                position="relative"
-                backgroundPosition="center"
-                backgroundRepeat="no-repeat"
-                backgroundSize="cover"
-                border={"1px solid"}
-                backgroundImage={`url(${card.image})`}
-              >
-                {/* This is the block you need to change, to customize the caption */}
-                <Container maxW={"2x1"} height="450px" position="relative">
-                  <Stack spacing={6} w={"full"} maxW={"lg"} position="absolute" top="50%" transform="translate(0, -50%)">
-                    <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} color="Black">
-                      {card.title}
-                    </Heading>
-                    <Text fontSize={{ base: "md", lg: "lg" }} color="Black" fontWeight={"bold"} marginTop={"60px"}>
-                      {card.text}
-                    </Text>
-                  </Stack>
-                </Container>
-              </Box>
-            </Link>
-          ))}
-        </Slider>
-      </Box>
-    </Container>
+    <Box position={"relative"} height={"450px"} overflow={"hidden"}>
+      {/* CSS files for react-slick */}
+      <link
+        rel="stylesheet"
+        type="text/css"
+        // charSet="UTF-8"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+      />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+      {/* Left Icon */}
+      <IconButton
+        aria-label="left-arrow"
+        variant="ghost"
+        color={"Black"}
+        position="absolute"
+        left={side}
+        top={top}
+        transform={"translate(0%, -50%)"}
+        zIndex={2}
+        onClick={() => slider?.slickPrev()}
+      >
+        <BiLeftArrowAlt size="40px" />
+      </IconButton>
+      {/* Right Icon */}
+      <IconButton
+        aria-label="right-arrow"
+        variant="ghost"
+        color={"Black"}
+        position="absolute"
+        right={side}
+        top={top}
+        transform={"translate(0%, -50%)"}
+        zIndex={2}
+        onClick={() => slider?.slickNext()}
+      >
+        <BiRightArrowAlt size="40px" />
+      </IconButton>
+      {/* Slider */}
+      <Slider {...settings} ref={(slider) => setSlider(slider)}>
+        {cards.map((card, id) => (
+          <Link to="/blog" key={id}>
+            <Box
+              key={id}
+              height={"auto"}
+              position="relative"
+              backgroundPosition="center"
+              backgroundRepeat="no-repeat"
+              backgroundSize="cover"
+              border={"1px solid"}
+              backgroundImage={`url(${card.image})`}
+            >
+              {/* This is the block you need to change, to customize the caption */}
+              <Container maxW={"2x1"} height="450px" position="relative">
+                <Stack spacing={6} w={"full"} maxW={"lg"} position="absolute" top="50%" transform="translate(0, -50%)">
+                  <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} color="Black">
+                    {card.title}
+                  </Heading>
+                  <Text fontSize={{ base: "md", lg: "lg" }} color="Black" fontWeight={"bold"} marginTop={"60px"}>
+                    {card.text}
+                  </Text>
+                </Stack>
+              </Container>
+            </Box>
+          </Link>
+        ))}
+      </Slider>
+    </Box>
   );
 }
