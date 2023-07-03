@@ -36,7 +36,6 @@ const infoMercadoPagoController = async (userId: string) => {
         
         await article!.save()
 
-        console.log({despuesSev:article});
     }
 
 
