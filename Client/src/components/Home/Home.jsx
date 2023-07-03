@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import CardContainer from "../CardContainer/CardContainer";
 import Filters from "../Filters/Filters";
+import { Box, Button, useColorMode } from "@chakra-ui/react";
+import { getAllFavs, getArticles } from "../../redux/actions/actions";
 import { getArticles } from "../../redux/actions/actions";
 import { getUserId } from "../../redux/actions/actionsUsers";
 import { useDispatch } from "react-redux";
@@ -9,6 +11,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Home = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  //no me trae el estado actualizado... no se si está pisando el estado
+  const userId = useSelector((state) => state.userId);
+
+
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useAuth0();
 
@@ -22,8 +29,15 @@ const Home = () => {
 
   return (
     <Box>
-      <Filters />
-      <CardContainer />
+      <Box display={"flex"} justifyContent={"rigth"}>
+        <Button size={"sm"} borderRadius={"30px"} onClick={toggleColorMode}>
+          Mode {colorMode === "light" ? "Dark" : "Light"}
+        </Button>
+      </Box>
+      <Box>
+        <Filters />
+        <CardContainer />
+      </Box>
     </Box>
   );
 };

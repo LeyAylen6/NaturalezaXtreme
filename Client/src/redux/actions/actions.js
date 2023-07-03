@@ -1,7 +1,7 @@
 export const GET_ALL_FAVS = "GET_ALL_FAVS";
 export const ADD_FAV = "ADD_FAV";
 export const REMOVE_FAV = "REMOVE_FAV";
-
+export const GET_COUNT_ARTICLES = 'GET_COUNT_ARTICLES'
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_ARTICLES_BY_QUERY = "GET_ARTICLES_BY_QUERY";
 export const FILTER_SEARCHBAR = "FILTERED_SEARCHBAR";
@@ -289,3 +289,15 @@ export const decreaseQuantity = (productId) => {
 export const clearMessage = (dispatch) => {
   dispatch({ type: CLEAR_MESSAGE });
 };
+export const getCountArticle = () => {
+  return async function (dispatch) {
+    try {
+      var article = await axios(`${URL}articles?count=desc`);
+      const page = article.data;
+      dispatch({ type: GET_COUNT_ARTICLES, payload: page });
+      
+    } catch(error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    }
+  };
+}
