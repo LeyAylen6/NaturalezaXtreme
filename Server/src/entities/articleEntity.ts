@@ -30,6 +30,11 @@ export class Article extends BaseEntity{
     price: number
 
     @Column({
+        default: 0
+    })
+    countSales: number
+
+    @Column({
         type: "varchar",
         length: 50,
         nullable: true,

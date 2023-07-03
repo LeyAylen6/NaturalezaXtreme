@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Comments from "../Comments/Comments";
-import { addFav, removeFav, resState } from "../../redux/actions/actions";
-import { useSelector, useDispatch } from "react-redux";
-import { getDetail, createPayment } from "../../redux/actions/actions";
-import { useNavigate, useParams } from "react-router-dom";
 import { Box, Image, Flex, Button, Text, Select } from "@chakra-ui/react";
-import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
+import { originalColors } from "../../theme/palette";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addFav, removeFav, resState, getDetail } from "../../redux/actions/actions";
 import SizeOptions from "./utils/SizeOptions";
 import Rating from "../Rating/Rating";
-import { originalColors } from "../../theme/palette";
+import Comments from "../Comments/Comments";
 
+//Interface para cargar el estado local prouctSelections
 const initProductSelections = {
   id: "",
   articleID: "",
@@ -22,45 +21,43 @@ const initProductSelections = {
   shoeSize: "",
 };
 
+//Se guarda el carrito local
+const cartLocal = [];
+
 const Detail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.userId);
 
+  //Trae user Id y el carrito del localStorage
+  const user = JSON.parse(localStorage.getItem("userId"))
+//  const storageCart = JSON.parse(localStorage.getItem("cart")) //Se usaría si hay una vista de payments
+
+  //Suscripcion a estados globales
   let myFavorites = useSelector((state) => state.myFavorites);
   const articleDetail = useSelector((state) => state.detail);
-  const cartArticles = useSelector((state) => state.cartArticles);
-  const paymentLink = useSelector((state) => state.paymentLink);
+  //const paymentLink = useSelector((state) => state.paymentLink);
 
+  //Estados locales
   const [isFavorite, setIsFavorite] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
   const [inStock, setInStock] = useState(false);
   const [productSelections, setProductSelections] = useState(initProductSelections);
 
-  console.log("article detail", articleDetail)
-  // console.log("cart articles", cartArticles);
-  // console.log("product selections", productSelections);
-  // console.log(inStock)
-
+  //Al renderizar
   useEffect(() => {
+    //trae el detalle del artículo
     dispatch(getDetail(id));
+    //verifica si está en estado global favoritos //Se puede manejar favoritos con localStorage?
     myFavorites.forEach((fav) => {
       if (fav.id == id) {
         setIsFavorite(true);
       }
     });
-    cartArticles.forEach((article) => {
-      if (article.id == id) {
-        setIsInCart(true);
-      }
-    });
-    return () => {
-      dispatch(resState());
-    };
-  }, []);
+  }, []);   
 
-  useEffect(() => {
+  //Muestra los talles de prendas o calzados según corresponda
+    useEffect(() => {
     if (articleDetail.type === "shoes") {
       for (const size in articleDetail.shoeSize) {
         if (articleDetail.shoeSize.hasOwnProperty(size)) {
@@ -79,10 +76,10 @@ const Detail = () => {
           }
         }
       }
-    }
-  }, [articleDetail]);
+    };
+  }, [articleDetail]);    
 
-  //handler de los campos
+  //Guarda las selecciones en el estado local productSelections
   const handleChange = (event) => {
     const { name: property, value } = event.target;
     setProductSelections({
@@ -93,31 +90,38 @@ const Detail = () => {
       image: articleDetail.image,
       name: articleDetail.name,
       quantity: 1,
+      type:articleDetail.type,
       price: articleDetail.price,
       [property]: value,
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(addToCart(productSelections));
-    navigate("/cart");
-  };
-
-  //boton agregar al carrito
+  //Guarda el carrito en localStorage
+  const saveLocalStorage = () => {
+    localStorage.setItem("cart", JSON.stringify(cartLocal))
+  }
+  
+  //Agrega el artículo al carrito estado global
   const handleAddToCart = (event) => {
     event.preventDefault();
     if (isInCart) {
       setIsInCart(false);
-      dispatch(removeFromCart(id));
+      cartLocal.pop()
+      saveLocalStorage()
     } else {
       setIsInCart(true);
-      dispatch(addToCart(productSelections));
+      cartLocal.push(productSelections)
+      saveLocalStorage()
     }
+  }
+
+  //Botón buyNow
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    //Usar función que genera link de MP que Agus está armando para el carrito
+    backHome();
   };
 
-  console.log({userId: user, articleId: id})
-  
   //boton agregar a favoritos
   const handleFavorites = (event) => {
     event.preventDefault();
@@ -129,7 +133,8 @@ const Detail = () => {
       addFav({ userId: user.id, articleId: id }, dispatch);
     }
   };
-
+  
+  //Muestra si el producto está en stock o no
   const stockComponentConfig = [
     { bg: "#48BB78", content: "Product in stock", hidden: !inStock ? "hidden" : null },
     { bg: "tomato", content: "Product out of stock", hidden: inStock ? "hidden" : null },
@@ -137,6 +142,9 @@ const Detail = () => {
   const StockDisplay = ({ content, ...config }) => {
     return <Box {...config}>{content}</Box>;
   };
+  
+  //Limpia el estado de detail con botón back to home y en buyNow
+  const cleanDetailState = () => {dispatch(resState())}
 
   return (
     <Flex align={"center"} mt="50px" direction="column">
@@ -207,13 +215,15 @@ const Detail = () => {
                 colorScheme="blackAlpha"
                 bgColor="black"
                 mt="10px"
-              >
-                Buy Now
+              >Buy Now
               </Button>
             </form>
           </Box>
         </Box>
         <Comments comments={articleDetail.comments} />
+        <Button type="button" colorScheme="blackAlpha" bgColor="black" mt="10px" onClick={cleanDetailState}>
+          <Link to="/">Back to Home</Link>
+        </Button>
       </Flex>
     </Flex>
   );

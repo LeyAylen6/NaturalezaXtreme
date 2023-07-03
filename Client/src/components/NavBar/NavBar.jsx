@@ -7,23 +7,21 @@ import Profile from "../Profile/Profile";
 import Logout from "../LogOut/Logout";
 import Login from "../LoginandSignUp/Login/Login";
 import { BsCart3 } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../redux/actions/actionsUsers";
+import { useSelector } from "react-redux";
 import MenuProfile from "../UserDashboard/MenuProfile/MenuProfile";
 
 const NavBar = () => { 
-  const users = useSelector((state) => state.users)
+  const userId = useSelector(state => state.userId)
   const { isAuthenticated, user } = useAuth0();
  
-  const userFinded= users.find(element => element.email===user?.email) 
-  
   let admin 
-  
-    if (userFinded?.rol === 'admin'){admin = userFinded} 
-   else {
+  const userAdmin = () => {
+    if (userId.rol === 'admin'){ admin = true } 
+    else {
       admin = null;
-  
-}
+    }
+  } 
+
   return (
     <Stack
       direction={"row"}
@@ -61,7 +59,8 @@ const NavBar = () => {
           </Link>
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
-          { admin !== null ?<Link to="/admin">Admin</Link>:null}
+          { userAdmin ?
+          <Link to="/admin">Admin</Link> : null}
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
           {isAuthenticated ? <Logout /> : <Login />}

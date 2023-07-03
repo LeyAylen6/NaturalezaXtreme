@@ -7,13 +7,25 @@ import {
 	AlertDialogContent,
 	AlertDialogOverlay,
 	Flex,
+	NumberInput,
+	NumberInputField,
+	FormHelperText,
+	FormErrorMessage
 } from "@chakra-ui/react"
 import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table"
 import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { useState } from "react"
-
+import { useState, useEffect } from "react"
+import validateForm from "./helpers/validateForm"
 import { updateProduct } from "../../redux/actions/actions"
+
+const initialErrors = {
+	name: "",
+	description: "",
+	price: "",
+	size: "",
+	shoeSize: "",
+}
 
 const EditProduct = () => {
 	const dispatch = useDispatch()
@@ -21,6 +33,8 @@ const EditProduct = () => {
 	const product = useSelector(state => state.detail)
 
 	const [isAlertOpen, setIsAlertOpen] = useState(false)
+	const [errors, setErrors] = useState(initialErrors)
+	const [disableSubmit, setDisableSubmit] = useState(true)
 	const [form, setForm] = useState({
 		id: product.id,
 		active: product.active,
@@ -32,16 +46,28 @@ const EditProduct = () => {
 		// [product.type === "shoes" ? "shoeSize" : "size"]: product.type === "shoes" ? product.shoeSize : product.size
 	})
 
-	console.log(form)
-	console.log(product)
+	// console.log(form)
+	// console.log(product)
+	console.log(errors)
+
+	useEffect(() => {
+		handleDisable({ ...form })
+	}, [form])
+
+	const handleDisable = form => {
+		const values = Object.values(form)
+		const allKeysFilled = values.every(value => !!value)
+		setDisableSubmit(!allKeysFilled)
+	}
 
 	const handleChange = e => {
-		e.preventDefault()
-		const { name, value } = e.target
+		// e.preventDefault()
+		let { name, value } = e.target
 
 		setForm(prev => {
 			// Verificar si el campo es 'shoeSize'
 			if (name.startsWith("shoeSize")) {
+				if (value === "") value = 0
 				const shoeSizeKey = name.split(".")[1]
 				return {
 					...prev,
@@ -52,6 +78,7 @@ const EditProduct = () => {
 				}
 			}
 			if (name.startsWith("size")) {
+				if (value === "") value = 0
 				const sizeKey = name.split(".")[1]
 				return {
 					...prev,
@@ -63,9 +90,10 @@ const EditProduct = () => {
 			}
 
 			if (name.startsWith("price")) {
+				if (value !== "") value = parseInt(value)
 				return {
 					...prev,
-					price: parseInt(value),
+					price: value,
 				}
 			}
 
@@ -74,6 +102,16 @@ const EditProduct = () => {
 				[name]: value,
 			}
 		})
+
+		validateForm(
+			{
+				...form,
+				[name]: value,
+			},
+			name,
+			errors,
+			setErrors
+		)
 	}
 
 	const handleSubmit = event => {
@@ -106,9 +144,9 @@ const EditProduct = () => {
 		const sizes = product.type === "shoes" ? form.shoeSize : form.size
 
 		return (
-			<Flex >
+			<Flex gap={3}>
 				{Object.entries(sizes).map(([key, value]) => (
-					<Box key={key} width="50%" marginBottom="10px">
+					<Box key={key} w={"28"} marginBottom="10px">
 						<FormLabel>{key}</FormLabel>
 						<Input
 							type="number"
@@ -123,26 +161,19 @@ const EditProduct = () => {
 	}
 
 	return (
-		<Container border="2px" maxWidth="100%" marginTop={10}>
-			<Box display={"flex"} justifyContent={"space-between"} border={"1px"} marginBottom="15px">
+		<Container minW={'1000px'} marginTop={10}>
+			<Box display={"flex"} justifyContent={"space-between"} marginBottom="15px">
 				<Button colorScheme="cyan" size="lg" variant="solid" m="6">
 					<Link to="/CrudProduct">Back</Link>
 				</Button>
 				<Button colorScheme="orange" size="lg" variant="solid" m="6">
-					<Link to="/crudProduct">Product</Link>
+					<Link to="/crudProduct">Products</Link>
 				</Button>
 			</Box>
-			<Table>
-				<TableCaption>Imperial to metric conversion factors</TableCaption>
-				<Thead>
-					<Tr>
-						<Th>Product</Th>
-					</Tr>
-				</Thead>
-				<Tbody>
-					<Th>
+		
+				
 						<form onSubmit={handleSubmit}>
-							<FormControl>
+							<FormControl isInvalid={errors.name}>
 								<FormLabel>Name</FormLabel>
 								<Input
 									type="text"
@@ -152,7 +183,16 @@ const EditProduct = () => {
 									value={form.name}
 									onChange={handleChange}
 								/>
-								<br />
+								{!errors.name ? (
+									<FormHelperText textAlign={"left"}>
+										Enter new article name
+									</FormHelperText>
+								) : (
+									<FormErrorMessage>Name is required</FormErrorMessage>
+								)}
+							</FormControl>
+
+							<FormControl isInvalid={errors.description}>
 								<FormLabel mb="8px">Description: </FormLabel>
 								<Input
 									type="text"
@@ -163,44 +203,63 @@ const EditProduct = () => {
 									value={form.description}
 									onChange={handleChange}
 								/>
+								{!errors.description ? (
+									<FormHelperText textAlign={"left"}>
+										Enter the new article description
+									</FormHelperText>
+								) : (
+									<FormErrorMessage>Description is required</FormErrorMessage>
+								)}
+							</FormControl>
 
+							<FormControl isInvalid={errors.price}>
 								<FormLabel>Price : </FormLabel>
-								<Input
+								<NumberInput
 									type="number"
 									placeholder={product.price}
 									size={"md"}
 									name="price"
 									autoComplete="off"
-									onChange={handleChange}
+									onChange={value => handleChange({ target: { name: "price", value } })}
 									value={form.price}
-								/>
-								<FormLabel>Size : </FormLabel>
-								<SizeOptions></SizeOptions>
+								>
+									<NumberInputField />
+								</NumberInput>
+								{!errors.price ? (
+									<FormHelperText textAlign={"left"}>
+										Enter the new article price
+									</FormHelperText>
+								) : (
+									<FormErrorMessage>Price is required</FormErrorMessage>
+								)}
 							</FormControl>
-							<Button colorScheme="teal" type="submit" m="6">
+
+							<FormLabel>Size : </FormLabel>
+							<SizeOptions></SizeOptions>
+
+							<Button isDisabled={disableSubmit} colorScheme="teal" type="submit" m="6">
 								Submit
 							</Button>
 							<Button colorScheme="teal" type="reset" m="6" onClick={handleReset}>
 								Reset
 							</Button>
 						</form>
-					</Th>
-				</Tbody>
-			</Table>
+					
+			
 			{/* AlertDialog para confirmar el envío */}
 			<AlertDialog isOpen={isAlertOpen} onClose={handleCancel}>
 				<AlertDialogOverlay />
 				<AlertDialogContent>
 					<AlertDialogHeader fontSize="lg" fontWeight="bold">
-						confirm change
+						Confirm alert
 					</AlertDialogHeader>
-					<AlertDialogBody>Are you sure you want to submit the form?</AlertDialogBody>
+					<AlertDialogBody>Confirm this article changes?</AlertDialogBody>
 					<AlertDialogFooter>
+						<Button colorScheme="red" mr={3} onClick={handleCancel}>
+							Cancel
+						</Button>
 						<Button colorScheme="teal" onClick={handleConfirm}>
 							Confirm
-						</Button>
-						<Button colorScheme="red" ml={3} onClick={handleCancel}>
-							Cancel
 						</Button>
 					</AlertDialogFooter>
 				</AlertDialogContent>

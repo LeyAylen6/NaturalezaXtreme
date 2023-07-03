@@ -12,7 +12,7 @@ export class Shopping_Cart extends BaseEntity {
     @Column({
         type: "enum",
         enum: ["pending", "complete", "rejected" ],
-        default: "pending"
+        default: 'pending'
     })
     status: CategoryCart
 

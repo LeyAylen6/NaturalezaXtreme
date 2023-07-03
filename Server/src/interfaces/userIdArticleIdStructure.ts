@@ -1,6 +1,8 @@
 export interface userIdArticleId {
     userId: number, 
-    articleId: number
+    articleId: number,
+    size: string,
+    quantity: number
 }
 
 // SHOPPING CART

@@ -1,13 +1,5 @@
 import { Request, Response } from 'express';
 import mercadopago from 'mercadopago';
-import postMercadoPagoController from '../../controllers/mercadoPago/postMercadoPagoController';
-import { preferenceMP } from '../../interfaces/preferernceMercadoPago';
-import axios from 'axios';
-import { AppDataSource } from '../../db';
-import { Article } from '../../entities/articleEntity';
-import { type } from 'os';
-import { Shopping_Cart } from '../../entities/shoppingCartEntity';
-import { Shopping_Cart_Article } from '../../entities/shoppingCart_ArticleEntity';
 import infoMercadoPagoController from '../../controllers/mercadoPago/infoMPController';
 
 
@@ -20,7 +12,6 @@ mercadopago.configure({
 
 export const infoMercadoPago = async (req: Request, res: Response)  => {
     try {
-        console.log(req.body);
         
         const { query } = req
         const {userId} = query
