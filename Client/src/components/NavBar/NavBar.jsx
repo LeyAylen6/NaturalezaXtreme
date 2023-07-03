@@ -10,14 +10,12 @@ import { BsCart3 } from "react-icons/bs";
 import { useSelector } from "react-redux";
 
 const NavBar = () => { 
-  const users = useSelector(state => state.users)
+  const userId = useSelector(state => state.userId)
   const { isAuthenticated, user } = useAuth0();
  
-  const userFinded= users.find( element => element.email === user?.email ) 
-  
   let admin 
   const userAdmin = () => {
-    if (userFinded.rol === 'admin'){ admin = userFinded } 
+    if (userId.rol === 'admin'){ admin = true } 
     else {
       admin = null;
     }
@@ -60,7 +58,7 @@ const NavBar = () => {
           </Link>
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
-          { userFinded ?
+          { userAdmin ?
           <Link to="/admin">Admin</Link> : null}
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>

@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 export type CategoryPost = "hiking" | "camping" | "mountaineering" | "cycling" | "rock climbing" | "running"
+export const types = ["hiking", "camping", "mountaineering", "cycling", "rock climbing", "running"]
 
 @Entity()
 export class Post {
@@ -25,11 +26,11 @@ export class Post {
 
     @Column({
         type: "enum",
-        enum: ["hiking", "camping", "mountaineering", "cycling", "rock climbing", "running"],
+        enum: types,
         default: "hiking"
     })
     role: CategoryPost
 
     @Column()
-    disable: boolean
+    active: boolean
 }

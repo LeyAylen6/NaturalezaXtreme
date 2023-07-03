@@ -6,7 +6,6 @@ const userRepository = AppDataSource.getRepository(User);
 
 const deleteFavsController = async(userId: number, articleId: number) => {
 
-    console.log('SOY YO', userId, articleId)
     const [userFound] = await userRepository.find({
         relations: {
             articles: true
