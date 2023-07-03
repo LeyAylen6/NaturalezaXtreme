@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Box, Heading, UnorderedList, ListItem, Button, Image } from "@chakra-ui/react";
+import { Box, Heading, UnorderedList, ListItem, Button, Image, Container, Divider, Center } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPayment, setPaymentLink, addToMercadoPago } from "../../redux/actions/actions.js";
@@ -8,13 +8,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Stadistics from "../Admin/Statistics.jsx";
 
 const Cart = () => {
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const paymentLink = useSelector((state) => state.paymentLink);
   const [paymentError, setPaymentError] = useState(false);
   const [cartUpdated, setCartUpdated] = useState(false);
-  
+
   const fullCart = JSON.parse(localStorage.getItem("cart"));
   let modifiedCart = fullCart;
 
@@ -77,59 +76,72 @@ const Cart = () => {
       setPaymentError(true);
     }
   };
- 
+
   return (
-    <Box border={"2px"}>
-      <Heading>Shopping Cart</Heading>
-      <UnorderedList>
-        {!fullCart?.length? (
-          <Heading fontSize="14px">No tienes productos en el carrito</Heading>
-        ) : (
-          fullCart?.map((item) => (
-            <ListItem key={item.id} mb={2}>
-              <Box border={"1px"} display={"flex"} justifyContent={"space-between"}>
-                <Box>
-                  <Image src={item.image} alt={item.name} width="100px" />
-                </Box>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  {item.name} - Cantidad: {item.quantity}
-                </Box>
-
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <p> U$S: {item.price} </p>
-                </Box>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDecreaseQuantity(item.id)}>
-                    -
-                  </Button>
-                  <Button colorScheme="blue" size="sm" ml={2} onClick={() => handleIncreaseQuantity(item.id)}>
-                    +
-                  </Button>
-                  <Button colorScheme="red" size="sm" ml={2} onClick={() => handleRemoveFromCart(item.id)}>
-                    Eliminar
-                  </Button>
-                </Box>
-              </Box>
-            </ListItem>
-          ))
-        )}
-
-        <Box mt={4} color="white" bg="#2C2C2C" display={"flex"} justifyContent={"center"}>
-          Total: ${calculateTotal()}
-        </Box>
-        <Box>
-          {paymentLink ? (
-            <a href={paymentLink} target="_blank" rel="noopener noreferrer">
-              Pagar
-            </a>
+    <Container maxW="container.xl">
+      <Box>
+        <Heading>Shopping Cart</Heading>
+        <Center height="50px">
+          <Divider orientation="horizontal" />
+        </Center>
+        <UnorderedList>
+          <Center height="50px">
+            <Divider orientation="horizontal" />
+          </Center>
+          {!fullCart?.length ? (
+            <Heading fontSize="14px">No tienes productos en el carrito</Heading>
           ) : (
-            <Box>
-              <Button onClick={handlePayment}>Realizar pago</Button>
-            </Box>
+            fullCart?.map((item) => (
+              <ListItem key={item.id} mb={2}>
+                <Center height="50px">
+                  <Divider orientation="horizontal" />
+                </Center>
+                <Box display={"flex"} justifyContent={"space-between"}>
+                  <Box>
+                    <Image src={item.image} alt={item.name} width="100px" />
+                  </Box>
+                  <Box display="flex" justifyContent="center" alignItems="center">
+                    {item.name} - Cantidad: {item.quantity}
+                  </Box>
+
+                  <Box display="flex" justifyContent="center" alignItems="center">
+                    <p> U$S: {item.price} </p>
+                  </Box>
+                  <Box display="flex" justifyContent="center" alignItems="center">
+                    <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDecreaseQuantity(item.id)}>
+                      -
+                    </Button>
+                    <Button colorScheme="blue" size="sm" ml={2} onClick={() => handleIncreaseQuantity(item.id)}>
+                      +
+                    </Button>
+                    <Button colorScheme="red" size="sm" ml={2} onClick={() => handleRemoveFromCart(item.id)}>
+                      Eliminar
+                    </Button>
+                  </Box>
+                </Box>
+              </ListItem>
+            ))
           )}
-        </Box>
-      </UnorderedList>
-    </Box>
+          <Center height="50px">
+            <Divider orientation="horizontal" />
+          </Center>
+          <Box mt={4} color="white" bg="#2C2C2C" display={"flex"} justifyContent={"center"}>
+            Total: ${calculateTotal()}
+          </Box>
+          <Box>
+            {paymentLink ? (
+              <a href={paymentLink} target="_blank" rel="noopener noreferrer">
+                Pagar
+              </a>
+            ) : (
+              <Box>
+                <Button onClick={handlePayment}>Realizar pago</Button>
+              </Box>
+            )}
+          </Box>
+        </UnorderedList>
+      </Box>
+    </Container>
   );
 };
 
