@@ -8,6 +8,7 @@ import SizeOptions from "./utils/SizeOptions";
 import Rating from "../Rating/Rating";
 import Comments from "../Comments/Comments";
 import { setPaymentLink } from "../../redux/actions/actions";
+import { useAuth0 } from "@auth0/auth0-react";
 
 //Interface para cargar el estado local prouctSelections
 const initProductSelections = {
@@ -29,6 +30,7 @@ const Detail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const aut = useAuth0();
 
   //Trae user Id y el carrito del localStorage
   const user = JSON.parse(localStorage.getItem("userId"))
@@ -188,7 +190,7 @@ const Detail = () => {
                   <StockDisplay {...config} key={`config${index}`} />
                 ))}
               </Box>
-              <Flex id="buttons" direction="row" alignItems="stretch" gap="10px">
+              {aut.user && <Flex id="buttons" direction="row" alignItems="stretch" gap="10px">
                 {!isFavorite ? (
                   <Button onClick={handleFavorites} flex="1" m="10px">
                     Add to favorites
@@ -208,7 +210,7 @@ const Detail = () => {
                     Remove from Cart
                   </Button>
                 )}
-              </Flex>
+              </Flex>}
               <Button
                 isDisabled={!(productSelections.size || productSelections.shoeSize)}
                 type="submit"
