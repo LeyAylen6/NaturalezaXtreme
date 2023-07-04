@@ -17,7 +17,7 @@ const Admin = () => {
         height={"100px"}
         borderRadius={"10px"}
       >
-        <Link to="/CrudProduct">Products</Link>
+        <Link to="/crudProduct">Products</Link>
       </Box>
       <Box
         bg={"transparent"}
@@ -30,7 +30,20 @@ const Admin = () => {
         height={"100px"}
         borderRadius={"10px"}
       >
-        <Link to="/CrudUsers">Users</Link>
+        <Link to="/crudUsers">Users</Link>
+      </Box>
+      <Box
+        bg={"transparent"}
+        margin={"30px"}
+        border={"1px"}
+        color={"black"}
+        fontSize={"20px"}
+        padding={"10px"}
+        width={"200px"}
+        height={"100px"}
+        borderRadius={"10px"}
+      >
+        <Link to="/blogEditor">Blog</Link>
       </Box>
     </Container>
   );

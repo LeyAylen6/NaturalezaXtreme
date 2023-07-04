@@ -7,8 +7,9 @@ const updateUserController = async(newUser: userStructure) => {
 
     const userFound = await getUserByIdController(newUser.id)
     if(newUser.active !== userFound.active) throw new Error('Cannot modify the active property of the user')
+    if(newUser.rol) newUser.rol = newUser.rol.toLowerCase();
 
-    await AppDataSource.getRepository(User).merge(userFound, newUser)
+    AppDataSource.getRepository(User).merge(userFound, newUser)
     const results = await AppDataSource.getRepository(User).save(userFound)
 
     return results;

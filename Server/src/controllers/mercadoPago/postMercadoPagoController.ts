@@ -3,11 +3,9 @@ import { CreatePreferencePayload } from "mercadopago/models/preferences/create-p
 import axios from "axios";
 
 const postMercadoPagoController = async (userId: string) =>{
-    console.log({userId});
-    
+
     const {data} = await axios(`http://localhost:3001/shoppingcart?userId=${userId}&status=pending`)
     
-    console.log({MP:data});
     const product: [] = data.shoppingArticles;
     
     
