@@ -24,7 +24,7 @@ const initProductSelections = {
 };
 
 //Se guarda el carrito local
-const cartLocal = [];
+const cartLocal = JSON.parse(localStorage.getItem("cart")) ||  [];
 
 const Detail = () => {
   const { id } = useParams();
