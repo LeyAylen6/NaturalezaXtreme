@@ -22,18 +22,16 @@ import Privateroute from "./components/PrivateRoute/Privateroute";
 import Stadistics from "./components/Admin/Statistics";
 import { useSelector } from "react-redux";
 import { Box } from "@chakra-ui/react";
-import ErrorMessage from '../src/components/ErrorMessage/ErrorMessage'
+import ErrorMessage from "../src/components/ErrorMessage/ErrorMessage";
 import Account from "./components/UserDashboard/Account";
 import Shopping from "./components/UserDashboard/Shopping";
 import Blog from "./components/Blog/Blog";
-
-
 
 function App() {
   const message = useSelector((state) => state.message);
 
   return (
-    <Box minHeight="100vh" backgroundColor={"blackAlpha.200"} backdropContrast={"1px"}>
+    <Box backgroundColor={"blackAlpha.200"} minHeight={"100vh"}>
       {message ? <ErrorMessage message={message} /> : null}
       <NavBar />
 
@@ -59,13 +57,10 @@ function App() {
         <Route element={<Privateroute />}>
           <Route path="/admin" element={<Admin />} />
         </Route>
-        <Route path="/account" element={<Account/>}/>
-             <Route path="/myshopping" element={<Shopping/>}/>
-  
-        </Routes> 
-    
+        <Route path="/account" element={<Account />} />
+        <Route path="/myshopping" element={<Shopping />} />
+      </Routes>
     </Box>
-
   );
 }
 

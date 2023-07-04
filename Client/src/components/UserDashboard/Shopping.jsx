@@ -31,58 +31,40 @@ import { originalColors } from "../../theme/palette";
 
 const Shopping = () => {
   const cart = localStorage.getItem("cart");
-const cartCompleted= useSelector((state)=>state.pendingCart)
+  const cartCompleted = useSelector((state) => state.pendingCart);
 
   const cartParsed = JSON.parse(cart);
-
-
- 
 
   const dispatch = useDispatch();
   useEffect(() => {}, []);
   return (
-    <Box>
-              
-     <Flex flexWrap="wrap" gap={4}>
-
+    <Box p={40}>
+      <Flex flexWrap="wrap" gap={4}>
         {cartParsed?.map((article, index) => {
           return (
             <Box key={index} pt={5}>
-              
-                <Card
-                pt={4}
-                justifyContent={"center"}
-                boxShadow={"md"}
-                _hover={{ boxShadow: "dark-lg", cursor: "pointer" }}
-                >
-                  <HStack>
-                    <Avatar src={article.image} m={2} boxSize={200} />
+              <Card pt={4} justifyContent={"center"} boxShadow={"md"} _hover={{ boxShadow: "dark-lg", cursor: "pointer" }}>
+                <HStack>
+                  <Avatar src={article.image} m={2} boxSize={200} />
 
-                    <Heading maxW={200} fontSize={20} pb={10} pt={5}>
-                      {article.name}
-                    </Heading>
-                  </HStack>
+                  <Heading maxW={200} fontSize={20} pb={10} pt={5}>
+                    {article.name}
+                  </Heading>
+                </HStack>
 
-                  {article.commented ? (
-                    <Container bg="green.200">Is commented</Container>
-                    ) : (
-                      <Button bg="blue.400" borderRadius={0}>Add comment</Button>
-                      )}
-                </Card>
-               
-              
+                {article.commented ? (
+                  <Container bg="green.200">Is commented</Container>
+                ) : (
+                  <Button bg="blue.400" borderRadius={0}>
+                    Add comment
+                  </Button>
+                )}
+              </Card>
             </Box>
           );
         })}
-      
-    
-
-    
-     </Flex>
+      </Flex>
     </Box>
-
-    
-      
   );
 };
 export default Shopping;
