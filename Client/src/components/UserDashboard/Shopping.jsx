@@ -22,25 +22,30 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartById } from "../../redux/actions/cartActions";
+import { getCartById, getPendingCart } from "../../redux/actions/cartActions";
 import { useAuth0 } from "@auth0/auth0-react";
 import Rating from "../Rating/Rating";
 import { originalColors } from "../../theme/palette";
 
 const Shopping = () => {
+
+  console.log(localStorage.getItem("cart"));
+ 
   const id = 1;
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.getPendingCart);
+  const cartParsed= JSON.parse(cart)
+  
   const allArticles=useSelector((state)=>state.allArticles)
   console.log(cart);
   
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCartById(id));
+    
   }, []);
   return (
     <HStack justifyContent={"center"}>
       <VStack justifyContent={"center"}>
-        {cart?.map((article, index) => {
+        {cartParsed?.map((article, index) => {
           
          
           

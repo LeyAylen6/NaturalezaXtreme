@@ -59,7 +59,8 @@ const NavBar = () => {
           </Link>
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
-          { userAdmin ?
+          {userAdmin()}
+          { admin !== null ?
           <Link to="/admin">Admin</Link> : null}
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
