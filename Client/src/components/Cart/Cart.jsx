@@ -130,12 +130,12 @@ const Cart = () => {
 								borderRadius={15}
 								gap={10}
 								h={150}
-								p={"24"}
 								m={5}
+								p={10}
 							>
 								<Box display={"flex"} justifyContent={"space-between"}>
 									<Box display={"flex"} alignItems={"center"}>
-										<Image src={item.image} alt={item.name} width="120px" />
+										<Image src={item.image} alt={item.name} h={"28"} />
 									</Box>
 
 									<Box display="flex" alignItems="center" fontSize={"20px"} fontWeight={"bold"} w={300}>
