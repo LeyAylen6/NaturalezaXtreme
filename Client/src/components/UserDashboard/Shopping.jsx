@@ -1,88 +1,82 @@
-import {
-  Container,
-  CardBody,
-  HStack,
-  Progress,
-  Divider,
-  VStack,
-  Avatar,
-  Heading,
-  TableContainer,
-  TableCaption,
-  Thead,
-  Th,
-  Card,
-  Table,
-  Tr,
-  Td,
-  Tbody,
-  Tfoot,
-  Box,
-  Button,
-  Grid,
-  Flex,
-} from "@chakra-ui/react";
-import { useEffect } from "react";
+import { Container, CardBody, Image, HStack, Progress, Divider, VStack, Avatar, Heading, TableContainer, TableCaption, Thead, Th, Card, Table, Tr, Td, Tbody, Tfoot, Box, Button, Grid, Flex, Stack, CardFooter } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartById, getPendingCart } from "../../redux/actions/cartActions";
-import { useAuth0 } from "@auth0/auth0-react";
-import Rating from "../Rating/Rating";
-import { originalColors } from "../../theme/palette";
+import { getPurchasedCarts } from "../../redux/actions/actions";
+import RateArticle from "../RateArticle/RateArticle";
 
 const Shopping = () => {
-  const cart = localStorage.getItem("cart");
-const cartCompleted= useSelector((state)=>state.pendingCart)
-
-  const cartParsed = JSON.parse(cart);
-
-
- 
-
   const dispatch = useDispatch();
-  useEffect(() => {}, []);
+  const userId = JSON.parse(localStorage.getItem("userId"));
+  const purchasedArticles = useSelector((state) => state.purchasedArticles);
+  const [toComment, setToComment] = useState(null);
+  const [selectedArticleId, setSelectedArticleId] = useState(null);
+
+  useEffect(() => {
+    dispatch(getPurchasedCarts(userId));
+  }, [dispatch]);
+
+  const ratePurchase = (e, id) => {
+    setSelectedArticleId(id);
+    setToComment(true);
+  };
+
   return (
-    <Box>
-              
-     <Flex flexWrap="wrap" gap={4}>
+    <Box margin={"10"}>
+      {purchasedArticles?.map((article, index) => {
+        return (
+          <Flex key={index}>
+            <Card
+              direction={{ base: 'column', sm: 'row' }}
+              overflow='hidden'
+              variant='outline'
+              key={`article-${index}`}
+              padding={"15"}
+            >
+              <Image
+                objectFit='cover'
+                maxW={{ base: '100%', sm: '200px' }}
+                src={article.image}
+                alt={article.name}
+                margin={"15"}
+              />
 
-        {cartParsed?.map((article, index) => {
-          return (
-            <Box key={index} pt={5}>
-              
-                <Card
-                pt={4}
-                justifyContent={"center"}
-                boxShadow={"md"}
-                _hover={{ boxShadow: "dark-lg", cursor: "pointer" }}
-                >
-                  <HStack>
-                    <Avatar src={article.image} m={2} boxSize={200} />
+              <Stack>
+                <CardBody>
+                  <Heading size='md'>{article.name}</Heading>
+                </CardBody>
 
-                    <Heading maxW={200} fontSize={20} pb={10} pt={5}>
-                      {article.name}
-                    </Heading>
-                  </HStack>
-
+                <CardFooter>
                   {article.commented ? (
                     <Container bg="green.200">Is commented</Container>
-                    ) : (
-                      <Button bg="blue.400" borderRadius={0}>Add comment</Button>
-                      )}
-                </Card>
-               
-              
+                  ) : (
+                    <Button
+                      variant='solid'
+                      colorScheme='blue'
+                      value={article.id}
+                      onClick={(e) => ratePurchase(e, article.id)}
+                    >
+                      Rate your purchase
+                    </Button>
+                  )}
+                </CardFooter>
+              </Stack>
+            </Card>
+            <Box
+              key={`box-${index}`}
+              direction={{ base: 'column', sm: 'row' }}
+              overflow='hidden'
+              variant='outline'
+              padding={"15"}
+            >
+              {toComment && selectedArticleId === article.id ? (
+                <RateArticle id={article.id} userId={userId} />
+              ) : null}
             </Box>
-          );
-        })}
-      
-    
-
-    
-     </Flex>
+          </Flex>
+        );
+      })}
     </Box>
-
-    
-      
   );
 };
+
 export default Shopping;

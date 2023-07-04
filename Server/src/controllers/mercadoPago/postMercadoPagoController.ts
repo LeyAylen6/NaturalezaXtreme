@@ -20,9 +20,9 @@ const postMercadoPagoController = async (userId: string) =>{
     const payer = {
         email: data.user.email
     }
-    const URLBK = 'https://c831-201-190-150-125.ngrok-free.app'
-    const URL = 'https://7783-201-190-150-125.ngrok-free.app'
-    // si no les funciona con esa url pongan http://localhost:3001/ 
+    const URLBK = 'https://7298-200-91-35-227.ngrok-free.app'
+    //Url de redireccionamiento al back //Acá cada uno pone su propia URL de la página de ngrok
+    const URL = 'http://localhost:5173'
         
     let preference: CreatePreferencePayload  = {
         items,

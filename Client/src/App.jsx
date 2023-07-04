@@ -27,8 +27,6 @@ import Account from "./components/UserDashboard/Account";
 import Shopping from "./components/UserDashboard/Shopping";
 import Blog from "./components/Blog/Blog";
 
-
-
 function App() {
   const message = useSelector((state) => state.message);
 
@@ -61,9 +59,7 @@ function App() {
         </Route>
         <Route path="/account" element={<Account/>}/>
              <Route path="/myshopping" element={<Shopping/>}/>
-  
         </Routes> 
-    
     </Box>
 
   );
