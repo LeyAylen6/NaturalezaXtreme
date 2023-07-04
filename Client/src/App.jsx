@@ -22,14 +22,14 @@ import Privateroute from "./components/PrivateRoute/Privateroute";
 import Stadistics from "./components/Admin/Statistics";
 import { useSelector } from "react-redux";
 import { Box } from "@chakra-ui/react";
-import ErrorMessage from '../src/components/ErrorMessage/ErrorMessage'
+import ErrorMessage from "../src/components/ErrorMessage/ErrorMessage";
 import Blog from "./components/Blog/Blog";
 
 function App() {
   const message = useSelector((state) => state.message);
 
   return (
-    <Box minHeight="100vh" backgroundColor={"blackAlpha.200"} backdropContrast={"1px"}>
+    <Box backgroundColor={"blackAlpha.200"} minHeight={"100vh"}>
       {message ? <ErrorMessage message={message} /> : null}
       <NavBar />
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import CardContainer from "../CardContainer/CardContainer";
 import Filters from "../Filters/Filters";
@@ -9,7 +9,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Carousel from "../Carousel/Carousel";
 
 const Home = () => {
-
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useAuth0();
 
@@ -23,16 +22,11 @@ const Home = () => {
 
   return (
     <Box>
-      <Box display={"flex"} justifyContent={"rigth"}>
-        <Button size={"sm"} borderRadius={"8px"} onClick={toggleColorMode}>
-          Mode {colorMode === "light" ? "Dark" : "Light"}
-        </Button>
-      </Box>
-      <Box>
-        <Filters />
-      </Box>
       <Box>
         <Carousel />
+      </Box>
+      <Box marginTop={"20px"}>
+        <Filters />
       </Box>
       <Box>
         <CardContainer />
