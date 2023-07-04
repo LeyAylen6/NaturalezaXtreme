@@ -65,7 +65,7 @@ router.post("/blog", postBlog)
 router.get("/blog", getBlog)
 router.put("/blog", updateBlog)
 router.delete("/blog/:id", deleteBlog)
-router.get("/blog/categorys", getCategorys)
+router.get("/blog/categories", getCategorys)
 
 
 

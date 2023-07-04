@@ -28,8 +28,6 @@ const getArticlesByNameController = async(name: string, gender: string, type: st
 
     const pag = paginado(offset,limit,articlesFounded.length)
 
-    if (articlesFounded.length === 0) throw new Error(`no matches were found for your search`)
-
     return{...pag, articlesFounded};
 }
 
