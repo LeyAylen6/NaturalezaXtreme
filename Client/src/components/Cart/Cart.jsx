@@ -12,14 +12,14 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const paymentLink = useSelector((state) => state.paymentLink);
-  const article = useSelector((state) => state.detail)
+  const article = useSelector((state) => state.detail);
   const [paymentError, setPaymentError] = useState(false);
   const [cartUpdated, setCartUpdated] = useState(false);
   const [Count, setConut] = useState({
     id: article.id,
-    countSales : article.countSales +1,
-    active: article.active
-  })
+    countSales: article.countSales + 1,
+    active: article.active,
+  });
   const { user } = useAuth0();
 
   const fullCart = JSON.parse(localStorage.getItem("cart"));
@@ -82,7 +82,7 @@ const Cart = () => {
       saveLocalStorage([]);
       if (result === "success") {
         navigate("/");
-        dispatch(updateProduct(Count))
+        dispatch(updateProduct(Count));
       }
     } catch (error) {
       setPaymentError(true);
@@ -90,7 +90,7 @@ const Cart = () => {
   };
 
   return (
-    <Container maxW="container.xl" display={"flex"} flexDir={"column"} pt={120}>
+    <Container maxW="container.xl" display={"flex"} height={"container.xl"} flexDir={"column"} pt={120}>
       <Heading margin={10}>- Shopping Cart -</Heading>
       <Box display={"flex"}>
         <UnorderedList>
