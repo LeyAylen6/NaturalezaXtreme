@@ -21,7 +21,7 @@ const getArticlesController = async(offset:number, limit:number, order:any,  cou
     const pag = paginado(offset,limit,count)
 
     if(!articlesFounded.length) throw new Error ("No hay articulos para mostar");
-    return {...pag,articlesFounded};
+    return {...pag, articlesFounded};
 }
 
 export default getArticlesController;
