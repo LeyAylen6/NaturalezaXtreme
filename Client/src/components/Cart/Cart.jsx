@@ -84,53 +84,52 @@ const Cart = () => {
 
   return (
     <Container maxW="container.xl">
-      <Box>
-        <Heading>Shopping Cart</Heading>
+      <Heading>Shopping Cart</Heading>
+      <Box display={"flex"}>
         <Center height="50px">
           <Divider orientation="horizontal" />
         </Center>
-        <UnorderedList>
+        <UnorderedList border={"1px"}>
           <Center height="50px">
             <Divider orientation="horizontal" />
           </Center>
           {!fullCart?.length ? (
-            <Heading fontSize="14px">No tienes productos en el carrito</Heading>
+            <Heading fontSize="18px">No tienes productos en el carrito</Heading>
           ) : (
             fullCart?.map((item) => (
-              <ListItem key={item.id} mb={2}>
+              <ListItem key={item.id} mb={2} display={"flex"} justifyContent={"space-between"}>
                 <Center height="50px">
                   <Divider orientation="horizontal" />
                 </Center>
                 <Box display={"flex"} justifyContent={"space-between"}>
-                  <Box>
+                  <Box marginRight={"150px"}>
                     <Image src={item.image} alt={item.name} width="100px" />
                   </Box>
-                  <Box display="flex" justifyContent="center" alignItems="center">
-                    {item.name} - Cantidad: {item.quantity}
+                  <Box display="flex" justifyContent="center" alignItems="center" fontSize={"18px"} fontWeight={"bold"}>
+                    {item.name}
                   </Box>
                 </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  Talle: {item.type === "shoes" ? item.shoeSize : item.size}
+                  Size: {item.type === "shoes" ? item.shoeSize : item.size}
                 </Box>
 
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <p> U$S: {item.price} </p>
-
-                  <Box display="flex" justifyContent="center" alignItems="center">
-                    <p> U$S: {item.price} </p>
+                <Box display="flex" justifyContent="center" alignItems="center" marginRight={"10px"}>
+                  <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDecreaseQuantity(item.id)}>
+                    -
+                  </Button>
+                  <Box display="flex" justifyContent="center" alignItems="center" fontWeight={"bold"} fontSize={"16px"} p={"5px"}>
+                    {item.quantity}
                   </Box>
-                  <Box display="flex" justifyContent="center" alignItems="center">
-                    <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDecreaseQuantity(item.id)}>
-                      -
-                    </Button>
-                    <Button colorScheme="blue" size="sm" ml={2} onClick={() => handleIncreaseQuantity(item.id)}>
-                      +
-                    </Button>
-                    <Button colorScheme="red" size="sm" ml={2} onClick={() => handleRemoveFromCart(item.id)}>
-                      Eliminar
-                    </Button>
-                  </Box>
+                  <Button colorScheme="blue" size="sm" ml={2} onClick={() => handleIncreaseQuantity(item.id)}>
+                    +
+                  </Button>
+                  <Button colorScheme="red" size="sm" ml={2} onClick={() => handleRemoveFromCart(item.id)}>
+                    Delete
+                  </Button>
+                </Box>
+                <Box display="flex" justifyContent="center" alignItems="center" fontWeight={"bold"} fontSize={"18px"} marginRight={"30px"}>
+                  <p> U$S {item.price} </p>
                 </Box>
               </ListItem>
             ))
@@ -138,21 +137,25 @@ const Cart = () => {
           <Center height="50px">
             <Divider orientation="horizontal" />
           </Center>
-          <Box mt={4} color="white" bg="#2C2C2C" display={"flex"} justifyContent={"center"}>
+        </UnorderedList>
+        <Box margin={"40px"} p={"5px"} display={"flex"} alignItems={"end"}>
+          <Box display={"flex"} justifyContent={"center"} fontSize={"3xl"} margin={"10px"}>
             Total: ${calculateTotal()}
           </Box>
-          <Box>
+          <Box margin={"5px"}>
             {paymentLink ? (
               <a href={paymentLink} target="_blank" rel="noopener noreferrer">
-                Pagar
+                Pay
               </a>
             ) : (
               <Box>
-                <Button onClick={handlePayment}>Realizar pago</Button>
+                <Button isDisabled={!user || !fullCart.length} onClick={handlePayment} border={"1px"} marginBottom={"20px"}>
+                  make payment
+                </Button>
               </Box>
             )}
           </Box>
-        </UnorderedList>
+        </Box>
       </Box>
     </Container>
   );
