@@ -8,6 +8,7 @@ import Logout from "../LogOut/Logout";
 import Login from "../LoginandSignUp/Login/Login";
 import { BsCart3 } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import MenuProfile from "../UserDashboard/MenuProfile/MenuProfile";
 
 const NavBar = () => { 
   const userId = useSelector(state => state.userId)
@@ -48,9 +49,7 @@ const NavBar = () => {
       <Box bg={"transparent"} color={"white"}>
         <Link to="/blog">Blog</Link>
       </Box>
-      <Box bg={"transparent"} color={"white"}>
-        <Link to="/favorites">Favorite</Link>
-      </Box>
+     
 
       <HStack spacing={10} ml="auto" pr={5}>
         <Box bg={"transparent"} color={"white"} padding={"20px"}>
@@ -62,7 +61,8 @@ const NavBar = () => {
           </Link>
         </Box>
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
-          { userAdmin ?
+          {userAdmin()}
+          { admin !== null ?
           <Link to="/admin">Admin</Link> : null}
         </Box>
         
@@ -77,6 +77,8 @@ const NavBar = () => {
         </Box>
 
         <Profile />
+      
+        { isAuthenticated &&  <MenuProfile/>}
       </HStack>
     </Stack>
   );

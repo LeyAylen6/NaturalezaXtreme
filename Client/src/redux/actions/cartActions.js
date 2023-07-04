@@ -22,10 +22,9 @@ export const emptyCart = (id) => {
 
 export const getCartById = (id) => async (dispatch) => {
   try {
-    const response = await axios.get(`${URL}/shoppingcart/${id}`);
+    const response = await axios.get(`${URL}shoppingcart/reviews/${id}`);
     const cartById = response.data;
-    console.log("cartById   action  " + cartById);
-
+    
     dispatch({
       type: GET_CART,
       payload: cartById,
@@ -62,3 +61,5 @@ export const getPendingCart = (id) => {
     }
   };
 };
+
+
