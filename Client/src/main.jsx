@@ -14,16 +14,14 @@ const clientId = "4cGMuNbLpCY3vzLXqvWxGhXhDEwnctpu";
 // import { addToCart } from "../../redux/actions/cartActions";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
-      <BrowserRouter>
-        <ColorModeScript initialColorMode="light" />
-        <ChakraProvider>
-          <Provider store={store}>
-            <App />
-          </Provider>
-        </ChakraProvider>
-      </BrowserRouter>
-    </Auth0Provider>
-  </React.StrictMode>
+  <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
+    <BrowserRouter>
+      <ColorModeScript initialColorMode="light" />
+      <ChakraProvider>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ChakraProvider>
+    </BrowserRouter>
+  </Auth0Provider>
 );
