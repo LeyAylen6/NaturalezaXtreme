@@ -10,6 +10,7 @@ import Comments from "../Comments/Comments";
 import { setPaymentLink } from "../../redux/actions/actions";
 import { useAuth0 } from "@auth0/auth0-react";
 
+
 //Interface para cargar el estado local prouctSelections
 const initProductSelections = {
   id: "",
