@@ -1,12 +1,21 @@
 import { Container, Box, Text, FormControl, FormLabel, Input, Button, Select} from "@chakra-ui/react";
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { getCategories } from "../../redux/actions/actions";
 
 const BlogEditor = () => {
 
     const URL = "http://localhost:3001/";
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch])
+
+    const categories = useSelector(state => state.categories)
     const [inputValues, setInputValues] = useState({
         name: '',
         content: '',
@@ -33,15 +42,15 @@ const BlogEditor = () => {
                 image: '',
                 role: []
             })
-            Navigate("/blog");
+            navigate("/blog");
         } catch (error) {
             console.log(error)
         }
     }
 
     return(
-        <Container>
-            <Box flex="1" p="5" borderWidth="4px" borderRadius="xl" bgColor="rgba(46, 48, 58, 0.8)">
+        <Container marginBlock={20}>
+            <Box flex="1" p="5" borderWidth="4px" borderRadius="xl" bgColor="rgba(46, 48, 58, 0.8)" >
                 <Text mt={2} fontSize="xl" fontWeight="semibold" lineHeight="short" color={"white"}>
                     Blog Editor <br /> Submit your article
                 </Text>
@@ -64,12 +73,17 @@ const BlogEditor = () => {
             <FormControl>
                 <FormLabel>Select a category</FormLabel>
                 <Select name="role" placeholder='Select one option' onChange={handleInputChange}>
-                    <option value="hiking">hiking</option>
+                {categories?.map(category => {
+                    return(
+                        <option value={category}>{category}</option>
+                    )
+                })};
+                    {/* <option value="hiking">hiking</option>
                     <option value="camping">camping</option>
                     <option value="mountaineering">mountaineering</option>
                     <option value="cycling">cycling</option>
                     <option value="rock climbing">rock climbing</option>
-                    <option value="running">running</option>
+                    <option value="running">running</option> */}
                 </Select>
             </FormControl>
             <Button

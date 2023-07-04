@@ -6,9 +6,9 @@ import image from "../../assets/about_bg.jpg";
 // bgColor="rgba(39, 57, 43)"
 const AboutUs = () => {
   return (
-    <Center bgImage={image} backgroundPosition="center" backgroundRepeat="no-repeat" bgSize="cover">
+    <Center bgImage={image} backgroundPosition="center" backgroundRepeat="no-repeat" bgSize="cover" height={"100vh"}>
       <Box />
-      <Flex direction={"column"} width="85%" margin={7} gap="1.5" m="3.5">
+      <Flex direction={"column"} width="85%" gap="1.5" m={"1"}>
         <Box flex="1" p="5" borderWidth="4px" borderRadius="xl" bgColor="rgba(46, 48, 58, 0.8)">
           <Text mt={2} fontSize="xl" fontWeight="semibold" lineHeight="short" color={"white"}>
             Welcome!

@@ -52,7 +52,7 @@ export default function CaptionCarousel() {
 
   return (
     <Container maxW="container.xl" marginTop={"2rem"} marginBottom={"2rem"}>
-      <Box position={"relative"} height={"450px"} overflow={"hidden"}>
+      <Box position={"relative"} height={"450px"} overflow={"hidden"} borderRadius='xl'>
         {/* CSS files for react-slick */}
         <link
           rel="stylesheet"

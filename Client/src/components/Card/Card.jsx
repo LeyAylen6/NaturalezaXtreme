@@ -26,7 +26,7 @@ const Tarjeta = ({ id, image, name, description, price, rating }) => {
     <Card
       maxW={"300px"}
       mt={"10px"}
-      borderRadius={"none"}
+      borderRadius="xl" 
       height={"400px"}
       boxShadow={"md"}
       _hover={{ boxShadow: "dark-lg", cursor: "pointer" }}

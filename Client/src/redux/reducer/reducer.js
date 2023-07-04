@@ -21,7 +21,8 @@ import {
   CLEAR_MESSAGE,
   MESSAGE,
   GET_COUNT_ARTICLES,
-  GET_POSTS
+  GET_POSTS,
+  GET_CATEGORIES
 } from "../actions/actions";
 
 import { GET_USERS, POST_USERS, USER_ID } from "../actions/actionsUsers";
@@ -44,7 +45,8 @@ const initialState = {
   page: 1,
   message: '',
   articleCount: [],
-  posts: []
+  posts: [],
+  categories: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -253,7 +255,11 @@ const reducer = (state = initialState, action) => {
     ...state,
     posts: action.payload
   }
-
+    case GET_CATEGORIES: 
+  return {
+    ...state,
+    categories: action.payload
+  }
     default:
       return { ...state };
   }

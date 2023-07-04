@@ -1,21 +1,17 @@
-import { Card, CardHeader, CardBody, Heading, Text, Image, Badge } from "@chakra-ui/react";
+import { Card, CardHeader, CardBody, Heading, Text, Image, Badge, Center } from "@chakra-ui/react";
 
 const Post = (post) => {
 const {name, image, content, role} = post;
     return(
-        <Card>
+        <Card margin="10px" padding="10px">
             <CardHeader>
-                <Heading size='md'>{name}</Heading>
+                <Heading size='md' m={"2"}>{name}</Heading>
             </CardHeader>
+            <Image src={image} alt={name} borderRadius='lg' m={"2"} boxSize='65%' alignSelf={"center"}/>
             <CardBody>
-            <Image
-            src={image}
-            alt={name}
-            borderRadius='lg'
-            />
-            <Text>{content}</Text>
-            <Badge>{role}</Badge>
+            <Text m={10}>{content}</Text>
             </CardBody>
+            <Badge p={3} colorScheme="green" fontSize={"sm"}>{role}</Badge>
         </Card>
 
     )
