@@ -38,7 +38,7 @@ const Shopping = () => {
   const dispatch = useDispatch();
   useEffect(() => {}, []);
   return (
-    <Box p={40}>
+    <Box p={40} height={"container.xl"}>
       <Flex flexWrap="wrap" gap={4}>
         {cartParsed?.map((article, index) => {
           return (

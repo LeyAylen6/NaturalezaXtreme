@@ -10,7 +10,7 @@ const Account = () => {
   const userFinded = usersDB.filter((element) => element.email === user?.email);
 
   return (
-    <VStack pt={124}>
+    <VStack pt={124} height={"container.xl"}>
       <Avatar src={user?.picture} size={10} />
       <Heading>Welcome, {user?.name}</Heading>
       <Card pt={10}>
