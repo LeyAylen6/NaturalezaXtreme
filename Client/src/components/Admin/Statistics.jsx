@@ -13,6 +13,7 @@ import {
     Filler,
 } from 'chart.js';
 import {getCountArticle} from '../../redux/actions/actions'
+import{getUsers} from '../../redux/actions/actionsUsers'
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -33,14 +34,18 @@ const Stadistics = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-      dispatch(getCountArticle());
+      dispatch(getUsers());
     }, [dispatch]);
     
     const Count = useSelector((state) => state.articleCount)
     console.log(Count) 
+    const user = useSelector((state)=> state.users)
+    console.log(user.active)
   
- 
-    const midata = {
+     const logged = () => user.filter((user) => user.active).length
+
+
+        const midata = {
         labels: Count && Array.isArray(Count) ? Count.map((item) => item.name) : [],
         datasets: [
           {
@@ -74,7 +79,12 @@ var misoptions = {
 
     return ( 
         <div>
-         <Bar data={midata} options={misoptions}/>
+          <div>
+          <Bar data={midata} options={misoptions}/>
+        </div>
+          <div>
+          <Bar data={midata} options={misoptions}/>
+        </div>  
         </div>
     )
 

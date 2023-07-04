@@ -9,13 +9,12 @@ const Admin = () => {
       <Box
         bg={"transparent"}
         margin={"30px"}
-        border={"1px"}
-        color={"black"}
         fontSize={"20px"}
         padding={"10px"}
         width={"200px"}
         height={"100px"}
         borderRadius={"10px"}
+        backgroundColor={"rgb(64, 207, 255,0.2)"}
       >
         <Link to="/crudProduct">Products</Link>
       </Box>
