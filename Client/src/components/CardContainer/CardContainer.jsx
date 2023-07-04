@@ -10,9 +10,7 @@ const CardContainer = () => {
 
   return (
     <Box mx={"auto"} maxWidth={"1480px"} p={"0 20px"}>
-      <Paginate articles={articles} />
-      {!articles.articlesFounded?.length && <Text>No results match your search request</Text>}
-      <Flex flexWrap="wrap" justifyContent={"center"} gap={3}>
+      <Flex flexWrap="wrap" justifyContent={"center"} gap={6}>
         {articles.articlesFounded?.map((product, index) => {
           return (
             <Box key={index}>
@@ -32,6 +30,8 @@ const CardContainer = () => {
           );
         })}
       </Flex>
+      <Paginate articles={articles} />
+      {!articles.articlesFounded?.length && <Text>No results match your search request</Text>}
     </Box>
   );
 };

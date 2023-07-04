@@ -7,7 +7,7 @@ const Favorites = () => {
   const myFavorites = useSelector((state) => state.myFavorites);
 
   return (
-    <Box>
+    <Box pt={90} height={"container.xl"}>
       <Select width={"300px"} marginLeft={"850px"} border={"1px"} marginTop={"20px"} marginBottom={"20px"}>
         <option value="allProducts">All Products</option>
 

@@ -1,4 +1,4 @@
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Image, Container } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Image, Container, Divider } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import Paginate from "../Paginate/Paginate";
 import { Button, ButtonGroup } from "@chakra-ui/react";
@@ -58,9 +58,8 @@ const CrudProduct = () => {
 
   return (
     <Container maxW="-moz-fit-content" centerContent bg={`url()`} backgroundSize={"cover"}>
-      <Container maxW="container.xl" centerContent rounded="md" justifyContent="rigth" alignItems="center">
-        <Paginate articles={products} />
-        <TableContainer maxW="container.xl" m="4" p="4" rounded="md" justifyContent="rigth" alignItems="center">
+      <Container maxW="container.xl" pt={40} centerContent rounded="md" justifyContent="rigth" alignItems="center">
+        <TableContainer maxW="container.xl" rounded="md" justifyContent="rigth" alignItems="center">
           <Box display={"flex"} justifyContent={"space-between"}>
             <Button as={Link} to="/admin" colorScheme="cyan" size="lg" variant="solid" borderRadius={"15px"} m="6">
               Admin
@@ -181,6 +180,8 @@ const CrudProduct = () => {
             </AlertDialogContent>
           </AlertDialogOverlay>
         </AlertDialog>
+        <Divider orientation="horizontal" border={"1px"} />
+        <Paginate articles={products} />
       </Container>
     </Container>
   );

@@ -7,7 +7,7 @@ export const originalColors = {
     greybackground: "#AFAFAF",
     white: "#FFFF",
     black: "#000",
-    darkgrey: "#1c1c1c",
+    darkgrey: "#2C2C2C",
     lightblue: "#649AA6",
     lightgreen: "#6AC045",
     blueRating: "#3483fa"

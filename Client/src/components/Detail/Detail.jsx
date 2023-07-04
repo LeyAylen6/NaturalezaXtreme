@@ -10,7 +10,6 @@ import Comments from "../Comments/Comments";
 import { setPaymentLink } from "../../redux/actions/actions";
 import { useAuth0 } from "@auth0/auth0-react";
 
-
 //Interface para cargar el estado local prouctSelections
 const initProductSelections = {
   id: "",
@@ -24,10 +23,9 @@ const initProductSelections = {
   shoeSize: "",
 };
 
-
 const Detail = () => {
   //Se guarda el carrito local
-  const cartLocal = JSON.parse(localStorage.getItem("cart")) ||  [];
+  const cartLocal = JSON.parse(localStorage.getItem("cart")) || [];
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -117,7 +115,7 @@ const Detail = () => {
       cartLocal.push(productSelections);
       saveLocalStorage();
     }
-    dispatch(setPaymentLink(''))
+    dispatch(setPaymentLink(""));
   };
 
   //Botón buyNow
@@ -154,7 +152,7 @@ const Detail = () => {
   };
 
   return (
-    <Flex align={"center"} mt="50px" direction="column">
+    <Flex align={"center"} direction="column" p={120}>
       <Button as={Link} to="/" colorScheme="gray" mt="10px" onClick={cleanDetailState} marginBottom={"20px"} border={"1px"}>
         Back to Home
       </Button>
@@ -196,34 +194,36 @@ const Detail = () => {
                   <StockDisplay {...config} key={`config${index}`} />
                 ))}
               </Box>
-              {aut.user && <Flex id="buttons" direction="row" alignItems="stretch" gap="10px">
-                {!isFavorite ? (
-                  <Button onClick={handleFavorites} flex="1" m="10px" border={"1px"} borderColor={"black"}>
-                    Add to favorites
-                  </Button>
-                ) : (
-                  <Button onClick={handleFavorites} flex="1" m="10px" border={"1px"} borderColor={"black"}>
-                    Remove from favorites
-                  </Button>
-                )}
+              {aut.user && (
+                <Flex id="buttons" direction="row" alignItems="stretch" gap="10px">
+                  {!isFavorite ? (
+                    <Button onClick={handleFavorites} flex="1" m="10px" border={"1px"} borderColor={"black"}>
+                      Add to favorites
+                    </Button>
+                  ) : (
+                    <Button onClick={handleFavorites} flex="1" m="10px" border={"1px"} borderColor={"black"}>
+                      Remove from favorites
+                    </Button>
+                  )}
 
-                {!isInCart ? (
-                  <Button
-                    onClick={handleAddToCart}
-                    isDisabled={!(productSelections.size || productSelections.shoeSize)}
-                    flex="1"
-                    m="10px"
-                    border={"1px"}
-                    borderColor={"black"}
-                  >
-                    Add to cart
-                  </Button>
-                ) : (
-                  <Button onClick={handleAddToCart} flex="1" m="10px" border={"1px"} borderColor={"black"}>
-                    Remove from Cart
-                  </Button>
-                )}
-              </Flex>}
+                  {!isInCart ? (
+                    <Button
+                      onClick={handleAddToCart}
+                      isDisabled={!(productSelections.size || productSelections.shoeSize)}
+                      flex="1"
+                      m="10px"
+                      border={"1px"}
+                      borderColor={"black"}
+                    >
+                      Add to cart
+                    </Button>
+                  ) : (
+                    <Button onClick={handleAddToCart} flex="1" m="10px" border={"1px"} borderColor={"black"}>
+                      Remove from Cart
+                    </Button>
+                  )}
+                </Flex>
+              )}
               <Button
                 isDisabled={!(productSelections.size || productSelections.shoeSize)}
                 type="submit"
