@@ -56,6 +56,8 @@ const Detail = () => {
         setIsFavorite(true);
       }
     });
+
+    return () => dispatch(resState());
   }, []);
 
   //Muestra los talles de prendas o calzados según corresponda
@@ -146,14 +148,9 @@ const Detail = () => {
     return <Box {...config}>{content}</Box>;
   };
 
-  //Limpia el estado de detail con botón back to home y en buyNow
-  const cleanDetailState = () => {
-    dispatch(resState());
-  };
-
   return (
     <Flex align={"center"} direction="column" p={120}>
-      <Button as={Link} to="/" colorScheme="gray" mt="10px" onClick={cleanDetailState} marginBottom={"20px"} border={"1px"}>
+      <Button as={Link} to="/" colorScheme="gray" mt="10px" marginBottom={"20px"} border={"1px"}>
         Back to Home
       </Button>
       <Flex id="2box container" flexDirection="row" gap="100px" bg={"gray.400"} p={"20px"} borderRadius={"8px"}>
