@@ -12,7 +12,8 @@ import {
     Legend, 
     Filler,
 } from 'chart.js';
-import {getCountArticle} from '../../redux/actions/actions'
+import {getCountArticle, getArticles} from '../../redux/actions/actions'
+import { Box, Text } from '@chakra-ui/react';
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -25,58 +26,65 @@ ChartJS.register(
 )
 
 var beneficios = [0, 56, 20, 36, 80, 40, 30, -20, 25, 30, 12,60]
-
+var meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
 
 
 
 const Stadistics = () => {
-
     const dispatch = useDispatch();
+  
     useEffect(() => {
       dispatch(getCountArticle());
     }, [dispatch]);
-    
-    const Count = useSelector((state) => state.articleCount)
-    console.log(Count) 
   
- 
-    const midata = {
-        labels: Count && Array.isArray(Count) ? Count.map((item) => item.name) : [],
+    const Count = useSelector((state) => state.articleCount);
+    console.log(Count.articlesFounded)
+
+    const brand = []
+    Count.articlesFounded?.map((article)  => brand.push(article.brand))
+    const countSales = []
+    Count.articlesFounded?.map((article)  => countSales.push(article.countSales))
+    const chartData = {
+        labels: brand,
         datasets: [
           {
             label: 'Articulos',
-            data: Count && Array.isArray(Count) ? Count.map((item) => item.countSales) : [],
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            data:countSales,
+            backgroundColor: 'rgb(12,183,242,0.2)',
           },
         ],
-      };
-
-var misoptions = {
-    responsive: true,
-    animation: false,
-    plugins : {
-        legend : {
-            display : false 
-        }
-    },
-    scales : {
-        y : {
-            min : -25,
-            max : 100
+     }
+    const chartOptions = {
+      responsive: true,
+      animation: false,
+      plugins: {
+        legend: {
+          display: false,
         },
-        x : {
-            ticks: {
-                color: 'rgba(0,220,195)'
-            }
-        }
-    }
-}
-
-    return ( 
-        <div>
-         <Bar data={midata} options={misoptions}/>
-        </div>
-    )
-
-}
-export default Stadistics; 
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: 10,
+        },
+        x: {
+          ticks: {
+            color: "rgba(0, 220, 195)",
+          },
+        },
+      },
+    };
+  
+    return (
+      <Box>
+        <Box fontSize="30px" marginBottom="20px" marginTop="20px">
+          <Text>Sales Stadistics</Text>
+        </Box>
+        <Box width="500px" height="300px" margin="auto">
+          <Bar data={chartData} options={chartOptions} />
+        </Box>
+      </Box>
+    );
+  };
+  
+  export default Stadistics;

@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 import { Container } from "@chakra-ui/react";
-
+import Stadistics from "./Statistics";
 const Admin = () => {
   return (
     <Container>
@@ -45,6 +45,7 @@ const Admin = () => {
       >
         <Link to="/blogEditor">Blog</Link>
       </Box>
+      <Box><Stadistics/></Box>
     </Container>
   );
 };

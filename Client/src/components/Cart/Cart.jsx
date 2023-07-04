@@ -7,14 +7,19 @@ import { getUsers } from "../../redux/actions/actionsUsers.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import Stadistics from "../Admin/Statistics.jsx";
 import { originalColors } from "../../theme/palette.js";
-
+import { updateProduct } from "../../redux/actions/actions.js";
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const paymentLink = useSelector((state) => state.paymentLink);
+  const article = useSelector((state) => state.detail)
   const [paymentError, setPaymentError] = useState(false);
   const [cartUpdated, setCartUpdated] = useState(false);
-
+  const [Count, setConut] = useState({
+    id: article.id,
+    countSales : article.countSales +1,
+    active: article.active
+  })
   const { user } = useAuth0();
 
   const fullCart = JSON.parse(localStorage.getItem("cart"));
@@ -77,6 +82,7 @@ const Cart = () => {
       saveLocalStorage([]);
       if (result === "success") {
         navigate("/");
+        dispatch(updateProduct(Count))
       }
     } catch (error) {
       setPaymentError(true);
