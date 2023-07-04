@@ -17,7 +17,8 @@ const postBlogController = async(post: Post) => {
     const newPost = AppDataSource.getRepository(Post).create(post);
     AppDataSource.getRepository(Post).save(newPost);
 
-    return newPost;
+    return {id: newPost.id, message: "Post created"}
+    // return newPost;
 }
 
 export default postBlogController;

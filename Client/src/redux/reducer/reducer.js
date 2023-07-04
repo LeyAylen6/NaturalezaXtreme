@@ -20,7 +20,8 @@ import {
   DECREASE_QUANTITY,
   CLEAR_MESSAGE,
   MESSAGE,
-  GET_COUNT_ARTICLES
+  GET_COUNT_ARTICLES,
+  GET_POSTS
 } from "../actions/actions";
 
 import { GET_USERS, POST_USERS, USER_ID } from "../actions/actionsUsers";
@@ -38,12 +39,12 @@ const initialState = {
   paymentLink: null,
   signUp: true,
   articles: [],
-  //cartArticles: [],
   cart: [],
   pendingCart: [],
   page: 1,
   message: '',
-  articleCount: []
+  articleCount: [],
+  posts: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -242,11 +243,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         message: ''
       }
-      case GET_COUNT_ARTICLES: 
-    return {
-      ...state,
-      articleCount: action.payload
-    }
+    case GET_COUNT_ARTICLES: 
+  return {
+    ...state,
+    articleCount: action.payload
+  }
+    case GET_POSTS: 
+  return {
+    ...state,
+    posts: action.payload
+  }
 
     default:
       return { ...state };

@@ -14,6 +14,7 @@ const postBlog = async(req: Request, res: Response)=>{
     
     } catch (error: any) {
         if(error.message == 'missing data' || error.message == 'There is already a post with that name and that role') {
+            console.log(error)
             return res.status(400).send(error.message)
         } 
         res.status(500).send(error.message)
