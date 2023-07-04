@@ -23,11 +23,6 @@ const Home = () => {
 
   return (
     <Box>
-      <Box display={"flex"} justifyContent={"rigth"}>
-        <Button size={"sm"} borderRadius={"8px"} onClick={toggleColorMode}>
-          Mode {colorMode === "light" ? "Dark" : "Light"}
-        </Button>
-      </Box>
       <Box>
         <Filters />
       </Box>
