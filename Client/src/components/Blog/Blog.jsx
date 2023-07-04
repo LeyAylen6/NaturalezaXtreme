@@ -24,7 +24,7 @@ const Blog = () => {
             <GridItem rowSpan={2} colSpan={1} borderRadius="xl" bgColor="rgba(46, 48, 58, 0.8)" m="25" padding="30" height={500}>
                 {categories?.map(category => {
                     return(
-                        <Button value='category' size='md' height='48px' width='200px' border='2px' margin='10px' borderColor='green.500' textTransform='uppercase' onClick={handleClick}>
+                        <Button key={category} value='category' size='md' height='48px' width='200px' border='2px' margin='10px' borderColor='green.500' textTransform='uppercase' onClick={handleClick}>
                             {category}
                         </Button>
                     )
