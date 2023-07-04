@@ -15,7 +15,7 @@ export const filterCombinated = ({ gender, type, color, order }) => {
         dispatch({ type: FILTER_COMBINATED, payload: articleFiltered });
       
     } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+      dispatch({ type: MESSAGE, payload: error?.response?.data })
     }
   };
 };
