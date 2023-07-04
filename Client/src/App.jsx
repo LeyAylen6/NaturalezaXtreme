@@ -24,18 +24,18 @@ import { useSelector } from "react-redux";
 import { Box } from "@chakra-ui/react";
 import ErrorMessage from '../src/components/ErrorMessage/ErrorMessage'
 import Blog from "./components/Blog/Blog";
-function App() {
 
-  const message = useSelector(state => state.message)
+function App() {
+  const message = useSelector((state) => state.message);
 
   return (
-    <Box minHeight="100vh">
+    <Box minHeight="100vh" backgroundColor={"blackAlpha.200"} backdropContrast={"1px"}>
       {message ? <ErrorMessage message={message} /> : null}
       <NavBar />
 
       <Routes>
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<Signup2/>}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup2 />} />
         <Route path="/" element={<Home />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/blog" element={<Blog />} />
@@ -50,14 +50,12 @@ function App() {
         <Route path="/userEdition" element={<UserEdition />} />
         <Route path="/mercadoPago" element={<MercadoPago />} />
         <Route path="/productOutOfSale" element={<ProductOutOfSale />} />
-        <Route path="/error" element={<MercadoPagoError/>}/>
-        <Route path="/estadisticas" element={<Stadistics/>}/>
-        <Route element={<Privateroute/>}>
+        <Route path="/error" element={<MercadoPagoError />} />
+        <Route path="/estadisticas" element={<Stadistics />} />
+        <Route element={<Privateroute />}>
           <Route path="/admin" element={<Admin />} />
         </Route>
-  
-        </Routes> 
-    
+      </Routes>
     </Box>
   );
 }
