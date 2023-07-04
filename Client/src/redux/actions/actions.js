@@ -12,6 +12,7 @@ export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
 export const SIGN_UP = "SIGN_UP";
 export const ADD_PRODUCT = "ADD_PRODUCT";
+// export const ADD_POST = "POST";
 export const ADD_TO_MERCADO_PAGO = "ADD_TO_MERCADO_PAGO";
 
 export const GET_ARTICLES = "GET_ARTICLES";
@@ -26,6 +27,7 @@ export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 
 export const MESSAGE = "MESSAGE"
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE"
+export const GET_POSTS = "GET_POSTS"
 
 import axios from "axios";
 
@@ -199,7 +201,7 @@ export const addToMercadoPago = (cart) => {
   return async () => {
     try {
 
-      const { data } = await axios.put(`${URL}shoppingcart?method=add`, cart)
+      await axios.put(`${URL}shoppingcart?method=add`, cart)
   
 
     } catch(error) {
@@ -289,10 +291,11 @@ export const decreaseQuantity = (productId) => {
 export const clearMessage = (dispatch) => {
   dispatch({ type: CLEAR_MESSAGE });
 };
+
 export const getCountArticle = () => {
   return async function (dispatch) {
     try {
-      var article = await axios(`${URL}articles?count=desc`);
+      const article = await axios(`${URL}articles?count=desc`);
       const page = article.data;
       dispatch({ type: GET_COUNT_ARTICLES, payload: page });
       
@@ -300,4 +303,17 @@ export const getCountArticle = () => {
       dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
     }
   };
-}
+};
+
+export const getPosts = () => {
+  return async function (dispatch) {
+    try {
+      const response= await axios(`${URL}blog`);
+      const posts = response.data;
+      dispatch({ type: GET_POSTS, payload: posts });
+      
+    } catch(error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    }
+  };
+};

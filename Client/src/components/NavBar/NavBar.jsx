@@ -45,6 +45,9 @@ const NavBar = () => {
         <Link to="/aboutus">About</Link>
       </Box>
       <Box bg={"transparent"} color={"white"}>
+        <Link to="/blog">Blog</Link>
+      </Box>
+      <Box bg={"transparent"} color={"white"}>
         <Link to="/favorites">Favorite</Link>
       </Box>
 
