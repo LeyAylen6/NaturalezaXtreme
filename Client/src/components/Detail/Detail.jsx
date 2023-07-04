@@ -23,10 +23,10 @@ const initProductSelections = {
   shoeSize: "",
 };
 
-//Se guarda el carrito local
-const cartLocal = JSON.parse(localStorage.getItem("cart")) ||  [];
 
 const Detail = () => {
+  //Se guarda el carrito local
+  const cartLocal = JSON.parse(localStorage.getItem("cart")) ||  [];
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
