@@ -149,7 +149,7 @@ const Cart = () => {
               </a>
             ) : (
               <Box>
-                <Button onClick={handlePayment} border={"1px"} marginBottom={"20px"}>
+                <Button isDisabled={!user || !fullCart.length} onClick={handlePayment} border={"1px"} marginBottom={"20px"}>
                   make payment
                 </Button>
               </Box>
