@@ -29,7 +29,7 @@ function App() {
   const message = useSelector((state) => state.message);
 
   return (
-    <Box minHeight="100vh" bg={"Background"} backdropContrast={"1px"}>
+    <Box minHeight="100vh" backgroundColor={"blackAlpha.200"} backdropContrast={"1px"}>
       {message ? <ErrorMessage message={message} /> : null}
       <NavBar />
 
