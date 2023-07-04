@@ -51,8 +51,8 @@ export default function CaptionCarousel() {
   ];
 
   return (
-    <Container maxWidth={"100%"} height={"550px"} margin={"0"} p={"0"}>
-      <Box position={"relative"} height={"500"} overflow={"hidden"}>
+    <Container maxWidth={"100%"} height={"660px"} margin={"0"} p={"0"}>
+      <Box position={"relative"} height={"650"} overflow={"hidden"}>
         {/* CSS files for react-slick */}
         <link
           rel="stylesheet"
@@ -104,7 +104,7 @@ export default function CaptionCarousel() {
                 backgroundImage={`url(${card.image})`}
               >
                 {/* This is the block you need to change, to customize the caption */}
-                <Container maxW={"2x1"} height="500px" position="relative">
+                <Container maxW={"2x1"} height="700px" position="relative">
                   <Stack spacing={6} w={"full"} maxW={"lg"} position="absolute" top="50%" transform="translate(0, -50%)">
                     <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} color="Black">
                       {card.title}

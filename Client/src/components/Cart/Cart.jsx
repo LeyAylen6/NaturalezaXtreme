@@ -84,29 +84,33 @@ const Cart = () => {
   };
 
   return (
-    <Container maxW="container.xl" display={"flex"} flexDir={"column"}>
+    <Container maxW="container.xl" display={"flex"} flexDir={"column"} pt={120}>
       <Heading margin={10}>- Shopping Cart -</Heading>
       <Box display={"flex"}>
-        
         <UnorderedList>
-          
           {!fullCart?.length ? (
             <Heading fontSize="18px">No tienes productos en el carrito</Heading>
           ) : (
             fullCart?.map((item) => (
-              
-              <ListItem key={item.id} mb={2} display={"flex"} justifyContent={"space-evenly"} color={originalColors.darkgrey} bg={originalColors.white} borderRadius={15} w={1100} h={150} >
-                
+              <ListItem
+                key={item.id}
+                mb={2}
+                display={"flex"}
+                justifyContent={"space-evenly"}
+                color={originalColors.darkgrey}
+                bg={originalColors.white}
+                borderRadius={15}
+                w={1100}
+                h={150}
+              >
                 <Box display={"flex"} justifyContent={"space-between"}>
-                  
                   <Box marginRight={"100px"} display={"flex"} alignItems={"center"}>
                     <Image src={item.image} alt={item.name} width="100px" />
                   </Box>
-                  
+
                   <Box display="flex" justifyContent="center" alignItems="center" fontSize={"20px"} fontWeight={"bold"} w={300}>
                     {item.name}
                   </Box>
-
                 </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center" fontSize={"18px"}>
@@ -114,7 +118,6 @@ const Cart = () => {
                 </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center" marginRight={"10px"}>
-                  
                   <Button background="red.400" size="sm" ml={2} marginRight={2} onClick={() => handleDecreaseQuantity(item.id)}>
                     -
                   </Button>
@@ -130,13 +133,11 @@ const Cart = () => {
                   <Button background="red" color={originalColors.white} size="sm" ml={2} onClick={() => handleRemoveFromCart(item.id)}>
                     Delete
                   </Button>
-
                 </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center" fontWeight={"bold"} fontSize={"18px"} marginRight={"30px"}>
                   <p> U$S {item.price} </p>
                 </Box>
-
               </ListItem>
             ))
           )}
@@ -144,12 +145,19 @@ const Cart = () => {
           <Center height="50px">
             <Divider orientation="horizontal" />
           </Center>
-          
         </UnorderedList>
 
         <Box margin={"40px"} p={"5px"} display={"flex"} flexDir={"column"} justifyContent={"space-evenly"} color={originalColors.darkgrey}>
-          
-          <Box bg={"white"} borderRadius={10} display={"flex"} justifyContent={"center"} alignItems={'center'} fontSize={"3xl"} h={130} fontWeight={"bold"}>
+          <Box
+            bg={"white"}
+            borderRadius={10}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            fontSize={"3xl"}
+            h={130}
+            fontWeight={"bold"}
+          >
             Total: ${calculateTotal()}
           </Box>
 
@@ -160,15 +168,22 @@ const Cart = () => {
               </a>
             ) : (
               <Box>
-
-                <Button isDisabled={!user || !fullCart.length} color={originalColors.darkgrey} onClick={handlePayment} w={200} border={"none"} bg={"green.300"} h={50} fontSize={20}  marginBottom={"5px"} _hover={{background:'green.200'}}>
+                <Button
+                  isDisabled={!user || !fullCart.length}
+                  color={originalColors.darkgrey}
+                  onClick={handlePayment}
+                  w={200}
+                  border={"none"}
+                  bg={"green.300"}
+                  h={50}
+                  fontSize={20}
+                  marginBottom={"5px"}
+                  _hover={{ background: "green.200" }}
+                >
                   Make payment
                 </Button>
-
               </Box>
-
             )}
-
           </Box>
         </Box>
       </Box>

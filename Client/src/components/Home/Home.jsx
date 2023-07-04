@@ -25,7 +25,7 @@ const Home = () => {
       <Box>
         <Carousel />
       </Box>
-      <Box marginTop={"20px"}>
+      <Box>
         <Filters />
       </Box>
       <Box>

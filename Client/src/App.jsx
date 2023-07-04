@@ -22,16 +22,10 @@ import Privateroute from "./components/PrivateRoute/Privateroute";
 import Stadistics from "./components/Admin/Statistics";
 import { useSelector } from "react-redux";
 import { Box } from "@chakra-ui/react";
-<<<<<<< HEAD
 import ErrorMessage from "../src/components/ErrorMessage/ErrorMessage";
-=======
-import ErrorMessage from '../src/components/ErrorMessage/ErrorMessage'
 import Account from "./components/UserDashboard/Account";
 import Shopping from "./components/UserDashboard/Shopping";
->>>>>>> d161a6ceb210c9eab70c3db484e14d6041833b5e
 import Blog from "./components/Blog/Blog";
-
-
 
 function App() {
   const message = useSelector((state) => state.message);
@@ -63,13 +57,10 @@ function App() {
         <Route element={<Privateroute />}>
           <Route path="/admin" element={<Admin />} />
         </Route>
-        <Route path="/account" element={<Account/>}/>
-             <Route path="/myshopping" element={<Shopping/>}/>
-  
-        </Routes> 
-    
+        <Route path="/account" element={<Account />} />
+        <Route path="/myshopping" element={<Shopping />} />
+      </Routes>
     </Box>
-
   );
 }
 
