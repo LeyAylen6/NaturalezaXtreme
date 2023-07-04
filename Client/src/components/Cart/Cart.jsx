@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react"
 import { DeleteIcon } from "@chakra-ui/icons"
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { createPayment, setPaymentLink, addToMercadoPago } from "../../redux/actions/actions.js"
 import { getUsers } from "../../redux/actions/actionsUsers.js"
 import { useAuth0 } from "@auth0/auth0-react"
@@ -110,7 +110,7 @@ const Cart = () => {
 	}
 
 	return (
-		<Container maxW="container.xl" display={"flex"} alignItems={"center"} flexDir={"column"} pt={120}>
+		<Container minH={'90vh'} maxW="container.xl" display={"flex"} alignItems={"center"} flexDir={"column"} pt={120}>
 			<Heading color={"white"} fontSize={25} mb={5} bgColor={originalColors.darkgrey} w={"100vw"} p={5}>
 				Shopping Cart
 			</Heading>
@@ -135,7 +135,9 @@ const Cart = () => {
 							>
 								<Box display={"flex"} justifyContent={"space-between"}>
 									<Box display={"flex"} alignItems={"center"}>
+										<Link to={`/detail/${item.id}`}>
 										<Image src={item.image} alt={item.name} h={"28"} />
+										</Link>
 									</Box>
 
 									<Box display="flex" alignItems="center" fontSize={"20px"} fontWeight={"bold"} w={300}>
