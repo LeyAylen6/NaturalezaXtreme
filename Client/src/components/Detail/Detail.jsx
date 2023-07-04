@@ -7,6 +7,7 @@ import { addFav, removeFav, resState, getDetail } from "../../redux/actions/acti
 import SizeOptions from "./utils/SizeOptions";
 import Rating from "../Rating/Rating";
 import Comments from "../Comments/Comments";
+import { setPaymentLink } from "../../redux/actions/actions";
 
 //Interface para cargar el estado local prouctSelections
 const initProductSelections = {
@@ -30,8 +31,8 @@ const Detail = () => {
   const navigate = useNavigate();
 
   //Trae user Id y el carrito del localStorage
-  const user = JSON.parse(localStorage.getItem("userId"))
-//  const storageCart = JSON.parse(localStorage.getItem("cart")) //Se usaría si hay una vista de payments
+  const user = JSON.parse(localStorage.getItem("userId"));
+  //  const storageCart = JSON.parse(localStorage.getItem("cart")) //Se usaría si hay una vista de payments
 
   //Suscripcion a estados globales
   let myFavorites = useSelector((state) => state.myFavorites);
@@ -54,10 +55,10 @@ const Detail = () => {
         setIsFavorite(true);
       }
     });
-  }, []);   
+  }, []);
 
   //Muestra los talles de prendas o calzados según corresponda
-    useEffect(() => {
+  useEffect(() => {
     if (articleDetail.type === "shoes") {
       for (const size in articleDetail.shoeSize) {
         if (articleDetail.shoeSize.hasOwnProperty(size)) {
@@ -76,8 +77,8 @@ const Detail = () => {
           }
         }
       }
-    };
-  }, [articleDetail]);    
+    }
+  }, [articleDetail]);
 
   //Guarda las selecciones en el estado local productSelections
   const handleChange = (event) => {
@@ -90,7 +91,7 @@ const Detail = () => {
       image: articleDetail.image,
       name: articleDetail.name,
       quantity: 1,
-      type:articleDetail.type,
+      type: articleDetail.type,
       price: articleDetail.price,
       [property]: value,
     });
@@ -98,22 +99,23 @@ const Detail = () => {
 
   //Guarda el carrito en localStorage
   const saveLocalStorage = () => {
-    localStorage.setItem("cart", JSON.stringify(cartLocal))
-  }
-  
+    localStorage.setItem("cart", JSON.stringify(cartLocal));
+  };
+
   //Agrega el artículo al carrito estado global
   const handleAddToCart = (event) => {
     event.preventDefault();
     if (isInCart) {
       setIsInCart(false);
-      cartLocal.pop()
-      saveLocalStorage()
+      cartLocal.pop();
+      saveLocalStorage();
     } else {
       setIsInCart(true);
-      cartLocal.push(productSelections)
-      saveLocalStorage()
+      cartLocal.push(productSelections);
+      saveLocalStorage();
     }
-  }
+    dispatch(setPaymentLink(''))
+  };
 
   //Botón buyNow
   const handleSubmit = (event) => {
@@ -133,7 +135,7 @@ const Detail = () => {
       addFav({ userId: user.id, articleId: id }, dispatch);
     }
   };
-  
+
   //Muestra si el producto está en stock o no
   const stockComponentConfig = [
     { bg: "#48BB78", content: "Product in stock", hidden: !inStock ? "hidden" : null },
@@ -142,15 +144,20 @@ const Detail = () => {
   const StockDisplay = ({ content, ...config }) => {
     return <Box {...config}>{content}</Box>;
   };
-  
+
   //Limpia el estado de detail con botón back to home y en buyNow
-  const cleanDetailState = () => {dispatch(resState())}
+  const cleanDetailState = () => {
+    dispatch(resState());
+  };
 
   return (
     <Flex align={"center"} mt="50px" direction="column">
-      <Flex id="2box container" flexDirection="row" gap="100px">
+      <Button as={Link} to="/" colorScheme="gray" mt="10px" onClick={cleanDetailState} marginBottom={"20px"} border={"1px"}>
+        Back to Home
+      </Button>
+      <Flex id="2box container" flexDirection="row" gap="100px" bg={"gray.400"} p={"20px"} borderRadius={"8px"}>
         <Box>
-          <Image mt="20px" boxSize={"300px"} objectFit={"cover"} src={articleDetail.image} alt={articleDetail.name} />
+          <Image mt="20px" boxSize={"300px"} objectFit={"cover"} src={articleDetail.image} alt={articleDetail.name} borderRadius={"12px"} />
         </Box>
         <Box textAlign="left">
           <Box fontSize="40px" fontWeight="semibold" width="100%">
@@ -160,10 +167,10 @@ const Detail = () => {
             {articleDetail.brand}
           </Box>
           <Box mb={5} mt={2}>
-            <Rating rating={articleDetail.rating} color={originalColors.blueRating} size={30} />
+            <Rating rating={articleDetail.rating} color={"yellow"} size={30} />
           </Box>
           <Box fontSize="40px" fontWeight="semibold">
-            ${articleDetail.price}
+            U$S {articleDetail.price}
           </Box>
           <Text>{articleDetail.gender}</Text>
           {/* para las estrellas haría otro componente ReviewBriefing */}
@@ -171,7 +178,7 @@ const Detail = () => {
           <Box w="500px">
             <form onSubmit={handleSubmit} onChange={handleChange}>
               {articleDetail.type !== "shoes" ? (
-                <Select name="size" variant="filled" mt="20px">
+                <Select name="size" variant="filled" mt="20px" border={"1px"} borderColor={"black"}>
                   <option value="">Choose a size</option>
                   <SizeOptions detailObject={articleDetail} />
                 </Select>
@@ -188,21 +195,28 @@ const Detail = () => {
               </Box>
               <Flex id="buttons" direction="row" alignItems="stretch" gap="10px">
                 {!isFavorite ? (
-                  <Button onClick={handleFavorites} flex="1" m="10px">
+                  <Button onClick={handleFavorites} flex="1" m="10px" border={"1px"} borderColor={"black"}>
                     Add to favorites
                   </Button>
                 ) : (
-                  <Button onClick={handleFavorites} flex="1" m="10px">
+                  <Button onClick={handleFavorites} flex="1" m="10px" border={"1px"} borderColor={"black"}>
                     Remove from favorites
                   </Button>
                 )}
 
                 {!isInCart ? (
-                  <Button onClick={handleAddToCart} isDisabled={!(productSelections.size || productSelections.shoeSize)} flex="1" m="10px">
+                  <Button
+                    onClick={handleAddToCart}
+                    isDisabled={!(productSelections.size || productSelections.shoeSize)}
+                    flex="1"
+                    m="10px"
+                    border={"1px"}
+                    borderColor={"black"}
+                  >
                     Add to cart
                   </Button>
                 ) : (
-                  <Button onClick={handleAddToCart} flex="1" m="10px">
+                  <Button onClick={handleAddToCart} flex="1" m="10px" border={"1px"} borderColor={"black"}>
                     Remove from Cart
                   </Button>
                 )}
@@ -215,16 +229,14 @@ const Detail = () => {
                 colorScheme="blackAlpha"
                 bgColor="black"
                 mt="10px"
-              >Buy Now
+              >
+                Buy Now
               </Button>
             </form>
           </Box>
         </Box>
-        <Comments comments={articleDetail.comments} />
-        <Button type="button" colorScheme="blackAlpha" bgColor="black" mt="10px" onClick={cleanDetailState}>
-          <Link to="/">Back to Home</Link>
-        </Button>
       </Flex>
+      <Comments comments={articleDetail.comments} />
     </Flex>
   );
 };
