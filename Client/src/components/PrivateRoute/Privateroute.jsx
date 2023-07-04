@@ -9,7 +9,7 @@ const Privateroute = () => {
   console.log(userId);
 
   let permision;
-  if (userId.rol === "Admin") {
+  if (userId.rol === "admin") {
     permision = true;
   } else {
     permision = null;

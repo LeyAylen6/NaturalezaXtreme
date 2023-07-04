@@ -4,7 +4,7 @@ const SizeOptions = ({detailObject}) => {
 	if (detailObject.size && typeof detailObject.size === "object") {
 		clotheSizeOptions = Object.entries(detailObject.size).map(([key, value]) => (
 			<option key={key} value={key} disabled={!!!value}>
-				"{key}"
+				"{`${key} (${detailObject.size[key]})`}"
 			</option>
 		))
 	}
@@ -14,7 +14,7 @@ const SizeOptions = ({detailObject}) => {
 	if (detailObject.shoeSize && typeof detailObject.shoeSize === "object") {
 		shoeSizeOptions = Object.entries(detailObject.shoeSize).map(([key, value]) => (
 			<option key={key} value={key} disabled={!value}>
-				N°{key}
+				N°{`${key} (${detailObject.shoeSize[key]})`}
 			</option>
 		))
 	}
