@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import { Box, Stack, HStack, Img, Button, useColorMode, Flex } from "@chakra-ui/react";
-import logo from "../../assets/logo_nodemailer.jpg";
+import logo from "../../assets/logo-white-v2 (2).png";
+import logo2 from "../../assets/logo-white-v3 (2).png";
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "../Profile/Profile";
 import Logout from "../LogOut/Logout";
@@ -39,7 +40,10 @@ const NavBar = () => {
       width={"100%"}
     >
       <Box pl={5}>
-        <Img src={logo} alt="logo" maxHeight={"75px"} width={350} borderRadius={10}></Img>
+        <Img src={logo} alt="logo" maxHeight={"80px"} width={100}></Img>
+      </Box>
+      <Box>
+        <Img src={logo2} alt="logo2" maxHeight={"200px"} width={300}></Img>
       </Box>
       <Box bg={"transparent"} marginLeft={"50px"} border={"none"} color={"white"}>
         <Link to="/">Products</Link>

@@ -5,7 +5,7 @@ import { Container } from "@chakra-ui/react";
 import Stadistics from "./Statistics";
 const Admin = () => {
   return (
-    <Container>
+    <Container pt={40}>
       <Box
         bg={"transparent"}
         margin={"30px"}
@@ -45,7 +45,9 @@ const Admin = () => {
       >
         <Link to="/blogEditor">Blog</Link>
       </Box>
-      <Box><Stadistics/></Box>
+      <Box>
+        <Stadistics />
+      </Box>
     </Container>
   );
 };

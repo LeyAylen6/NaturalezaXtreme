@@ -38,8 +38,8 @@ const CrudUsers = () => {
     navigate(`/editUser/`);
   };
   return (
-    <Container maxW="container.xl" centerContent bg={`url()`} backgroundSize={"cover"}>
-      <TableContainer maxW="container.xl" m="4" p="4" rounded="md" justifyContent="rigth" alignItems="center">
+    <Container maxW="container.xl" centerContent bg={`url()`} backgroundSize={"cover"} pt={40} height={"container.xl"}>
+      <TableContainer maxW="container.xl" rounded="md" justifyContent="rigth" alignItems="center">
         <Box display={"flex"} justifyContent={"space-between"}>
           <Button as={Link} to="/admin" colorScheme="cyan" size="lg" variant="solid" m="6">
             Back
