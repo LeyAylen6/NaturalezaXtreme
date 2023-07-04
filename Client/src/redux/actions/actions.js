@@ -28,6 +28,7 @@ export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 export const MESSAGE = "MESSAGE"
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE"
 export const GET_POSTS = "GET_POSTS"
+export const GET_CATEGORIES = "GET_CATEGORIES"
 
 import axios from "axios";
 
@@ -305,12 +306,32 @@ export const getCountArticle = () => {
   };
 };
 
-export const getPosts = () => {
+export const getPosts = (category) => {
+  return async function (dispatch) {
+    let posts = [];
+    try {
+      if(category){
+        const response= await axios(`${URL}blog?role=${category}`);
+        posts = response.data;
+      }
+      else if(!category){
+        const response= await axios(`${URL}blog`);
+        posts = response.data;
+      }
+      dispatch({ type: GET_POSTS, payload: posts });
+      
+    } catch(error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    }
+  };
+};
+
+export const getCategories = () => {
   return async function (dispatch) {
     try {
-      const response= await axios(`${URL}blog`);
-      const posts = response.data;
-      dispatch({ type: GET_POSTS, payload: posts });
+      const response= await axios(`${URL}blog/categories`);
+      const categories = response.data;
+      dispatch({ type: GET_CATEGORIES, payload: categories });
       
     } catch(error) {
       dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })

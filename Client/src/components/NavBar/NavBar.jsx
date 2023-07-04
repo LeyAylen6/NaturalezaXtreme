@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import { Box, Stack, HStack, Img } from "@chakra-ui/react";
+import { Box, Stack, HStack, Img, Button, useColorMode } from "@chakra-ui/react";
 import logo from "../../assets/logo.jpg";
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "../Profile/Profile";
@@ -12,7 +12,8 @@ import { useSelector } from "react-redux";
 const NavBar = () => { 
   const userId = useSelector(state => state.userId)
   const { isAuthenticated, user } = useAuth0();
- 
+  const { colorMode, toggleColorMode } = useColorMode();
+
   let admin 
   const userAdmin = () => {
     if (userId.rol === 'admin'){ admin = true } 
@@ -64,6 +65,13 @@ const NavBar = () => {
           { userAdmin ?
           <Link to="/admin">Admin</Link> : null}
         </Box>
+        
+        <Box display={"flex"} justifyContent={"rigth"}>
+        <Button size={"sm"} borderRadius={"30px"} onClick={toggleColorMode}>
+          {colorMode === "light" ? "Dark Mode" : "Light Mode"}
+        </Button>
+        </Box>
+
         <Box bg={"transparent"} color={"white"} paddingLeft={"10px"}>
           {isAuthenticated ? <Logout /> : <Login />}
         </Box>
