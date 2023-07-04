@@ -49,9 +49,7 @@ const NavBar = () => {
       <Box bg={"transparent"} color={"white"}>
         <Link to="/blog">Blog</Link>
       </Box>
-      <Box bg={"transparent"} color={"white"}>
-        <Link to="/favorites">Favorite</Link>
-      </Box>
+     
 
       <HStack spacing={10} ml="auto" pr={5}>
         <Box bg={"transparent"} color={"white"} padding={"20px"}>

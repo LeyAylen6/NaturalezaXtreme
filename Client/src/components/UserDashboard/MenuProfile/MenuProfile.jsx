@@ -20,7 +20,10 @@ const MenuProfile=()=>{
   My Account
   </MenuItem>
   <MenuItem onClick={()=>navigate("/myshopping")}>
-  My Shopping
+   Shopping
+  </MenuItem>
+  <MenuItem onClick={()=>navigate("/favorites")}>
+   Favorites
   </MenuItem>
 </MenuList>
 

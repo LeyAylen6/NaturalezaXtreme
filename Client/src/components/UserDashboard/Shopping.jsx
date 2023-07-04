@@ -19,6 +19,8 @@ import {
   Tfoot,
   Box,
   Button,
+  Grid,
+  Flex,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,92 +30,59 @@ import Rating from "../Rating/Rating";
 import { originalColors } from "../../theme/palette";
 
 const Shopping = () => {
+  const cart = localStorage.getItem("cart");
+const cartCompleted= useSelector((state)=>state.pendingCart)
 
-  console.log(localStorage.getItem("cart"));
+  const cartParsed = JSON.parse(cart);
+
+
  
-  const id = 1;
-  const cart = useSelector((state) => state.getPendingCart);
-  const cartParsed= JSON.parse(cart)
-  
-  const allArticles=useSelector((state)=>state.allArticles)
-  console.log(cart);
-  
+
   const dispatch = useDispatch();
-  useEffect(() => {
-    
-  }, []);
+  useEffect(() => {}, []);
   return (
-    <HStack justifyContent={"center"}>
-      <VStack justifyContent={"center"}>
-        {cartParsed?.map((article, index) => {
-          
-         
-          
-          return (
-            <Box key={index}>
-                <HStack>
-
-              <Card justifyContent={"center"}  boxShadow={"md"}
-      _hover={{ boxShadow: "dark-lg", cursor: "pointer" }}>
-                <HStack>
-              <Avatar src={article.image} m={2} boxSize={200}/>
-
-                <Heading maxW={200} fontSize={20} pb={10} pt={5}>{article.name}</Heading>
-                </HStack>
-
-                
-                  {article.commented ? (
-                    <Container  bg="green.200">
-                      Is commented
-                    </Container>
-                  ) : (
-                    <Button  bg="blue.400">
-                      Add comment
-                    </Button>
-                  )}
-                
-              </Card>
-              <Card pt={10}>
+    <Box>
               
-          <TableContainer>
-            <Table variant="simple">
-              <TableCaption>
-                Your password was encrypted successfully
-              </TableCaption>
-              <Thead>
-                <Tr>
-                  <Th>Review Info</Th>
-                </Tr>
+     <Flex flexWrap="wrap" gap={4}>
+
+        {cartParsed?.map((article, index) => {
+          return (
+            <Box key={index} pt={5}>
+              
+                <Card
+                pt={4}
+                justifyContent={"center"}
+                boxShadow={"md"}
+                _hover={{ boxShadow: "dark-lg", cursor: "pointer" }}
+                >
+                  <HStack>
+                    <Avatar src={article.image} m={2} boxSize={200} />
+
+                    <Heading maxW={200} fontSize={20} pb={10} pt={5}>
+                      {article.name}
+                    </Heading>
+                  </HStack>
+
+                  {article.commented ? (
+                    <Container bg="green.200">Is commented</Container>
+                    ) : (
+                      <Button bg="blue.400" borderRadius={0}>Add comment</Button>
+                      )}
+                </Card>
                
-              </Thead>
-              <Tbody>
-                <HStack>
-                <Tr>
-                  <Td>
-
-                  </Td>
-                  <Td>{article.commented}</Td>
-                </Tr>
-
-                </HStack>
-                <Tr>
-                  <Td>Password</Td>
-                  <Td></Td>
-                </Tr>
-              </Tbody>
-            </Table>
-          </TableContainer>
-        </Card>
-
-                </HStack>
+              
             </Box>
           );
         })}
-     
-        
-        
-      </VStack>
-    </HStack>
+      
+    
+
+    
+     </Flex>
+    </Box>
+
+    
+      
   );
 };
 export default Shopping;
