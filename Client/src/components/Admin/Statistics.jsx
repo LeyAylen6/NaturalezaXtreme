@@ -13,7 +13,9 @@ import {
     Filler,
 } from 'chart.js';
 import {getCountArticle, getArticles} from '../../redux/actions/actions'
-import { Box, Text } from '@chakra-ui/react';
+import {getUsers} from '../../redux/actions/actionsUsers'
+import { Box, HStack, Text, VStack } from '@chakra-ui/react';
+import CircleIcon from '../CircleIcon/CircleIcon';
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -34,11 +36,18 @@ const Stadistics = () => {
     const dispatch = useDispatch();
   
     useEffect(() => {
-      dispatch(getCountArticle());
+        dispatch(getCountArticle())
+      dispatch(getUsers());
     }, [dispatch]);
   
     const Count = useSelector((state) => state.articleCount);
-    console.log(Count.articlesFounded)
+    console.log(Count)
+    const users = useSelector((state)=> state.users)
+   console.log(users)
+
+   const logged = users.filter((users) => users.active).length
+
+  console.log(logged) 
 
     const brand = []
     Count.articlesFounded?.map((article)  => brand.push(article.brand))
@@ -76,14 +85,25 @@ const Stadistics = () => {
     };
   
     return (
-      <Box>
-        <Box fontSize="30px" marginBottom="20px" marginTop="20px">
+    <Box>  
+        <HStack spacing={100} >
+            <VStack>
+        <Box fontSize="30px" pt={40}>
           <Text>Sales Stadistics</Text>
         </Box>
-        <Box width="500px" height="300px" margin="auto">
+        <Box width="700px" height="600px" margin="auto" pl={100}>
           <Bar data={chartData} options={chartOptions} />
         </Box>
-      </Box>
+        </VStack>
+        <Box pl={50} fontSize={30}>
+            <HStack>
+           <Text >Online</Text>
+           <CircleIcon boxSize={3} color='green.300' />
+            </HStack>
+            <Text>{logged}</Text>
+        </Box>
+       </HStack>
+    </Box>  
     );
   };
   

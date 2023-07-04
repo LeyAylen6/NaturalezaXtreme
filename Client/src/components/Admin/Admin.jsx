@@ -1,54 +1,35 @@
-import { Box } from "@chakra-ui/react";
+import { Box, HStack, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-
 import { Container } from "@chakra-ui/react";
 import Stadistics from "./Statistics";
+
 const Admin = () => {
   return (
-    <Container pt={40}>
+
       <Box
-        bg={"transparent"}
-        margin={"30px"}
-        border={"1px"}
-        color={"black"}
-        fontSize={"20px"}
-        padding={"10px"}
-        width={"200px"}
-        height={"100px"}
-        borderRadius={"10px"}
+      borderBottom="2px solid rgb(155,155,155,0.2)"
       >
         <Link to="/crudProduct">Products</Link>
       </Box>
       <Box
-        bg={"transparent"}
-        margin={"30px"}
-        border={"1px"}
-        color={"black"}
-        fontSize={"20px"}
-        padding={"10px"}
-        width={"200px"}
-        height={"100px"}
-        borderRadius={"10px"}
+       borderBottom="2px solid rgb(155,155,155,0.2)"
       >
         <Link to="/crudUsers">Users</Link>
       </Box>
       <Box
-        bg={"transparent"}
-        margin={"30px"}
-        border={"1px"}
-        color={"black"}
-        fontSize={"20px"}
-        padding={"10px"}
-        width={"200px"}
-        height={"100px"}
-        borderRadius={"10px"}
+        borderBottom="2px solid rgb(155,155,155,0.2)"
       >
         <Link to="/blogEditor">Blog</Link>
       </Box>
-      <Box>
-        <Stadistics />
+
+
+      </VStack>
+      <Box color={"rgb(102,110,110)"}>
+        <Stadistics></Stadistics>
       </Box>
-    </Container>
+      </HStack>
+    
+
   );
 };
 
