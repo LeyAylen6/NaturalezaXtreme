@@ -85,6 +85,14 @@ const Filters = () => {
 			color: "",
 			order: "",
 		})
+
+		dispatch(filterCombinated({
+			gender: "",
+			type: "",
+			color: "",
+			order: "",
+		}))
+		
 		document.getElementById("Gender").value = "Gender"
 		document.getElementById("Type").value = "Type"
 		document.getElementById("Color").value = "Color"
@@ -118,6 +126,7 @@ const Filters = () => {
 				<Select
 					name=""
 					id="Gender"
+					// value={filters.gender}
 					defaultValue="Gender"
 					variant={"filled"}
 					onChange={handleChangeGender}
