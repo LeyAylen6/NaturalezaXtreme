@@ -35,14 +35,20 @@ import axios from "axios";
 //const URL ='https://2129-201-190-150-125.ngrok-free.app'; (no lo borren plis)
 const URL = "https://servidor-naturextreme.onrender.com";
 
-export const getArticles = () => {
+export const getArticles = (deactivated) => {
   return async function (dispatch) {
     
     try {
-      var apiData = await axios(`${URL}/articles`);
-      const page = apiData.data;
-      dispatch({ type: GET_ARTICLES, payload: page });
-      
+      if(deactivated){
+        var apiData = await axios(`${URL}articles?active=false`);
+        const page = apiData.data;
+        dispatch({ type: GET_ARTICLES, payload: page });  
+      }
+      else {
+        var apiData = await axios(`${URL}articles`);
+        const page = apiData.data;
+        dispatch({ type: GET_ARTICLES, payload: page });
+      }
     } catch(error) {
       dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
     }
