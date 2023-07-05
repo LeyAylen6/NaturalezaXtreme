@@ -29,10 +29,12 @@ const Shopping = () => {
   return (
     <Container>
     {purchasedArticles.length === 0 ? (
-      <Text>You haven't made purchases yet</Text>
+      <Heading as='h2' fontSize={40} fontWeight={"light.200"} noOfLines={1}>
+          You haven't made purchases yet
+      </Heading>
       ) : (
         <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(1, 1fr)" gap={4} pt={"120"} margin={"30px"}>
-        <Heading m="10px" fontSize="18px" noOfLines={2} >Your purchases</Heading>
+              <Heading as='h2' fontSize={40} fontWeight={"light.200"} noOfLines={1}>Your purchases</Heading>
         {purchasedArticles.map((article, index) => {  
           return(
             <Flex key={index} margin={"20 px"}>
@@ -44,6 +46,7 @@ const Shopping = () => {
               >
                   <Image
                     objectFit='cover'
+                    borderRadius={'10px'}
                     maxW={{ base: '100%', sm: '200px' }}
                     src={article.image}
                     alt={article.name}
@@ -56,7 +59,7 @@ const Shopping = () => {
                     </CardBody>
                   <CardFooter>
                     {article.commented ? (
-                      <Container bg="green.200">You rated this item</Container>
+                      <Container bg="green.400" borderRadius={'10px'}>You rated this item</Container>
                     ) : (
                       <Button
                         variant='solid'

@@ -41,18 +41,14 @@ const Stadistics = () => {
     }, [dispatch]);
   
     const Count = useSelector((state) => state.articleCount);
-    console.log(Count)
     const users = useSelector((state)=> state.users)
-   console.log(users)
-
-   const logged = users.filter((users) => users.active).length
-
-  console.log(logged) 
+    const logged = users.filter((users) => users.active).length
 
     const brand = []
     Count.articlesFounded?.map((article)  => brand.push(article.brand))
     const countSales = []
     Count.articlesFounded?.map((article)  => countSales.push(article.countSales))
+    
     const chartData = {
         labels: brand,
         datasets: [

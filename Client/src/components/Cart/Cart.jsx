@@ -48,8 +48,6 @@ const Cart = () => {
   const fullCart = JSON.parse(localStorage.getItem("cart"));
   let modifiedCart = fullCart;
 
-  console.log(fullCart);
-
     const saveLocalStorage = (modifiedCart) => {
     localStorage.setItem("cart", JSON.stringify(modifiedCart));
     setCartUpdated(!cartUpdated); // Actualiza el estado para forzar el renderizado
