@@ -12,7 +12,7 @@ const Favorites = () => {
 		h: 7,
 		fontSize: 14,
 		bgColor: 'white',
-		textAlign: 'start',    
+		textAlign: 'start',   
 	}
 
 	return (
