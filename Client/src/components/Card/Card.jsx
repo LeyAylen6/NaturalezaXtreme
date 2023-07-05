@@ -16,8 +16,19 @@ import { originalColors } from "../../theme/palette";
 
 const Tarjeta = ({ id, image, name, description, price, rating }) => {
   const navigate = useNavigate();
-  const ratingFormated = rating ? Number(rating) : 1;
 
+  const ratingPromed = (rating) => {
+    var suma = 0;
+    var promedio = 0;
+    for (var i = 0; i < rating.length; i++) {
+      suma = suma + rating[i];
+      promedio = suma / rating.length;
+    }
+    return promedio;
+  }
+  
+  const ratingFormated = rating ? ratingPromed(rating) : null;
+  
   const handlerClick = () => {
     navigate(`/detail/${id}`);
   };
