@@ -104,10 +104,8 @@ const Cart = () => {
         quantity: items.quantity,
         size: items.size || items.shoeSize,
       }));
-      console.log(fullCart);
       dispatch(addToMercadoPago(mercadoPagoItems));
       const result = await dispatch(createPayment(user));
-      saveLocalStorage([]);
       if (result === "success") {
         navigate("/");
         dispatch(updateProduct(count));
@@ -126,7 +124,7 @@ const Cart = () => {
   const confirmarEdicion = () => {
     cerrarAlerta();
     clearCartItems();
-
+    saveLocalStorage([]);
     window.open(paymentLink);
   };
 
@@ -260,3 +258,7 @@ const Cart = () => {
 };
 
 export default Cart;
+
+
+
+

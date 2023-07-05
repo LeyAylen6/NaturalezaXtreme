@@ -3,7 +3,7 @@ import { Box, Image, Flex, Button, Text, Select } from "@chakra-ui/react";
 import { originalColors } from "../../theme/palette";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addFav, removeFav, resState, getDetail } from "../../redux/actions/actions";
+import { addFav, removeFav, resState, getDetail, createPayment, addToMercadoPago } from "../../redux/actions/actions";
 import SizeOptions from "./utils/SizeOptions";
 import Rating from "../Rating/Rating";
 import Comments from "../Comments/Comments";
@@ -24,6 +24,7 @@ const initProductSelections = {
 };
 
 const Detail = () => {
+  const paymentLink = useSelector((state) => state.paymentLink);
   //Se guarda el carrito local
   const cartLocal = JSON.parse(localStorage.getItem("cart")) || [];
   const { id } = useParams();
@@ -120,9 +121,31 @@ const Detail = () => {
     dispatch(setPaymentLink(""));
   };
 
+   // Función para finalizar la compra
+   const handlePayment = async () => {
+    try {
+      const mercadoPagoItems = [{
+        userId: user,
+        articleId: productSelections.id,
+        quantity: productSelections.quantity,
+        size: productSelections.size || productSelections.shoeSize,
+      }];
+      console.log(mercadoPagoItems);
+      dispatch(addToMercadoPago(mercadoPagoItems));
+      const result = await dispatch(createPayment(aut.user));
+      if (result === "success") {
+        navigate("/");
+        dispatch(updateProduct(count));
+      }
+    } catch (error) {
+      setPaymentError(true);
+    }
+  };
+
   //Botón buyNow
   const handleSubmit = (event) => {
     event.preventDefault();
+    handlePayment();
     //Usar función que genera link de MP que Agus está armando para el carrito
     backHome();
   };
@@ -230,7 +253,7 @@ const Detail = () => {
                 bgColor="black"
                 mt="10px"
               >
-                Buy Now
+                {paymentLink ? <a href={paymentLink}>Buy</a> : 'Buy Now'}
               </Button>
             </form>
           </Box>
