@@ -8,7 +8,7 @@ export const filterCombinated = ({ gender, type, color, order }) => {
     try {
       
         const apiData = await axios(
-          `http://localhost:3001/articles?${gender ? `gender=${gender}&` : ``}${type ? `type=${type}&` : ``}${color ? `color=${color}&` : ``}${order ? `order=${order}` : ``}`
+          `https://servidor-naturextreme.onrender.com/articles?${gender ? `gender=${gender}&` : ``}${type ? `type=${type}&` : ``}${color ? `color=${color}&` : ``}${order ? `order=${order}` : ``}`
         );
     
         const articleFiltered = apiData.data;
