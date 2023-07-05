@@ -113,7 +113,7 @@ const BlogEditor = () => {
 		<Center pt={28} mb={16}>
 			<Flex direction={"column"} gap={3} w={'100%'}>
 				<Flex justifyContent={'center'} gap={5} alignItems={'center'} p={5} bgColor={originalColors.darkgrey}>
-					<Text fontSize="2xl" textAlign={'start'} fontWeight="semibold" color={originalColors.white}>
+					<Text fontSize={25} textAlign={'start'} fontWeight="semibold" color={originalColors.white}>
 						Submit a blog article
 					</Text>
 					<EditIcon boxSize={6} color={originalColors.white}></EditIcon>
