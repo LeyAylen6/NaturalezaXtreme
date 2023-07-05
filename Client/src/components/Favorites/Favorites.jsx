@@ -11,9 +11,8 @@ const Favorites = () => {
 		bgColor: "white",
 		h: 5,
 		fontSize: 14,
-    bgColor: 'white',
+    
     textAlign: 'start',
-    h:7
     
 	}
 
