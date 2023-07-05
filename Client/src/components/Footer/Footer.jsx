@@ -4,6 +4,8 @@ import { FaGithub } from "react-icons/fa";
 import logo2 from "../../assets/logo-white-v3.png";
 import seba from "../../assets/Imagen_perfil_seba.jpg";
 import leslie from "../../assets/Leslie.jpeg";
+import ley from "../../assets/LeilaSalguero.jpg";
+import agustin from "../../assets/Agustin.jpeg";
 
 export default function SmallWithLogoLeft() {
   return (
@@ -20,36 +22,49 @@ export default function SmallWithLogoLeft() {
       >
         <Img src={logo2} alt="logo2" maxHeight={"200px"} width={300}></Img>
         <Text color={"white"}>© 2023 Nature Xtreme. All rights reserved</Text>
+
         <Wrap>
           <WrapItem>
             <Link href="https://www.linkedin.com/in/leslie-quetglas/" isExternal>
               <Avatar name="Leslie Quetglas" src={leslie} />
             </Link>
           </WrapItem>
+
           <WrapItem>
             <Link href="https://www.linkedin.com/in/sebastian-concheso-83b095246/" isExternal>
               <Avatar name="Sebastián Concheso" src={seba} />
             </Link>
           </WrapItem>
+
           <WrapItem>
-            <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
+            <Link href="https://www.linkedin.com/in/leilaaylensalguero/" isExternal>
+              <Avatar name="Leila Salguero" src={ley} />
+            </Link>
           </WrapItem>
+
           <WrapItem>
-            <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />
+            <Link href="https://www.linkedin.com/in/agust%C3%ADn-d%C3%ADaz-garro/" isExternal>
+              <Avatar name="Agustín Díaz Garro" src={agustin} />
+            </Link>
           </WrapItem>
+
           <WrapItem>
             <Avatar name="Prosper Otemuyiwa" src="https://bit.ly/prosper-baba" />
           </WrapItem>
+
           <WrapItem>
             <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
           </WrapItem>
+
           <WrapItem>
             <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
           </WrapItem>
+
           <WrapItem>
             <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
           </WrapItem>
         </Wrap>
+
         <Stack direction={"row"} spacing={6}>
           <Wrap spacing={8} pr={25}>
             <WrapItem color={"white"}>

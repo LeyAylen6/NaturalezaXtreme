@@ -41,18 +41,14 @@ const Stadistics = () => {
     }, [dispatch]);
   
     const Count = useSelector((state) => state.articleCount);
-    console.log(Count)
     const users = useSelector((state)=> state.users)
-   console.log(users)
-
-   const logged = users.filter((users) => users.active).length
-
-  console.log(logged) 
+    const logged = users.filter((users) => users.active).length
 
     const brand = []
     Count.articlesFounded?.map((article)  => brand.push(article.brand))
     const countSales = []
     Count.articlesFounded?.map((article)  => countSales.push(article.countSales))
+    
     const chartData = {
         labels: brand,
         datasets: [
@@ -87,19 +83,23 @@ const Stadistics = () => {
     return (
     <Box>  
         <HStack spacing={100} >
-            <VStack>
-        <Box fontSize="30px" pt={40}>
-          <Text>Sales Stadistics</Text>
-        </Box>
-        <Box width="700px" height="600px" margin="auto" pl={100}>
-          <Bar data={chartData} options={chartOptions} />
-        </Box>
-        </VStack>
+
+          <VStack>
+            <Box fontSize="30px" pt={5}>
+              <Text paddingLeft={280}>Sales Stadistics</Text>
+            </Box>
+
+            <Box width="700px" height="600px" margin="auto" pl={100}>
+              <Bar data={chartData} options={chartOptions} />
+            </Box>
+
+          </VStack>
+
         <Box pl={50} fontSize={30}>
-            <HStack>
-           <Text >Online</Text>
-           <CircleIcon boxSize={3} color='green.300' />
-            </HStack>
+          <HStack>
+            <Text >Online</Text>
+            <CircleIcon boxSize={3} color='green.300' />
+          </HStack>
             <Text>{logged}</Text>
         </Box>
        </HStack>

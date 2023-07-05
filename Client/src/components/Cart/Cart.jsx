@@ -51,7 +51,6 @@ const Cart = () => {
   const fullCart = JSON.parse(localStorage.getItem("cart"));
   let modifiedCart = fullCart;
 
-  
    let articlesByCount = []
   for (let i = 0; i < fullCart?.length; i++) {
     const id1 = fullCart[i].id;
@@ -64,7 +63,6 @@ const Cart = () => {
       }
     }
   }
-
 
     const saveLocalStorage = (modifiedCart) => {
     localStorage.setItem("cart", JSON.stringify(modifiedCart));
