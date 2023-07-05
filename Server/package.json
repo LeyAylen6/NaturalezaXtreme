@@ -31,9 +31,7 @@
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",
-
     "@types/mercadopago": "^1.5.8",
-
     "@types/morgan": "^1.9.4",
     "nodemon": "^2.0.22",
     "tslint": "^5.12.1",
