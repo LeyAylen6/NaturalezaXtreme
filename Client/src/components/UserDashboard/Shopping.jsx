@@ -38,12 +38,10 @@ const Shopping = () => {
                 alt={article.name}
                 margin={"15"}
               />
-
-              <Stack>
-                <CardBody>
-                  <Heading size='md'>{article.name}</Heading>
-                </CardBody>
-
+                <Stack>
+                  <CardBody>
+                    <Heading size='md'>{article.name}</Heading>
+                  </CardBody>
                 <CardFooter>
                   {article.commented ? (
                     <Container bg="green.200">Is commented</Container>
