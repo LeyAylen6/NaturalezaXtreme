@@ -74,12 +74,12 @@ const Cart = () => {
         userId: items.userId,
         articleId: items.id,
         quantity: items.quantity,
-        size: items.size,
+        size: items.size || items.shoeSize,
       }));
       console.log(fullCart);
       dispatch(addToMercadoPago(mercadoPagoItems));
       const result = await dispatch(createPayment(user));
-      saveLocalStorage([]);
+      //saveLocalStorage([]);
       if (result === "success") {
         navigate("/");
         dispatch(updateProduct(Count))

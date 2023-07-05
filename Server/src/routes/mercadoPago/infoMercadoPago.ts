@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import mercadopago from 'mercadopago';
 import infoMercadoPagoController from '../../controllers/mercadoPago/infoMPController';
+import axios from 'axios';
+import nodemailerController from '../../controllers/nodemailer/nodemailerController';
 
 
 
@@ -16,7 +18,7 @@ export const infoMercadoPago = async (req: Request, res: Response)  => {
         const { query } = req
         const {userId} = query
         
-        
+        const { data } = await axios(`http://localhost:3001/shoppingcart?userId=${userId}&status=pending`)
         const topic = query.topic || query.type;
 
         if(topic === 'payment'){
@@ -24,8 +26,9 @@ export const infoMercadoPago = async (req: Request, res: Response)  => {
             let payment = await mercadopago.payment.findById(+paymentId!)
            
             if(payment.response.status === 'approved'){                
-                await infoMercadoPagoController(String(userId))
-            }
+                await infoMercadoPagoController(String(userId), data);
+               await nodemailerController(false,data.user.email,payment.response.status)
+            }else{await nodemailerController(false,data.user.email,payment.response.status)}
         }
 
 

@@ -5,13 +5,13 @@ import { Shopping_Cart } from "../../entities/shoppingCartEntity";
 
 
 
-const infoMercadoPagoController = async (userId: string) => {
+const infoMercadoPagoController = async (userId: string, data: any) => {
 
     /*const article = await AppDataSource.getRepository(Article).findOneBy({id:+data[0].article.id!}) */
     console.log(userId);
     
 
-    const { data } = await axios(`http://localhost:3001/shoppingcart?userId=${userId}&status=pending`)
+
     const product: [] = data.shoppingArticles;  
     
 

@@ -26,7 +26,6 @@ const loginController = async(user: any)=>{
     const newUser = await AppDataSource.getRepository(User).save(userCreated)
 
     nodemailerController(true, newUser.email)
-    findOrCreateShoppingCartController(newUser.id)
     return {id: newUser.id, rol: newUser.rol};
   }
 
