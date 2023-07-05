@@ -6,14 +6,14 @@ import Stadistics from "./Statistics";
 const Admin = () => {
   return (
     <HStack>
-      <VStack>
-        <Box borderBottom="2px solid rgb(155,155,155,0.2)">
+      <VStack fontSize={36} pb={200} color={"rgb(102,110,110)"}  pl={20}>
+        <Box borderBottom="2px solid rgb(155,155,155,0.2)" pr={2}>
           <Link to="/crudProduct">Products</Link>
         </Box>
-        <Box borderBottom="2px solid rgb(155,155,155,0.2)">
+        <Box borderBottom="2px solid rgb(155,155,155,0.2)" pr={8} pt={10}>
           <Link to="/crudUsers">Users</Link>
         </Box>
-        <Box borderBottom="2px solid rgb(155,155,155,0.2)">
+        <Box borderBottom="2px solid rgb(155,155,155,0.2)"pr={8} pt={10}>
           <Link to="/blogEditor">Blog</Link>
         </Box>
       </VStack>
