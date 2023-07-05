@@ -50,7 +50,6 @@ const CrudProduct = () => {
   };
   const confirmarEdicion = () => {
     dispatch(getDetail(productoIdEditar));
-    console.log("productId", productoIdEditar);
     cerrarAlerta();
     navigate(`/editProduct/`);
   };

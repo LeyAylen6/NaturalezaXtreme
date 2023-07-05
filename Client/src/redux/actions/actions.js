@@ -12,7 +12,6 @@ export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PAYMENT_LINK = "SET_PAYMENT_LINK";
 export const SIGN_UP = "SIGN_UP";
 export const ADD_PRODUCT = "ADD_PRODUCT";
-// export const ADD_POST = "POST";
 export const ADD_TO_MERCADO_PAGO = "ADD_TO_MERCADO_PAGO";
 
 export const GET_ARTICLES = "GET_ARTICLES";
@@ -29,6 +28,7 @@ export const MESSAGE = "MESSAGE"
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE"
 export const GET_POSTS = "GET_POSTS"
 export const GET_CATEGORIES = "GET_CATEGORIES"
+export const GET_PURCHASED = "GET_PURCHASED"
 
 import axios from "axios";
 
@@ -190,7 +190,7 @@ export const updateProduct = (body) => {
       const apiData = await axios.put(`${URL}articles`, body);
   
       const product = apiData.data;
-      dispatch({ type: UPDATE_PRODUCT, payload: product });
+      // dispatch({ type: UPDATE_PRODUCT, payload: product });
       dispatch({ type: MESSAGE, payload: 'Successfully updated!' })
     };
   } catch(error) {
@@ -332,6 +332,19 @@ export const getCategories = () => {
       const response= await axios(`${URL}blog/categories`);
       const categories = response.data;
       dispatch({ type: GET_CATEGORIES, payload: categories });
+      
+    } catch(error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    }
+  };
+};
+
+export const getPurchasedCarts = (userId) => {
+  return async function (dispatch) {
+    try {
+      const response= await axios(`${URL}shoppingcart/reviews/${userId}`);
+      const purchasedArticles = response.data;
+      dispatch({ type: GET_PURCHASED, payload: purchasedArticles });
       
     } catch(error) {
       dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })

@@ -11,9 +11,8 @@ const {name, image, content, role} = post;
             <CardBody>
             <Text m={10}>{content}</Text>
             </CardBody>
-            <Badge p={3} colorScheme="green" fontSize={"sm"}>{role}</Badge>
+            <Badge p={3} color="green" fontSize={"sm"}>{role}</Badge>
         </Card>
-
     )
 }
 
