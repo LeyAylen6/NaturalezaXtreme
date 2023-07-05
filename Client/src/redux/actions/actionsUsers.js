@@ -7,7 +7,7 @@ import axios from "axios";
 export const getUsers = (id) => {
   return async function (dispatch) {
     try {
-      const apiData = await axios.get(`https://servidor-naturextreme.onrender.comuser?id=${id}`);
+      const apiData = await axios.get(`https://servidor-naturextreme.onrender.com/user?id=${id}`);
       const users = apiData.data;
       dispatch({ type: GET_USERS, payload: users });
     
@@ -18,7 +18,7 @@ export const getUsers = (id) => {
 };
 
 export const createNewAccount = async (signuserData, dispatch) => {
-  const response = await axios.post("https://servidor-naturextreme.onrender.comuser", signuserData);
+  const response = await axios.post("https://servidor-naturextreme.onrender.com/user", signuserData);
 
   try {
     const { signUp } = response.data;
@@ -35,7 +35,7 @@ export const createNewAccount = async (signuserData, dispatch) => {
 export const getUserId = async (user, dispatch) => {
   //mando todo el user de Auth0 y el back crea un usuario en la base de datos si no existe
   try {
-    const apiData = await axios.post(`https://servidor-naturextreme.onrender.comlogin`, user);
+    const apiData = await axios.post(`https://servidor-naturextreme.onrender.com/login`, user);
     const userId = apiData.data;
     localStorage.setItem("userId", JSON.stringify(userId.id));  
     dispatch({ type: USER_ID, payload: userId });

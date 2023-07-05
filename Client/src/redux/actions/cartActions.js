@@ -9,8 +9,6 @@ import axios from "axios";
 const URL = "https://servidor-naturextreme.onrender.com";
 
 
-
-
 //se puede borrar?
 export const removeFromCart = (id) => {
   return { type: REMOVE_FROM_CART, payload: id };
@@ -22,7 +20,7 @@ export const emptyCart = (id) => {
 
 export const getCartById = (id) => async (dispatch) => {
   try {
-    const response = await axios.get(`${URL}shoppingcart/reviews/${id}`);
+    const response = await axios.get(`${URL}/shoppingcart/reviews/${id}`);
     const cartById = response.data;
     
     dispatch({
@@ -52,7 +50,7 @@ export const getCartById = (id) => async (dispatch) => {
 export const getPendingCart = (id) => {
   return async function (dispatch) {
     try {
-      const apiData = await axios.get(`${URL}shoppingcart?userId=${id}&status=pending`);
+      const apiData = await axios.get(`${URL}/shoppingcart?userId=${id}&status=pending`);
       const pendingCart = apiData.data;
       dispatch({ type: GET_PENDING_CART, payload: pendingCart });
     
