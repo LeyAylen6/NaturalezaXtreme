@@ -40,7 +40,7 @@ export default function CaptionCarousel() {
     {
       title: "Uritorco hill",
       text: "path loaded with enigmas spectacular landscapes. With 1979 masl.",
-      image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/4d/c0/54/caption.jpg?w=1200&h=-1&s=1",
+      image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2018/09/sin-t%C3%ADtulo-115-de-293.jpg#main",
       link: "/blog/1",
     },
     {
@@ -49,9 +49,10 @@ export default function CaptionCarousel() {
       image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2018/09/Cerro-Colorado-.jpg#main",
     },
     {
-      title: "Colorado hill",
-      text: "The most important thing to visit are the pictographs of the place.",
-      image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2018/09/Cerro-Colorado-.jpg#main",
+      title: "BIKE CROSS",
+      text: "It is a race that is practiced on rough terrain with appropriate bicycles and that consists of doing the route at the maximum possible speed.",
+
+      image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2021/12/Screenshot_4.png#main",
     },
     {
       title: "Quebrada del Condorito National Park",
@@ -115,7 +116,17 @@ export default function CaptionCarousel() {
               >
                 {/* This is the block you need to change, to customize the caption */}
                 <Container maxW={"2x1"} height="700px" position="relative">
-                  <Stack spacing={6} w={"full"} maxW={"lg"} position="absolute" top="50%" transform="translate(0, -50%)">
+                  <Stack
+                    spacing={6}
+                    w={"full"}
+                    maxW={"lg"}
+                    position="absolute"
+                    top="50%"
+                    transform="translate(50%, -50%)"
+                    bgColor={"rgb(255,255,255, 0.4)"}
+                    borderRadius={"10px"}
+                    p={30}
+                  >
                     <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} color="Black">
                       {card.title}
                     </Heading>
