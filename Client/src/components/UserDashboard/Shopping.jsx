@@ -38,11 +38,10 @@ const Shopping = () => {
                 alt={article.name}
                 margin={"15"}
               />
-
-              <Stack>
-                <CardBody>
-                  <Heading size='md'>{article.name}</Heading>
-                </CardBody>
+                <Stack>
+                  <CardBody>
+                    <Heading size='md'>{article.name}</Heading>
+                  </CardBody>
 
                 <CardFooter>
                   {article.commented ? (
@@ -75,6 +74,7 @@ const Shopping = () => {
           </Flex>
         );
       })}
+
     </Grid>
   );
 };
