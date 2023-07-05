@@ -1,4 +1,4 @@
-import { Container, CardBody, Image, Heading, Box, Button, Flex, Stack, CardFooter, Card, Grid } from "@chakra-ui/react";
+import { Container, CardBody, Image, Heading, Box, Button, Flex, Stack, CardFooter, Card, Grid} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPurchasedCarts } from "../../redux/actions/actions";
@@ -21,62 +21,60 @@ const Shopping = () => {
   };
 
   return (
-    <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(5, 1fr)" gap={4} pt={90}>
-      <Box margin={"10"}>
-        {purchasedArticles?.map((article, index) => {
-          return (
-            <Flex key={index}>
-              <Card
-                direction={{ base: 'column', sm: 'row' }}
-                overflow='hidden'
-                variant='outline'
-                key={`article-${index}`}
-                padding={"15"}
-              >
-                <Image
-                  objectFit='cover'
-                  maxW={{ base: '100%', sm: '200px' }}
-                  src={article.image}
-                  alt={article.name}
-                  margin={"15"}
-                />
-
+    <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(1, 1fr)" gap={4} pt={120}>
+      {purchasedArticles?.map((article, index) => {
+        return (
+          <Flex key={index} margin={"20 px"}>
+            <Card
+              direction={{ base: 'column', sm: 'row' }}
+              key={`article-${index}`}
+              padding={"15"}
+              width={"lg"}
+            >
+              <Image
+                objectFit='cover'
+                maxW={{ base: '100%', sm: '200px' }}
+                src={article.image}
+                alt={article.name}
+                margin={"15"}
+              />
                 <Stack>
                   <CardBody>
                     <Heading size='md'>{article.name}</Heading>
                   </CardBody>
 
-                  <CardFooter>
-                    {article.commented ? (
-                      <Container bg="green.200">Is commented</Container>
-                    ) : (
-                      <Button
-                        variant='solid'
-                        colorScheme='blue'
-                        value={article.id}
-                        onClick={(e) => ratePurchase(e, article.id)}
-                      >
-                        Rate your purchase
-                      </Button>
-                    )}
-                  </CardFooter>
-                </Stack>
-              </Card>
-              <Box
-                key={`box-${index}`}
-                direction={{ base: 'column', sm: 'row' }}
-                overflow='hidden'
-                variant='outline'
-                padding={"15"}
-              >
-                {toComment && selectedArticleId === article.id ? (
-                  <RateArticle id={article.id} userId={userId} />
-                ) : null}
-              </Box>
-            </Flex>
-          );
-        })}
-      </Box>
+                <CardFooter>
+                  {article.commented ? (
+                    <Container bg="green.200">Is commented</Container>
+                  ) : (
+                    <Button
+                      variant='solid'
+                      colorScheme='blue'
+                      value={article.id}
+                      onClick={(e) => ratePurchase(e, article.id)}
+                    >
+                      Rate your purchase
+                    </Button>
+                  )}
+                </CardFooter>
+              </Stack>
+            </Card>
+            <Box
+              key={`box-${index}`}
+              direction={{ base: 'column', sm: 'row' }}
+              overflow='hidden'
+              variant='outline'
+              padding={"15"}
+
+            >
+              {toComment && selectedArticleId === article.id ? (
+                <RateArticle id={article.id} userId={userId} />
+              ) : null}
+            </Box>
+          </Flex>
+        );
+      })}
+
     </Grid>
   );
 };
