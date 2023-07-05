@@ -96,7 +96,7 @@ const Filters = () => {
 		bgColor: "white",
 		h: 5,
 		fontSize: 14,
-    bgColor: originalColors.greybackground,
+    bgColor: 'white',
     textAlign: 'start',
     h:7
     
@@ -110,7 +110,7 @@ const Filters = () => {
 				alignItems={"center"}
 				gap={5}
 				w={1000}
-				bgColor={originalColors.greybackground}
+				bgColor={'white'}
         borderRadius={'10px'}
 				p={"10px 0"}
 			>
@@ -183,7 +183,7 @@ const Filters = () => {
 				gap={5}
 				w={400}
         borderRadius={'10px'}
-				bgColor={originalColors.greybackground}
+				bgColor={'white'}
 				p={"10px 0"}
 			>
 				<Text fontWeight={'semibold'}>PRICE SORT:</Text>
