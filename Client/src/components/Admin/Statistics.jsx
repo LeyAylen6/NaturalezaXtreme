@@ -87,19 +87,23 @@ const Stadistics = () => {
     return (
     <Box>  
         <HStack spacing={100} >
-            <VStack>
-        <Box fontSize="30px" pt={40}>
-          <Text>Sales Stadistics</Text>
-        </Box>
-        <Box width="700px" height="600px" margin="auto" pl={100}>
-          <Bar data={chartData} options={chartOptions} />
-        </Box>
-        </VStack>
+
+          <VStack>
+            <Box fontSize="30px" pt={5}>
+              <Text paddingLeft={280}>Sales Stadistics</Text>
+            </Box>
+
+            <Box width="700px" height="600px" margin="auto" pl={100}>
+              <Bar data={chartData} options={chartOptions} />
+            </Box>
+
+          </VStack>
+
         <Box pl={50} fontSize={30}>
-            <HStack>
-           <Text >Online</Text>
-           <CircleIcon boxSize={3} color='green.300' />
-            </HStack>
+          <HStack>
+            <Text >Online</Text>
+            <CircleIcon boxSize={3} color='green.300' />
+          </HStack>
             <Text>{logged}</Text>
         </Box>
        </HStack>
