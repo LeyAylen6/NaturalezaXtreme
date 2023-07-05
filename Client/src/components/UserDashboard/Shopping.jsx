@@ -1,4 +1,4 @@
-import { Container, CardBody, Image, Heading, Box, Button, Flex, Stack, CardFooter, Card, Grid} from "@chakra-ui/react";
+import { Container, CardBody, Image, Heading, Box, Button, Flex, Stack, CardFooter, Card, Grid, Text} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPurchasedCarts } from "../../redux/actions/actions";
@@ -26,6 +26,7 @@ const Shopping = () => {
       <Text>You haven't made purchases yet</Text>
     ) : (
       purchasedArticles.map((article, index) => {  
+        return(
           <Flex key={index} margin={"20 px"}>
             <Card
               direction={{ base: 'column', sm: 'row' }}
@@ -73,6 +74,7 @@ const Shopping = () => {
               ) : null}
             </Box>
           </Flex>
+        )
         })
         )}
       </Grid>
