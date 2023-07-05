@@ -1,4 +1,4 @@
-import { Container, CardBody, Image, Heading, Box, Button, Flex, Stack, CardFooter, Card, Grid, Text, Link} from "@chakra-ui/react";
+import { Container, CardBody, Image, Heading, Box, Button, Flex, Stack, CardFooter, Card, Grid, Text} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPurchasedCarts } from "../../redux/actions/actions";
