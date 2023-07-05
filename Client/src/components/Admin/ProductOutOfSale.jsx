@@ -28,7 +28,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getArticles, getDetail, productdesactivate } from "../../redux/actions/actions";
-import Paginate from "../Paginate/Paginate";
 const ProductOutOfSale = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -76,7 +75,7 @@ const ProductOutOfSale = () => {
   console.log("desactiveProducts", desactiveProducts);
 
   return (
-    <Container maxW="container.xl" centerContent rounded="md" justifyContent="rigth" alignItems="center" pt={40}>
+    <Container maxW="container.xl" height={"container.md"} rounded="md" justifyContent="rigth" alignItems="center" pt={40}>
       <TableContainer maxW="container.xl" p="4" rounded="md" justifyContent="rigth" alignItems="center">
         <Box display={"flex"} justifyContent={"space-between"}>
           <Button as={Link} to="/admin" colorScheme="cyan" size="lg" variant="solid" borderRadius={"15px"} m="6">

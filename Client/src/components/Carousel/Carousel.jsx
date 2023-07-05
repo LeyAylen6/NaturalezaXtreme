@@ -40,7 +40,7 @@ export default function CaptionCarousel() {
     {
       title: "Uritorco hill",
       text: "path loaded with enigmas spectacular landscapes. With 1979 masl.",
-      image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/4d/c0/54/caption.jpg?w=1200&h=-1&s=1",
+      image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2018/09/sin-t%C3%ADtulo-115-de-293.jpg#main",
       link: "/blog/1",
     },
     {
@@ -49,9 +49,10 @@ export default function CaptionCarousel() {
       image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2018/09/Cerro-Colorado-.jpg#main",
     },
     {
-      title: "Colorado hill",
-      text: "The most important thing to visit are the pictographs of the place.",
-      image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2018/09/Cerro-Colorado-.jpg#main",
+      title: "BIKE CROSS",
+      text: "It is a race that is practiced on rough terrain with appropriate bicycles and that consists of doing the route at the maximum possible speed.",
+
+      image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2021/12/Screenshot_4.png#main",
     },
     {
       title: "Quebrada del Condorito National Park",
