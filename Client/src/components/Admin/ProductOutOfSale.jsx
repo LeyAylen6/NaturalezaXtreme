@@ -1,49 +1,28 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Image,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  Container,
-  TableCaption,
-  TableContainer,
-  Divider,
-} from "@chakra-ui/react";
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-} from "@chakra-ui/react";
-
+import { Box, Button, ButtonGroup, Image, Table, Thead, Tbody, Tfoot, Tr, Th, Td, Container, TableCaption, Heading, TableContainer, Divider } from "@chakra-ui/react";
+import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getArticles, getDetail, productdesactivate } from "../../redux/actions/actions";
+
 const ProductOutOfSale = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const products = useSelector((state) => state.articles);
+  const deactivatedProducts = useSelector((state) => state.articles);
   const [selectId, setselectId] = useState(null);
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [productoIdEditar, setProductoIdEditar] = useState(null);
 
+  console.log(deactivatedProducts.articlesFounded)
+
   useEffect(() => {
-    // Si se selecciona un id, se ejecuta la accion getArticleId
+    //Si se selecciona un id, se ejecuta la accion getArticleId
     if (selectId !== null) {
       dispatch(getDetail(selectId));
       setselectId(null); // Se resetea el id
       navigate(`/detail/${selectId}`);
     }
-    dispatch(getArticles());
+    dispatch(getArticles("deactivated"));
   }, [dispatch, selectId, navigate]);
 
   const handleClick = (productId) => {
@@ -65,14 +44,9 @@ const ProductOutOfSale = () => {
   };
   const confirmarEdicion = () => {
     dispatch(getDetail(productoIdEditar));
-    console.log("productId", productoIdEditar);
     cerrarAlerta();
     navigate(`/editProduct/`);
   };
-
-  // Filtrar los productos que tienen la propiedad "active" en true
-  const desactiveProducts = products.articlesFounded?.filter((product) => product.active === false);
-  console.log("desactiveProducts", desactiveProducts);
 
   return (
     <Container maxW="container.xl" height={"container.md"} rounded="md" justifyContent="rigth" alignItems="center" pt={40}>
@@ -93,9 +67,9 @@ const ProductOutOfSale = () => {
         </Box>
         <Table>
           <Thead>
-            <TableCaption fontSize={"24px"} fontWeight={"semibold"}>
+            <Heading fontSize={"24px"} fontWeight={"semibold"}>
               List of products out of sale
-            </TableCaption>
+            </Heading>
             <Tr bg="gray.100" border="1px" borderColor="gray.300" p="6" m="6">
               <Th>Id</Th>
               <Th>Product</Th>
@@ -109,7 +83,7 @@ const ProductOutOfSale = () => {
           </Thead>
 
           <Tbody>
-            {desactiveProducts?.map((product) => (
+            {deactivatedProducts.articlesFounded?.map((product) => (
               <Tr key={product.id} border={"2px"} borderColor={"gray.300"}>
                 <Td
                   maxWidth="400px"
@@ -145,25 +119,9 @@ const ProductOutOfSale = () => {
                       ))}
                 </Td>
                 <ButtonGroup size="md" variant={"outline"} paddingTop={8} paddingRight={10} display={"flex"} alignItems={"center"}>
-                  <Button colorScheme="yellow" onClick={() => handleClick(product.id)}>
-                    View
-                  </Button>
-                  <Button
-                    colorScheme="green"
-                    onClick={() => {
-                      handleEdit(product.id);
-                    }}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    colorScheme="red"
-                    onClick={() => {
-                      handleDesactivate(product.id);
-                    }}
-                  >
-                    activate
-                  </Button>
+                  <Button colorScheme="yellow" onClick={() => handleClick(product.id)}>View</Button>
+                  <Button colorScheme="green" onClick={() => {handleEdit(product.id);}}>Edit</Button>
+                  <Button colorScheme="red"onClick={() => {handleDesactivate(product.id);}}>activate</Button>
                 </ButtonGroup>
               </Tr>
             ))}
@@ -172,7 +130,6 @@ const ProductOutOfSale = () => {
             <Tr>
               <Th>Image</Th>
               <Th>Product</Th>
-
               <Th>Price</Th>
               <Th>Stock</Th>
             </Tr>
