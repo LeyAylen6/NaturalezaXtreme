@@ -6,7 +6,7 @@ export const GET_PENDING_CART = "GET_PENDING_CART";
 export const MESSAGE = "MESSAGE"
 
 import axios from "axios";
-const URL = "http://localhost:3001/";
+const URL = "https://servidor-naturextreme.onrender.com";
 
 
 

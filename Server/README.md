@@ -8,8 +8,8 @@ Verifica que los artículos no estén duplicados por articleID antes de crear, d
 #### **📍 POST | /articlefinder **
 
 Busca artículos por propiedades id(db) y articleID(proveedor). Funciona solo con querys:
-Ej: articleID . http://localhost:3001/articlefinder?articleID=J5558
-Ej: id . http://localhost:3001/articlefinder?id=14
+Ej: articleID . https://servidor-naturextreme.onrender.comarticlefinder?articleID=J5558
+Ej: id . https://servidor-naturextreme.onrender.comarticlefinder?id=14
 Devuelve un error si el artículo buscado no existe
 
 #### **📍 GET | /articles **
@@ -17,9 +17,9 @@ Si no recibe querys trae todos los artículos activos en la DB.
 La ruta funciona con querys autogeneradas, no espera que se le pasen valores para paginar. El aumento de páginas está seteado de 12 en 12 artículos y asimismo disminuye de 12 en 12 artículos.
 Puede recibir la query order(asc/desc) para ordenar por precio en forma ascendente o descendente.
 Puede filtrar por querys combinadas: name (busca por coincidencias parciales), gender('Male', 'Female', 'Unisex'), color ('White', 'Black', 'Red', 'Green', 'Yellow', 'Brown', 'Orange', 'Blue', 'Grey', 'Pink', 'Violet'), type('Tshirt', 'sweatshirt', 'jacket', 'pant', 'accesories', 'shoes', 'equipment'), active (seteado en true/recibe false).
-Ej: http://localhost:3001/articles?name=to&color=orange&type=pant&gender=female
-Ej. con asc/desc: http://localhost:3001/articles?name=c&color=grey&gender=female&order=asc
-Ej. con active: http://localhost:3001/articles?color=grey&active=false
+Ej: https://servidor-naturextreme.onrender.comarticles?name=to&color=orange&type=pant&gender=female
+Ej. con asc/desc: https://servidor-naturextreme.onrender.comarticles?name=c&color=grey&gender=female&order=asc
+Ej. con active: https://servidor-naturextreme.onrender.comarticles?color=grey&active=false
 
 #### **📍 POST | /articles **
 
@@ -53,12 +53,12 @@ Modifica la propiedad active de un artículo. Recibe por param el id del artícu
 
 #### **📍 GET | /user **
 
-Si no recibe query busca todos los usuarios activos (perfiles user y admin). Ej: http://localhost:3001/user
+Si no recibe query busca todos los usuarios activos (perfiles user y admin). Ej: https://servidor-naturextreme.onrender.comuser
 Puede recibir alternativamente o conjuntas las query rol (user, admin) y active (false, true)
-Con query rol - busca los usuarios activos por rol, por Ej: http://localhost:3001/user?rol=admin
+Con query rol - busca los usuarios activos por rol, por Ej: https://servidor-naturextreme.onrender.comuser?rol=admin
 Con query active se puede acceder a los usuarios desactivados (active:false), se puede usar combinada con rol:
-Ej: http://localhost:3001/user?rol=admin&active=false
-Ej: http://localhost:3001/user?active=false
+Ej: https://servidor-naturextreme.onrender.comuser?rol=admin&active=false
+Ej: https://servidor-naturextreme.onrender.comuser?active=false
 
 #### **📍 GET | /user/:id **
 
