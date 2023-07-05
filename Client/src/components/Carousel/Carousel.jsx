@@ -116,7 +116,17 @@ export default function CaptionCarousel() {
               >
                 {/* This is the block you need to change, to customize the caption */}
                 <Container maxW={"2x1"} height="700px" position="relative">
-                  <Stack spacing={6} w={"full"} maxW={"lg"} position="absolute" top="50%" transform="translate(0, -50%)">
+                  <Stack
+                    spacing={6}
+                    w={"full"}
+                    maxW={"lg"}
+                    position="absolute"
+                    top="50%"
+                    transform="translate(50%, -50%)"
+                    bgColor={"rgb(255,255,255, 0.4)"}
+                    borderRadius={"10px"}
+                    p={30}
+                  >
                     <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} color="Black">
                       {card.title}
                     </Heading>
