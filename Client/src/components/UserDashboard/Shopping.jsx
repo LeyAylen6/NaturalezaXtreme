@@ -21,9 +21,11 @@ const Shopping = () => {
   };
 
   return (
-    <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(1, 1fr)" gap={4} pt={120}>
-      {purchasedArticles?.map((article, index) => {
-        return (
+<Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(1, 1fr)" gap={4} pt={120}>
+    {purchasedArticles.length === 0 ? (
+      <Text>You haven't made purchases yet</Text>
+    ) : (
+      purchasedArticles.map((article, index) => {  
           <Flex key={index} margin={"20 px"}>
             <Card
               direction={{ base: 'column', sm: 'row' }}
@@ -71,9 +73,9 @@ const Shopping = () => {
               ) : null}
             </Box>
           </Flex>
-        );
-      })}
-    </Grid>
+        })
+        )}
+      </Grid>
   );
 };
 
