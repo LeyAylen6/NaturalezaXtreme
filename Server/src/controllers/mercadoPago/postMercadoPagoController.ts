@@ -4,7 +4,7 @@ import axios from "axios";
 
 const postMercadoPagoController = async (userId: string) =>{
 
-    const {data} = await axios(`https://servidor-naturextreme.onrender.comshoppingcart?userId=${userId}&status=pending`)
+    const {data} = await axios(`https://servidor-naturextreme.onrender.com/shoppingcart?userId=${userId}&status=pending`)
     
     const product: [] = data.shoppingArticles;
     
