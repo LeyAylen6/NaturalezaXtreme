@@ -93,23 +93,15 @@ const Filters = () => {
 			order: "",
 		}))
 
-		// document.getElementById("Gender").value = "Gender"
-		// document.getElementById("Type").value = "Type"
-		// document.getElementById("Color").value = "Color"
-		// document.getElementById("Price").value = "Price"
-
-		setFilters({
-			gender: "",
-			type: "",
-			color: "",
-			order: "",
-		})
+		document.getElementById("Gender").value = "Gender"
+		document.getElementById("Type").value = "Type"
+		document.getElementById("Color").value = "Color"
+		document.getElementById("Price").value = "Price"
 	}
 
 	const selectTagStyles = {
 		w: 150,
 		bgColor: "white",
-		h: 5,
 		fontSize: 14,
     bgColor: 'white',
     textAlign: 'start',
@@ -133,7 +125,7 @@ const Filters = () => {
 				<Select
 					name=""
 					id="Gender"
-					value={filters.gender}
+					// value={filters.gender}
 					defaultValue="Gender"
 					variant={"filled"}
 					onChange={handleChangeGender}
@@ -154,7 +146,7 @@ const Filters = () => {
 				<Select
 					name=""
 					id="Type"
-					value={filters.type}
+					// value={filters.type}
 					defaultValue="Type"
 					variant={"filled"}
 					onChange={handleChangeType}
@@ -175,7 +167,7 @@ const Filters = () => {
 				<Select
 					name=""
 					id="Color"
-					value={filters.color}
+					// value={filters.color}
 					defaultValue="Color"
 					variant={"filled"}
 					onChange={handleChangeColor}
@@ -208,7 +200,7 @@ const Filters = () => {
 				<Select
 					name=""
 					id="Price"
-					value={filters.order}
+					// value={filters.order}
 					defaultValue="Price"
 					variant={"filled"}
 					onChange={handleChangeOrder}
