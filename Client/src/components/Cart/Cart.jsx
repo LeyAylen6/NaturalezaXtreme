@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -23,7 +23,7 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { createPayment, setPaymentLink, addToMercadoPago } from "../../redux/actions/actions.js";
-import { getUsers } from "../../redux/actions/actionsUsers.js";
+import { getCountArticle } from "../../redux/actions/actions.js"
 import { useAuth0 } from "@auth0/auth0-react";
 import Stadistics from "../Admin/Statistics.jsx";
 import { originalColors } from "../../theme/palette.js";
@@ -33,20 +33,36 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const paymentLink = useSelector((state) => state.paymentLink);
-  const article = useSelector((state) => state.detail);
   const [paymentError, setPaymentError] = useState(false);
   const [cartUpdated, setCartUpdated] = useState(false);
-  const [count, setConut] = useState({
-    id: article.id,
-    countSales: article.countSales + 1,
-    active: article.active,
-  });
+
   const [showAlert, setShowAlert] = useState(false);
 
   const { user } = useAuth0();
 
+  useEffect(() => {
+  dispatch(getCountArticle());
+  }, [dispatch]);
+
+  const article = useSelector((state) => state.articleCount); 
+  console.log(article.articlesFounded)
+
+
   const fullCart = JSON.parse(localStorage.getItem("cart"));
   let modifiedCart = fullCart;
+
+   let articlesByCount = []
+  for (let i = 0; i < fullCart.length; i++) {
+    const id1 = fullCart[i].id;
+    
+    for (let j = 0; j < article.articlesFounded?.length; j++) {
+      const id2 = article.articlesFounded[j].id;
+      
+      if (id1 === id2) {
+         articlesByCount.push(article.articlesFounded[j]);
+      }
+    }
+  }
 
     const saveLocalStorage = (modifiedCart) => {
     localStorage.setItem("cart", JSON.stringify(modifiedCart));
@@ -106,7 +122,6 @@ const Cart = () => {
       const result = await dispatch(createPayment(user));
       if (result === "success") {
         navigate("/");
-        dispatch(updateProduct(count));
       }
     } catch (error) {
       setPaymentError(true);
@@ -115,6 +130,13 @@ const Cart = () => {
   const handlePay = () => {
     setShowAlert(true);
     handlePayment();
+    articlesByCount?.map(element => { 
+      return dispatch(updateProduct({
+        id: element.id,
+        countSales: element.countSales += 1,
+        active: element.active
+      }))
+     })
   };
   const cerrarAlerta = () => {
     setShowAlert(false);
