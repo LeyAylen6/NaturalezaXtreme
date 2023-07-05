@@ -4,7 +4,7 @@ import axios from "axios";
 
 const postMercadoPagoController = async (userId: string) =>{
 
-    const {data} = await axios(`http://localhost:3001/shoppingcart?userId=${userId}&status=pending`)
+    const {data} = await axios(`https://servidor-naturextreme.onrender.comshoppingcart?userId=${userId}&status=pending`)
     
     const product: [] = data.shoppingArticles;
     
@@ -20,9 +20,9 @@ const postMercadoPagoController = async (userId: string) =>{
     const payer = {
         email: data.user.email
     }
-    const URLBK = 'https://7298-200-91-35-227.ngrok-free.app'
+    const URLBK = 'https://servidor-naturextreme.onrender.com'
     //Url de redireccionamiento al back //Acá cada uno pone su propia URL de la página de ngrok
-    const URL = 'http://localhost:5173'
+    const URL = 'https://naturaleza-xtreme.vercel.app'
         
     let preference: CreatePreferencePayload  = {
         items,
