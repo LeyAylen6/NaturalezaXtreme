@@ -1,15 +1,18 @@
 import Tarjeta from "../Card/Card";
 import { Box, Flex, Text } from "@chakra-ui/react";
-
-import { useDispatch, useSelector } from "react-redux";
-
 import Paginate from "../Paginate/Paginate";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setPaymentLink } from "../../redux/actions/actions";
 
 const CardContainer = () => {
+  
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles);
-  dispatch(setPaymentLink(""))
+  
+  useEffect(()=>{
+    dispatch(setPaymentLink(""))
+  }, [dispatch])
 
   return (
     <Box mx={"auto"} maxWidth={"1480px"} p={"0 20px"}>
