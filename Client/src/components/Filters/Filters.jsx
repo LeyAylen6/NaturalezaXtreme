@@ -104,6 +104,7 @@ const Filters = () => {
 		bgColor: "white",
 		fontSize: 14,
 		bgColor: 'white',
+		color: "black",
 		textAlign: 'start',
 		h:7
 	}
@@ -116,11 +117,11 @@ const Filters = () => {
 				alignItems={"center"}
 				gap={5}
 				w={1000}
-				bgColor={'white'}
+				bgColor={"white"}
         borderRadius={'10px'}
 				p={"10px 0"}
 			>
-				<Text fontWeight={'semibold'}>FILTERS:</Text>
+				<Text fontWeight={'semibold'} color={"black"}>FILTERS:</Text>
 				<Select
 					name=""
 					id="Gender"
@@ -195,7 +196,7 @@ const Filters = () => {
 				bgColor={'white'}
 				p={"10px 0"}
 			>
-				<Text fontWeight={'semibold'}>PRICE SORT:</Text>
+				<Text fontWeight={'semibold'} color={"black"}>PRICE SORT:</Text>
 				<Select
 					name=""
 					id="Price"
