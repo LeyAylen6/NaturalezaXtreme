@@ -8,7 +8,6 @@ const Favorites = () => {
 
   const selectTagStyles = {
 		w: 150,
-		bgColor: "white",
 		h: 7,
 		fontSize: 14,
 		bgColor: 'white',

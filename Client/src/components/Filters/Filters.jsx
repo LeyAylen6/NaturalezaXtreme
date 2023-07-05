@@ -101,7 +101,6 @@ const Filters = () => {
 
 	const selectTagStyles = {
 		w: 150,
-		bgColor: "white",
 		fontSize: 14,
 		bgColor: 'white',
 		color: "black",

@@ -2,17 +2,23 @@ import { useState } from "react";
 import { Box, HStack, Input } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { filterSearchBar, getArticles } from "../../redux/actions/actions";
+
+
 const SearchBar = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-  
-  if(name) dispatch(filterSearchBar(name));
-  
+
   const handleChange = (event) => {
     const { value } = event.target;
-    value ? setName(value) : dispatch(getArticles());    
-    //dispatch(filterSearchBar(name));
-  };
+    if(value){
+      setName(value);
+      dispatch(filterSearchBar(value))
+    } else {
+      setName("");   
+      dispatch(getArticles());
+      console.log(name)
+    }
+  }
 
   return (
     <HStack>
@@ -23,6 +29,7 @@ const SearchBar = () => {
           size={"md"}
           type="text"
           placeholder="Search product..."
+          value={name}
           onChange={handleChange}
         />
       </Box>
