@@ -48,6 +48,16 @@ export default function CaptionCarousel() {
       text: "The most important thing to visit are the pictographs of the place.",
       image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2018/09/Cerro-Colorado-.jpg#main",
     },
+    {
+      title: "Colorado hill",
+      text: "The most important thing to visit are the pictographs of the place.",
+      image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2018/09/Cerro-Colorado-.jpg#main",
+    },
+    {
+      title: "Quebrada del Condorito National Park",
+      text: "The greatest reward will be watching the condors fly.",
+      image: "https://www.cordobaturismo.gov.ar/wp-content/uploads/2020/10/001-Vista-de-la-Quebrada-del-Condorito.jpg#main",
+    },
   ];
 
   return (
