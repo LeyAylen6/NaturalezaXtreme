@@ -22,7 +22,8 @@ import {
   MESSAGE,
   GET_COUNT_ARTICLES,
   GET_POSTS,
-  GET_CATEGORIES
+  GET_CATEGORIES,
+  GET_PURCHASED
 } from "../actions/actions";
 
 import { GET_USERS, POST_USERS, USER_ID } from "../actions/actionsUsers";
@@ -36,12 +37,13 @@ const initialState = {
   myFavorites: [],
   allProducts: [],
   detail: {},
-  articleById: {},
+  // articleById: {},
   paymentLink: null,
   signUp: true,
   articles: [],
   cart: [],
   pendingCart: [],
+  purchasedArticles: [],
   page: 1,
   message: '',
   articleCount: [],
@@ -98,11 +100,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: action.payload,
       };
-    case UPDATE_PRODUCT:
-      return {
-        ...state,
-        articleById: action.payload,
-      };
+    // case UPDATE_PRODUCT:
+    //   return {
+    //     ...state,
+    //     articleById: action.payload,
+    //   };
 
     case REMOVE_FAV:
       return {
@@ -164,6 +166,12 @@ const reducer = (state = initialState, action) => {
         allProducts: [...state.allProducts, action.payload],
       };
 
+    case GET_PURCHASED:
+      return {
+        ...state,
+        purchasedArticles: action.payload,
+      };
+
     case POST_USERS:
       return {
         ...state,
@@ -176,51 +184,51 @@ const reducer = (state = initialState, action) => {
         signUp: action.payload,
       };
 
-    case ADD_TO_CART:
-      return {
-        ...state,
-        cartArticles: [...state.cartArticles, action.payload],
-      };
+    // case ADD_TO_CART:
+    //   return {
+    //     ...state,
+    //     cartArticles: [...state.cartArticles, action.payload],
+    //   };
 
-    case REMOVE_FROM_CART:
-      return {
-        ...state,
-        cartArticles: [...state.cartArticles.filter((article) => article.id != action.payload)],
-      };
+    // case REMOVE_FROM_CART:
+    //   return {
+    //     ...state,
+    //     cartArticles: [...state.cartArticles.filter((article) => article.id != action.payload)],
+    //   };
 
-    case EMPTY_CART:
-      return {
-        ...state,
-        cartArticles: [],
-      };
+    // case EMPTY_CART:
+    //   return {
+    //     ...state,
+    //     cartArticles: [],
+    //   };
 
-    case INCREASE_QUANTITY:
-      return {
-        ...state,
-        cartArticles: state.cartArticles.map((item) => {
-          if (item.id === action.payload) {
-            return {
-              ...item,
-              quantity: item.quantity + 1,
-            };
-          }
-          return item;
-        }),
-      };
+    // case INCREASE_QUANTITY:
+    //   return {
+    //     ...state,
+    //     cartArticles: state.cartArticles.map((item) => {
+    //       if (item.id === action.payload) {
+    //         return {
+    //           ...item,
+    //           quantity: item.quantity + 1,
+    //         };
+    //       }
+    //       return item;
+    //     }),
+    //   };
       
-    case DECREASE_QUANTITY:
-      return {
-        ...state,
-        cartArticles: state.cartArticles.map((item) => {
-          if (item.id === action.payload && item.quantity > 1) {
-            return {
-              ...item,
-              quantity: item.quantity - 1,
-            };
-          }
-          return item;
-        }),
-      };
+    // case DECREASE_QUANTITY:
+    //   return {
+    //     ...state,
+    //     cartArticles: state.cartArticles.map((item) => {
+    //       if (item.id === action.payload && item.quantity > 1) {
+    //         return {
+    //           ...item,
+    //           quantity: item.quantity - 1,
+    //         };
+    //       }
+    //       return item;
+    //     }),
+    //   };
 
     case GET_CART:
       return {
