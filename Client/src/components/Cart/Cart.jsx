@@ -53,7 +53,7 @@ const Cart = () => {
 
   
    let articlesByCount = []
-  for (let i = 0; i < fullCart.length; i++) {
+  for (let i = 0; i < fullCart?.length; i++) {
     const id1 = fullCart[i].id;
     
     for (let j = 0; j < article.articlesFounded?.length; j++) {
