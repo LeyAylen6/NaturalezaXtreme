@@ -206,7 +206,7 @@ const Filters = () => {
 					onChange={handleChangeOrder}
 					{...selectTagStyles}
 				>
-					<option disabled value="price">
+					<option disabled value="Price">
 						Price
 					</option>
 					<option value="none">None</option>
