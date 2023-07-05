@@ -18,7 +18,7 @@ export const infoMercadoPago = async (req: Request, res: Response)  => {
         const { query } = req
         const {userId} = query
         
-        const { data } = await axios(`https://servidor-naturextreme.onrender.comshoppingcart?userId=${userId}&status=pending`)
+        const { data } = await axios(`https://servidor-naturextreme.onrender.com/shoppingcart?userId=${userId}&status=pending`)
         const topic = query.topic || query.type;
 
         if(topic === 'payment'){
