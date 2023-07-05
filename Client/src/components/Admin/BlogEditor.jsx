@@ -100,8 +100,8 @@ const BlogEditor = () => {
 				}
 
 				if ((result.event = "success" && result.info.url)) {
-					setForm({
-						...form,
+					setInputValues({
+						...inputValues,
 						image: result.info.url,
 					})
 				}
