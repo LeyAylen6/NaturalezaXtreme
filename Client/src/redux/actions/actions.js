@@ -33,7 +33,7 @@ export const GET_PURCHASED = "GET_PURCHASED"
 import axios from "axios";
 
 //const URL ='https://2129-201-190-150-125.ngrok-free.app'; (no lo borren plis)
-const URL = "https://servidor-naturextreme.onrender.com";
+const URL = "http://localhost:3001/";
 
 export const getArticles = (deactivated) => {
   return async function (dispatch) {
