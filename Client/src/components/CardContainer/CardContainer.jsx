@@ -1,20 +1,22 @@
 import Tarjeta from "../Card/Card";
-import { Box, Grid } from "@chakra-ui/react";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { Box, Flex, Text } from "@chakra-ui/react";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import Paginate from "../Paginate/Paginate";
+import { setPaymentLink } from "../../redux/actions/actions";
 
 const CardContainer = () => {
+  const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles);
+  dispatch(setPaymentLink(""))
 
   return (
-    <Box>
-      <Paginate articles={articles} />
-      <Grid templateColumns="repeat(4, 1fr)" justifyItems={"center"}>
-        {articles.allArticles?.map((product, index) => {
+    <Box mx={"auto"} maxWidth={"1480px"} p={"0 20px"}>
+      <Flex flexWrap="wrap" justifyContent={"center"} gap={6}>
+        {articles.articlesFounded?.map((product, index) => {
           return (
-            <div key={index}>
+            <Box key={index}>
               <Tarjeta
                 id={product.id}
                 image={product.image}
@@ -27,10 +29,12 @@ const CardContainer = () => {
                 stock={product.stock}
                 gender={product.gender}
               />
-            </div>
+            </Box>
           );
         })}
-      </Grid>
+      </Flex>
+      <Paginate articles={articles} />
+      {!articles.articlesFounded?.length && <Text>No results match your search request</Text>}
     </Box>
   );
 };

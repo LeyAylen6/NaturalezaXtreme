@@ -1,32 +1,32 @@
 .cart {
     position: relative;
-width: 1440px;
-height: 1546px;
-
-background: #CAFFC6;
+    width: 1440px;
+    height: 1546px;
+    background: #AEAEAE;
 }
 
 
 .shopping {
     position: absolute;
-width: 1440px;
-height: 88px;
-left: 0px;
-top: 30px;
+    width: 1440px;
+    height: 88px;
+    left: 0px;
+    top: 30px;
+    COLOR: rgb(82, 147, 82)
 }
 
 .total {
     position: absolute;
-width: 392px;
-height: 198px;
-left: 959px;
-top: 291px;
+    width: 392px;
+    height: 198px;
+    left: 959px;
+    top: 291px;
 }
 
 .eliminar {
     position: absolute;
-width: 63px;
-height: 56px;
-left: 1044px;
-top: 433px;
+    width: 63px;
+    height: 56px;
+    left: 1044px;
+    top: 433px;
 }

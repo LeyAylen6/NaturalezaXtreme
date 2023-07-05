@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { Box, HStack, Input } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { filterSearchBar, getAllProducts } from "../../redux/actions/actions";
+import { filterSearchBar, getArticles } from "../../redux/actions/actions";
 const SearchBar = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-
+  
+  if(name) dispatch(filterSearchBar(name));
+  
   const handleChange = (event) => {
     const { value } = event.target;
-    if (!value) dispatch(getAllProducts());
-    setName(value);
-    dispatch(filterSearchBar(name));
+    value ? setName(value) : dispatch(getArticles());    
+    //dispatch(filterSearchBar(name));
   };
 
   return (

@@ -9,12 +9,12 @@ export class User extends BaseEntity{
     id: number
 
     @Column({        
-        nullable: false
+        nullable: true
     })
     name: string
 
     @Column({        
-        nullable: false
+        nullable: true
     })
     lastname: string
 
@@ -28,7 +28,7 @@ export class User extends BaseEntity{
 
     @Column({
         type: "varchar",
-        length: 15,
+        length: 50,
         nullable: false
     })
     password: string
@@ -36,14 +36,14 @@ export class User extends BaseEntity{
     @Column({
         type: "varchar",
         length: 50,
-        nullable: false
+        nullable: true
     })
     adress: string
 
     @Column({
         type: "varchar",
         length: 20,
-        nullable: false
+        nullable: true
     })
     city: string
     
@@ -52,12 +52,12 @@ export class User extends BaseEntity{
 
     @Column({
         enum: ['User', 'Admin'], 
-        nullable: false,
+        nullable: true,
     })
     rol: string
 
     @Column({
-        nullable: false
+        nullable: true
     })
     active: boolean
 

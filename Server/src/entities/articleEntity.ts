@@ -1,13 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany, OneToMany, BaseEntity } from 'typeorm'
 import { User } from './userEntity';
-import { Shopping_Cart_Article } from './shoppingCartArticleEntity';
+import { Shopping_Cart_Article } from './shoppingCart_ArticleEntity';
 import { Size } from '../interfaces/sizeArticle';
 import { Shoesize } from '../interfaces/shoeSize';
 
 
 @Entity()
-// @Check('"string" > 0')
-// @Check('"rating" > 0' && '"rating" <= 5')
 
 export class Article extends BaseEntity{
     @PrimaryGeneratedColumn()
@@ -30,6 +28,11 @@ export class Article extends BaseEntity{
         nullable: false
     })
     price: number
+
+    @Column({
+        default: 0
+    })
+    countSales: number
 
     @Column({
         type: "varchar",
@@ -57,8 +60,8 @@ export class Article extends BaseEntity{
         type: 'json',
         nullable: true,
         default: { XS:0, S: 0, M: 0, L: 0, XL: 0, U:0 },
-      })
-      size: Size;
+    })
+    size: Size;
     
     @Column({
         type: 'json',
@@ -92,10 +95,8 @@ export class Article extends BaseEntity{
     })
     rating: number[];
 
-    @Column('simple-array', { 
-        nullable: true 
-    })
-    comments: string[];
+    @Column('json', { nullable: true })
+    comments: { userId: number; comment: string }[];
 
     @Column("boolean", {
         nullable: false,
@@ -105,6 +106,7 @@ export class Article extends BaseEntity{
     @ManyToMany(() => User, (user) => user.articles)
     users: User[]
 
-    @OneToMany(() => Shopping_Cart_Article, shoppingArticle => shoppingArticle.articles)
-    public shoppingArticles: Shopping_Cart_Article[];
+    @OneToMany(() => Shopping_Cart_Article, (shoppingArticle) => shoppingArticle.article)
+
+    shoppingArticles: Shopping_Cart_Article[];
 }
