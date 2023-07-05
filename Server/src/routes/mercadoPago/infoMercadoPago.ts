@@ -11,6 +11,8 @@ mercadopago.configure({
 	access_token: process.env.MERCADOPAGO_ACCESS! // deben agregar a sus .env esta variable MERCADOPAGO_ACCESS con el valor que ya se los pase anteriormente
 });
 
+const URL = `http://localhost:3001/`
+
 
 export const infoMercadoPago = async (req: Request, res: Response)  => {
     try {
@@ -18,7 +20,7 @@ export const infoMercadoPago = async (req: Request, res: Response)  => {
         const { query } = req
         const {userId} = query
         
-        const { data } = await axios(`https://servidor-naturextreme.onrender.com/shoppingcart?userId=${userId}&status=pending`)
+        const { data } = await axios(`${URL}shoppingcart?userId=${userId}&status=pending`)
         const topic = query.topic || query.type;
 
         if(topic === 'payment'){
