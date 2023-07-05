@@ -1,15 +1,15 @@
+import { originalColors } from "../../theme/palette";
+import { addFav, removeFav, resState, getDetail, createPayment, addToMercadoPago } from "../../redux/actions/actions";
+import SizeOptions from "./utils/SizeOptions";
+import Rating from "../Rating/Rating";
+import Comments from "../Comments/Comments";
+import { setPaymentLink } from "../../redux/actions/actions";
+import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useState } from "react"
 import { Box, Image, Flex, Button, Text, Select, HStack, VStack } from "@chakra-ui/react"
 import { ChevronLeftIcon } from "@chakra-ui/icons"
-import { originalColors } from "../../theme/palette"
 import { useNavigate, useParams, Link } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { addFav, removeFav, resState, getDetail } from "../../redux/actions/actions"
-import SizeOptions from "./utils/SizeOptions"
-import Rating from "../Rating/Rating"
-import Comments from "../Comments/Comments"
-import { setPaymentLink } from "../../redux/actions/actions"
-import { useAuth0 } from "@auth0/auth0-react"
+import { useSelector, useDispatch } from "react-redux";
 import upCase from "../../utils/upCase"
 
 //Interface para cargar el estado local prouctSelections
@@ -26,12 +26,13 @@ const initProductSelections = {
 }
 
 const Detail = () => {
-	//Se guarda el carrito local
-	const cartLocal = JSON.parse(localStorage.getItem("cart")) || []
-	const { id } = useParams()
-	const dispatch = useDispatch()
-	const navigate = useNavigate()
-	const aut = useAuth0()
+  const paymentLink = useSelector((state) => state.paymentLink);
+  //Se guarda el carrito local
+  const cartLocal = JSON.parse(localStorage.getItem("cart")) || [];
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const aut = useAuth0();
 
 	//Trae user Id y el carrito del localStorage
 	const user = JSON.parse(localStorage.getItem("userId"))
@@ -122,12 +123,34 @@ const Detail = () => {
 		dispatch(setPaymentLink(""))
 	}
 
-	//Botón buyNow
-	const handleSubmit = event => {
-		event.preventDefault()
-		//Usar función que genera link de MP que Agus está armando para el carrito
-		backHome()
-	}
+   // Función para finalizar la compra
+   const handlePayment = async () => {
+    try {
+      const mercadoPagoItems = [{
+        userId: user,
+        articleId: productSelections.id,
+        quantity: productSelections.quantity,
+        size: productSelections.size || productSelections.shoeSize,
+      }];
+      console.log(mercadoPagoItems);
+      dispatch(addToMercadoPago(mercadoPagoItems));
+      const result = await dispatch(createPayment(aut.user));
+      if (result === "success") {
+        navigate("/");
+        dispatch(updateProduct(count));
+      }
+    } catch (error) {
+      setPaymentError(true);
+    }
+  };
+
+  //Botón buyNow
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    {paymentLink ? window.open(paymentLink) :handlePayment()};
+    //Usar función que genera link de MP que Agus está armando para el carrito
+    backHome();
+  };
 
 	//boton agregar a favoritos
 	const handleFavorites = event => {
@@ -246,17 +269,28 @@ const Detail = () => {
 										)}
 									</Flex>
 								)}
-								<Button
-									isDisabled={!(productSelections.size || productSelections.shoeSize)}
-									type="submit"
-									flex="none"
-									width="100%"
-									colorScheme="blackAlpha"
-									bgColor="black"
-									mt="10px"
-								>
-									Buy Now
-								</Button>
+              {paymentLink ? <Button
+                type="submit"
+                flex="none"
+                width="100%"
+                colorScheme="blackAlpha"
+                bgColor="black"
+                mt="10px"
+                
+              >
+                Buy
+              </Button>
+              :<Button
+                isDisabled={!(productSelections.size || productSelections.shoeSize || !aut.user)}
+                type="submit"
+                flex="none"
+                width="100%"
+                colorScheme="blackAlpha"
+                bgColor="black"
+                mt="10px"
+              >
+                Buy Now
+              </Button>}
 							</Flex>
 						</form>
 					</Box>

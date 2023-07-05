@@ -1,8 +1,27 @@
 import { React, useState } from "react";
-import { Box, Button, Heading, UnorderedList, ListItem, Image, Container, Divider, Center, background, Text, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  UnorderedList,
+  ListItem,
+  Image,
+  Container,
+  Divider,
+  Center,
+  background,
+  Text,
+  Flex,
+  AlertDialog,
+  AlertDialogFooter,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogHeader,
+} from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createPayment, setPaymentLink, addToMercadoPago } from "../../redux/actions/actions.js";
 import { getUsers } from "../../redux/actions/actionsUsers.js";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -22,6 +41,8 @@ const Cart = () => {
     countSales: article.countSales + 1,
     active: article.active,
   });
+  const [showAlert, setShowAlert] = useState(false);
+
   const { user } = useAuth0();
 
   const fullCart = JSON.parse(localStorage.getItem("cart"));
@@ -29,7 +50,7 @@ const Cart = () => {
 
   console.log(fullCart);
 
-  const saveLocalStorage = (modifiedCart) => {
+    const saveLocalStorage = (modifiedCart) => {
     localStorage.setItem("cart", JSON.stringify(modifiedCart));
     setCartUpdated(!cartUpdated); // Actualiza el estado para forzar el renderizado
   };
@@ -81,12 +102,10 @@ const Cart = () => {
         userId: items.userId,
         articleId: items.id,
         quantity: items.quantity,
-        size: items.size,
+        size: items.size || items.shoeSize,
       }));
-      console.log(fullCart);
       dispatch(addToMercadoPago(mercadoPagoItems));
       const result = await dispatch(createPayment(user));
-      saveLocalStorage([]);
       if (result === "success") {
         navigate("/");
         dispatch(updateProduct(count));
@@ -94,6 +113,19 @@ const Cart = () => {
     } catch (error) {
       setPaymentError(true);
     }
+  };
+  const handlePay = () => {
+    setShowAlert(true);
+    handlePayment();
+  };
+  const cerrarAlerta = () => {
+    setShowAlert(false);
+  };
+  const confirmarEdicion = () => {
+    cerrarAlerta();
+    clearCartItems();
+    saveLocalStorage([]);
+    window.open(paymentLink);
   };
 
   return (
@@ -184,45 +216,49 @@ const Cart = () => {
           </Flex>
 
           <Box>
-            {paymentLink ? (
-              <a href={paymentLink} target="_blank" rel="noopener noreferrer">
-                Pay
-              </a>
-            ) : (
-              <Flex justifyContent={"end"}>
-                <Button
-                  isDisabled={!user || !fullCart.length}
-                  color={originalColors.darkgrey}
-                  onClick={clearCartItems}
-                  border={"none"}
-                  bg={"red.500"}
-                  h={"12"}
-                  fontSize={18}
-                  _hover={{ background: "red.600" }}
-                >
-                  <DeleteIcon color={"white"} />
-                </Button>
-                <Button
-                  isDisabled={!user || !fullCart.length}
-                  color={originalColors.darkgrey}
-                  onClick={handlePayment}
-                  w={200}
-                  ml={3}
-                  border={"none"}
-                  bg={"green.300"}
-                  h={"12"}
-                  fontSize={18}
-                  _hover={{ background: "green.200" }}
-                >
-                  Proceed to payment
-                </Button>
-              </Flex>
-            )}
+            <Flex justifyContent={"end"}>
+              <Button
+                isDisabled={!user || !fullCart.length}
+                color={originalColors.darkgrey}
+                onClick={handlePay}
+                w={200}
+                ml={3}
+                border={"none"}
+                bg={"green.300"}
+                h={"12"}
+                fontSize={18}
+                _hover={{ background: "green.200" }}
+              >
+                Proceed to payment
+              </Button>
+            </Flex>
           </Box>
         </Box>
       </Box>
+      <AlertDialog isOpen={showAlert} leastDestructiveRef={null} onClose={cerrarAlerta}>
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              confirm payment
+            </AlertDialogHeader>
+            <AlertDialogBody>Are you sure you want to pay?</AlertDialogBody>
+            <AlertDialogFooter>
+              <Button colorScheme="green" onClick={confirmarEdicion}>
+                Pay
+              </Button>
+              <Button onClick={cerrarAlerta} ml={3}>
+                Cancel
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </Container>
   );
 };
 
 export default Cart;
+
+
+
+
