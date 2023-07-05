@@ -244,8 +244,7 @@ const Detail = () => {
                   )}
                 </Flex>
               )}
-              <Button
-                isDisabled={!(productSelections.size || productSelections.shoeSize)}
+              {paymentLink ? <Button
                 type="submit"
                 flex="none"
                 width="100%"
@@ -253,8 +252,19 @@ const Detail = () => {
                 bgColor="black"
                 mt="10px"
               >
-                {paymentLink ? <a href={paymentLink}>Buy</a> : 'Buy Now'}
+                Buy
               </Button>
+              :<Button
+                isDisabled={!(productSelections.size || productSelections.shoeSize || !aut.user)}
+                type="submit"
+                flex="none"
+                width="100%"
+                colorScheme="blackAlpha"
+                bgColor="black"
+                mt="10px"
+              >
+                Buy Now
+              </Button>}
             </form>
           </Box>
         </Box>
