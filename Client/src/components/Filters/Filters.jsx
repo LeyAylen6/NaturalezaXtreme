@@ -103,10 +103,9 @@ const Filters = () => {
 		w: 150,
 		bgColor: "white",
 		fontSize: 14,
-    bgColor: 'white',
-    textAlign: 'start',
-    h:7
-    
+		bgColor: 'white',
+		textAlign: 'start',
+		h:7
 	}
 
 	return (
