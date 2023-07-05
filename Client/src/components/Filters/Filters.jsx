@@ -103,6 +103,7 @@ const Filters = () => {
 		w: 150,
 		bgColor: "white",
 		fontSize: 14,
+		bgColor: 'white',
 		color: "black",
 		textAlign: 'start',
 		h:7
@@ -117,7 +118,7 @@ const Filters = () => {
 				gap={5}
 				w={1000}
 				bgColor={"white"}
-        		borderRadius={'10px'}
+        borderRadius={'10px'}
 				p={"10px 0"}
 			>
 				<Text fontWeight={'semibold'} color={"black"}>FILTERS:</Text>

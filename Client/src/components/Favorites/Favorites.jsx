@@ -9,16 +9,15 @@ const Favorites = () => {
   const selectTagStyles = {
 		w: 150,
 		bgColor: "white",
-		h: 5,
+		h: 7,
 		fontSize: 14,
-    
-    textAlign: 'start',
-    
+		bgColor: 'white',
+		textAlign: 'start',   
 	}
 
 	return (
 		<Box pt={90} height={"container.xl"}>
-			<Select width={"300px"} marginLeft={"850px"} border={"1px"} marginTop={"20px"} marginBottom={"20px"}>
+			<Select width={"300px"} marginLeft={"850px"} border={"1px"} marginTop={"20px"} marginBottom={"20px"} {...selectTagStyles}>
 				<option value="allProducts">All Products</option>
 				<option value="T-shirt">T-shirt</option>
 				<option value="Sweater">Sweater</option>
@@ -33,7 +32,7 @@ const Favorites = () => {
 						return (
 							<Tarjeta
 								id={product.id}
-								key={product.id}
+								key={`article${id}`}
 								name={product.name}
 								price={product.price}
 								image={product.image}
