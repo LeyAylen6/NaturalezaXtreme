@@ -1,4 +1,4 @@
-import { Box, Button, Container, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, Button, Container, FormControl, FormLabel, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInputStepper, Wrap, WrapItem } from "@chakra-ui/react";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -46,9 +46,9 @@ const EditProduct = () => {
     // [product.type === "shoes" ? "shoeSize" : "size"]: product.type === "shoes" ? product.shoeSize : product.size
   });
 
-  // console.log(form)
+  console.log(form)
   // console.log(product)
-  console.log(errors);
+  // console.log(errors);
 
   useEffect(() => {
     handleDisable({ ...form });
@@ -144,14 +144,36 @@ const EditProduct = () => {
     const sizes = product.type === "shoes" ? form.shoeSize : form.size;
 
     return (
-      <Flex gap={3}>
+      // <Flex gap={3}>
+      //   {Object.entries(sizes).map(([key, value]) => (
+      //     <Box key={key} w={"28"} marginBottom="10px" borderColor={"black"}>
+      //       <FormLabel>{key}</FormLabel>
+      //       <Input type="number" value={value} name={`${product.type === "shoes" ? "shoeSize" : "size"}.${key}`} onChange={handleChange} />
+      //     </Box>
+      //   ))}
+      // </Flex>
+      <Wrap>
         {Object.entries(sizes).map(([key, value]) => (
-          <Box key={key} w={"28"} marginBottom="10px" borderColor={"black"}>
+          <WrapItem key={key} width="32%" marginBottom="10px">
             <FormLabel>{key}</FormLabel>
-            <Input type="number" value={value} name={`${product.type === "shoes" ? "shoeSize" : "size"}.${key}`} onChange={handleChange} />
-          </Box>
+            <NumberInput
+              border={"1px"}
+              borderRadius={6}
+              type="number"
+              value={value}
+              name={`${form.type === "shoes" ? "shoeSize" : "size"}.${key}`}
+              min={0}
+              onChange={(value) => handleChange({ target: { name: `${form.type === "shoes" ? "shoeSize" : "size"}.${key}`, value } })}
+            >
+              <NumberInputField />
+              <NumberInputStepper border={"ActiveCaption"} borderRadius={6}>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </WrapItem>
         ))}
-      </Flex>
+      </Wrap>
     );
   };
 
