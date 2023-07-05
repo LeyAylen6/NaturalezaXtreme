@@ -21,7 +21,7 @@ import { originalColors } from "../../theme/palette"
 import upCase from "../../utils/upCase"
 
 const BlogEditor = () => {
-	const URL = "https://servidor-naturextreme.onrender.com/"
+	const URL = "http://localhost:3001/"
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
@@ -100,8 +100,8 @@ const BlogEditor = () => {
 				}
 
 				if ((result.event = "success" && result.info.url)) {
-					setForm({
-						...form,
+					setInputValues({
+						...inputValues,
 						image: result.info.url,
 					})
 				}
@@ -110,13 +110,13 @@ const BlogEditor = () => {
 	}
 
 	return (
-		<Center pt={36} mb={16}>
+		<Center pt={28} mb={16}>
 			<Flex direction={"column"} gap={3} w={'100%'}>
-				<Flex justifyContent={'space-between'} alignItems={'center'} p={10} bgColor={originalColors.darkgrey}>
-					<Text fontSize="4xl" textAlign={'start'} fontWeight="semibold" color={originalColors.white}>
+				<Flex justifyContent={'center'} gap={5} alignItems={'center'} p={5} bgColor={originalColors.darkgrey}>
+					<Text fontSize={25} textAlign={'start'} fontWeight="semibold" color={originalColors.white}>
 						Submit a blog article
 					</Text>
-					<EditIcon boxSize={9} color={originalColors.white}></EditIcon>
+					<EditIcon boxSize={6} color={originalColors.white}></EditIcon>
 
 				</Flex>
 				<Box flex="1" p={10} borderRadius="xl" w={'80%'} margin={'auto'} bgColor="rgba(46, 48, 58, 0.8)">
