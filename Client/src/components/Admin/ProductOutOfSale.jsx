@@ -13,6 +13,7 @@ import {
   Container,
   TableCaption,
   TableContainer,
+  Divider,
 } from "@chakra-ui/react";
 import {
   AlertDialog,
@@ -75,9 +76,8 @@ const ProductOutOfSale = () => {
   console.log("desactiveProducts", desactiveProducts);
 
   return (
-    <Container maxW="container.xl" centerContent rounded="md" justifyContent="rigth" alignItems="center">
-      <Paginate articles={products} />
-      <TableContainer maxW="container.xl" m="4" p="4" rounded="md" justifyContent="rigth" alignItems="center">
+    <Container maxW="container.xl" centerContent rounded="md" justifyContent="rigth" alignItems="center" pt={40}>
+      <TableContainer maxW="container.xl" p="4" rounded="md" justifyContent="rigth" alignItems="center">
         <Box display={"flex"} justifyContent={"space-between"}>
           <Button as={Link} to="/admin" colorScheme="cyan" size="lg" variant="solid" borderRadius={"15px"} m="6">
             Admin
@@ -198,6 +198,8 @@ const ProductOutOfSale = () => {
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
+      <Divider orientation="horizontal" border={"1px"} />
+      {/* <Paginate articles={products} /> */}
     </Container>
   );
 };

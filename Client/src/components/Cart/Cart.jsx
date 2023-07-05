@@ -1,5 +1,6 @@
 import { React, useState } from "react";
-import { Box, Button, Heading, UnorderedList, ListItem, Image, Container, Divider, Center, background } from "@chakra-ui/react";
+import { Box, Button, Heading, UnorderedList, ListItem, Image, Container, Divider, Center, background, Text, Flex } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPayment, setPaymentLink, addToMercadoPago } from "../../redux/actions/actions.js";
@@ -8,18 +9,19 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Stadistics from "../Admin/Statistics.jsx";
 import { originalColors } from "../../theme/palette.js";
 import { updateProduct } from "../../redux/actions/actions.js";
+
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const paymentLink = useSelector((state) => state.paymentLink);
-  const article = useSelector((state) => state.detail)
+  const article = useSelector((state) => state.detail);
   const [paymentError, setPaymentError] = useState(false);
   const [cartUpdated, setCartUpdated] = useState(false);
-  const [Count, setConut] = useState({
+  const [count, setConut] = useState({
     id: article.id,
-    countSales : article.countSales +1,
-    active: article.active
-  })
+    countSales: article.countSales + 1,
+    active: article.active,
+  });
   const { user } = useAuth0();
 
   const fullCart = JSON.parse(localStorage.getItem("cart"));
@@ -36,6 +38,11 @@ const Cart = () => {
   const handleRemoveFromCart = (productId) => {
     modifiedCart = fullCart.filter((article) => article.id !== productId);
     saveLocalStorage(modifiedCart);
+  };
+
+  const clearCartItems = () => {
+    localStorage.setItem("cart", JSON.stringify([]));
+    setCartUpdated([]); // Actualiza el estado para forzar el renderizado
   };
 
   //Aumenta la cantidad de un artículo
@@ -82,7 +89,7 @@ const Cart = () => {
       //saveLocalStorage([]);
       if (result === "success") {
         navigate("/");
-        dispatch(updateProduct(Count))
+        dispatch(updateProduct(count));
       }
     } catch (error) {
       setPaymentError(true);
@@ -90,8 +97,10 @@ const Cart = () => {
   };
 
   return (
-    <Container maxW="container.xl" display={"flex"} flexDir={"column"} pt={120}>
-      <Heading margin={10}>- Shopping Cart -</Heading>
+    <Container maxW="container.xl" display={"flex"} height={"container.xl"} alignItems={"center"} flexDir={"column"} pt={120}>
+      <Heading color={"white"} fontSize={25} mb={5} bgColor={originalColors.darkgrey} w={"100vw"} p={5}>
+        Shopping Cart
+      </Heading>
       <Box display={"flex"}>
         <UnorderedList>
           {!fullCart?.length ? (
@@ -106,25 +115,30 @@ const Cart = () => {
                 color={originalColors.darkgrey}
                 bg={originalColors.white}
                 borderRadius={15}
-                w={1100}
+                gap={10}
                 h={150}
+                m={5}
+                p={10}
               >
                 <Box display={"flex"} justifyContent={"space-between"}>
-                  <Box marginRight={"100px"} display={"flex"} alignItems={"center"}>
-                    <Image src={item.image} alt={item.name} width="100px" />
+                  <Box display={"flex"} alignItems={"center"}>
+                    <Image src={item.image} alt={item.name} h={"28"} />
                   </Box>
 
-                  <Box display="flex" justifyContent="center" alignItems="center" fontSize={"20px"} fontWeight={"bold"} w={300}>
+                  <Box display="flex" alignItems="center" fontSize={"20px"} fontWeight={"bold"} w={300}>
                     {item.name}
                   </Box>
                 </Box>
 
                 <Box display="flex" justifyContent="center" alignItems="center" fontSize={"18px"}>
-                  Size: {item.type === "shoes" ? item.shoeSize : item.size}
+                  <Text fontWeight={"bold"} mr={2}>
+                    Size
+                  </Text>
+                  <Text>{item.type === "shoes" ? item.shoeSize : item.size}</Text>
                 </Box>
 
-                <Box display="flex" justifyContent="center" alignItems="center" marginRight={"10px"}>
-                  <Button background="red.400" size="sm" ml={2} marginRight={2} onClick={() => handleDecreaseQuantity(item.id)}>
+                <Box display="flex" justifyContent="center" alignItems="center">
+                  <Button background="red.400" size="sm" ml={2} onClick={() => handleDecreaseQuantity(item.id)}>
                     -
                   </Button>
 
@@ -132,16 +146,15 @@ const Cart = () => {
                     {item.quantity}
                   </Box>
 
-                  <Button background="blue.400" size="sm" ml={2} marginRight={3} onClick={() => handleIncreaseQuantity(item.id)}>
+                  <Button background="blue.400" size="sm" onClick={() => handleIncreaseQuantity(item.id)}>
                     +
                   </Button>
 
                   <Button background="red" color={originalColors.white} size="sm" ml={2} onClick={() => handleRemoveFromCart(item.id)}>
-                    Delete
+                    <DeleteIcon color={"white"} />
                   </Button>
                 </Box>
-
-                <Box display="flex" justifyContent="center" alignItems="center" fontWeight={"bold"} fontSize={"18px"} marginRight={"30px"}>
+                <Box display="flex" justifyContent="center" alignItems="center" fontWeight={"bold"} fontSize={"18px"} w={20}>
                   <p> U$S {item.price} </p>
                 </Box>
               </ListItem>
@@ -153,42 +166,57 @@ const Cart = () => {
           </Center>
         </UnorderedList>
 
-        <Box margin={"40px"} p={"5px"} display={"flex"} flexDir={"column"} justifyContent={"space-evenly"} color={originalColors.darkgrey}>
-          <Box
-            bg={"white"}
+        <Box m={5} w={400}>
+          <Flex
+            bg={originalColors.darkgrey}
+            p={5}
+            direction={"column"}
+            alignItems={"start"}
+            color={originalColors.white}
             borderRadius={10}
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
             fontSize={"3xl"}
-            h={130}
-            fontWeight={"bold"}
+            mb={3}
           >
-            Total: ${calculateTotal()}
-          </Box>
+            <Text fontSize={18} fontWeight={"bold"}>
+              Order overview
+            </Text>
+            <Text fontSize={18}>Total: ${calculateTotal()}</Text>
+          </Flex>
 
-          <Box margin={"5px"}>
+          <Box>
             {paymentLink ? (
               <a href={paymentLink} target="_blank" rel="noopener noreferrer">
                 Pay
               </a>
             ) : (
-              <Box>
+              <Flex justifyContent={"end"}>
+                <Button
+                  isDisabled={!user || !fullCart.length}
+                  color={originalColors.darkgrey}
+                  onClick={clearCartItems}
+                  border={"none"}
+                  bg={"red.500"}
+                  h={"12"}
+                  fontSize={18}
+                  _hover={{ background: "red.600" }}
+                >
+                  <DeleteIcon color={"white"} />
+                </Button>
                 <Button
                   isDisabled={!user || !fullCart.length}
                   color={originalColors.darkgrey}
                   onClick={handlePayment}
                   w={200}
+                  ml={3}
                   border={"none"}
                   bg={"green.300"}
-                  h={50}
-                  fontSize={20}
-                  marginBottom={"5px"}
+                  h={"12"}
+                  fontSize={18}
                   _hover={{ background: "green.200" }}
                 >
-                  Make payment
+                  Proceed to payment
                 </Button>
-              </Box>
+              </Flex>
             )}
           </Box>
         </Box>
