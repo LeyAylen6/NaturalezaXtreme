@@ -1,7 +1,6 @@
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Image, Container, Divider } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Image, Container, Divider, Button, ButtonGroup } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import Paginate from "../Paginate/Paginate";
-import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArticles, getDetail, productdesactivate } from "../../redux/actions/actions";
