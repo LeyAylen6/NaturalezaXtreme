@@ -12,6 +12,8 @@ import { useNavigate, useParams, Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
 import upCase from "../../utils/upCase"
 
+const login = 'https://dev-p2xqhkfp7nv8gdru.us.auth0.com/u/login?state=hKFo2SBrNDdRcDFoeERVdTllU3RnYnNGZlNmdGI4aWxPTUdMb6Fur3VuaXZlcnNhbC1sb2dpbqN0aWTZIFhHMlhEVGFQR1UtZ25UNUZ3dE9sNS1WU3dCODdBbjhzo2NpZNkgNGNHTXVOYkxwQ1kzdnpMWHF2V3hHaFhoREV3bmN0cHU'
+
 //Interface para cargar el estado local prouctSelections
 const initProductSelections = {
 	id: "",
@@ -147,7 +149,7 @@ const Detail = () => {
   //Botón buyNow
   const handleSubmit = (event) => {
     event.preventDefault();
-    {paymentLink ? window.open(paymentLink) :handlePayment()};
+    {aut.user ? (paymentLink ? window.open(paymentLink) :handlePayment()): window.open(login)};
     //Usar función que genera link de MP que Agus está armando para el carrito
     backHome();
   };
@@ -270,6 +272,7 @@ const Detail = () => {
 									</Flex>
 								)}
               {paymentLink ? <Button
+                isDisabled={!(productSelections.size || productSelections.shoeSize)}
                 type="submit"
                 flex="none"
                 width="100%"
@@ -281,7 +284,7 @@ const Detail = () => {
                 Buy
               </Button>
               :<Button
-                isDisabled={!(productSelections.size || productSelections.shoeSize || !aut.user)}
+                isDisabled={!(productSelections.size || productSelections.shoeSize)}
                 type="submit"
                 flex="none"
                 width="100%"
