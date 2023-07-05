@@ -145,7 +145,7 @@ const Detail = () => {
   //Botón buyNow
   const handleSubmit = (event) => {
     event.preventDefault();
-    handlePayment();
+    {paymentLink ? window.open(paymentLink) :handlePayment()};
     //Usar función que genera link de MP que Agus está armando para el carrito
     backHome();
   };
@@ -251,6 +251,7 @@ const Detail = () => {
                 colorScheme="blackAlpha"
                 bgColor="black"
                 mt="10px"
+                
               >
                 Buy
               </Button>
