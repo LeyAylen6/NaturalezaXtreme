@@ -55,12 +55,12 @@ const CrudUsers = () => {
           <Thead>
             <TableCaption fontSize={"24px"}>List of users</TableCaption>
             <Tr bg="gray.100" border="1px" borderColor="gray.300" p="6" m="6">
-              <Th>Username</Th>
-              <Th>Email</Th>
+              <Th w={"200px"}>Username</Th>
+              <Th >Email</Th>
 
-              <Th display={"flex"} justifyContent={"center"}>
+              {/* <Th display={"flex"} justifyContent={"center"}>
                 Actions
-              </Th>
+              </Th> */}
             </Tr>
           </Thead>
           <Tbody>
@@ -88,14 +88,14 @@ const CrudUsers = () => {
                 >
                   {user.email}
                 </Td>
-                <Td>
+                {/* <Td>
                   <ButtonGroup size="md" variant={"outline"}>
                     <Button colorScheme="green" onClick={handleEdit}>
                       Edit
                     </Button>
                     <Button colorScheme="red">Delete</Button>
                   </ButtonGroup>
-                </Td>
+                </Td> */}
               </Tr>
             ))}
           </Tbody>
@@ -103,14 +103,14 @@ const CrudUsers = () => {
             <Tr bg="gray.100" border="1px" borderColor="gray.300" p="6" m="6">
               <Th>Username</Th>
               <Th>Email</Th>
-              <Th display={"flex"} justifyContent={"center"}>
+              {/* <Th display={"flex"} justifyContent={"center"}>
                 Actions
-              </Th>
+              </Th> */}
             </Tr>
           </Tfoot>
         </Table>
       </TableContainer>
-      <AlertDialog isOpen={mostrarAlerta} leastDestructiveRef={null} onClose={cerrarAlerta}>
+      {/* <AlertDialog isOpen={mostrarAlerta} leastDestructiveRef={null} onClose={cerrarAlerta}>
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
@@ -127,7 +127,7 @@ const CrudUsers = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>
-      </AlertDialog>
+      </AlertDialog> */}
     </Container>
   );
 };

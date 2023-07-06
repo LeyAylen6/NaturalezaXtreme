@@ -290,7 +290,7 @@ export const clearMessage = (dispatch) => {
 export const getCountArticle = () => {
   return async function (dispatch) {
     try {
-      const article = await axios(`${URL}/articles?count=desc`);
+      const article = await axios(`${URL}articles?count=desc`);
       const page = article.data;
       dispatch({ type: GET_COUNT_ARTICLES, payload: page });
     } catch (error) {
@@ -320,7 +320,8 @@ export const getPosts = (category) => {
 export const getCategories = () => {
   return async function (dispatch) {
     try {
-      const response = await axios(`${URL}/blog/categories`);
+      
+    const response = await axios(`${URL}/blog/categories`);
       const categories = response.data;
       dispatch({ type: GET_CATEGORIES, payload: categories });
     } catch (error) {
