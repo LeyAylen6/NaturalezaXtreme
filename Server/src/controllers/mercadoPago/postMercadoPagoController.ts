@@ -34,7 +34,7 @@ const postMercadoPagoController = async (userId: string) =>{
             //"pending": `${URL}`
         },
         auto_return: "approved",
-        notification_url: `${process.env.ULR}/infoMercadoPago?userId=${userId}`
+        notification_url: `${process.env.URL}/infoMercadoPago?userId=${userId}`
     };
     
     
