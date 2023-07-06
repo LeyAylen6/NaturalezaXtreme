@@ -1,7 +1,7 @@
 export const GET_ALL_FAVS = "GET_ALL_FAVS";
 export const ADD_FAV = "ADD_FAV";
 export const REMOVE_FAV = "REMOVE_FAV";
-export const GET_COUNT_ARTICLES = 'GET_COUNT_ARTICLES'
+export const GET_COUNT_ARTICLES = "GET_COUNT_ARTICLES";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_ARTICLES_BY_QUERY = "GET_ARTICLES_BY_QUERY";
 export const FILTER_SEARCHBAR = "FILTERED_SEARCHBAR";
@@ -24,33 +24,31 @@ export const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 export const INCREASE_QUANTITY = "INCREASE_QUANTITY";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 
-export const MESSAGE = "MESSAGE"
-export const CLEAR_MESSAGE = "CLEAR_MESSAGE"
-export const GET_POSTS = "GET_POSTS"
-export const GET_CATEGORIES = "GET_CATEGORIES"
-export const GET_PURCHASED = "GET_PURCHASED"
+export const MESSAGE = "MESSAGE";
+export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+export const GET_POSTS = "GET_POSTS";
+export const GET_CATEGORIES = "GET_CATEGORIES";
+export const GET_PURCHASED = "GET_PURCHASED";
 
 import axios from "axios";
 
 //const URL ='https://2129-201-190-150-125.ngrok-free.app'; (no lo borren plis)
-const URL = "http://localhost:3001/";
+const URL = "https://servidor-naturextreme.onrender.com/";
 
 export const getArticles = (deactivated) => {
   return async function (dispatch) {
-    
     try {
-      if(deactivated){
+      if (deactivated) {
         var apiData = await axios(`${URL}articles?active=false`);
         const page = apiData.data;
-        dispatch({ type: GET_ARTICLES, payload: page });  
-      }
-      else {
+        dispatch({ type: GET_ARTICLES, payload: page });
+      } else {
         var apiData = await axios(`${URL}articles`);
         const page = apiData.data;
         dispatch({ type: GET_ARTICLES, payload: page });
       }
-    } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
     }
   };
 };
@@ -75,33 +73,30 @@ export const prevPage = (props) => {
   }
 };
 
-export const getAllFavs = async(id, dispatch) => {
+export const getAllFavs = async (id, dispatch) => {
   try {
     const { data } = await axios.get(`${URL}/fav/${id}`);
-    dispatch({ type: GET_ALL_FAVS , payload: data.articles });
-  
-  } catch(error) {
-    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    dispatch({ type: GET_ALL_FAVS, payload: data.articles });
+  } catch (error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
   }
 };
 
-export const addFav = async(userAndArticleId, dispatch) => {
+export const addFav = async (userAndArticleId, dispatch) => {
   try {
     const { data } = await axios.post(`${URL}/fav`, userAndArticleId);
     dispatch({ type: ADD_FAV, payload: data });
-
-  } catch(error) {
-    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+  } catch (error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
   }
 };
 
-export const removeFav = async(userAndArticleId, dispatch) => {
+export const removeFav = async (userAndArticleId, dispatch) => {
   try {
-    await axios.delete(`${URL}/fav`, {data: userAndArticleId});
+    await axios.delete(`${URL}/fav`, { data: userAndArticleId });
     dispatch({ type: REMOVE_FAV, payload: userAndArticleId.articleId });
-  
-  } catch(error) {
-    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+  } catch (error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
   }
 };
 
@@ -111,9 +106,8 @@ export const getAllProducts = () => {
       const apiData = await axios.get(`${URL}/articles`);
       const products = apiData.data;
       dispatch({ type: GET_ALL_PRODUCTS, payload: products });
-      
-    } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
     }
   };
 };
@@ -123,20 +117,19 @@ export const getArticlesByQuery = (name) => {
     return async (dispatch) => {
       const response = await axios.get(`${URL}/articles`);
       const payload = response.data;
-      
+
       return dispatch({
         type: GET_ARTICLES_BY_QUERY,
         payload,
       });
     };
-
-  } catch(error) {
-    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
-  } 
+  } catch (error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
+  }
 };
 
 export const filterSearchBar = (name) => {
-  console.log(name)
+  console.log(name);
   return async (dispatch) => {
     try {
       const response = await axios.get(`${URL}articles?name=${name}`);
@@ -146,7 +139,6 @@ export const filterSearchBar = (name) => {
         type: FILTER_SEARCHBAR,
         payload,
       });
-      
     } catch (error) {
       return dispatch({
         type: FILTER_SEARCHBAR,
@@ -165,10 +157,9 @@ export function getDetail(id) {
         type: GET_DETAIL,
         payload: json.data,
       });
-    
-    } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
-    } 
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
+    }
   };
 }
 
@@ -185,10 +176,10 @@ export const productdesactivate = (id, active) => {
       const apiData = await axios.put(`${URL}/articles/${id}`, body);
       const product = apiData.data;
       dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
-      dispatch({ type: MESSAGE, payload: 'The product was deactivated. You can look for it in the "Out to sale" section' })
+      dispatch({ type: MESSAGE, payload: 'The product was deactivated. You can look for it in the "Out to sale" section' });
     };
-  } catch(error) {
-    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+  } catch (error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
   }
 };
 
@@ -196,25 +187,22 @@ export const updateProduct = (body) => {
   try {
     return async function (dispatch) {
       const apiData = await axios.put(`${URL}/articles`, body);
-  
+
       const product = apiData.data;
       // dispatch({ type: UPDATE_PRODUCT, payload: product });
-      dispatch({ type: MESSAGE, payload: 'Successfully updated!' })
+      dispatch({ type: MESSAGE, payload: "Successfully updated!" });
     };
-  } catch(error) {
-    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+  } catch (error) {
+    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
   }
 };
 
 export const addToMercadoPago = (cart) => {
   return async () => {
     try {
-
-      await axios.put(`${URL}/shoppingcart?method=add`, cart)
-  
-
-    } catch(error) {
-      return {error: 'hubo algun error'}
+      await axios.put(`${URL}/shoppingcart?method=add`, cart);
+    } catch (error) {
+      return { error: "hubo algun error" };
     }
   };
 };
@@ -222,22 +210,20 @@ export const addToMercadoPago = (cart) => {
 export const createPayment = (user) => {
   return async (dispatch) => {
     try {
+      const { data } = await axios.post(`${URL}/login`, user);
 
-      const { data } = await axios.post(`${URL}/login`, user)
-  
       const requestData = {
-        userId:data.id
+        userId: data.id,
       };
-      const respons = await axios.post(`${URL}/mercadoPago`, requestData)
+      const respons = await axios.post(`${URL}/mercadoPago`, requestData);
       console.log(respons.data.url);
-        
-          const paymentLink = respons.data.url;
-          dispatch(setPaymentLink(paymentLink));
-        
-    } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+
+      const paymentLink = respons.data.url;
+      dispatch(setPaymentLink(paymentLink));
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
     }
-  }
+  };
 };
 
 export const setPaymentLink = (paymentLink) => {
@@ -254,10 +240,9 @@ export const addProduct = (body) => {
       const apiData = await axios.post(`${URL}/articles`, body);
       const product = apiData.data;
       dispatch({ type: ADD_PRODUCT, payload: product });
-      dispatch({ type: MESSAGE, payload: 'Successfully created!' })
-    
+      dispatch({ type: MESSAGE, payload: "Successfully created!" });
     } catch (error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
     }
   };
 };
@@ -307,9 +292,8 @@ export const getCountArticle = () => {
       const article = await axios(`${URL}/articles?count=desc`);
       const page = article.data;
       dispatch({ type: GET_COUNT_ARTICLES, payload: page });
-      
-    } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
     }
   };
 };
@@ -318,18 +302,16 @@ export const getPosts = (category) => {
   return async function (dispatch) {
     let posts = [];
     try {
-      if(category){
-        const response= await axios(`${URL}/blog?role=${category}`);
+      if (category) {
+        const response = await axios(`${URL}/blog?role=${category}`);
         posts = response.data;
-      }
-      else if(!category){
-        const response= await axios(`${URL}/blog`);
+      } else if (!category) {
+        const response = await axios(`${URL}/blog`);
         posts = response.data;
       }
       dispatch({ type: GET_POSTS, payload: posts });
-      
-    } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
     }
   };
 };
@@ -337,12 +319,11 @@ export const getPosts = (category) => {
 export const getCategories = () => {
   return async function (dispatch) {
     try {
-      const response= await axios(`${URL}/blog/categories`);
+      const response = await axios(`${URL}/blog/categories`);
       const categories = response.data;
       dispatch({ type: GET_CATEGORIES, payload: categories });
-      
-    } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
     }
   };
 };
@@ -350,12 +331,11 @@ export const getCategories = () => {
 export const getPurchasedCarts = (userId) => {
   return async function (dispatch) {
     try {
-      const response= await axios(`${URL}/shoppingcart/reviews/${userId}`);
+      const response = await axios(`${URL}/shoppingcart/reviews/${userId}`);
       const purchasedArticles = response.data;
       dispatch({ type: GET_PURCHASED, payload: purchasedArticles });
-      
-    } catch(error) {
-      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
     }
   };
 };
