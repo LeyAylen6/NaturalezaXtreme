@@ -34,6 +34,7 @@ import axios from "axios";
 
 //const URL ='https://2129-201-190-150-125.ngrok-free.app'; (no lo borren plis)
 const URL = "https://servidor-naturextreme.onrender.com";
+// const URL = "http://localhost:3001";
 
 export const getArticles = (deactivated) => {
   return async function (dispatch) {
@@ -174,6 +175,7 @@ export const productdesactivate = (id, active) => {
       const body = { active };
       const apiData = await axios.put(`${URL}/articles/${id}`, body);
       const product = apiData.data;
+      console.log(product);
       dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
       dispatch({ type: MESSAGE, payload: 'The product was deactivated. You can look for it in the "Out to sale" section' });
     } catch (error) {
