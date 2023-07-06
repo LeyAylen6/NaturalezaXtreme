@@ -177,7 +177,7 @@ export const productdesactivate = (id, active) => {
       const product = apiData.data;
       console.log(product);
       dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
-      dispatch({ type: MESSAGE, payload: 'The product was deactivated. You can look for it in the "Out to sale" section' });
+      dispatch({ type: MESSAGE, payload: "Product updated" });
     } catch (error) {
       dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
     }
@@ -290,7 +290,7 @@ export const clearMessage = (dispatch) => {
 export const getCountArticle = () => {
   return async function (dispatch) {
     try {
-      const article = await axios(`${URL}articles?count=desc`);
+      const article = await axios(`${URL}/articles?count=desc`);
       const page = article.data;
       dispatch({ type: GET_COUNT_ARTICLES, payload: page });
     } catch (error) {
@@ -320,8 +320,7 @@ export const getPosts = (category) => {
 export const getCategories = () => {
   return async function (dispatch) {
     try {
-      
-    const response = await axios(`${URL}/blog/categories`);
+      const response = await axios(`${URL}/blog/categories`);
       const categories = response.data;
       dispatch({ type: GET_CATEGORIES, payload: categories });
     } catch (error) {

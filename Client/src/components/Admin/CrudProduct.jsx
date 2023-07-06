@@ -20,7 +20,6 @@ import Paginate from "../Paginate/Paginate";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArticles, getDetail, productdesactivate } from "../../redux/actions/actions";
-import crudImage from "../../assets/crudProduct.jpg";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -33,29 +32,21 @@ const CrudProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.articles);
-  console.log("products", products);
-  const [selectId, setselectId] = useState(null);
+  // console.log("products", products);
+  const activeProducts = products.articlesFounded?.filter((product) => product.active === true);
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [productoIdEditar, setProductoIdEditar] = useState(null);
-
+  console.log("products", products);
   useEffect(() => {
-    // Si se selecciona un id, se ejecuta la accion getArticleId
-    if (selectId !== null) {
-      dispatch(getDetail(selectId));
-      setselectId(null); // Se resetea el id
-      navigate(`/detail/${selectId}`);
-    }
     dispatch(getArticles());
-  }, [dispatch, selectId, navigate]);
+  }, [dispatch, navigate, activeProducts]);
 
   const handleClick = (productId) => {
-    setselectId(productId);
+    navigate(`/detail/${productId}`);
   };
 
   const handleDesactivate = (productId) => {
-    console.log("productId", productId);
     dispatch(productdesactivate(productId, false));
-    window.location.reload();
   };
   const handleEdit = (productId) => {
     setProductoIdEditar(productId);
@@ -69,7 +60,6 @@ const CrudProduct = () => {
     navigate(`/editProduct/${productoIdEditar}`);
   };
   // Filtrar los productos que tienen la propiedad "active" en true
-  const activeProducts = products.articlesFounded?.filter((product) => product.active === true);
 
   return (
     <Container maxW="-moz-fit-content" centerContent bg={`url()`} backgroundSize={"cover"}>
