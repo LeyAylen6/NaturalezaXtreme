@@ -4,23 +4,18 @@ import infoMercadoPagoController from '../../controllers/mercadoPago/infoMPContr
 import axios from 'axios';
 import nodemailerController from '../../controllers/nodemailer/nodemailerController';
 
-
-
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
 mercadopago.configure({
 	access_token: process.env.MERCADOPAGO_ACCESS! // deben agregar a sus .env esta variable MERCADOPAGO_ACCESS con el valor que ya se los pase anteriormente
 });
 
-const URL = `http://localhost:3001/`
-
-
 export const infoMercadoPago = async (req: Request, res: Response)  => {
     try {
         
         const { query } = req
-        const {userId} = query
+        const { userId } = query
         
-        const { data } = await axios(`${URL}shoppingcart?userId=${userId}&status=pending`)
+        const { data } = await axios(`${process.env.URL}shoppingcart?userId=${userId}&status=pending`)
         const topic = query.topic || query.type;
 
         if(topic === 'payment'){
