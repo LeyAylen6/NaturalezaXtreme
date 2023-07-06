@@ -5,7 +5,9 @@ import express, { Request, Response, NextFunction } from "express";
 import fileUpload from 'express-fileupload';
 const server = express();
 import router from './routes/index'
+let cors = require('cors')
 
+server.use(cors())
 
 require('./db.ts');
 
