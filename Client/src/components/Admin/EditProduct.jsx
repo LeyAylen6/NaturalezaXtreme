@@ -145,7 +145,7 @@ const EditProduct = () => {
 
     return (
       <Flex gap={3}>
-        {Object.entries(sizes).map(([key, value]) => (
+        {Object.entries(sizes || {}).map(([key, value]) => (
           <Box key={key} w={"28"} marginBottom="10px" borderColor={"black"}>
             <FormLabel>{key}</FormLabel>
             <Input type="number" value={value} name={`${product.type === "shoes" ? "shoeSize" : "size"}.${key}`} onChange={handleChange} />
