@@ -21,7 +21,7 @@ import { originalColors } from "../../theme/palette"
 import upCase from "../../utils/upCase"
 
 const BlogEditor = () => {
-	const URL = "http://localhost:3001/"
+	const URL = "https://servidor-naturextreme.onrender.com/"
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
