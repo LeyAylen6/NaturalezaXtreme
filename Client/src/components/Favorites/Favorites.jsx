@@ -31,7 +31,7 @@ const Favorites = () => {
 						return (
 							<Tarjeta
 								id={product.id}
-								key={`article${id}`}
+								key={`article${product.id}`}
 								name={product.name}
 								price={product.price}
 								image={product.image}
