@@ -24,6 +24,9 @@ const SearchBar = () => {
     <HStack>
       <Box>
         <Input
+          backgroundColor={"white"}
+          color='black'
+          _placeholder={{ color: 'inherit' }}
           border={"none"}
           variant="filled"
           size={"md"}

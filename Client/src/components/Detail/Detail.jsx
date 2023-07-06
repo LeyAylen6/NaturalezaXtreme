@@ -159,7 +159,7 @@ const Detail = () => {
 		event.preventDefault()
 		if (isFavorite) {
 			setIsFavorite(false)
-			removeFav({ userId: user.id, articleId: id }, dispatch)
+			removeFav({ userId: user, articleId: id }, dispatch)
 		} else {
 			setIsFavorite(true)
 			addFav({ userId: user.id, articleId: id }, dispatch)
