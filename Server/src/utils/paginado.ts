@@ -4,12 +4,12 @@ export const paginado = (offset:number, limit:number, count: number) =>{
     let cantPag = Math.round(count / 12);
 
     if(offset + limit >= count) next = 'null'
-    else {next = `${process.env.ULR}/articles?offset=${offset + limit}&limit=${limit}`;
+    else {next = `${process.env.URL}/articles?offset=${offset + limit}&limit=${limit}`;
             
     }
 
     if(offset <= 0) prev = 'null'
-    else prev = `${process.env.ULR}/articles?offset=${+Math.sign(offset - limit) ?  (offset - limit <= 0 ? '0' : offset - limit): '0' }&limit=${limit}`
+    else prev = `${process.env.URL}/articles?offset=${+Math.sign(offset - limit) ?  (offset - limit <= 0 ? '0' : offset - limit): '0' }&limit=${limit}`
 
     let pag = {
         count,
