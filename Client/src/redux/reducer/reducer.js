@@ -16,20 +16,19 @@ import {
   NEXT_PAGE,
   PREV_PAGE,
   SIGN_UP,
-  INCREASE_QUANTITY,
-  DECREASE_QUANTITY,
+  // INCREASE_QUANTITY,
+  // DECREASE_QUANTITY,
   CLEAR_MESSAGE,
   MESSAGE,
   GET_COUNT_ARTICLES,
   GET_POSTS,
   GET_CATEGORIES,
-  GET_PURCHASED
+  GET_PURCHASED,
 } from "../actions/actions";
 
 import { GET_USERS, POST_USERS, USER_ID } from "../actions/actionsUsers";
 import { FILTER_COMBINATED } from "../actions/actionFilters";
-import { ADD_TO_CART, REMOVE_FROM_CART, EMPTY_CART, GET_CART, GET_PENDING_CART } from "../actions/cartActions";
-
+import { GET_CART, GET_PENDING_CART } from "../actions/cartActions";
 
 const initialState = {
   users: [],
@@ -37,7 +36,7 @@ const initialState = {
   myFavorites: [],
   allProducts: [],
   detail: {},
-  // articleById: {},
+  articleById: {},
   paymentLink: null,
   signUp: true,
   articles: [],
@@ -45,10 +44,10 @@ const initialState = {
   pendingCart: [],
   purchasedArticles: [],
   page: 1,
-  message: '',
+  message: "",
   articleCount: [],
   posts: [],
-  categories: []
+  categories: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -63,7 +62,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         articles: action.payload,
-        page: 1
+        page: 1,
       };
 
     case FILTER_SEARCHBAR:
@@ -87,8 +86,8 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_FAVS:
       return {
         ...state,
-        myFavorites: action.payload
-      }
+        myFavorites: action.payload,
+      };
 
     case ADD_FAV:
       return {
@@ -100,11 +99,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: action.payload,
       };
-    // case UPDATE_PRODUCT:
-    //   return {
-    //     ...state,
-    //     articleById: action.payload,
-    //   };
+    case UPDATE_PRODUCT:
+      return {
+        ...state,
+        articleById: action.payload,
+      };
 
     case REMOVE_FAV:
       return {
@@ -127,14 +126,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         articles: action.payload,
-        page: state.page + 1
+        page: state.page + 1,
       };
 
     case PREV_PAGE:
       return {
         ...state,
         articles: action.payload,
-        page: state.page - 1
+        page: state.page - 1,
       };
 
     case GET_ARTICLE_ID:
@@ -215,7 +214,7 @@ const reducer = (state = initialState, action) => {
     //       return item;
     //     }),
     //   };
-      
+
     // case DECREASE_QUANTITY:
     //   return {
     //     ...state,
@@ -245,29 +244,29 @@ const reducer = (state = initialState, action) => {
     case MESSAGE:
       return {
         ...state,
-        message: action.payload
-      }
+        message: action.payload,
+      };
 
     case CLEAR_MESSAGE:
       return {
         ...state,
-        message: ''
-      }
-    case GET_COUNT_ARTICLES: 
-  return {
-    ...state,
-    articleCount: action.payload
-  }
-    case GET_POSTS: 
-  return {
-    ...state,
-    posts: action.payload
-  }
-    case GET_CATEGORIES: 
-  return {
-    ...state,
-    categories: action.payload
-  }
+        message: "",
+      };
+    case GET_COUNT_ARTICLES:
+      return {
+        ...state,
+        articleCount: action.payload,
+      };
+    case GET_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+      };
+    case GET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload,
+      };
     default:
       return { ...state };
   }
