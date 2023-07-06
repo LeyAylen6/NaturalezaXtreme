@@ -65,9 +65,8 @@ const CrudProduct = () => {
     setMostrarAlerta(false);
   };
   const confirmarEdicion = () => {
-    dispatch(getDetail(productoIdEditar));
     cerrarAlerta();
-    navigate(`/editProduct/`);
+    navigate(`/editProduct/${productoIdEditar}`);
   };
   // Filtrar los productos que tienen la propiedad "active" en true
   const activeProducts = products.articlesFounded?.filter((product) => product.active === true);

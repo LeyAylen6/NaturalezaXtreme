@@ -13,11 +13,11 @@ import {
 	FormErrorMessage,
 } from "@chakra-ui/react"
 import { Table, TableCaption, Tbody, Th, Thead, Tr } from "@chakra-ui/table"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
 import validateForm from "./helpers/validateForm"
-import { updateProduct } from "../../redux/actions/actions"
+import { updateProduct, getDetail, resState } from "../../redux/actions/actions"
 
 const initialErrors = {
 	name: "",
@@ -30,11 +30,16 @@ const initialErrors = {
 const EditProduct = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const product = useSelector(state => state.articleById)
+	const { id } = useParams()
+	const product = useSelector(state => state.detail)
 
 	const [isAlertOpen, setIsAlertOpen] = useState(false)
 	const [errors, setErrors] = useState(initialErrors)
 	const [disableSubmit, setDisableSubmit] = useState(true)
+	// const [product, setProduct] = useState({})
+
+	console.log(id)
+
 	const [form, setForm] = useState({
 		id: product.id,
 		active: product.active,
@@ -47,12 +52,30 @@ const EditProduct = () => {
 	})
 
 	// console.log(form)
-	// console.log(product)
-	console.log(errors)
+	console.log(product)
+	// console.log(errors)
 
 	useEffect(() => {
 		handleDisable({ ...form })
 	}, [form])
+
+	useEffect(() => {
+		dispatch(getDetail(id))
+	}, [dispatch, id])
+
+	useEffect(() => {
+		if (product) {
+			setForm({
+				id: product.id,
+				name: product.name,
+				active: product.active,
+				description: product.description,
+				price: product.price,
+				size: product.size,
+				shoeSize: product.shoeSize,
+			})
+		}
+	}, [product])
 
 	const handleDisable = form => {
 		const values = Object.values(form)
@@ -162,16 +185,16 @@ const EditProduct = () => {
 		)
 	}
 
-  return (
-    <Container minW={"1000px"} height={"container.xl"} paddingTop={40}>
-      <Box display={"flex"} justifyContent={"space-between"} marginBottom="15px">
-        <Button colorScheme="cyan" size="lg" variant="solid" m="6">
-          <Link to="/CrudProduct">Back</Link>
-        </Button>
-        <Button colorScheme="orange" size="lg" variant="solid" m="6">
-          <Link to="/crudProduct">Products</Link>
-        </Button>
-      </Box>
+	return (
+		<Container minW={"1000px"} height={"container.xl"} paddingTop={40}>
+			<Box display={"flex"} justifyContent={"space-between"} marginBottom="15px">
+				<Button colorScheme="cyan" size="lg" variant="solid" m="6">
+					<Link to="/CrudProduct">Back</Link>
+				</Button>
+				<Button colorScheme="orange" size="lg" variant="solid" m="6">
+					<Link to="/crudProduct">Products</Link>
+				</Button>
+			</Box>
 
 			<form onSubmit={handleSubmit}>
 				<FormControl isInvalid={errors.name}>
