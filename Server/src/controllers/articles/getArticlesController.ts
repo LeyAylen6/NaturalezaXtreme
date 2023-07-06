@@ -3,8 +3,6 @@ import { Article } from "../../entities/articleEntity";
 const articleRepository = AppDataSource.getRepository(Article);
 import { paginado } from "../../utils/paginado";
 
-
-
 const getArticlesController = async(offset:number, limit:number, order:any,  countSale: any ) => {
     
     const count = await articleRepository.count();

@@ -21,9 +21,6 @@ const postMercadoPagoController = async (userId: string) =>{
     const payer = {
         email: data.user.email
     }
-    const URLBK = 'http://localhost:3001/'
-    //Url de redireccionamiento al back //Acá cada uno pone su propia URL de la página de ngrok
-    const URL = 'http://localhost:5173/'
         
     let preference: CreatePreferencePayload  = {
         items,
@@ -32,12 +29,12 @@ const postMercadoPagoController = async (userId: string) =>{
             installments: 6
         },
         back_urls: {
-            "success": `${URL}`,
-            "failure": `${URL}`,
+            "success": `${process.env.URLFRONT}`,
+            "failure": `${process.env.URLFRONT}`,
             //"pending": `${URL}`
         },
         auto_return: "approved",
-        notification_url: `${URLBK}/infoMercadoPago?userId=${userId}`
+        notification_url: `${process.env.ULR}/infoMercadoPago?userId=${userId}`
     };
     
     
