@@ -1,4 +1,20 @@
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Image, Container, Divider, Button, ButtonGroup } from "@chakra-ui/react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  Box,
+  Image,
+  Container,
+  Divider,
+  Button,
+  ButtonGroup,
+} from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import Paginate from "../Paginate/Paginate";
 import { useEffect, useState } from "react";
@@ -37,6 +53,7 @@ const CrudProduct = () => {
   };
 
   const handleDesactivate = (productId) => {
+    console.log("productId", productId);
     dispatch(productdesactivate(productId, false));
     window.location.reload();
   };

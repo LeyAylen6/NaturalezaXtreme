@@ -3,6 +3,7 @@ import axios from "axios";
 export const FILTER_COMBINATED = "FILTER_COMBINATED";
 export const MESSAGE = "MESSAGE";
 const URL = "https://servidor-naturextreme.onrender.com";
+// const URL = "http://localhost:3001";
 export const filterCombinated = ({ gender, type, color, order }) => {
   return async function (dispatch) {
     try {
