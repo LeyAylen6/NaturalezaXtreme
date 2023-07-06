@@ -37,7 +37,7 @@ const CardContainer = () => {
         })}
       </Flex>
       <Paginate articles={articles} />
-      {!articles.articlesFounded?.length && <Text>No results match your search request</Text>}
+      {!articles.articlesFounded?.length &&<Text mt={2} fontWeight={"bold"} fontSize="xl" margin={"5"} >No results match your request</Text>}
     </Box>
   );
 };

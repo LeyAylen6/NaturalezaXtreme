@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Paginate from "../Paginate/Paginate";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getArticles, getDetail, productdesactivate } from "../../redux/actions/actions";
+import { getArticles, getDetail, productdeactivate } from "../../redux/actions/actions";
 import crudImage from "../../assets/crudProduct.jpg";
 import {
   AlertDialog,
@@ -36,8 +36,8 @@ const CrudProduct = () => {
     setselectId(productId);
   };
 
-  const handleDesactivate = (productId) => {
-    dispatch(productdesactivate(productId, false));
+  const handleDeactivate = (productId) => {
+    dispatch(productdeactivate(productId, false));
     window.location.reload();
   };
   const handleEdit = (productId) => {
@@ -141,10 +141,10 @@ const CrudProduct = () => {
                     <Button
                       colorScheme="red"
                       onClick={() => {
-                        handleDesactivate(product.id);
+                        handleDeactivate(product.id);
                       }}
                     >
-                      Desactivate
+                      Deactivate
                     </Button>
                   </ButtonGroup>
                 </Tr>

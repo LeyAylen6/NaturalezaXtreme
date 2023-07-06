@@ -77,7 +77,7 @@ export const prevPage = (props) => {
 
 export const getAllFavs = async(id, dispatch) => {
   try {
-    const { data } = await axios.get(`${URL}/fav/${id}`);
+    const { data } = await axios.get(`${URL}fav/${id}`);
     dispatch({ type: GET_ALL_FAVS , payload: data.articles });
   
   } catch(error) {
@@ -87,7 +87,7 @@ export const getAllFavs = async(id, dispatch) => {
 
 export const addFav = async(userAndArticleId, dispatch) => {
   try {
-    const { data } = await axios.post(`${URL}/fav`, userAndArticleId);
+    const { data } = await axios.post(`${URL}fav`, userAndArticleId);
     dispatch({ type: ADD_FAV, payload: data });
 
   } catch(error) {
@@ -97,7 +97,7 @@ export const addFav = async(userAndArticleId, dispatch) => {
 
 export const removeFav = async(userAndArticleId, dispatch) => {
   try {
-    await axios.delete(`${URL}/fav`, {data: userAndArticleId});
+    await axios.delete(`${URL}fav`, {data: userAndArticleId});
     dispatch({ type: REMOVE_FAV, payload: userAndArticleId.articleId });
   
   } catch(error) {
@@ -108,7 +108,7 @@ export const removeFav = async(userAndArticleId, dispatch) => {
 export const getAllProducts = () => {
   return async function (dispatch) {
     try {
-      const apiData = await axios.get(`${URL}/articles`);
+      const apiData = await axios.get(`${URL}articles`);
       const products = apiData.data;
       dispatch({ type: GET_ALL_PRODUCTS, payload: products });
       
@@ -118,22 +118,22 @@ export const getAllProducts = () => {
   };
 };
 
-export const getArticlesByQuery = (name) => {
-  try {
-    return async (dispatch) => {
-      const response = await axios.get(`${URL}/articles`);
-      const payload = response.data;
+// export const getArticlesByQuery = (name) => {
+//   try {
+//     return async (dispatch) => {
+//       const response = await axios.get(`${URL}/articles`);
+//       const payload = response.data;
       
-      return dispatch({
-        type: GET_ARTICLES_BY_QUERY,
-        payload,
-      });
-    };
+//       return dispatch({
+//         type: GET_ARTICLES_BY_QUERY,
+//         payload,
+//       });
+//     };
 
-  } catch(error) {
-    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
-  } 
-};
+//   } catch(error) {
+//     dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message })
+//   } 
+// };
 
 export const filterSearchBar = (name) => {
   console.log(name)
@@ -182,7 +182,7 @@ export const productdesactivate = (id, active) => {
   try {
     return async function (dispatch) {
       const body = { active };
-      const apiData = await axios.put(`${URL}/articles/${id}`, body);
+      const apiData = await axios.put(`${URL}articles/${id}`, body);
       const product = apiData.data;
       dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
       dispatch({ type: MESSAGE, payload: 'The product was deactivated. You can look for it in the "Out to sale" section' })
@@ -195,7 +195,7 @@ export const productdesactivate = (id, active) => {
 export const updateProduct = (body) => {
   try {
     return async function (dispatch) {
-      const apiData = await axios.put(`${URL}/articles`, body);
+      const apiData = await axios.put(`${URL}articles`, body);
   
       const product = apiData.data;
       // dispatch({ type: UPDATE_PRODUCT, payload: product });
@@ -210,7 +210,7 @@ export const addToMercadoPago = (cart) => {
   return async () => {
     try {
 
-      await axios.put(`${URL}/shoppingcart?method=add`, cart)
+      await axios.put(`${URL}shoppingcart?method=add`, cart)
   
 
     } catch(error) {
@@ -223,12 +223,12 @@ export const createPayment = (user) => {
   return async (dispatch) => {
     try {
 
-      const { data } = await axios.post(`${URL}/login`, user)
+      const { data } = await axios.post(`${URL}login`, user)
   
       const requestData = {
         userId:data.id
       };
-      const respons = await axios.post(`${URL}/mercadoPago`, requestData)
+      const respons = await axios.post(`${URL}mercadoPago`, requestData)
       console.log(respons.data.url);
         
           const paymentLink = respons.data.url;
@@ -251,7 +251,7 @@ export const setPaymentLink = (paymentLink) => {
 export const addProduct = (body) => {
   return async function (dispatch) {
     try {
-      const apiData = await axios.post(`${URL}/articles`, body);
+      const apiData = await axios.post(`${URL}articles`, body);
       const product = apiData.data;
       dispatch({ type: ADD_PRODUCT, payload: product });
       dispatch({ type: MESSAGE, payload: 'Successfully created!' })
@@ -319,11 +319,11 @@ export const getPosts = (category) => {
     let posts = [];
     try {
       if(category){
-        const response= await axios(`${URL}/blog?role=${category}`);
+        const response= await axios(`${URL}blog?role=${category}`);
         posts = response.data;
       }
       else if(!category){
-        const response= await axios(`${URL}/blog`);
+        const response= await axios(`${URL}blog`);
         posts = response.data;
       }
       dispatch({ type: GET_POSTS, payload: posts });
@@ -350,7 +350,7 @@ export const getCategories = () => {
 export const getPurchasedCarts = (userId) => {
   return async function (dispatch) {
     try {
-      const response= await axios(`${URL}/shoppingcart/reviews/${userId}`);
+      const response= await axios(`${URL}shoppingcart/reviews/${userId}`);
       const purchasedArticles = response.data;
       dispatch({ type: GET_PURCHASED, payload: purchasedArticles });
       
