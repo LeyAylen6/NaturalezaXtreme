@@ -57,7 +57,7 @@ const EditProduct = () => {
 
 	useEffect(() => {
 		handleDisable({ ...form })
-	}, [])
+	}, [form])
 
 	useEffect(() => {
 		dispatch(getDetail(id))
