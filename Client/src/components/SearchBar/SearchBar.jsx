@@ -16,7 +16,6 @@ const SearchBar = () => {
     } else {
       setName("");   
       dispatch(getArticles());
-      console.log(name)
     }
   }
 
@@ -24,11 +23,14 @@ const SearchBar = () => {
     <HStack>
       <Box>
         <Input
+          backgroundColor={"white"}
           border={"none"}
           variant="filled"
           size={"md"}
           type="text"
+          color='black'
           placeholder="Search product..."
+          _placeholder={{ color: 'inherit' }}
           value={name}
           onChange={handleChange}
         />

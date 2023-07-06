@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 import upCase from "../../utils/upCase"
 
 const login = 'https://dev-p2xqhkfp7nv8gdru.us.auth0.com/u/login?state=hKFo2SBrNDdRcDFoeERVdTllU3RnYnNGZlNmdGI4aWxPTUdMb6Fur3VuaXZlcnNhbC1sb2dpbqN0aWTZIFhHMlhEVGFQR1UtZ25UNUZ3dE9sNS1WU3dCODdBbjhzo2NpZNkgNGNHTXVOYkxwQ1kzdnpMWHF2V3hHaFhoREV3bmN0cHU'
+//Trae user Id y el carrito del localStorage
+const user = JSON.parse(localStorage.getItem("userId"))
 
 //Interface para cargar el estado local prouctSelections
 const initProductSelections = {
@@ -36,8 +38,6 @@ const Detail = () => {
   const navigate = useNavigate();
   const aut = useAuth0();
 
-	//Trae user Id y el carrito del localStorage
-	const user = JSON.parse(localStorage.getItem("userId"))
 	//  const storageCart = JSON.parse(localStorage.getItem("cart")) //Se usaría si hay una vista de payments
 
 	//Suscripcion a estados globales
@@ -159,7 +159,8 @@ const Detail = () => {
 		event.preventDefault()
 		if (isFavorite) {
 			setIsFavorite(false)
-			removeFav({ userId: user.id, articleId: id }, dispatch)
+			console.log(id)
+			removeFav({ userId: user, articleId: id }, dispatch)
 		} else {
 			setIsFavorite(true)
 			addFav({ userId: user.id, articleId: id }, dispatch)
