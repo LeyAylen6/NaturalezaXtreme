@@ -3,7 +3,7 @@ export const POST_USERS = "POST_USERS";
 export const USER_ID = "USER_ID";
 export const MESSAGE = "MESSAGE";
 import axios from "axios";
-const URL = "https://servidor-naturextreme.onrender.com/";
+const URL = "https://servidor-naturextreme.onrender.com";
 export const getUsers = (id) => {
   return async function (dispatch) {
     try {

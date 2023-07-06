@@ -33,17 +33,17 @@ export const GET_PURCHASED = "GET_PURCHASED";
 import axios from "axios";
 
 //const URL ='https://2129-201-190-150-125.ngrok-free.app'; (no lo borren plis)
-const URL = "https://servidor-naturextreme.onrender.com/";
+const URL = "https://servidor-naturextreme.onrender.com";
 
 export const getArticles = (deactivated) => {
   return async function (dispatch) {
     try {
       if (deactivated) {
-        var apiData = await axios(`${URL}articles?active=false`);
+        let apiData = await axios(`${URL}/articles?active=false`);
         const page = apiData.data;
         dispatch({ type: GET_ARTICLES, payload: page });
       } else {
-        var apiData = await axios(`${URL}articles`);
+        let apiData = await axios(`${URL}/articles`);
         const page = apiData.data;
         dispatch({ type: GET_ARTICLES, payload: page });
       }
@@ -112,27 +112,26 @@ export const getAllProducts = () => {
   };
 };
 
-export const getArticlesByQuery = (name) => {
-  try {
-    return async (dispatch) => {
-      const response = await axios.get(`${URL}/articles`);
-      const payload = response.data;
+// export const getArticlesByQuery = (name) => {
+//   try {
+//     return async (dispatch) => {
+//       const response = await axios.get(`${URL}/articles`);
+//       const payload = response.data;
 
-      return dispatch({
-        type: GET_ARTICLES_BY_QUERY,
-        payload,
-      });
-    };
-  } catch (error) {
-    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
-  }
-};
+//       return dispatch({
+//         type: GET_ARTICLES_BY_QUERY,
+//         payload,
+//       });
+//     };
+//   } catch (error) {
+//     dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
+//   }
+// };
 
 export const filterSearchBar = (name) => {
-  console.log(name);
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${URL}articles?name=${name}`);
+      const response = await axios.get(`${URL}/articles?name=${name}`);
       // const response = await axios.get(`${URL}/articles?${name ? `name=${name}` : ``}`);
       const payload = response.data;
       return dispatch({
@@ -151,7 +150,7 @@ export const filterSearchBar = (name) => {
 export function getDetail(id) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`${URL}articlefinder/?id=${id}`);
+      const json = await axios.get(`${URL}/articlefinder/?id=${id}`);
 
       return dispatch({
         type: GET_DETAIL,
@@ -170,31 +169,31 @@ export function resState() {
 }
 
 export const productdesactivate = (id, active) => {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const body = { active };
       const apiData = await axios.put(`${URL}/articles/${id}`, body);
       const product = apiData.data;
       dispatch({ type: GET_PRODUCT_DESACTIVATE, payload: product });
       dispatch({ type: MESSAGE, payload: 'The product was deactivated. You can look for it in the "Out to sale" section' });
-    };
-  } catch (error) {
-    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
-  }
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
+    }
+  };
 };
 
 export const updateProduct = (body) => {
-  try {
-    return async function (dispatch) {
+  return async function (dispatch) {
+    try {
       const apiData = await axios.put(`${URL}/articles`, body);
 
       const product = apiData.data;
-      // dispatch({ type: UPDATE_PRODUCT, payload: product });
+      dispatch({ type: UPDATE_PRODUCT, payload: product });
       dispatch({ type: MESSAGE, payload: "Successfully updated!" });
-    };
-  } catch (error) {
-    dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
-  }
+    } catch (error) {
+      dispatch({ type: MESSAGE, payload: error?.response?.data || error?.message });
+    }
+  };
 };
 
 export const addToMercadoPago = (cart) => {
