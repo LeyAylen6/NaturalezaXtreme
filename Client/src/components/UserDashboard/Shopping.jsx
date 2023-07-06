@@ -25,9 +25,9 @@ const Shopping = () => {
   const handleClick = (id) => {
     navigate(`/detail/${id}`);
   };
-
+  
   return (
-    <Container height={"-moz-max-content"}>
+    <Container height={"container.md"} paddingTop={40}>
       {purchasedArticles.length === 0 ? (
         <Heading as="h2" fontSize={40} fontWeight={"light.200"} noOfLines={1} pt={40}>
           You haven't made purchases yet

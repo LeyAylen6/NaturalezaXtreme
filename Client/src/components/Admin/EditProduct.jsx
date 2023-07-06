@@ -156,7 +156,7 @@ const EditProduct = () => {
   };
 
   return (
-    <Container minW={"1000px"} marginTop={10}>
+    <Container minW={"1000px"} height={"container.xl"} paddingTop={40}>
       <Box display={"flex"} justifyContent={"space-between"} marginBottom="15px">
         <Button colorScheme="cyan" size="lg" variant="solid" m="6">
           <Link to="/CrudProduct">Back</Link>
