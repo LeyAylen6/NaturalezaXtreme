@@ -47,7 +47,7 @@ const ProductOutOfSale = () => {
       navigate(`/detail/${selectId}`);
     }
     dispatch(getArticles("deactivated"));
-  }, [dispatch, selectId, navigate]);
+  }, [dispatch, selectId, navigate, deactivatedProducts.articlesFounded]);
 
   const handleClick = (productId) => {
     setselectId(productId);
@@ -55,8 +55,7 @@ const ProductOutOfSale = () => {
 
   const handleDesactivate = (productId) => {
     dispatch(productdesactivate(productId, true));
-
-    window.location.reload();
+    // navigate("/crudProduct");
   };
   const handleEdit = (productId) => {
     setProductoIdEditar(productId);
