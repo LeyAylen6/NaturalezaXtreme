@@ -47,7 +47,7 @@ function App() {
         <Route path="/crudProduct" element={<CrudProduct />} />
         <Route path="/crudUsers" element={<CrudUsers />} />
         <Route path="/formProduct" element={<FormProduct />} />
-        <Route path="/editProduct" element={<EditProduct />} />
+        <Route path="/editProduct/:id" element={<EditProduct />} />
         <Route path="/blogEditor" element={<BlogEditor />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/userEdition" element={<UserEdition />} />
