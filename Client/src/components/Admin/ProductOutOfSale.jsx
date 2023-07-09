@@ -12,8 +12,7 @@ const ProductOutOfSale = () => {
   const [selectId, setselectId] = useState(null);
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [productoIdEditar, setProductoIdEditar] = useState(null);
-
-  console.log(deactivatedProducts.articlesFounded)
+  const [refreshComponent, setRefreshComponent] = useState(false);
 
   useEffect(() => {
     //Si se selecciona un id, se ejecuta la accion getArticleId
@@ -23,7 +22,7 @@ const ProductOutOfSale = () => {
       navigate(`/detail/${selectId}`);
     }
     dispatch(getArticles("deactivated"));
-  }, [dispatch, selectId, navigate]);
+  }, [dispatch, selectId, navigate, refreshComponent]);
 
   const handleClick = (productId) => {
     setselectId(productId);
@@ -31,9 +30,15 @@ const ProductOutOfSale = () => {
 
   const handleDesactivate = (productId) => {
     dispatch(productdesactivate(productId, true));
-
-    window.location.reload();
+    setRefreshComponent(true);
   };
+
+  useEffect(() => {
+    if (refreshComponent) {
+      setRefreshComponent(false);
+    }
+  }, [refreshComponent]);
+
   const handleEdit = (productId) => {
     setProductoIdEditar(productId);
     setMostrarAlerta(true);
@@ -49,7 +54,7 @@ const ProductOutOfSale = () => {
   };
 
   return (
-    <Container maxW="container.xl" height={"container.md"} rounded="md" justifyContent="rigth" alignItems="center" pt={40}>
+    <Container maxW="container.xl" height={"-moz-fit-content"} rounded="md" justifyContent="rigth" alignItems="center" pt={40}>
       <TableContainer maxW="container.xl" p="4" rounded="md" justifyContent="rigth" alignItems="center">
         <Box display={"flex"} justifyContent={"space-between"}>
           <Button as={Link} to="/admin" colorScheme="cyan" size="lg" variant="solid" borderRadius={"15px"} m="6">

@@ -4,7 +4,6 @@ import Paginate from "../Paginate/Paginate";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArticles, getDetail, productdesactivate } from "../../redux/actions/actions";
-import crudImage from "../../assets/crudProduct.jpg";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -13,14 +12,15 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
 } from "@chakra-ui/react";
+
 const CrudProduct = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const products = useSelector((state) => state.articles);
-  console.log("products", products);
+const dispatch = useDispatch();
+const navigate = useNavigate();
+const products = useSelector((state) => state.articles);
   const [selectId, setselectId] = useState(null);
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [productoIdEditar, setProductoIdEditar] = useState(null);
+  const [refreshComponent, setRefreshComponent] = useState(false);
 
   useEffect(() => {
     // Si se selecciona un id, se ejecuta la accion getArticleId
@@ -30,7 +30,7 @@ const CrudProduct = () => {
       navigate(`/detail/${selectId}`);
     }
     dispatch(getArticles());
-  }, [dispatch, selectId, navigate]);
+}, [dispatch, selectId, navigate, refreshComponent]);
 
   const handleClick = (productId) => {
     setselectId(productId);
@@ -38,8 +38,15 @@ const CrudProduct = () => {
 
   const handleDeactivate = (productId) => {
     dispatch(productdesactivate(productId, false));
-    window.location.reload();
+    setRefreshComponent(true);
   };
+
+  useEffect(() => {
+    if (refreshComponent) {
+      setRefreshComponent(false);
+    }
+  }, [refreshComponent]);
+
   const handleEdit = (productId) => {
     setProductoIdEditar(productId);
     setMostrarAlerta(true);

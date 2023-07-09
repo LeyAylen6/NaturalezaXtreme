@@ -85,3 +85,4 @@ Modifica la propiedad active de un user. Recibe por param el id del user y por b
 Recibe por params el id del user y devuelve un arreglo de objetos con las propiedades id (number), name e image de cada artículo comprado por el usuario y la propiedad commented (booleano) de acuerdo a si el user ya puntuó o no ese artículo.
 
 
+# NXBack
