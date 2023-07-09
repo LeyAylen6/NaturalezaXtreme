@@ -19,8 +19,8 @@ const Blog = () => {
   };
 
   return (
-    <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(5, 1fr)" gap={4} pt={120}>
-      <GridItem rowSpan={2} colSpan={1} borderRadius="xl" bgColor="rgba(46, 48, 58, 0.8)" m="25" padding="30" height={500}>
+    <Grid templateColumns="20% 100%" gap={4} pt={120}>
+      <GridItem borderRadius="xl" bgColor="rgba(46, 48, 58, 0.8)" m="25" padding="30" height={470}>
         {categories?.map((category) => {
           return (
             <Button
@@ -41,7 +41,6 @@ const Blog = () => {
         })}
       </GridItem>
       <GridItem
-        colSpan={4}
         borderRadius="xl"
         bgColor="rgba(46, 48, 58, 0.8)"
         mx={"auto"}
@@ -52,7 +51,7 @@ const Blog = () => {
         justifyContent="center"
       >
         {!posts?.length && <Text>No posts yet</Text>}
-        <Flex flexWrap="wrap" justifyContent={"center"} gap={2}>
+        <Flex flexWrap="wrap" justifyContent={"center"} gap={5}>
           {posts?.map((post) => {
             return <Post key={post.id} name={post.name} image={post.image} content={post.content} role={post.role} />;
           })}
@@ -63,3 +62,4 @@ const Blog = () => {
 };
 
 export default Blog;
+

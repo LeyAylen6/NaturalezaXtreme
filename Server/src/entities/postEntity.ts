@@ -11,13 +11,13 @@ export class Post {
     
     @Column({
         type: "varchar",
-        length: 50,
+        length: 200,
     })
     name: string
 
     @Column({
         type: "varchar",
-        length: 500,
+        length: 3000,
     })
     content: string
 
