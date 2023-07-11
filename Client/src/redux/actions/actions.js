@@ -46,6 +46,7 @@ export const getArticles = (deactivated) => {
       }
       else {
         var apiData = await axios(`${URL}articles`);
+        
         const page = apiData.data;
         dispatch({ type: GET_ARTICLES, payload: page });
       }

@@ -1,15 +1,13 @@
 import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Container } from "@chakra-ui/react";
-
-import { Button, ButtonGroup } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../redux/actions/actionsUsers";
 
 const CrudUsers = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getUsers());
