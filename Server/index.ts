@@ -1,4 +1,4 @@
-import server from './src/app.ts';
+const server = require('./src/app.ts');
 import { AppDataSource } from './src/db.ts';
 const { PORT } = process.env
 
