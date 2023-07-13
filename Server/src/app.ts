@@ -38,4 +38,4 @@ server.use('/', router)
 
 // });
   
-export default server;
+module.exports = server;
