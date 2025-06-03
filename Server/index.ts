@@ -1,5 +1,5 @@
-const server = require ('./src/app.ts');
-import { AppDataSource } from './src/db.ts';
+import server from './src/app';
+import { AppDataSource } from './src/db';
 const { PORT } = process.env
 
 AppDataSource.initialize()
@@ -9,5 +9,5 @@ AppDataSource.initialize()
             console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
         });
     })
-    .catch((error) => console.log(error))
+    .catch((error: Error) => console.log(error))
 

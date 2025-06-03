@@ -5,11 +5,11 @@ import express, { Request, Response, NextFunction } from "express";
 import fileUpload from 'express-fileupload';
 const server = express();
 import router from './routes/index'
-let cors = require('cors')
+import cors from 'cors';
 
 server.use(cors())
 
-require('./db.ts');
+import './db';
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
@@ -40,4 +40,4 @@ server.use('/', router)
 
 // });
   
-module.exports = server;
+export default server;
